@@ -46,7 +46,7 @@
     width: 60px; padding: 5px 8px; border: 1px solid #D8D3C7; border-radius: 6px;
     font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-align: center;
   }
-  .split-row { display: flex; gap: 20px; align-items: flex-start; }
+  .split-row { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 28px; }
   .split-row .card { flex: 1; margin-bottom: 0; }
   .barSet { margin-bottom: 22px; }
   .barSet-label { font-size: 13px; font-weight: 600; color: #1A1D24; margin-bottom: 8px; }
@@ -268,6 +268,40 @@
     { key: 'other', label: '기타매출' },
   ];
 
+  let selectedChangeTeam = '전체';
+
+  function collectChangeTeamOptions() {
+    const teams = new Set();
+    const changes = (DATA && DATA.changes) || {};
+    for (const key of Object.keys(changes)) {
+      for (const list of changes[key].monthDetails) {
+        for (const item of list) {
+          if (item.team) teams.add(item.team);
+        }
+      }
+    }
+    return ['전체', ...Array.from(teams).sort()];
+  }
+
+  // monthDetails(팀 정보 포함)로부터, 선택한 팀만 골라 분기/총합을 다시 계산한다.
+  function filterChangeByTeam(c, team) {
+    const months = new Array(13).fill(0);
+    const monthDetails = Array.from({ length: 13 }, () => []);
+    for (let m = 1; m <= 12; m++) {
+      const list = c.monthDetails[m - 1] || [];
+      for (const item of list) {
+        if (team === '전체' || item.team === team) {
+          months[m] += item.delta;
+          monthDetails[m - 1].push(item);
+        }
+      }
+    }
+    const q = [0, 0, 0, 0];
+    for (let m = 1; m <= 12; m++) q[Math.floor((m - 1) / 3)] += months[m];
+    const total = q[0] + q[1] + q[2] + q[3];
+    return { q1: q[0], q2: q[1], q3: q[2], q4: q[3], total, months, monthDetails };
+  }
+
   function renderCharts() {
     const chartArea = document.getElementById('chartArea');
     const changes = (DATA && DATA.changes) || {};
@@ -276,10 +310,26 @@
       chartArea.innerHTML = '<div style="font-size:13px;color:#9A9689;">변화량 데이터가 없어요.</div>';
       return;
     }
-    const maxAbs = Math.max(1, ...availableSets.map(s => Math.abs(changes[s.key].total)));
 
-    chartArea.innerHTML = availableSets.map((s) => {
-      const c = changes[s.key];
+    const teamOptions = collectChangeTeamOptions();
+    let html = '';
+    if (teamOptions.length > 2) {
+      html += `<div style="margin-bottom:12px;">
+        <label style="font-size:12px;color:#5B5F6B;margin-right:8px;">팀 선택</label>
+        <select id="changeTeamSelect" style="font-size:13px;padding:5px 10px;border:1px solid #D8D3C7;border-radius:6px;background:#fff;color:#1A1D24;">
+          ${teamOptions.map(t => `<option value="${t}" ${t === selectedChangeTeam ? 'selected' : ''}>${t}</option>`).join('')}
+        </select>
+      </div>`;
+    } else {
+      selectedChangeTeam = '전체';
+    }
+
+    const filtered = {};
+    for (const s of availableSets) filtered[s.key] = filterChangeByTeam(changes[s.key], selectedChangeTeam);
+    const maxAbs = Math.max(1, ...availableSets.map(s => Math.abs(filtered[s.key].total)));
+
+    html += availableSets.map((s) => {
+      const c = filtered[s.key];
       const widthPct = Math.min(100, Math.abs(c.total) / maxAbs * 100);
       const cls = c.total >= 0 ? 'pos' : 'neg';
       return `
@@ -293,17 +343,29 @@
         </div>`;
     }).join('');
 
+    chartArea.innerHTML = html;
+
+    const teamSelect = document.getElementById('changeTeamSelect');
+    if (teamSelect) {
+      teamSelect.addEventListener('change', (e) => {
+        selectedChangeTeam = e.target.value;
+        openSetKey = null;
+        renderCharts();
+        document.getElementById('detailArea').innerHTML = '<div class="empty">막대를 클릭하면 분기별 변화 내용이 여기 나와요.</div>';
+      });
+    }
+
     chartArea.querySelectorAll('.barRow').forEach((row) => {
       row.addEventListener('click', () => {
         const setKey = row.getAttribute('data-set');
-        toggleQuarterBars(setKey);
+        toggleQuarterBars(setKey, filtered[setKey]);
       });
     });
   }
 
   let openSetKey = null;
 
-  function toggleQuarterBars(setKey) {
+  function toggleQuarterBars(setKey, filteredChange) {
     // 다른 세트가 열려있으면 닫는다 (한 번에 하나만 펼침)
     if (openSetKey && openSetKey !== setKey) {
       const prevEl = document.getElementById(`qbars-${openSetKey}`);
@@ -318,7 +380,7 @@
       return;
     }
     openSetKey = setKey;
-    const c = DATA.changes[setKey];
+    const c = filteredChange;
     const setLabel = SET_META.find(s => s.key === setKey).label;
     const quarters = [
       { label: '1분기', key: 'q1', months: [1, 2, 3] },
@@ -462,4 +524,3 @@
 
 </body>
 </html>
-
