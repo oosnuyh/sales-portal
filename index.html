@@ -343,12 +343,12 @@
   async function init() {
     renderNav();
     try {
-      const res = await fetch('./results.json', { cache: 'no-store' });
+      const res = await fetch('./data/results.json', { cache: 'no-store' });
       if (!res.ok) throw new Error('results.json을 찾을 수 없어요');
       DATA = await res.json();
     } catch (e) {
       DATA = null;
-      document.getElementById('featureContent').innerHTML = `<div class="card"><div style="font-size:13px;color:#A32D2D;">결과 데이터를 불러오지 못했어요.<br><span style="font-size:12px;color:#5B5F6B;">${e.message} — results.json이 이 페이지와 같은 위치에 있는지 확인해주세요.</span></div></div>`;
+      document.getElementById('featureContent').innerHTML = `<div class="card"><div style="font-size:13px;color:#A32D2D;">결과 데이터를 불러오지 못했어요.<br><span style="font-size:12px;color:#5B5F6B;">${e.message} — data/results.json이 이 페이지와 같은 저장소의 data 폴더 안에 있는지 확인해주세요.</span></div></div>`;
       renderFeature('main');
       return;
     }
@@ -361,3 +361,4 @@
 
 </body>
 </html>
+
