@@ -416,14 +416,19 @@
       { label: '4분기', key: 'q4', months: [10, 11, 12] },
     ];
     const maxAbsQ = Math.max(1, ...quarters.map(q => Math.abs(c[q.key])));
+    function hasAnyDetail(months) { return months.some(m => (c.monthDetails[m - 1] || []).length > 0); }
     el.innerHTML = quarters.map((q) => {
       const val = c[q.key];
       const widthPct = Math.min(100, Math.abs(val) / maxAbsQ * 100);
       const cls = val >= 0 ? 'pos' : 'neg';
+      const isCancelled = val === 0 && hasAnyDetail(q.months);
+      const valueHtml = isCancelled
+        ? `<span style="color:#B45309;">0<span style="font-size:10px;">±</span></span>`
+        : `${val >= 0 ? '+' : ''}${fmtWon(val)}`;
       return `<div class="qBarRow">
         <div class="qBarLabel">${q.label}</div>
         <div class="qBarTrack"><div class="qBarFill ${cls}" style="width:${widthPct}%;"></div></div>
-        <div class="qBarValue">${val >= 0 ? '+' : ''}${fmtWon(val)}</div>
+        <div class="qBarValue">${valueHtml}</div>
       </div>`;
     }).join('');
     el.classList.add('show');
@@ -435,24 +440,23 @@
     const detailArea = document.getElementById('detailArea');
     const blocks = [];
     for (const q of quarters) {
-      // 이 분기의 3개월 monthDetails를 합쳐서 프로젝트별로 그룹핑
-      const grouped = new Map();
+      // 분기 안에서 프로젝트명으로 합치면 같은 분기 안에서의 이동(예: 7월→8월)이
+      // 순변화 0으로 상쇄돼서 안 보이게 된다. 그래서 월 단위로 따로 보여준다.
+      const monthLines = [];
       for (const m of q.months) {
         const list = (c.monthDetails[m - 1]) || [];
-        for (const item of list) {
-          grouped.set(item.name, (grouped.get(item.name) || 0) + item.delta);
-        }
+        if (list.length === 0) continue;
+        const sorted = list.slice().sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta));
+        const itemsHtml = sorted.map((item) => {
+          const cls = item.delta > 0 ? 'pos' : 'neg';
+          const sign = item.delta > 0 ? '+' : '';
+          return `<div class="qItem">${item.name} : <span class="amt ${cls}">${sign}${fmtWon(item.delta)}</span></div>`;
+        }).join('');
+        monthLines.push(`<div style="margin-bottom:6px;"><div style="font-size:11px;color:#8A8F98;margin-bottom:2px;">${m}월</div>${itemsHtml}</div>`);
       }
-      const entries = Array.from(grouped.entries()).filter(([, delta]) => delta !== 0);
-      if (entries.length === 0) continue; // 변화 없는 분기는 생략
+      if (monthLines.length === 0) continue; // 이 분기엔 어느 달에도 변화가 없음 -> 생략
 
-      entries.sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]));
-      const itemsHtml = entries.map(([name, delta]) => {
-        const cls = delta > 0 ? 'pos' : 'neg';
-        const sign = delta > 0 ? '+' : '';
-        return `<div class="qItem">${name} : <span class="amt ${cls}">${sign}${fmtWon(delta)}</span></div>`;
-      }).join('');
-      blocks.push(`<div class="detailQuarter"><div class="qTitle">${q.label}</div>${itemsHtml}</div>`);
+      blocks.push(`<div class="detailQuarter"><div class="qTitle">${q.label}</div>${monthLines.join('')}</div>`);
     }
     if (blocks.length === 0) {
       detailArea.innerHTML = `<div class="empty">${setLabel}에는 분기별로 특별한 변화가 없었어요.</div>`;
