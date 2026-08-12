@@ -90,6 +90,7 @@
 (function () {
   const FEATURES = [
     { id: 'main', label: '메인화면' },
+    { id: 'top10', label: 'TOP10' },
   ];
 
   let DATA = null;
@@ -124,6 +125,7 @@
     const feature = FEATURES.find(f => f.id === id) || FEATURES[0];
     document.getElementById('pageTitle').textContent = feature.label;
     if (feature.id === 'main') renderMainFeature();
+    if (feature.id === 'top10') renderTop10Feature();
   }
 
   // ----- 메인화면: 구간별 실적조회 + 변화량 그래프 -----
@@ -135,9 +137,40 @@
         <div class="card" id="chartCard"><div class="card-title">구간별 변화량</div><div id="chartArea"></div></div>
         <div class="card" id="detailCard"><div class="card-title">변화 내용</div><div id="detailArea"><div class="empty">막대를 클릭하면 분기별 변화 내용이 여기 나와요.</div></div></div>
       </div>
+      <div class="card" id="checklistCard"></div>
     `;
     renderTargetBox();
     renderCharts();
+    renderChecklistBox();
+  }
+
+  // ----- 계약 만기 체크리스트 -----
+  function renderChecklistBox() {
+    const card = document.getElementById('checklistCard');
+    const rc = DATA && DATA.renewalChecklist;
+    if (!rc || !rc.monthGroups || !rc.monthGroups.some(g => g.solutionFlagged.length > 0 || g.maFlagged.length > 0)) {
+      card.innerHTML = '<div class="card-title">계약 만기 체크리스트</div><div style="font-size:13px;color:#9A9689;">지금 확인해야 할 계약 만기 항목이 없어요.</div>';
+      return;
+    }
+    function offsetLabel(offset) { return offset === 0 ? '이번달' : `${offset}개월 후`; }
+    let html = '<div class="card-title">계약 만기 체크리스트</div>';
+    for (const g of rc.monthGroups) {
+      if (g.solutionFlagged.length === 0 && g.maFlagged.length === 0) continue;
+      const urgent = g.offset === 0;
+      const color = urgent ? '#C0392B' : '#B45309';
+      html += `<div style="margin-bottom:14px;">
+        <div style="font-size:13px;font-weight:700;color:${color};margin-bottom:6px;">${g.year2}년 ${g.month}월 (${offsetLabel(g.offset)}${urgent ? ' — 시급' : ''})</div>`;
+      if (g.solutionFlagged.length > 0) {
+        html += `<div style="font-size:12px;color:${color};font-weight:600;margin:4px 0 2px;">솔루션 매출 — 무상보증 종료 (유상전환 검토)</div>`;
+        html += g.solutionFlagged.map(item => `<div style="font-size:12px;color:#3A3D45;padding:2px 0 2px 10px;">${item.name}${item.period ? ` <span style="color:#9A9689;">(${item.period})</span>` : ''}${item.contract ? ` — ${fmtWon(item.contract)}` : ''}</div>`).join('');
+      }
+      if (g.maFlagged.length > 0) {
+        html += `<div style="font-size:12px;color:${color};font-weight:600;margin:6px 0 2px;">MA 매출 — 계약 갱신 검토</div>`;
+        html += g.maFlagged.map(item => `<div style="font-size:12px;color:#3A3D45;padding:2px 0 2px 10px;">${item.name}${item.contract ? ` — ${fmtWon(item.contract)}` : ''}</div>`).join('');
+      }
+      html += `</div>`;
+    }
+    card.innerHTML = html;
   }
 
   // ----- 구간별 실적조회 박스 -----
@@ -337,6 +370,74 @@
     } else {
       detailArea.innerHTML = blocks.join('');
     }
+  }
+
+  // ----- TOP10 기능: 시작월/종료월 선택 -> 팀별 매출/수주 상위 10개 프로젝트 -----
+  function renderTop10Feature() {
+    const container = document.getElementById('featureContent');
+    const projects = DATA && DATA.projects;
+    if (!projects || (!projects.revenue.length && !projects.order.length)) {
+      container.innerHTML = '<div class="card"><div style="font-size:13px;color:#9A9689;">TOP10을 계산할 프로젝트 데이터가 없어요.</div></div>';
+      return;
+    }
+    container.innerHTML = `
+      <div class="card">
+        <div class="range-inputs" style="margin-bottom:14px;">
+          <label style="font-size:12px;color:#5B5F6B;margin-right:6px;">시작월</label>
+          <input type="number" id="top10Start" min="1" max="12" value="1" />
+          <label style="font-size:12px;color:#5B5F6B;margin:0 6px 0 14px;">종료월</label>
+          <input type="number" id="top10End" min="1" max="12" value="12" />
+        </div>
+        <div id="top10Body"></div>
+      </div>
+    `;
+    document.getElementById('top10Start').addEventListener('input', renderTop10Body);
+    document.getElementById('top10End').addEventListener('input', renderTop10Body);
+    renderTop10Body();
+  }
+
+  function rankTop10(records, team, start, end) {
+    const rows = records
+      .filter(r => r.team === team)
+      .map(r => ({ name: r.name, sum: sumRange(r.monthAmt, start, end) }))
+      .filter(r => r.sum !== 0)
+      .sort((a, b) => b.sum - a.sum)
+      .slice(0, 10);
+    return rows;
+  }
+
+  function top10TableHtml(title, rows) {
+    if (rows.length === 0) return `<div style="font-size:12px;color:#9A9689;margin-bottom:16px;">${title}: 해당 구간에 데이터가 없어요.</div>`;
+    return `<div style="margin-bottom:16px;">
+      <div style="font-size:12px;font-weight:600;color:#3A3D45;margin-bottom:6px;">${title}</div>
+      <table class="dataTable"><tr><th style="width:30px;">#</th><th>프로젝트</th><th>금액</th></tr>
+      ${rows.map((r, i) => `<tr><td>${i + 1}</td><td style="text-align:left;">${r.name}</td><td>${fmtWon(r.sum)}</td></tr>`).join('')}
+      </table>
+    </div>`;
+  }
+
+  function renderTop10Body() {
+    const start = Math.max(1, Math.min(12, Number(document.getElementById('top10Start').value) || 1));
+    const end = Math.max(1, Math.min(12, Number(document.getElementById('top10End').value) || 12));
+    const projects = DATA.projects;
+    const teamSet = new Set();
+    projects.revenue.forEach(r => teamSet.add(r.team));
+    projects.order.forEach(r => teamSet.add(r.team));
+    const teams = Array.from(teamSet).sort();
+
+    let html = '';
+    for (const team of teams) {
+      const revRows = rankTop10(projects.revenue, team, start, end);
+      const ordRows = rankTop10(projects.order, team, start, end);
+      html += `<div style="margin-bottom:24px;">
+        <div style="font-size:14px;font-weight:700;color:#1A1D24;margin-bottom:10px;">${team}</div>
+        <div class="split-row">
+          <div>${top10TableHtml('수주 TOP10', ordRows)}</div>
+          <div>${top10TableHtml('매출 TOP10', revRows)}</div>
+        </div>
+      </div>`;
+    }
+    document.getElementById('top10Body').innerHTML = html || '<div style="font-size:13px;color:#9A9689;">표시할 팀이 없어요.</div>';
   }
 
   // ----- 초기화: results.json 로드 -----
