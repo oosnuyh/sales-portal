@@ -93,6 +93,7 @@
     { id: 'top10', label: 'TOP10' },
     { id: 'schedule', label: '매출일정' },
     { id: 'rfp', label: '입찰공고', iframeUrl: 'https://oosnuyh.github.io/RPF/' },
+    { id: 'ppt', label: 'PPT 폰트·컬러 정리', iframeUrl: './ppt-style-tool.html' },
   ];
 
   let DATA = null;
@@ -134,9 +135,19 @@
 
   function renderIframeFeature(url) {
     const container = document.getElementById('featureContent');
-    container.innerHTML = `<div class="card" style="padding:0;overflow:hidden;">
-      <iframe src="${url}" style="width:100%;height:calc(100vh - 140px);border:none;display:block;"></iframe>
+    function buildUrl() {
+      const sep = url.includes('?') ? '&' : '?';
+      return `${url}${sep}_cb=${Date.now()}`;
+    }
+    container.innerHTML = `<div style="margin-bottom:10px;display:flex;justify-content:flex-end;">
+      <button id="rfpRefreshBtn" style="font-size:12px;padding:6px 14px;border-radius:6px;border:1px solid #D8D3C7;background:#fff;color:#5B5F6B;cursor:pointer;">새로고침</button>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <iframe id="rfpIframe" src="${buildUrl()}" style="width:100%;height:calc(100vh - 180px);border:none;display:block;"></iframe>
     </div>`;
+    document.getElementById('rfpRefreshBtn').addEventListener('click', () => {
+      document.getElementById('rfpIframe').src = buildUrl();
+    });
   }
 
   // ----- 메인화면: 구간별 실적조회 + 변화량 그래프 -----
