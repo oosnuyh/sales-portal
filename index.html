@@ -92,6 +92,7 @@
     { id: 'main', label: '메인화면' },
     { id: 'top10', label: 'TOP10' },
     { id: 'schedule', label: '매출일정' },
+    { id: 'rfp', label: '입찰공고', iframeUrl: 'https://oosnuyh.github.io/RPF/' },
   ];
 
   let DATA = null;
@@ -128,6 +129,14 @@
     if (feature.id === 'main') renderMainFeature();
     if (feature.id === 'top10') renderTop10Feature();
     if (feature.id === 'schedule') renderScheduleFeature();
+    if (feature.iframeUrl) renderIframeFeature(feature.iframeUrl);
+  }
+
+  function renderIframeFeature(url) {
+    const container = document.getElementById('featureContent');
+    container.innerHTML = `<div class="card" style="padding:0;overflow:hidden;">
+      <iframe src="${url}" style="width:100%;height:calc(100vh - 140px);border:none;display:block;"></iframe>
+    </div>`;
   }
 
   // ----- 메인화면: 구간별 실적조회 + 변화량 그래프 -----
