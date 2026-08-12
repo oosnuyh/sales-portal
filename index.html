@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>영업 포털</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: 'IBM Plex Sans KR', 'Pretendard', -apple-system, sans-serif;
+    background: #E5E4E0; color: #1A1D24;
+  }
+  .layout { display: flex; min-height: 100vh; }
+  .sidebar {
+    width: 220px; background: #FAFAF7; border-right: 1px solid #E4E0D5;
+    padding: 24px 16px; flex-shrink: 0;
+  }
+  .component-label {
+    font-size: 13px; font-weight: 600; color: #7C5CFC; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .nav-item {
+    background: #EAE7DF; border-radius: 8px; padding: 14px 12px; margin-bottom: 10px;
+    font-size: 13px; color: #3A3D45; text-align: center; cursor: pointer;
+    transition: background .15s;
+  }
+  .nav-item.active { background: #DAD5C8; font-weight: 600; }
+  .nav-item:hover { background: #E0DCD0; }
+  .main-content { flex: 1; padding: 28px 32px; max-width: 1100px; }
+  .card {
+    background: #F5F4F0; border: 1px solid #E4E0D5; border-radius: 12px;
+    padding: 20px 22px; margin-bottom: 20px;
+  }
+  .card-title {
+    font-size: 11px; color: #8A8F98; text-transform: uppercase; letter-spacing: .04em;
+    margin-bottom: 12px; font-weight: 600;
+  }
+  table.dataTable { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.dataTable th, table.dataTable td { padding: 7px 10px; text-align: right; }
+  table.dataTable th:first-child, table.dataTable td:first-child { text-align: left; }
+  table.dataTable th { border-bottom: 1px solid #E4E0D5; color: #3A3D45; font-weight: 600; }
+  table.dataTable tr.totalRow { background: #EFEAF6; font-weight: 700; }
+  .pct-good { color: #2F6D3A; font-weight: 700; }
+  .pct-warn { color: #B45309; font-weight: 700; }
+  .pct-bad { color: #A32D2D; font-weight: 700; }
+  .range-inputs input {
+    width: 60px; padding: 5px 8px; border: 1px solid #D8D3C7; border-radius: 6px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-align: center;
+  }
+  .split-row { display: flex; gap: 20px; align-items: flex-start; }
+  .split-row .card { flex: 1; margin-bottom: 0; }
+  .barSet { margin-bottom: 22px; }
+  .barSet-label { font-size: 13px; font-weight: 600; color: #1A1D24; margin-bottom: 8px; }
+  .barRow { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 4px 0; }
+  .barTrack { flex: 1; height: 22px; background: #EDEBE5; border-radius: 4px; position: relative; overflow: hidden; }
+  .barFill { height: 100%; border-radius: 4px; transition: width .2s; }
+  .barFill.pos { background: #D9534F; }
+  .barFill.neg { background: #4472C4; }
+  .barValue { font-size: 12px; font-weight: 600; width: 110px; text-align: right; white-space: nowrap; }
+  .quarterBars { display: none; margin: 10px 0 4px 0; padding: 10px 12px; background: #FAFAF7; border-radius: 8px; }
+  .quarterBars.show { display: block; }
+  .qBarRow { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; cursor: pointer; }
+  .qBarLabel { width: 46px; font-size: 12px; color: #5B5F6B; }
+  .qBarTrack { flex: 1; height: 16px; background: #EDEBE5; border-radius: 3px; overflow: hidden; }
+  .qBarFill { height: 100%; }
+  .qBarFill.pos { background: #E8837F; }
+  .qBarFill.neg { background: #7C9BD8; }
+  .qBarValue { font-size: 11px; width: 90px; text-align: right; }
+  #detailArea .empty { color: #9A9689; font-size: 13px; }
+  .detailQuarter { margin-bottom: 14px; }
+  .detailQuarter .qTitle { font-size: 13px; font-weight: 700; color: #1A1D24; margin-bottom: 4px; }
+  .detailQuarter .qItem { font-size: 12px; color: #3A3D45; padding: 2px 0 2px 10px; }
+  .detailQuarter .qItem .amt.pos { color: #2F6D3A; font-weight: 600; }
+  .detailQuarter .qItem .amt.neg { color: #A32D2D; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <div class="sidebar">
+    <div class="component-label">&#10070; Component</div>
+    <div id="navList"></div>
+  </div>
+  <div class="main-content">
+    <h2 id="pageTitle" style="font-size:18px;font-weight:600;margin:0 0 18px;"></h2>
+    <div id="featureContent"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const FEATURES = [
+    { id: 'main', label: '메인화면' },
+  ];
+
+  let DATA = null;
+
+  function fmtWon(n) {
+    const sign = n < 0 ? '-' : '';
+    return sign + Math.round(Math.abs(n)).toLocaleString('en-US') + '원';
+  }
+
+  function pctClass(p) {
+    if (p >= 100) return 'pct-good';
+    if (p >= 90) return 'pct-warn';
+    return 'pct-bad';
+  }
+
+  // ----- 사이드바 -----
+  function renderNav() {
+    const navList = document.getElementById('navList');
+    navList.innerHTML = FEATURES.map((f, i) =>
+      `<div class="nav-item ${i === 0 ? 'active' : ''}" data-id="${f.id}">${f.label}</div>`
+    ).join('');
+    navList.querySelectorAll('.nav-item').forEach((el) => {
+      el.addEventListener('click', () => {
+        navList.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        el.classList.add('active');
+        renderFeature(el.getAttribute('data-id'));
+      });
+    });
+  }
+
+  function renderFeature(id) {
+    const feature = FEATURES.find(f => f.id === id) || FEATURES[0];
+    document.getElementById('pageTitle').textContent = feature.label;
+    if (feature.id === 'main') renderMainFeature();
+  }
+
+  // ----- 메인화면: 구간별 실적조회 + 변화량 그래프 -----
+  function renderMainFeature() {
+    const container = document.getElementById('featureContent');
+    container.innerHTML = `
+      <div class="card" id="targetCard"></div>
+      <div class="split-row">
+        <div class="card" id="chartCard"><div class="card-title">구간별 변화량</div><div id="chartArea"></div></div>
+        <div class="card" id="detailCard"><div class="card-title">변화 내용</div><div id="detailArea"><div class="empty">막대를 클릭하면 분기별 변화 내용이 여기 나와요.</div></div></div>
+      </div>
+    `;
+    renderTargetBox();
+    renderCharts();
+  }
+
+  // ----- 구간별 실적조회 박스 -----
+  function renderTargetBox() {
+    const card = document.getElementById('targetCard');
+    if (!DATA || !DATA.targetVsActual) {
+      card.innerHTML = '<div class="card-title">구간별 실적조회</div><div style="font-size:13px;color:#9A9689;">목표대비실적 데이터가 없어요 (입력 페이지에서 매출·수주 최신 파일을 올려서 다시 만들어주세요).</div>';
+      return;
+    }
+    const tva = DATA.targetVsActual;
+    card.innerHTML = `
+      <div class="card-title">구간별 실적조회</div>
+      <div class="range-inputs" style="margin-bottom:12px;">
+        <label style="font-size:12px;color:#5B5F6B;margin-right:6px;">시작월</label>
+        <input type="number" id="startMonth" min="1" max="12" value="1" />
+        <label style="font-size:12px;color:#5B5F6B;margin:0 6px 0 14px;">종료월</label>
+        <input type="number" id="endMonth" min="1" max="12" value="12" />
+      </div>
+      <table class="dataTable" id="targetTable"></table>
+    `;
+    document.getElementById('startMonth').addEventListener('input', renderTargetTable);
+    document.getElementById('endMonth').addEventListener('input', renderTargetTable);
+    renderTargetTable();
+  }
+
+  function sumRange(arr, start, end) {
+    let s = 0;
+    for (let m = start; m <= end; m++) s += arr[m - 1] || 0;
+    return s;
+  }
+
+  function renderTargetTable() {
+    const tva = DATA.targetVsActual;
+    let start = Number(document.getElementById('startMonth').value) || 1;
+    let end = Number(document.getElementById('endMonth').value) || 12;
+    start = Math.max(1, Math.min(12, start));
+    end = Math.max(1, Math.min(12, end));
+    if (end < start) end = start;
+
+    const rows = [{ label: '본부 전체', isTotal: true }].concat(tva.teams.map(t => ({ label: t, isTotal: false })));
+
+    let html = `<tr>
+      <th></th>
+      <th>수주목표</th><th>수주실적</th><th>수주달성률</th><th>수주연목표대비</th>
+      <th>매출목표</th><th>매출실적</th><th>매출달성률</th><th>매출연목표대비</th>
+    </tr>`;
+
+    let totalOrdTarget = 0, totalOrdActual = 0, totalOrdAnnualTarget = 0;
+    let totalRevTarget = 0, totalRevActual = 0, totalRevAnnualTarget = 0;
+
+    const teamRows = tva.teams.map((team) => {
+      const ordTarget = sumRange(tva.orderTargets[team], start, end);
+      const ordActual = sumRange(tva.orderActuals[team], start, end);
+      const ordAnnualTarget = sumRange(tva.orderTargets[team], 1, 12);
+      const revTarget = sumRange(tva.revenueTargets[team], start, end);
+      const revActual = sumRange(tva.revenueActuals[team], start, end);
+      const revAnnualTarget = sumRange(tva.revenueTargets[team], 1, 12);
+
+      totalOrdTarget += ordTarget; totalOrdActual += ordActual; totalOrdAnnualTarget += ordAnnualTarget;
+      totalRevTarget += revTarget; totalRevActual += revActual; totalRevAnnualTarget += revAnnualTarget;
+
+      return { team, ordTarget, ordActual, ordAnnualTarget, revTarget, revActual, revAnnualTarget };
+    });
+
+    function rowHtml(label, ordTarget, ordActual, ordAnnualTarget, revTarget, revActual, revAnnualTarget, isTotal) {
+      const ordPct = ordTarget ? (ordActual / ordTarget * 100) : 0;
+      const ordAnnualPct = ordAnnualTarget ? (ordActual / ordAnnualTarget * 100) : 0;
+      const revPct = revTarget ? (revActual / revTarget * 100) : 0;
+      const revAnnualPct = revAnnualTarget ? (revActual / revAnnualTarget * 100) : 0;
+      return `<tr class="${isTotal ? 'totalRow' : ''}">
+        <td>${label}</td>
+        <td>${Math.round(ordTarget).toLocaleString('en-US')}</td>
+        <td>${Math.round(ordActual).toLocaleString('en-US')}</td>
+        <td class="${pctClass(ordPct)}">${ordPct.toFixed(1)}%</td>
+        <td class="${pctClass(ordAnnualPct)}">${ordAnnualPct.toFixed(1)}%</td>
+        <td>${Math.round(revTarget).toLocaleString('en-US')}</td>
+        <td>${Math.round(revActual).toLocaleString('en-US')}</td>
+        <td class="${pctClass(revPct)}">${revPct.toFixed(1)}%</td>
+        <td class="${pctClass(revAnnualPct)}">${revAnnualPct.toFixed(1)}%</td>
+      </tr>`;
+    }
+
+    html += rowHtml('본부 전체', totalOrdTarget, totalOrdActual, totalOrdAnnualTarget, totalRevTarget, totalRevActual, totalRevAnnualTarget, true);
+    for (const r of teamRows) {
+      html += rowHtml(r.team, r.ordTarget, r.ordActual, r.ordAnnualTarget, r.revTarget, r.revActual, r.revAnnualTarget, false);
+    }
+
+    document.getElementById('targetTable').innerHTML = html;
+  }
+
+  // ----- 막대그래프 (연간 -> 분기별 확장) + 변화 내용 -----
+  const SET_META = [
+    { key: 'order', label: '수주' },
+    { key: 'revenue', label: '매출' },
+    { key: 'other', label: '기타매출' },
+  ];
+
+  function renderCharts() {
+    const chartArea = document.getElementById('chartArea');
+    const changes = (DATA && DATA.changes) || {};
+    const availableSets = SET_META.filter(s => changes[s.key]);
+    if (availableSets.length === 0) {
+      chartArea.innerHTML = '<div style="font-size:13px;color:#9A9689;">변화량 데이터가 없어요.</div>';
+      return;
+    }
+    const maxAbs = Math.max(1, ...availableSets.map(s => Math.abs(changes[s.key].total)));
+
+    chartArea.innerHTML = availableSets.map((s) => {
+      const c = changes[s.key];
+      const widthPct = Math.min(100, Math.abs(c.total) / maxAbs * 100);
+      const cls = c.total >= 0 ? 'pos' : 'neg';
+      return `
+        <div class="barSet">
+          <div class="barSet-label">${s.label}</div>
+          <div class="barRow" data-set="${s.key}">
+            <div class="barTrack"><div class="barFill ${cls}" style="width:${widthPct}%;"></div></div>
+            <div class="barValue">${c.total >= 0 ? '+' : ''}${fmtWon(c.total)}</div>
+          </div>
+          <div class="quarterBars" id="qbars-${s.key}"></div>
+        </div>`;
+    }).join('');
+
+    chartArea.querySelectorAll('.barRow').forEach((row) => {
+      row.addEventListener('click', () => {
+        const setKey = row.getAttribute('data-set');
+        toggleQuarterBars(setKey);
+      });
+    });
+  }
+
+  let openSetKey = null;
+
+  function toggleQuarterBars(setKey) {
+    // 다른 세트가 열려있으면 닫는다 (한 번에 하나만 펼침)
+    if (openSetKey && openSetKey !== setKey) {
+      const prevEl = document.getElementById(`qbars-${openSetKey}`);
+      if (prevEl) prevEl.classList.remove('show');
+    }
+    const el = document.getElementById(`qbars-${setKey}`);
+    const isOpen = el.classList.contains('show');
+    if (isOpen) {
+      el.classList.remove('show');
+      openSetKey = null;
+      document.getElementById('detailArea').innerHTML = '<div class="empty">막대를 클릭하면 분기별 변화 내용이 여기 나와요.</div>';
+      return;
+    }
+    openSetKey = setKey;
+    const c = DATA.changes[setKey];
+    const setLabel = SET_META.find(s => s.key === setKey).label;
+    const quarters = [
+      { label: '1분기', key: 'q1', months: [1, 2, 3] },
+      { label: '2분기', key: 'q2', months: [4, 5, 6] },
+      { label: '3분기', key: 'q3', months: [7, 8, 9] },
+      { label: '4분기', key: 'q4', months: [10, 11, 12] },
+    ];
+    const maxAbsQ = Math.max(1, ...quarters.map(q => Math.abs(c[q.key])));
+    el.innerHTML = quarters.map((q) => {
+      const val = c[q.key];
+      const widthPct = Math.min(100, Math.abs(val) / maxAbsQ * 100);
+      const cls = val >= 0 ? 'pos' : 'neg';
+      return `<div class="qBarRow">
+        <div class="qBarLabel">${q.label}</div>
+        <div class="qBarTrack"><div class="qBarFill ${cls}" style="width:${widthPct}%;"></div></div>
+        <div class="qBarValue">${val >= 0 ? '+' : ''}${fmtWon(val)}</div>
+      </div>`;
+    }).join('');
+    el.classList.add('show');
+
+    renderDetailText(setKey, setLabel, c, quarters);
+  }
+
+  function renderDetailText(setKey, setLabel, c, quarters) {
+    const detailArea = document.getElementById('detailArea');
+    const blocks = [];
+    for (const q of quarters) {
+      // 이 분기의 3개월 monthDetails를 합쳐서 프로젝트별로 그룹핑
+      const grouped = new Map();
+      for (const m of q.months) {
+        const list = (c.monthDetails[m - 1]) || [];
+        for (const item of list) {
+          grouped.set(item.name, (grouped.get(item.name) || 0) + item.delta);
+        }
+      }
+      const entries = Array.from(grouped.entries()).filter(([, delta]) => delta !== 0);
+      if (entries.length === 0) continue; // 변화 없는 분기는 생략
+
+      entries.sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]));
+      const itemsHtml = entries.map(([name, delta]) => {
+        const cls = delta > 0 ? 'pos' : 'neg';
+        const sign = delta > 0 ? '+' : '';
+        return `<div class="qItem">${name} : <span class="amt ${cls}">${sign}${fmtWon(delta)}</span></div>`;
+      }).join('');
+      blocks.push(`<div class="detailQuarter"><div class="qTitle">${q.label}</div>${itemsHtml}</div>`);
+    }
+    if (blocks.length === 0) {
+      detailArea.innerHTML = `<div class="empty">${setLabel}에는 분기별로 특별한 변화가 없었어요.</div>`;
+    } else {
+      detailArea.innerHTML = blocks.join('');
+    }
+  }
+
+  // ----- 초기화: results.json 로드 -----
+  async function init() {
+    renderNav();
+    try {
+      const res = await fetch('./results.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error('results.json을 찾을 수 없어요');
+      DATA = await res.json();
+    } catch (e) {
+      DATA = null;
+      document.getElementById('featureContent').innerHTML = `<div class="card"><div style="font-size:13px;color:#A32D2D;">결과 데이터를 불러오지 못했어요.<br><span style="font-size:12px;color:#5B5F6B;">${e.message} — results.json이 이 페이지와 같은 위치에 있는지 확인해주세요.</span></div></div>`;
+      renderFeature('main');
+      return;
+    }
+    renderFeature('main');
+  }
+
+  init();
+})();
+</script>
+
+</body>
+</html>
