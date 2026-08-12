@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>제안서 폰트·컬러 정리 도구 | INZENT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+  :root{
+    /* --- Lovable-inspired warm design tokens --- */
+    --bg:#f7f4ed;
+    --surface:#f7f4ed;
+    --surface-raised:#fcfbf8;
+    --ink:#1c1c1c;
+    --ink-83:rgba(28,28,28,.83);
+    --ink-60:rgba(28,28,28,.6);
+    --ink-45:rgba(28,28,28,.45);
+    --ink-40:rgba(28,28,28,.4);
+    --ink-10:rgba(28,28,28,.1);
+    --ink-4:rgba(28,28,28,.04);
+    --ink-3:rgba(28,28,28,.03);
+    --border:#eceae4;
+    --border-strong:rgba(28,28,28,.4);
+    --on-dark:#fcfbf8;
+
+    /* muted accent hues for the 4-step flow — warm, not saturated */
+    --step-1:#7c93c9;
+    --step-2:#a98bb0;
+    --step-3:#6e9482;
+    --step-4:#c98a5e;
+
+    --accent:#3d6fb4;
+    --ok:#3f7a5c;
+    --warn:#a8622f;
+
+    --rounded-xs:4px;
+    --rounded-sm:6px;
+    --rounded-md:8px;
+    --rounded-lg:12px;
+    --rounded-xl:16px;
+    --rounded-full:9999px;
+
+    --space-xxs:4px;
+    --space-xs:8px;
+    --space-sm:12px;
+    --space-md:16px;
+    --space-lg:24px;
+    --space-xl:32px;
+    --space-xxl:56px;
+
+    --shadow-inset: rgba(255,255,255,0.5) 0px 0.5px 0px 0px inset, rgba(0,0,0,0.2) 0px 0px 0px 0.5px inset, rgba(0,0,0,0.08) 0px 1px 2px 0px;
+    --shadow-focus: rgba(0,0,0,0.1) 0px 4px 12px;
+    --shadow-card: 0 1px 2px rgba(28,28,28,.04);
+
+    --font:'Pretendard Variable', 'Pretendard', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Malgun Gothic', 'Apple SD Gothic Neo', system-ui, sans-serif;
+    --mono:'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:var(--font);
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:56px 24px 120px;}
+
+  header.top{margin-bottom:40px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;background:var(--surface-raised);color:var(--ink-83);
+    font-size:12px;font-weight:600;letter-spacing:.02em;padding:5px 12px;border-radius:var(--rounded-full);
+    border:1px solid var(--border);
+  }
+  header.top h1{
+    font-size:34px;font-weight:600;letter-spacing:-0.9px;line-height:1.15;margin:16px 0 10px;color:var(--ink);
+    font-family:var(--font);
+  }
+  @media (min-width:640px){ header.top h1{ font-size:42px; letter-spacing:-1.1px; } }
+  header.top p{color:var(--ink-60);font-size:16px;margin:0;max-width:640px;line-height:1.55;}
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--rounded-xl);
+    padding:32px;
+    margin-bottom:20px;
+    position:relative;
+    transition:opacity .2s ease;
+  }
+  .card::before{
+    content:'';
+    position:absolute;top:0;left:24px;right:24px;height:2px;
+    background:var(--card-accent, transparent);
+    border-radius:0 0 3px 3px;
+  }
+  .card.accent-sky{ --card-accent: var(--step-1); }
+  .card.accent-purple{ --card-accent: var(--step-2); }
+  .card.accent-teal{ --card-accent: var(--step-3); }
+  .card.accent-orange{ --card-accent: var(--step-4); }
+  .card h2{
+    font-size:19px;font-weight:600;letter-spacing:-0.2px;margin:0 0 6px;
+    display:flex;align-items:center;gap:12px;color:var(--ink);
+  }
+  .card h2 .num{
+    width:26px;height:26px;border-radius:var(--rounded-full);color:#fff;
+    font-size:12px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .num.n1{background:var(--step-1);}
+  .num.n2{background:var(--step-2);}
+  .num.n3{background:var(--step-3);}
+  .num.n4{background:var(--step-4);}
+  .card .desc{font-size:14px;color:var(--ink-60);margin:0 0 20px;line-height:1.6;max-width:680px;}
+
+  /* ---- buttons ---- */
+  .btn-primary{
+    background:var(--ink);color:var(--on-dark);border:none;border-radius:var(--rounded-sm);
+    padding:10px 20px;font-size:14px;font-weight:500;font-family:var(--font);cursor:pointer;
+    box-shadow:var(--shadow-inset);
+    transition:transform .08s ease, opacity .12s ease, box-shadow .12s ease;
+  }
+  .btn-primary:hover{opacity:.88;}
+  .btn-primary:active{transform:scale(.97);opacity:.8;}
+  .btn-primary:focus-visible{box-shadow:var(--shadow-inset), var(--shadow-focus);outline:none;}
+  .btn-primary:disabled{background:var(--ink-10);color:var(--ink-40);box-shadow:none;cursor:not-allowed;transform:none;}
+
+  .btn-utility{
+    background:transparent;border:1px solid var(--border-strong);border-radius:var(--rounded-sm);
+    color:var(--ink);padding:8px 16px;font-size:13px;font-weight:500;font-family:var(--font);cursor:pointer;
+    transition:transform .08s ease, background .12s ease, opacity .12s ease;
+  }
+  .btn-utility:hover{background:var(--ink-4);}
+  .btn-utility:active{transform:scale(.97);}
+  .btn-utility:disabled{color:var(--ink-40);border-color:var(--border);cursor:not-allowed;transform:none;background:none;}
+
+  .badge-pill{
+    display:inline-flex;align-items:center;background:var(--surface-raised);color:var(--ink-83);
+    font-size:11px;font-weight:600;padding:4px 11px;border-radius:var(--rounded-full);border:1px solid var(--border);
+  }
+
+  /* ---- upload ---- */
+  .dropzone{
+    border:1.5px dashed var(--border-strong);border-radius:var(--rounded-lg);padding:44px 20px;text-align:center;
+    cursor:pointer;transition:.15s;background:var(--ink-3);
+  }
+  .dropzone:hover, .dropzone.drag{border-color:var(--ink);background:var(--ink-4);}
+  .dropzone input{display:none;}
+  .dropzone .icon{font-size:24px;margin-bottom:10px;opacity:.7;}
+  .dropzone .main{font-size:15px;font-weight:600;color:var(--ink);}
+  .dropzone .sub{font-size:13px;color:var(--ink-45);margin-top:5px;}
+
+  .filepill{
+    display:inline-flex;align-items:center;gap:10px;background:var(--surface-raised);color:var(--ink);
+    padding:8px 16px;border-radius:var(--rounded-full);font-size:13px;font-weight:600;margin-top:14px;
+    border:1px solid var(--border);
+  }
+  .filepill button{border:none;background:none;color:var(--accent);cursor:pointer;font-size:13px;font-weight:600;}
+
+  /* ---- tables ---- */
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{
+    text-align:left;color:var(--ink-45);font-weight:600;font-size:11px;letter-spacing:.04em;
+    text-transform:uppercase;padding:8px;border-bottom:1px solid var(--border);
+  }
+  td{padding:10px 8px;border-bottom:1px solid var(--border);vertical-align:middle;}
+  tr:last-child td{border-bottom:none;}
+
+  .swatch{
+    width:20px;height:20px;border-radius:var(--rounded-xs);border:1px solid var(--ink-10);
+    display:inline-block;vertical-align:middle;margin-right:8px;flex-shrink:0;
+  }
+  .hexcell{display:flex;align-items:center;font-family:var(--mono);font-size:12.5px;}
+  .count-badge{background:var(--ink-4);color:var(--ink-60);font-size:11px;padding:2px 9px;border-radius:var(--rounded-full);}
+  .member-list{font-size:11px;color:var(--ink-45);margin-top:3px;font-family:var(--mono);}
+
+  .repl-row{display:flex;align-items:center;gap:8px;}
+  .repl-row input[type=text]{
+    border:1px solid var(--border);border-radius:var(--rounded-xs);padding:7px 9px;font-size:13px;
+    width:130px;font-family:var(--mono);background:var(--surface-raised);color:var(--ink);
+  }
+  .repl-row input[type=text]:focus{outline:none;border-color:var(--border-strong);box-shadow:var(--shadow-focus);}
+  .repl-row input[type=color]{
+    width:30px;height:28px;border:1px solid var(--border);border-radius:var(--rounded-xs);padding:0;cursor:pointer;background:none;
+  }
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+  @media (max-width:780px){.grid2{grid-template-columns:1fr;}}
+
+  .subhead{font-size:13px;font-weight:600;margin:24px 0 10px;color:var(--ink);}
+  .subhead:first-child{margin-top:0;}
+  .subrow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:24px 0 10px;}
+  .subrow .subhead{margin:0;}
+  .subrow .threshold-label{font-size:11px;color:var(--ink-45);font-family:var(--mono);}
+
+  .empty-note{font-size:13px;color:var(--ink-45);padding:10px 0;}
+
+  /* ---- image color extractor ---- */
+  .hint{font-size:12px;color:var(--ink-60);margin-top:8px;}
+  .hint.ok{color:var(--ok);}
+  .hint.warn{color:var(--warn);}
+
+  .imgsampler{border:1px solid var(--border);border-radius:var(--rounded-lg);padding:20px;background:var(--ink-3);margin-bottom:24px;}
+  .imgsampler-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:8px;}
+  .imgsampler-head label{font-size:14px;font-weight:600;color:var(--ink);}
+  #sampleCanvas{max-width:100%;border-radius:var(--rounded-sm);border:1px solid var(--border);display:none;margin-top:14px;}
+  .extracted-list{display:flex;flex-direction:column;gap:6px;margin-top:16px;}
+  .extracted-row{
+    display:flex;align-items:center;gap:10px;background:var(--surface-raised);border:1px solid var(--border);
+    border-radius:var(--rounded-md);padding:9px 12px;
+  }
+  .extracted-row .swatch{width:28px;height:28px;border-radius:var(--rounded-sm);flex-shrink:0;border:1px solid var(--ink-10);}
+  .extracted-row .hexval{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ink);width:80px;flex-shrink:0;}
+  .extracted-row .pctbar-wrap{flex:1;background:var(--ink-4);border-radius:var(--rounded-full);height:8px;overflow:hidden;min-width:60px;}
+  .extracted-row .pctbar{height:100%;border-radius:var(--rounded-full);}
+  .extracted-row .pctval{font-size:12px;color:var(--ink-60);width:44px;text-align:right;flex-shrink:0;}
+  .suggest-row{
+    display:flex;align-items:center;gap:10px;background:var(--surface-raised);border:1px solid var(--border);
+    border-radius:var(--rounded-md);padding:9px 12px;
+  }
+  .suggest-row .swatch{width:24px;height:24px;border-radius:var(--rounded-sm);flex-shrink:0;border:1px solid var(--ink-10);}
+  .suggest-row .arrow{color:var(--ink-45);flex-shrink:0;}
+  .suggest-row .hexval{font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--ink);}
+  .suggest-row .meta{font-size:11.5px;color:var(--ink-60);margin-left:2px;flex-shrink:0;}
+  .suggest-row .spacer{flex:1;}
+  .apply-btn{
+    border:1px solid var(--border-strong);background:transparent;border-radius:var(--rounded-xs);
+    font-size:11px;padding:5px 10px;cursor:pointer;color:var(--ink-83);font-family:var(--font);font-weight:600;flex-shrink:0;
+    transition:background .12s ease;
+  }
+  .apply-btn:hover{background:var(--ink-4);}
+  .apply-btn.applied{border-color:var(--ok);color:var(--ok);background:none;cursor:default;}
+  .copy-btn{
+    border:1px solid var(--border);background:transparent;border-radius:var(--rounded-xs);
+    font-size:11px;padding:5px 9px;cursor:pointer;color:var(--ink-60);font-family:var(--font);flex-shrink:0;
+    transition:background .12s ease;
+  }
+  .copy-btn:hover{background:var(--ink-4);border-color:var(--border-strong);}
+  .copy-btn.copied{border-color:var(--ok);color:var(--ok);}
+
+  .fontunify{
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;border:1px solid var(--border);
+    border-radius:var(--rounded-md);padding:14px 16px;background:var(--ink-3);margin-bottom:24px;
+  }
+  .fontunify input[type=text]{
+    border:1px solid var(--border);border-radius:var(--rounded-xs);padding:9px 11px;font-size:13px;width:200px;
+    font-family:var(--font);background:var(--surface-raised);color:var(--ink);
+  }
+  .fontunify .label{font-size:12px;color:var(--ink-60);font-weight:600;}
+
+  /* ---- xml chips + editor ---- */
+  .xmllist{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+  .xmlchip{
+    font-family:var(--mono);font-size:11.5px;background:var(--ink-4);color:var(--ink-60);
+    padding:6px 11px;border-radius:var(--rounded-sm);cursor:pointer;border:1px solid transparent;
+    transition:background .12s ease, border-color .12s ease;
+  }
+  .xmlchip.edited{border-color:var(--step-4);color:var(--step-4);background:transparent;}
+  .xmlchip:hover{border-color:var(--border-strong);color:var(--ink);background:var(--surface-raised);}
+
+  .modal-bg{
+    position:fixed;inset:0;background:rgba(28,24,20,.45);display:none;
+    align-items:center;justify-content:center;z-index:50;padding:24px;
+  }
+  .modal-bg.show{display:flex;}
+  .modal{
+    background:var(--surface-raised);color:var(--ink);border-radius:var(--rounded-xl);width:100%;max-width:860px;
+    max-height:84vh;display:flex;flex-direction:column;overflow:hidden;
+    box-shadow:0 24px 60px rgba(28,24,20,.22);border:1px solid var(--border);
+  }
+  .modal .mh{
+    padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+  }
+  .modal .mh span.path{font-family:var(--mono);font-size:12px;color:var(--ink-60);}
+  .modal .mh .mh-actions{display:flex;gap:6px;align-items:center;}
+  .modal .mh button.close{background:none;border:none;color:var(--ink-45);font-size:18px;cursor:pointer;}
+  .modal textarea#modalBody{
+    flex:1;margin:0;padding:18px;border:none;outline:none;resize:none;
+    font-family:var(--mono);font-size:11.5px;line-height:1.65;color:var(--ink);background:var(--surface-raised);
+  }
+  .modal input[type=file]{display:none;}
+
+  /* ---- log ---- */
+  #log{
+    font-family:var(--mono);font-size:11.5px;color:var(--ink-83);
+    background:var(--ink-3);border:1px solid var(--border);border-radius:var(--rounded-md);
+    padding:12px 14px;margin-top:18px;white-space:pre-wrap;max-height:220px;overflow:auto;display:none;
+  }
+  #log .warn{color:var(--warn);}
+  #log .ok{color:var(--ok);}
+
+  .toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:6px;}
+  .toolbar .fname{
+    border:1px solid var(--border);border-radius:var(--rounded-xs);padding:10px 12px;font-size:13px;
+    font-family:var(--mono);min-width:230px;background:var(--surface-raised);color:var(--ink);
+  }
+
+  .step-disabled{opacity:.4;pointer-events:none;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">INZENT · Sales Tools</span>
+    <h1>제안서 폰트·컬러 정리 도구</h1>
+    <p>PPTX를 업로드해 내부 XML을 분석하고, 사용된 폰트·색상을 원하는 디자인 시스템 값으로 한번에 치환한 새 PPTX를 만듭니다.</p>
+  </header>
+
+  <!-- STEP 1: UPLOAD -->
+  <div class="card accent-sky">
+    <h2><span class="num n1">1</span> PPTX 업로드</h2>
+    <p class="desc">제안서 파일(.pptx)을 올려주세요. 브라우저 내에서만 처리되며 외부 서버로 전송되지 않습니다.</p>
+    <div class="dropzone" id="dropzone">
+      <input type="file" id="fileInput" accept=".pptx,.potx">
+      <div class="icon">📎</div>
+      <div class="main">클릭하거나 파일을 끌어다 놓으세요</div>
+      <div class="sub">.pptx / .potx 파일 지원</div>
+    </div>
+    <div id="filepillWrap"></div>
+    <div id="log"></div>
+  </div>
+
+  <!-- STEP 2: XML CONVERSION -->
+  <div class="card accent-purple step-disabled" id="stepXml">
+    <h2><span class="num n2">2</span> PPTX → XML 변환</h2>
+    <p class="desc">업로드한 PPTX 내부 압축을 풀어 모든 XML 파트로 변환했습니다. 이 XML을 기준으로 폰트·색상이 분석·치환됩니다. 항목을 클릭하면 실제 변환된 XML을 확인하거나 직접 편집할 수 있습니다.</p>
+    <div class="badge-pill" id="xmlSummary" style="margin-bottom:12px;">변환 대기 중</div>
+    <div class="xmllist" id="xmlList"></div>
+  </div>
+
+  <!-- STEP 3: ANALYSIS -->
+  <div class="card accent-teal step-disabled" id="stepAnalysis">
+    <h2><span class="num n3">3</span> 디자인 시스템 적용 &amp; 치환 값 입력</h2>
+    <p class="desc">위에서 변환된 XML을 분석해, 테마(전체 디자인)에 지정된 값과 슬라이드에 개별적으로 지정된(하드코딩된) 값을 구분해서 보여드립니다. 필요하면 아래에서 색상표 이미지를 올려 색상 코드를 확인한 뒤, 표에서 각 항목의 변경할 값을 직접 입력하세요.</p>
+
+    <div class="imgsampler">
+      <div class="imgsampler-head">
+        <label>🖼 색상표 캡쳐 이미지에서 색 추출</label>
+        <button type="button" class="btn-utility" id="imgSampleBtnTrigger">이미지 올리기</button>
+        <input type="file" id="colorImgInput" accept="image/*">
+      </div>
+      <div class="hint">이미지를 올리면 자동으로 주요 색상을 추출해 사용 비율 순으로 보여드립니다. 색상 코드 옆 복사 버튼으로 복사할 수 있고, PPT가 이미 분석되어 있다면 아래에 "변경하면 좋을 색상" 추천도 함께 표시됩니다.</div>
+      <canvas id="sampleCanvas"></canvas>
+      <div class="extracted-list" id="sampledList"></div>
+
+      <div id="suggestWrap" style="display:none;">
+        <div class="subhead" style="margin-top:18px;margin-bottom:6px;">🎯 PPT 색상 변경 추천</div>
+        <div class="hint" id="suggestHint"></div>
+        <div class="extracted-list" id="suggestList"></div>
+      </div>
+    </div>
+
+    <div class="fontunify">
+      <span class="label">✒️ 폰트 일괄 통일</span>
+      <input type="text" id="fontUnifyInput" placeholder="예: Pretendard, KoPub돋움체 Medium">
+      <button type="button" class="btn-utility" id="fontUnifyBtn">감지된 모든 폰트를 이 폰트로 통일</button>
+      <span id="fontUnifyResult" style="font-size:12px;color:var(--color-ink-muted);"></span>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <div class="subhead">🎨 테마 색상 (전체 디자인에 영향)</div>
+        <table>
+          <thead><tr><th style="width:40%">현재 색상</th><th>변경할 색상</th></tr></thead>
+          <tbody id="themeColorBody"></tbody>
+        </table>
+
+        <div class="subhead">✒️ 테마 폰트</div>
+        <table>
+          <thead><tr><th style="width:40%">현재 폰트</th><th>변경할 폰트</th></tr></thead>
+          <tbody id="themeFontBody"></tbody>
+        </table>
+      </div>
+
+      <div>
+        <div class="subrow">
+          <div class="subhead">🎨 슬라이드에 직접 지정된 색상 (PPT에서 실제 사용된 색상만 표시)</div>
+        </div>
+        <table>
+          <thead><tr><th>현재 색상</th><th>사용 비율</th><th>변경할 색상</th></tr></thead>
+          <tbody id="directColorBody"></tbody>
+        </table>
+
+        <div class="subhead">✒️ 슬라이드에 직접 지정된 폰트</div>
+        <table>
+          <thead><tr><th>현재 폰트</th><th></th><th>변경할 폰트</th></tr></thead>
+          <tbody id="directFontBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: PREVIEW & APPLY -->
+  <div class="card accent-orange step-disabled" id="stepApply">
+    <h2><span class="num n4">4</span> 변경사항 확인 후 적용</h2>
+    <p class="desc">먼저 <b>미리보기</b>로 XML에서 실제로 몇 건이 바뀔지 확인하세요. 0건으로 표시되는 항목은 해당 값이 XML에 없다는 뜻이니, 위 표의 입력값이나 2단계의 XML 원문을 다시 확인해보세요. 확인 후에만 적용·다운로드할 수 있습니다.</p>
+    <button type="button" class="btn-utility" id="previewBtn">🔍 변경사항 미리보기</button>
+    <div id="previewArea" style="margin-top:14px;"></div>
+    <div class="toolbar" style="margin-top:16px;">
+      <input type="text" class="fname" id="outName" value="normalized_output.pptx">
+      <button class="btn-primary" id="applyBtn" disabled>먼저 미리보기를 확인하세요</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <div class="mh">
+      <span class="path" id="modalTitle"></span>
+      <div class="mh-actions">
+        <button type="button" class="btn-utility" id="modalDownload">다운로드</button>
+        <label class="btn-utility" for="modalReplaceFile" style="cursor:pointer;">파일로 교체</label>
+        <input type="file" id="modalReplaceFile" accept=".xml">
+        <button type="button" class="btn-primary" id="modalSave" style="padding:7px 16px;font-size:13px;">저장</button>
+        <button class="close" id="modalClose">✕</button>
+      </div>
+    </div>
+    <textarea id="modalBody" spellcheck="false"></textarea>
+  </div>
+</div>
+
+<script>
+const state = {
+  zip: null,
+  fileName: '',
+  xmlParts: {},        // path -> string content (all ppt/**/*.xml)
+  editedPaths: new Set(), // paths manually edited/replaced by the user
+  themeFiles: [],
+  themeColors: [],     // [{slot,hex}]
+  themeFonts: {major:{latin:'',ea:'',cs:''}, minor:{latin:'',ea:'',cs:''}},
+  directColors: [],    // [{hex,count}] — actual colors used in the uploaded PPT, sorted by frequency
+  directFonts: [],     // [{name,count}]
+  extractedColors: [], // [{hex,count,pct}] — colors extracted from an uploaded reference image
+};
+
+const COLOR_SLOTS = ['dk1','lt1','dk2','lt2','accent1','accent2','accent3','accent4','accent5','accent6','hlink','folHlink'];
+const SLOT_LABEL = {
+  dk1:'dk1 (어두운 텍스트1)', lt1:'lt1 (밝은 배경1)', dk2:'dk2 (어두운 텍스트2)', lt2:'lt2 (밝은 배경2)',
+  accent1:'accent1', accent2:'accent2', accent3:'accent3', accent4:'accent4', accent5:'accent5', accent6:'accent6',
+  hlink:'hlink (하이퍼링크)', folHlink:'folHlink (열어본 링크)'
+};
+
+function log(msg, cls){
+  const el = document.getElementById('log');
+  el.style.display = 'block';
+  const line = cls ? `<span class="${cls}">${escapeHtml(msg)}</span>` : escapeHtml(msg);
+  el.innerHTML += line + '\n';
+  el.scrollTop = el.scrollHeight;
+}
+function escapeRegex(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+function escapeHtml(s){ return s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+// extract latin/ea/cs typeface names from a <a:majorFont>...</a:majorFont> (or minorFont) inner block
+function extractFontsFromBlock(blockXml){
+  const latin = (blockXml.match(/<a:latin\s+typeface="([^"]*)"/) || [])[1] || '';
+  const ea = (blockXml.match(/<a:ea\s+typeface="([^"]*)"/) || [])[1] || '';
+  const cs = (blockXml.match(/<a:cs\s+typeface="([^"]*)"/) || [])[1] || '';
+  return { latin, ea, cs };
+}
+// replace the typeface value of a:latin/a:ea/a:cs inside a specific <a:majorFont>/<a:minorFont> block only
+function replaceFontInBlock(xml, blockTag, subTag, newValue){
+  const blockRe = new RegExp(`<a:${blockTag}>[\\s\\S]*?<\\/a:${blockTag}>`);
+  return xml.replace(blockRe, full =>
+    full.replace(new RegExp(`(<a:${subTag}\\s+typeface=")[^"]*(")`), `$1${newValue}$2`)
+  );
+}
+
+// ---------- Color math ----------
+function hexToRgbArr(hex){ return [parseInt(hex.substr(0,2),16), parseInt(hex.substr(2,2),16), parseInt(hex.substr(4,2),16)]; }
+function colorDistance(hexA,hexB){
+  const a = hexToRgbArr(hexA), b = hexToRgbArr(hexB);
+  return Math.sqrt((a[0]-b[0])**2 + (a[1]-b[1])**2 + (a[2]-b[2])**2);
+}
+
+// ---------- Image color extractor ----------
+// Uploading an image automatically extracts its dominant colors (sorted by usage share).
+// Pixels are quantized to reduce JPEG-noise/anti-aliasing so near-identical shades count as one color.
+document.getElementById('imgSampleBtnTrigger').addEventListener('click', () => document.getElementById('colorImgInput').click());
+document.getElementById('colorImgInput').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const canvas = document.getElementById('sampleCanvas');
+  const ctx = canvas.getContext('2d');
+  const img = new Image();
+  img.onload = () => {
+    const maxW = 640;
+    const scale = Math.min(1, maxW / img.width);
+    canvas.width = Math.round(img.width * scale);
+    canvas.height = Math.round(img.height * scale);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    canvas.style.display = 'block';
+    URL.revokeObjectURL(img.src);
+    extractColorsFromCanvas(canvas, ctx);
+  };
+  img.src = URL.createObjectURL(file);
+});
+
+function extractColorsFromCanvas(canvas, ctx){
+  const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const STEP = 8; // quantize step per channel — groups near-identical pixel shades together
+  const counts = {};
+  let total = 0;
+  for (let i = 0; i < data.length; i += 4){
+    const a = data[i+3];
+    if (a < 128) continue; // skip transparent pixels
+    const r = Math.round(data[i]   / STEP) * STEP;
+    const g = Math.round(data[i+1] / STEP) * STEP;
+    const b = Math.round(data[i+2] / STEP) * STEP;
+    const hex = [r,g,b].map(v => Math.min(255,v).toString(16).padStart(2,'0')).join('').toUpperCase();
+    counts[hex] = (counts[hex] || 0) + 1;
+    total++;
+  }
+  const sorted = Object.entries(counts)
+    .map(([hex, count]) => ({ hex, count, pct: total ? (count/total*100) : 0 }))
+    .sort((a,b) => b.count - a.count)
+    .filter(c => c.pct >= 0.5) // drop negligible noise colors
+    .slice(0, 16);
+  state.extractedColors = sorted;
+  renderExtractedColors();
+  renderSuggestions();
+}
+
+function renderExtractedColors(){
+  const wrap = document.getElementById('sampledList');
+  if (!state.extractedColors.length){
+    wrap.innerHTML = `<div class="hint">추출된 색상이 없습니다. 다른 이미지를 올려보세요.</div>`;
+    return;
+  }
+  const maxPct = Math.max(...state.extractedColors.map(c => c.pct));
+  wrap.innerHTML = state.extractedColors.map((c,i) => `
+    <div class="extracted-row">
+      <span class="swatch" style="background:#${c.hex}"></span>
+      <span class="hexval">#${c.hex}</span>
+      <span class="pctbar-wrap"><span class="pctbar" style="width:${(c.pct/maxPct*100).toFixed(1)}%;background:#${c.hex}"></span></span>
+      <span class="pctval">${c.pct.toFixed(1)}%</span>
+      <button type="button" class="copy-btn" data-copy-idx="${i}">복사</button>
+    </div>`).join('');
+  wrap.querySelectorAll('[data-copy-idx]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const hex = state.extractedColors[+btn.dataset.copyIdx].hex;
+      try {
+        await navigator.clipboard.writeText('#' + hex);
+        btn.textContent = '복사됨'; btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = '복사'; btn.classList.remove('copied'); }, 1200);
+      } catch {
+        alert('#' + hex);
+      }
+    });
+  });
+}
+
+const SUGGEST_THRESHOLD = 25; // RGB distance below which a PPT color is considered "close enough" already
+
+function renderSuggestions(){
+  const suggestWrap = document.getElementById('suggestWrap');
+  const hintEl = document.getElementById('suggestHint');
+  const listEl = document.getElementById('suggestList');
+
+  if (!state.extractedColors.length){
+    suggestWrap.style.display = 'none';
+    listEl.innerHTML = '';
+    return;
+  }
+  suggestWrap.style.display = 'block';
+
+  if (!state.directColors.length){
+    hintEl.textContent = 'PPTX를 먼저 업로드해 분석하면, 이 이미지의 색상을 기준으로 변경하면 좋을 PPT 색상을 추천해드립니다.';
+    listEl.innerHTML = '';
+    return;
+  }
+
+  const matched = state.directColors.map((c, i) => {
+    let best = null, bestDist = Infinity;
+    for (const ec of state.extractedColors){
+      const d = colorDistance(c.hex, ec.hex);
+      if (d < bestDist){ bestDist = d; best = ec; }
+    }
+    return { i, from: c, to: best, dist: bestDist };
+  });
+
+  const totalCount = state.directColors.reduce((sum,c) => sum + c.count, 0);
+  const suggestions = matched
+    .filter(s => s.dist > SUGGEST_THRESHOLD)
+    .sort((a,b) => b.from.count - a.from.count)
+    .slice(0, 10);
+
+  if (!suggestions.length){
+    hintEl.textContent = 'PPT에서 사용된 색상이 이미 이 이미지의 색상과 유사합니다 — 추천할 변경 사항이 없습니다.';
+    listEl.innerHTML = '';
+    return;
+  }
+
+  hintEl.textContent = `PPT에서 사용된 색상 중 이 이미지 색상과 차이가 큰 ${suggestions.length}개를 사용 빈도 순으로 추천합니다. "적용"을 누르면 아래 표의 해당 항목에 바로 반영됩니다.`;
+  listEl.innerHTML = suggestions.map(s => {
+    const pct = totalCount ? (s.from.count / totalCount * 100) : 0;
+    return `
+    <div class="suggest-row">
+      <span class="swatch" style="background:#${s.from.hex}"></span>
+      <span class="hexval">#${s.from.hex}</span>
+      <span class="meta">${s.from.count}회 · ${pct.toFixed(1)}%</span>
+      <span class="arrow">→</span>
+      <span class="swatch" style="background:#${s.to.hex}"></span>
+      <span class="hexval">#${s.to.hex}</span>
+      <span class="spacer"></span>
+      <button type="button" class="apply-btn" data-suggest-idx="${s.i}" data-suggest-hex="${s.to.hex}">적용</button>
+    </div>`;
+  }).join('');
+
+  listEl.querySelectorAll('[data-suggest-idx]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = btn.dataset.suggestIdx;
+      const hex = btn.dataset.suggestHex;
+      const input = document.querySelector(`[data-direct-color-hex-idx="${idx}"]`);
+      if (input) input.value = hex;
+      btn.textContent = '적용됨';
+      btn.classList.add('applied');
+    });
+  });
+}
+
+// ---------- Font unify ----------
+document.getElementById('fontUnifyBtn').addEventListener('click', () => {
+  const v = document.getElementById('fontUnifyInput').value.trim();
+  const resultEl = document.getElementById('fontUnifyResult');
+  if (!v){ resultEl.textContent = '통일할 폰트명을 입력해주세요.'; return; }
+  if (!state.zip){ alert('먼저 PPTX를 업로드해주세요.'); return; }
+  let count = 0;
+  ['major_latin','major_ea','minor_latin','minor_ea'].forEach(key => {
+    const el = document.querySelector(`[data-theme-font-key="${key}"]`);
+    if (el){ el.value = v; count++; }
+  });
+  state.directFonts.forEach((f,i) => {
+    const el = document.querySelector(`[data-direct-font-idx="${i}"]`);
+    if (el){ el.value = v; count++; }
+  });
+  resultEl.textContent = `감지된 폰트 항목 ${count}개를 '${v}'(으)로 채웠습니다. 아래 "치환 적용"을 눌러 실제로 반영하세요.`;
+});
+
+// ---------- Upload handling ----------
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('fileInput');
+dropzone.addEventListener('click', () => fileInput.click());
+dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag'); });
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag'));
+dropzone.addEventListener('drop', e => {
+  e.preventDefault(); dropzone.classList.remove('drag');
+  if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+});
+fileInput.addEventListener('change', e => { if (e.target.files.length) handleFile(e.target.files[0]); });
+
+async function handleFile(file){
+  const lowerName = file.name.toLowerCase();
+  if (!lowerName.endsWith('.pptx') && !lowerName.endsWith('.potx')){ alert('.pptx 또는 .potx 파일만 지원합니다.'); return; }
+  document.getElementById('log').innerHTML = '';
+  document.getElementById('log').style.display = 'block';
+  log(`[읽는 중] ${file.name} (${(file.size/1024/1024).toFixed(2)}MB)`);
+
+  document.getElementById('filepillWrap').innerHTML =
+    `<div class="filepill">📄 ${escapeHtml(file.name)} <button id="clearFile">변경</button></div>`;
+  document.getElementById('clearFile').onclick = () => location.reload();
+
+  try {
+    const buf = await file.arrayBuffer();
+    const zip = await JSZip.loadAsync(buf);
+    state.zip = zip;
+    state.fileName = file.name;
+    state.editedPaths = new Set();
+
+    const paths = Object.keys(zip.files).filter(p => p.startsWith('ppt/') && p.endsWith('.xml') && !zip.files[p].dir);
+    log(`[완료] XML 파트 ${paths.length}개 발견`);
+
+    state.xmlParts = {};
+    for (const p of paths){ state.xmlParts[p] = await zip.files[p].async('string'); }
+
+    state.themeFiles = paths.filter(p => /^ppt\/theme\/theme\d*\.xml$/.test(p));
+    log(`[완료] 테마 파일 ${state.themeFiles.length}개: ${state.themeFiles.join(', ')}`);
+
+    const slideCount = paths.filter(p => /^ppt\/slides\/slide\d+\.xml$/.test(p)).length;
+    document.getElementById('xmlSummary').textContent =
+      `✅ XML 변환 완료 — 슬라이드 ${slideCount}장 · XML 파트 ${paths.length}개 · 테마 파일 ${state.themeFiles.length}개`;
+
+    analyze();
+    renderXmlList(paths);
+
+    document.getElementById('stepXml').classList.remove('step-disabled');
+    document.getElementById('stepAnalysis').classList.remove('step-disabled');
+    document.getElementById('stepApply').classList.remove('step-disabled');
+    document.getElementById('previewArea').innerHTML = '';
+    const applyBtnEl = document.getElementById('applyBtn');
+    applyBtnEl.disabled = true;
+    applyBtnEl.textContent = '먼저 미리보기를 확인하세요';
+
+    const ext = lowerName.endsWith('.potx') ? '.potx' : '.pptx';
+    const base = file.name.replace(/\.(pptx|potx)$/i, '');
+    document.getElementById('outName').value = `${base}_normalized${ext}`;
+
+    log('[준비 완료] 아래에서 치환할 값을 입력해주세요.', 'ok');
+  } catch (err){
+    console.error(err);
+    log('[오류] ' + err.message, 'warn');
+    alert('파일을 읽는 중 오류가 발생했습니다: ' + err.message);
+  }
+}
+
+// ---------- Analysis ----------
+function analyze(){
+  state.themeColors = [];
+  state.themeFonts = { major:{latin:'',ea:'',cs:''}, minor:{latin:'',ea:'',cs:''} };
+
+  if (state.themeFiles.length){
+    const themeXml = state.xmlParts[state.themeFiles[0]];
+
+    for (const slot of COLOR_SLOTS){
+      const re = new RegExp(`<a:${slot}>\\s*<a:(?:srgbClr val="([0-9A-Fa-f]{6})"|sysClr[^>]*lastClr="([0-9A-Fa-f]{6})")`, 's');
+      const m = themeXml.match(re);
+      if (m) state.themeColors.push({ slot, hex: (m[1] || m[2]).toUpperCase() });
+    }
+
+    const majorBlockM = themeXml.match(/<a:majorFont>([\s\S]*?)<\/a:majorFont>/);
+    const minorBlockM = themeXml.match(/<a:minorFont>([\s\S]*?)<\/a:minorFont>/);
+    state.themeFonts.major = majorBlockM ? extractFontsFromBlock(majorBlockM[1]) : {latin:'',ea:'',cs:''};
+    state.themeFonts.minor = minorBlockM ? extractFontsFromBlock(minorBlockM[1]) : {latin:'',ea:'',cs:''};
+  }
+
+  const slidePaths = Object.keys(state.xmlParts).filter(p => /^ppt\/slides\/slide\d+\.xml$/.test(p));
+  const themeHexSet = new Set(state.themeColors.map(c => c.hex));
+
+  const colorCount = {};
+  const fontCount = {};
+
+  for (const p of slidePaths){
+    const xml = state.xmlParts[p];
+    let m;
+    const colorRe = /<[\w]+:srgbClr\b[^>]*\bval="([0-9A-Fa-f]{6})"/g;
+    while ((m = colorRe.exec(xml)) !== null){
+      const hex = m[1].toUpperCase();
+      colorCount[hex] = (colorCount[hex] || 0) + 1;
+    }
+    const fontRe = /<[\w]+:(?:latin|ea|cs|sym)\b[^>]*\btypeface="([^"]+)"/g;
+    while ((m = fontRe.exec(xml)) !== null){
+      const name = m[1];
+      if (name.startsWith('+mj-') || name.startsWith('+mn-')) continue;
+      fontCount[name] = (fontCount[name] || 0) + 1;
+    }
+  }
+
+  state.directColors = Object.entries(colorCount)
+    .map(([hex, count]) => ({ hex, count, inTheme: themeHexSet.has(hex) }))
+    .sort((a,b) => b.count - a.count);
+
+  state.directFonts = Object.entries(fontCount)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a,b) => b.count - a.count);
+
+  renderAnalysis();
+}
+
+function renderAnalysis(){
+  renderThemeColors();
+  renderThemeFonts();
+  renderDirectColors();
+  renderDirectFonts();
+  renderSuggestions();
+}
+
+function renderThemeColors(){
+  const tcBody = document.getElementById('themeColorBody');
+  tcBody.innerHTML = state.themeColors.length ? state.themeColors.map((c,i) => `
+    <tr>
+      <td><span class="hexcell"><span class="swatch" style="background:#${c.hex}"></span>${SLOT_LABEL[c.slot]} · #${c.hex}</span></td>
+      <td>
+        <div class="repl-row">
+          <input type="color" data-theme-color-idx="${i}" value="#${c.hex}">
+          <input type="text" data-theme-color-hex-idx="${i}" placeholder="비워두면 유지" maxlength="7">
+        </div>
+      </td>
+    </tr>`).join('') : `<tr><td colspan="2" class="empty-note">테마 색상을 찾지 못했습니다.</td></tr>`;
+
+  state.themeColors.forEach((c,i) => {
+    const picker = tcBody.querySelector(`[data-theme-color-idx="${i}"]`);
+    const text = tcBody.querySelector(`[data-theme-color-hex-idx="${i}"]`);
+    picker.addEventListener('input', () => text.value = picker.value.replace('#','').toUpperCase());
+  });
+}
+
+function renderThemeFonts(){
+  const tfBody = document.getElementById('themeFontBody');
+  const rows = [];
+  if (state.themeFonts.major.latin) rows.push({label:'제목용 · 서양(latin)', val: state.themeFonts.major.latin, key:'major_latin'});
+  if (state.themeFonts.major.ea) rows.push({label:'제목용 · 한글(ea)', val: state.themeFonts.major.ea, key:'major_ea'});
+  if (state.themeFonts.minor.latin) rows.push({label:'본문용 · 서양(latin)', val: state.themeFonts.minor.latin, key:'minor_latin'});
+  if (state.themeFonts.minor.ea) rows.push({label:'본문용 · 한글(ea)', val: state.themeFonts.minor.ea, key:'minor_ea'});
+  tfBody.innerHTML = rows.length ? rows.map(r => `
+    <tr>
+      <td>${r.label} · ${escapeHtml(r.val)}</td>
+      <td><input type="text" data-theme-font-key="${r.key}" placeholder="비워두면 유지" style="width:180px"></td>
+    </tr>`).join('') : `<tr><td colspan="2" class="empty-note">테마 폰트를 찾지 못했습니다.</td></tr>`;
+}
+
+function renderDirectColors(){
+  const dcBody = document.getElementById('directColorBody');
+  const totalCount = state.directColors.reduce((sum,c) => sum + c.count, 0);
+  dcBody.innerHTML = state.directColors.length ? state.directColors.map((c,i) => {
+    const pct = totalCount ? (c.count / totalCount * 100) : 0;
+    return `
+    <tr>
+      <td><span class="hexcell"><span class="swatch" style="background:#${c.hex}"></span>#${c.hex}</span></td>
+      <td><span class="count-badge">${c.count}회 · ${pct.toFixed(1)}%</span></td>
+      <td>
+        <div class="repl-row">
+          <input type="color" data-direct-color-idx="${i}" value="#${c.hex}">
+          <input type="text" data-direct-color-hex-idx="${i}" placeholder="비워두면 유지" maxlength="7">
+        </div>
+      </td>
+    </tr>`;
+  }).join('') : `<tr><td colspan="3" class="empty-note">슬라이드에 직접 지정된 색상이 없습니다. (테마 색상만 사용 중)</td></tr>`;
+
+  state.directColors.forEach((c,i) => {
+    const picker = dcBody.querySelector(`[data-direct-color-idx="${i}"]`);
+    const text = dcBody.querySelector(`[data-direct-color-hex-idx="${i}"]`);
+    picker.addEventListener('input', () => text.value = picker.value.replace('#','').toUpperCase());
+  });
+}
+
+function renderDirectFonts(){
+  const dfBody = document.getElementById('directFontBody');
+  dfBody.innerHTML = state.directFonts.length ? state.directFonts.map((f,i) => `
+    <tr>
+      <td>${escapeHtml(f.name)}</td>
+      <td><span class="count-badge">${f.count}회</span></td>
+      <td><input type="text" data-direct-font-idx="${i}" placeholder="비워두면 유지" style="width:180px"></td>
+    </tr>`).join('') : `<tr><td colspan="3" class="empty-note">슬라이드에 직접 지정된 폰트가 없습니다. (테마 폰트만 사용 중)</td></tr>`;
+}
+
+function renderXmlList(paths){
+  const wrap = document.getElementById('xmlList');
+  wrap.innerHTML = paths.map(p => `<span class="xmlchip" data-path="${escapeHtml(p)}">${escapeHtml(p.replace('ppt/',''))}</span>`).join('');
+  wrap.querySelectorAll('.xmlchip').forEach(chip => chip.addEventListener('click', () => openXmlModal(chip.dataset.path)));
+}
+function refreshXmlChipState(path){
+  const chip = document.querySelector(`.xmlchip[data-path="${CSS.escape(path)}"]`);
+  if (chip) chip.classList.toggle('edited', state.editedPaths.has(path));
+}
+
+// ---------- XML modal (view / edit / replace / download) ----------
+let currentModalPath = null;
+function openXmlModal(path){
+  currentModalPath = path;
+  document.getElementById('modalTitle').textContent = path + (state.editedPaths.has(path) ? '  (수정됨)' : '');
+  document.getElementById('modalBody').value = prettyXml(state.xmlParts[path]);
+  document.getElementById('modalBg').classList.add('show');
+}
+document.getElementById('modalClose').onclick = () => document.getElementById('modalBg').classList.remove('show');
+document.getElementById('modalBg').addEventListener('click', e => { if (e.target.id === 'modalBg') e.target.classList.remove('show'); });
+
+document.getElementById('modalSave').addEventListener('click', () => {
+  if (!currentModalPath) return;
+  state.xmlParts[currentModalPath] = document.getElementById('modalBody').value;
+  state.editedPaths.add(currentModalPath);
+  refreshXmlChipState(currentModalPath);
+  document.getElementById('modalTitle').textContent = currentModalPath + '  (수정됨)';
+  log(`[XML 저장] ${currentModalPath} 을(를) 직접 수정했습니다. 최종 다운로드 시 반영됩니다.`, 'ok');
+});
+
+document.getElementById('modalDownload').addEventListener('click', () => {
+  if (!currentModalPath) return;
+  const blob = new Blob([document.getElementById('modalBody').value], {type:'application/xml'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = currentModalPath.split('/').pop();
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById('modalReplaceFile').addEventListener('change', async e => {
+  const file = e.target.files[0];
+  if (!file || !currentModalPath) return;
+  const text = await file.text();
+  document.getElementById('modalBody').value = text;
+  state.xmlParts[currentModalPath] = text;
+  state.editedPaths.add(currentModalPath);
+  refreshXmlChipState(currentModalPath);
+  document.getElementById('modalTitle').textContent = currentModalPath + '  (수정됨 · 파일 교체)';
+  log(`[XML 교체] ${currentModalPath} 을(를) 업로드한 파일로 교체했습니다.`, 'ok');
+  e.target.value = '';
+});
+
+function prettyXml(xml){
+  // lightweight indenter for readability (does not alter text between opening/closing tag pairs)
+  let formatted = '';
+  let pad = 0;
+  xml.replace(/>\s*</g, '><').split(/(?=<)/).forEach(node => {
+    if (node.match(/^<\/\w/)) pad = Math.max(pad - 1, 0);
+    formatted += '  '.repeat(pad) + node + '\n';
+    if (node.match(/^<[^!?/][^>]*[^/]>$/) && !node.match(/^<[^>]+\/>$/)) pad++;
+  });
+  return formatted;
+}
+
+// ---------- Gather replacement mappings from the input tables ----------
+function gatherMappings(){
+  const themeColorRepl = {};
+  state.themeColors.forEach((c,i) => {
+    const v = document.querySelector(`[data-theme-color-hex-idx="${i}"]`).value.trim().replace('#','').toUpperCase();
+    if (v && /^[0-9A-F]{6}$/.test(v) && v !== c.hex) themeColorRepl[c.slot] = v;
+  });
+
+  const themeFontRepl = {};
+  ['major_latin','major_ea','minor_latin','minor_ea'].forEach(key => {
+    const el = document.querySelector(`[data-theme-font-key="${key}"]`);
+    if (el){ const v = el.value.trim(); if (v) themeFontRepl[key] = v; }
+  });
+
+  const directColorRepl = {}; // oldHex -> newHex
+  state.directColors.forEach((c,i) => {
+    const v = document.querySelector(`[data-direct-color-hex-idx="${i}"]`).value.trim().replace('#','').toUpperCase();
+    if (v && /^[0-9A-F]{6}$/.test(v) && v !== c.hex) directColorRepl[c.hex] = v;
+  });
+
+  const directFontRepl = {};
+  state.directFonts.forEach((f,i) => {
+    const v = document.querySelector(`[data-direct-font-idx="${i}"]`).value.trim();
+    if (v && v !== f.name) directFontRepl[f.name] = v;
+  });
+
+  return { themeColorRepl, themeFontRepl, directColorRepl, directFontRepl };
+}
+
+// ---------- Step 4a: preview (dry run, no mutation, no download) ----------
+document.getElementById('previewBtn').addEventListener('click', () => {
+  if (!state.zip){ alert('먼저 PPTX를 업로드해주세요.'); return; }
+  const { themeColorRepl, themeFontRepl, directColorRepl, directFontRepl } = gatherMappings();
+  const totalChanges = Object.keys(themeColorRepl).length + Object.keys(themeFontRepl).length +
+    Object.keys(directColorRepl).length + Object.keys(directFontRepl).length;
+
+  if (totalChanges === 0 && state.editedPaths.size === 0){
+    document.getElementById('previewArea').innerHTML = `<div class="empty-note">변경할 값이 입력되지 않았습니다. 3단계 표에서 최소 하나 이상 입력해주세요.</div>`;
+    document.getElementById('applyBtn').disabled = true;
+    document.getElementById('applyBtn').textContent = '먼저 미리보기를 확인하세요';
+    return;
+  }
+
+  const rows = [];
+
+  for (const [slot, newHex] of Object.entries(themeColorRepl)){
+    const before = state.themeColors.find(c => c.slot === slot);
+    const hitFiles = state.themeFiles.filter(p => new RegExp(`<a:${slot}>`).test(state.xmlParts[p]));
+    rows.push({ type:'테마 색상', old:`#${before.hex} (${slot})`, next:`#${newHex}`, count: hitFiles.length, unit:'개 테마 파일' });
+  }
+  for (const [key, newVal] of Object.entries(themeFontRepl)){
+    const [blockName, subTag] = key.split('_');
+    const before = state.themeFonts[blockName][subTag];
+    rows.push({ type:'테마 폰트', old: before || '(비어있음)', next:newVal, count: state.themeFiles.length, unit:'개 테마 파일' });
+  }
+  for (const [oldHex, newHex] of Object.entries(directColorRepl)){
+    let count = 0;
+    const re = new RegExp(`val="${oldHex}"`, 'gi');
+    for (const path of Object.keys(state.xmlParts)) count += (state.xmlParts[path].match(re) || []).length;
+    rows.push({ type:'직접 지정 색상', old:`#${oldHex}`, next:`#${newHex}`, count, unit:'건' });
+  }
+  for (const [oldFont, newFont] of Object.entries(directFontRepl)){
+    let count = 0;
+    const re = new RegExp(`typeface="${escapeRegex(oldFont)}"`, 'g');
+    for (const path of Object.keys(state.xmlParts)) count += (state.xmlParts[path].match(re) || []).length;
+    rows.push({ type:'직접 지정 폰트', old:oldFont, next:newFont, count, unit:'건' });
+  }
+
+  const zeroCount = rows.filter(r => r.count === 0).length;
+  const areaHtml = `
+    <table>
+      <thead><tr><th>구분</th><th>기존 값</th><th>변경 값</th><th>예상 반영</th></tr></thead>
+      <tbody>
+        ${rows.map(r => `
+          <tr>
+            <td>${escapeHtml(r.type)}</td>
+            <td style="font-family:var(--mono);">${escapeHtml(String(r.old))}</td>
+            <td style="font-family:var(--mono);">${escapeHtml(String(r.next))}</td>
+            <td>${r.count > 0 ? `<span class="hint ok" style="margin:0;">${r.count}${r.unit}</span>` : `<span class="hint warn" style="margin:0;">0${r.unit} — XML에서 못 찾음</span>`}</td>
+          </tr>`).join('')}
+        ${state.editedPaths.size ? `<tr><td>수동 편집 XML</td><td colspan="2" style="font-family:var(--mono);">${[...state.editedPaths].join(', ')}</td><td><span class="hint ok" style="margin:0;">그대로 반영됨</span></td></tr>` : ''}
+      </tbody>
+    </table>
+    ${zeroCount ? `<div class="hint warn" style="margin-top:8px;">⚠ ${zeroCount}개 항목이 0건입니다 — 값이 정확한지, 혹은 2단계에서 해당 XML을 직접 확인해보세요.</div>` : `<div class="hint ok" style="margin-top:8px;">모든 항목이 XML에서 확인되었습니다. 적용해도 좋습니다.</div>`}
+  `;
+  document.getElementById('previewArea').innerHTML = areaHtml;
+
+  const applyBtnEl = document.getElementById('applyBtn');
+  applyBtnEl.disabled = false;
+  applyBtnEl.textContent = '✅ 이대로 적용 & 다운로드';
+});
+
+// ---------- Step 4b: apply & download (only after preview) ----------
+document.getElementById('applyBtn').addEventListener('click', applyAndDownload);
+
+async function applyAndDownload(){
+  if (!state.zip){ alert('먼저 PPTX를 업로드해주세요.'); return; }
+  const btn = document.getElementById('applyBtn');
+  btn.disabled = true;
+  btn.textContent = '처리 중...';
+
+  try {
+    const { themeColorRepl, themeFontRepl, directColorRepl, directFontRepl } = gatherMappings();
+
+    const totalChanges = Object.keys(themeColorRepl).length + Object.keys(themeFontRepl).length +
+      Object.keys(directColorRepl).length + Object.keys(directFontRepl).length;
+
+    if (totalChanges === 0 && state.editedPaths.size === 0){
+      alert('변경할 값이 입력되지 않았습니다. 최소 하나 이상 입력해주세요.');
+      btn.disabled = false; btn.textContent = '✅ 이대로 적용 & 다운로드';
+      return;
+    }
+
+    log('--- 치환 적용 시작 ---');
+    log(`테마 색상 ${Object.keys(themeColorRepl).length}개, 테마 폰트 ${Object.keys(themeFontRepl).length}개, ` +
+        `직접 지정 색상 ${Object.keys(directColorRepl).length}개, 직접 지정 폰트 ${Object.keys(directFontRepl).length}개, ` +
+        `수동 편집 XML ${state.editedPaths.size}개`);
+
+    const updated = {};
+    for (const path of Object.keys(state.xmlParts)) updated[path] = state.xmlParts[path];
+
+    // 1) theme slot colors + major/minor fonts (theme files only)
+    for (const themePath of state.themeFiles){
+      let content = updated[themePath];
+      for (const [slot, newHex] of Object.entries(themeColorRepl)){
+        const re = new RegExp(`(<a:${slot}>).*?(</a:${slot}>)`, 's');
+        content = content.replace(re, `$1<a:srgbClr val="${newHex}"/>$2`);
+      }
+      for (const [key, newVal] of Object.entries(themeFontRepl)){
+        const [blockName, subTag] = key.split('_');
+        const blockTag = blockName === 'major' ? 'majorFont' : 'minorFont';
+        content = replaceFontInBlock(content, blockTag, subTag, newVal);
+      }
+      updated[themePath] = content;
+    }
+
+    // 2) direct colors & fonts across every xml part — with per-mapping hit counting for diagnostics
+
+    const colorHitCounts = {};
+    const fontHitCounts = {};
+    Object.keys(directColorRepl).forEach(k => colorHitCounts[k] = 0);
+    Object.keys(directFontRepl).forEach(k => fontHitCounts[k] = 0);
+
+    for (const path of Object.keys(updated)){
+      let content = updated[path];
+      for (const [oldHex, newHex] of Object.entries(directColorRepl)){
+        const re = new RegExp(`val="${oldHex}"`, 'gi');
+        const hits = (content.match(re) || []).length;
+        if (hits){ content = content.replace(re, `val="${newHex}"`); colorHitCounts[oldHex] += hits; }
+      }
+      for (const [oldFont, newFont] of Object.entries(directFontRepl)){
+        const re = new RegExp(`typeface="${escapeRegex(oldFont)}"`, 'g');
+        const hits = (content.match(re) || []).length;
+        if (hits){ content = content.replace(re, `typeface="${newFont}"`); fontHitCounts[oldFont] += hits; }
+      }
+      updated[path] = content;
+    }
+
+    for (const [oldHex, newHex] of Object.entries(directColorRepl)){
+      const n = colorHitCounts[oldHex];
+      if (n > 0) log(`[색상] #${oldHex} → #${newHex} : ${n}건 변경`, 'ok');
+      else log(`[색상] #${oldHex} → #${newHex} : 0건 (XML에서 찾지 못함)`, 'warn');
+    }
+    for (const [oldFont, newFont] of Object.entries(directFontRepl)){
+      const n = fontHitCounts[oldFont];
+      if (n > 0) log(`[폰트] '${oldFont}' → '${newFont}' : ${n}건 변경`, 'ok');
+      else log(`[폰트] '${oldFont}' → '${newFont}' : 0건 (XML에서 찾지 못함 — 표기가 정확한지 확인해주세요)`, 'warn');
+    }
+
+    for (const [path, content] of Object.entries(updated)) state.zip.file(path, content);
+
+    log('[진행] 새 PPTX 압축 중...');
+    const blob = await state.zip.generateAsync({ type: 'blob', compression: 'DEFLATE' });
+
+    const outName = document.getElementById('outName').value.trim() || 'normalized_output.pptx';
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = outName;
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+
+    log(`[완료] ${outName} 다운로드 완료`, 'ok');
+  } catch (err){
+    console.error(err);
+    log('[오류] ' + err.message, 'warn');
+    alert('처리 중 오류가 발생했습니다: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✅ 이대로 적용 & 다운로드';
+  }
+}
+</script>
+</body>
+</html>
