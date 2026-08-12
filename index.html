@@ -557,32 +557,57 @@
 
   const monthHeaderCells = Array.from({ length: 12 }, (_, i) => `<th>${i + 1}월</th>`).join('');
 
-  // 프로젝트(솔루션 개별) 목록 + MA(통합 1줄)을 받아 표 + 분기별 누적을 그린다.
-  // teamsInScope가 여러 팀이면 그 팀들을 전부 합친 "통합" 뷰, 한 팀이면 그 팀만의 뷰.
-  function scheduleTableAndCumHtml(solutionRows, maRows) {
-    const hasSolution = solutionRows.length > 0;
-    const maTotal = new Array(12).fill(0);
-    for (const maRow of maRows) for (let m = 0; m < 12; m++) maTotal[m] += maRow.monthAmt[m];
-    const hasMA = sumArr(maTotal) !== 0;
-    if (!hasSolution && !hasMA) {
-      return '<div style="font-size:12px;color:#9A9689;margin-bottom:12px;">데이터가 없어요.</div>';
-    }
-
-    const sorted = solutionRows.slice().sort((a, b) => sumArr(b.monthAmt) - sumArr(a.monthAmt));
-    const grandTotalMonths = new Array(12).fill(0);
-    for (const r of sorted) for (let m = 0; m < 12; m++) grandTotalMonths[m] += r.monthAmt[m];
-    if (hasMA) for (let m = 0; m < 12; m++) grandTotalMonths[m] += maTotal[m];
-
-    let rowsHtml = sorted.map((r) => {
+  function sectionRowsHtml(rows) {
+    const sorted = rows.slice().sort((a, b) => sumArr(b.monthAmt) - sumArr(a.monthAmt));
+    return sorted.map((r) => {
       const total = sumArr(r.monthAmt);
       return `<tr><td style="text-align:left;">${r.name}</td>${r.monthAmt.map(v => `<td>${v ? fmtThousand(v) : '<span style="color:#D8D3C7;">–</span>'}</td>`).join('')}<td style="font-weight:600;">${fmtThousand(total)}</td></tr>`;
     }).join('');
-    if (hasMA) {
-      const maSum = sumArr(maTotal);
-      rowsHtml += `<tr style="background:#EFEAF6;"><td style="text-align:left;font-weight:600;">MA (통합)</td>${maTotal.map(v => `<td>${v ? fmtThousand(v) : '<span style="color:#D8D3C7;">–</span>'}</td>`).join('')}<td style="font-weight:700;">${fmtThousand(maSum)}</td></tr>`;
+  }
+
+  function subtotalRowHtml(label, monthsArr, bg) {
+    const total = sumArr(monthsArr);
+    return `<tr style="background:${bg};"><td style="text-align:left;font-weight:600;">${label}</td>${monthsArr.map(v => `<td>${v ? fmtThousand(v) : '<span style="color:#D8D3C7;">–</span>'}</td>`).join('')}<td style="font-weight:700;">${fmtThousand(total)}</td></tr>`;
+  }
+
+  function monthsOf(rows) {
+    const m = new Array(12).fill(0);
+    for (const r of rows) for (let i = 0; i < 12; i++) m[i] += r.monthAmt[i];
+    return m;
+  }
+
+  // 프로젝트(솔루션, 기계약/신규로 구분) + MA(통합 1줄)을 받아
+  // "1.기계약 2.신규 3.MA" 3구간 + 합계 + 분기별 누적을 그린다.
+  function scheduleTableAndCumHtml(solutionRows, maRows) {
+    const existingRows = solutionRows.filter(r => r.section === '기계약');
+    const newRows = solutionRows.filter(r => r.section === '신규');
+    const maTotal = new Array(12).fill(0);
+    for (const maRow of maRows) for (let m = 0; m < 12; m++) maTotal[m] += maRow.monthAmt[m];
+    const hasMA = sumArr(maTotal) !== 0;
+    if (existingRows.length === 0 && newRows.length === 0 && !hasMA) {
+      return '<div style="font-size:12px;color:#9A9689;margin-bottom:12px;">데이터가 없어요.</div>';
     }
+
+    let rowsHtml = '';
+    if (existingRows.length > 0) {
+      rowsHtml += `<tr><td colspan="14" style="text-align:left;font-size:11px;color:#8A8F98;font-weight:600;padding-top:10px;">1. 기계약 프로젝트 (Backlog)</td></tr>`;
+      rowsHtml += sectionRowsHtml(existingRows);
+      rowsHtml += subtotalRowHtml('기계약 소계', monthsOf(existingRows), '#F2F2F2');
+    }
+    if (newRows.length > 0) {
+      rowsHtml += `<tr><td colspan="14" style="text-align:left;font-size:11px;color:#8A8F98;font-weight:600;padding-top:10px;">2. 신규 프로젝트</td></tr>`;
+      rowsHtml += sectionRowsHtml(newRows);
+      rowsHtml += subtotalRowHtml('신규 소계', monthsOf(newRows), '#F2F2F2');
+    }
+    if (hasMA) {
+      rowsHtml += `<tr><td colspan="14" style="text-align:left;font-size:11px;color:#8A8F98;font-weight:600;padding-top:10px;">3. MA</td></tr>`;
+      rowsHtml += subtotalRowHtml('MA (통합)', maTotal, '#EFEAF6');
+    }
+
+    const grandTotalMonths = new Array(12).fill(0);
+    for (let m = 0; m < 12; m++) grandTotalMonths[m] = monthsOf(existingRows)[m] + monthsOf(newRows)[m] + (hasMA ? maTotal[m] : 0);
     const grandTotal = sumArr(grandTotalMonths);
-    rowsHtml += `<tr class="totalRow"><td style="text-align:left;">합계</td>${grandTotalMonths.map(v => `<td>${v ? fmtThousand(v) : ''}</td>`).join('')}<td>${fmtThousand(grandTotal)}</td></tr>`;
+    rowsHtml += `<tr class="totalRow"><td style="text-align:left;">(기계약+신규+MA) 합계</td>${grandTotalMonths.map(v => `<td>${v ? fmtThousand(v) : ''}</td>`).join('')}<td>${fmtThousand(grandTotal)}</td></tr>`;
 
     const cum = [3, 6, 9, 12].map((endMonth, i) => {
       const label = i === 0 ? '1분기' : `1~${i + 1}분기 누적`;
@@ -608,40 +633,39 @@
 
   function renderHqScheduleCard(hq, teamsInHq, projects, maSchedule) {
     const card = document.getElementById(`hqCard-${cssSafe(hq)}`);
-    const mode = scheduleViewMode[hq] || '통합';
-    const showToggle = teamsInHq.length > 1;
+    const scope = scheduleViewMode[hq] || '통합'; // '통합' 또는 특정 팀 이름
+    const showButtons = teamsInHq.length > 1;
 
-    let toggleHtml = '';
-    if (showToggle) {
-      toggleHtml = `<div style="display:flex;gap:6px;margin-bottom:14px;">
-        <button class="scheduleToggleBtn" data-hq="${cssSafe(hq)}" data-mode="통합" style="font-size:12px;padding:6px 14px;border-radius:6px;border:1px solid ${mode === '통합' ? '#3A3D45' : '#D8D3C7'};background:${mode === '통합' ? '#3A3D45' : '#fff'};color:${mode === '통합' ? '#fff' : '#5B5F6B'};cursor:pointer;">본부 통합</button>
-        <button class="scheduleToggleBtn" data-hq="${cssSafe(hq)}" data-mode="팀별" style="font-size:12px;padding:6px 14px;border-radius:6px;border:1px solid ${mode === '팀별' ? '#3A3D45' : '#D8D3C7'};background:${mode === '팀별' ? '#3A3D45' : '#fff'};color:${mode === '팀별' ? '#fff' : '#5B5F6B'};cursor:pointer;">팀별</button>
+    let buttonsHtml = '';
+    if (showButtons) {
+      const options = ['통합', ...teamsInHq];
+      buttonsHtml = `<div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;">
+        ${options.map((opt) => {
+          const isActive = scope === opt;
+          const label = opt === '통합' ? '본부 통합' : opt.replace(hq, '').trim();
+          return `<button class="scheduleToggleBtn" data-hq="${cssSafe(hq)}" data-scope="${opt}" style="font-size:12px;padding:6px 14px;border-radius:6px;border:1px solid ${isActive ? '#3A3D45' : '#D8D3C7'};background:${isActive ? '#3A3D45' : '#fff'};color:${isActive ? '#fff' : '#5B5F6B'};cursor:pointer;">${label}</button>`;
+        }).join('')}
       </div>`;
     }
 
-    let bodyHtml = '';
     const unitNote = '<div style="font-size:11px;color:#9A9689;margin-bottom:10px;">단위: 천원</div>';
-    if (mode === '통합' || !showToggle) {
-      const solutionRows = projects.revenue.filter(r => teamsInHq.includes(r.team));
-      const maRows = maSchedule.revenue.filter(r => teamsInHq.includes(r.team));
-      bodyHtml = unitNote + scheduleTableAndCumHtml(solutionRows, maRows);
+    let solutionRows, maRows, scopeLabel;
+    if (scope === '통합' || !showButtons) {
+      solutionRows = projects.revenue.filter(r => teamsInHq.includes(r.team));
+      maRows = maSchedule.revenue.filter(r => teamsInHq.includes(r.team));
+      scopeLabel = hq;
     } else {
-      bodyHtml = teamsInHq.map((team) => {
-        const solutionRows = projects.revenue.filter(r => r.team === team);
-        const maRows = maSchedule.revenue.filter(r => r.team === team);
-        return `<div style="margin-bottom:22px;">
-          <div style="font-size:13px;font-weight:600;color:#3A3D45;margin-bottom:8px;">${team}</div>
-          ${scheduleTableAndCumHtml(solutionRows, maRows)}
-        </div>`;
-      }).join('');
-      bodyHtml = unitNote + bodyHtml;
+      solutionRows = projects.revenue.filter(r => r.team === scope);
+      maRows = maSchedule.revenue.filter(r => r.team === scope);
+      scopeLabel = scope;
     }
+    const bodyHtml = unitNote + scheduleTableAndCumHtml(solutionRows, maRows);
 
-    card.innerHTML = `<div class="card-title">${hq} — 매출일정</div>${toggleHtml}<div id="scheduleBody-${cssSafe(hq)}">${bodyHtml}</div>`;
+    card.innerHTML = `<div class="card-title">${scopeLabel} — 매출일정</div>${buttonsHtml}<div id="scheduleBody-${cssSafe(hq)}">${bodyHtml}</div>`;
 
     card.querySelectorAll('.scheduleToggleBtn').forEach((btn) => {
       btn.addEventListener('click', () => {
-        scheduleViewMode[hq] = btn.getAttribute('data-mode');
+        scheduleViewMode[hq] = btn.getAttribute('data-scope');
         renderHqScheduleCard(hq, teamsInHq, projects, maSchedule);
       });
     });
