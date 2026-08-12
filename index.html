@@ -272,6 +272,11 @@
 
   function collectChangeTeamOptions() {
     const teams = new Set();
+    // 회사 전체 팀 목록(목표대비실적)이 있으면 그걸 기준으로 삼는다 — 이번 비교에서
+    // 변화가 없어서 monthDetails에 안 잡힌 팀도 옵션에는 항상 나오도록.
+    if (DATA && DATA.targetVsActual && DATA.targetVsActual.teams) {
+      DATA.targetVsActual.teams.forEach(t => teams.add(t));
+    }
     const changes = (DATA && DATA.changes) || {};
     for (const key of Object.keys(changes)) {
       for (const list of changes[key].monthDetails) {
