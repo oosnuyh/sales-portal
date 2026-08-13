@@ -716,10 +716,14 @@
   const monthHeaderCells = Array.from({ length: 12 }, (_, i) => `<th>${i + 1}월</th>`).join('');
 
   function sectionRowsHtml(rows) {
-    const sorted = rows.slice().sort((a, b) => sumArr(b.monthAmt) - sumArr(a.monthAmt));
+    // 계약기간(시작일) 순으로 정렬한다 — 이미 계약된 것은 위로, 계약일이 아직 없는 것은
+    // 맨 아래로 가도록 (sortKey가 없으면 999999로 취급해 맨 뒤로 보낸다).
+    const keyOf = (r) => (typeof r.sortKey === 'number' ? r.sortKey : 999999);
+    const sorted = rows.slice().sort((a, b) => keyOf(a) - keyOf(b));
     return sorted.map((r) => {
       const total = sumArr(r.monthAmt);
-      return `<tr><td style="text-align:left;">${r.name}</td>${r.monthAmt.map(v => `<td>${v ? fmtThousand(v) : '<span style="color:#D8D3C7;">–</span>'}</td>`).join('')}<td style="font-weight:600;">${fmtThousand(total)}</td></tr>`;
+      const periodNote = r.period ? ` <span style="font-size:10.5px;color:#9A9689;">(${r.period})</span>` : '';
+      return `<tr><td style="text-align:left;">${r.name}${periodNote}</td>${r.monthAmt.map(v => `<td>${v ? fmtThousand(v) : '<span style="color:#D8D3C7;">–</span>'}</td>`).join('')}<td style="font-weight:600;">${fmtThousand(total)}</td></tr>`;
     }).join('');
   }
 
