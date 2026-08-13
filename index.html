@@ -2,75 +2,137 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>영업 포털</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
 <style>
+  :root {
+    --bg: #F2F0EA;
+    --surface: #FBFAF6;
+    --surface-raised: #FFFFFF;
+    --ink: #24221D;
+    --ink-70: rgba(36,34,29,.7);
+    --ink-55: rgba(36,34,29,.55);
+    --ink-40: rgba(36,34,29,.4);
+    --border: #E6E2D6;
+    --border-strong: #D6D0BF;
+    --accent: #B5472F;
+    --accent-soft: #F2E2DC;
+    --sidebar-bg: #FBFAF6;
+    --nav-idle: #EFEBE0;
+    --nav-active: #24221D;
+    --pos: #C0503B;
+    --pos-soft: #E7A79A;
+    --neg: #3D6B96;
+    --neg-soft: #9AB9D3;
+    --good: #3E7A4E;
+    --warn: #B4791E;
+    --bad: #B3402C;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --shadow-card: 0 1px 2px rgba(36,34,29,.04), 0 1px 10px rgba(36,34,29,.03);
+    --font: 'Pretendard Variable', 'Pretendard', 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  }
   * { box-sizing: border-box; }
   body {
-    margin: 0; font-family: 'IBM Plex Sans KR', 'Pretendard', -apple-system, sans-serif;
-    background: #E5E4E0; color: #1A1D24;
+    margin: 0; font-family: var(--font);
+    background: var(--bg); color: var(--ink);
+    -webkit-font-smoothing: antialiased;
   }
   .layout { display: flex; min-height: 100vh; }
   .sidebar {
-    width: 220px; background: #FAFAF7; border-right: 1px solid #E4E0D5;
-    padding: 24px 16px; flex-shrink: 0;
+    width: 224px; background: var(--sidebar-bg); border-right: 1px solid var(--border);
+    padding: 28px 16px; flex-shrink: 0;
   }
   .component-label {
-    font-size: 13px; font-weight: 600; color: #7C5CFC; margin-bottom: 14px;
-    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 6px; letter-spacing: .01em;
   }
   .nav-item {
-    background: #EAE7DF; border-radius: 8px; padding: 14px 12px; margin-bottom: 10px;
-    font-size: 13px; color: #3A3D45; text-align: center; cursor: pointer;
-    transition: background .15s;
+    background: var(--nav-idle); border-radius: var(--radius-md); padding: 13px 14px; margin-bottom: 8px;
+    font-size: 13.5px; font-weight: 500; color: var(--ink-70); text-align: center; cursor: pointer;
+    transition: background .15s, color .15s, transform .1s;
   }
-  .nav-item.active { background: #DAD5C8; font-weight: 600; }
-  .nav-item:hover { background: #E0DCD0; }
-  .main-content { flex: 1; padding: 28px 32px; max-width: 1500px; }
+  .nav-item.active { background: var(--nav-active); color: #FFF; font-weight: 600; }
+  .nav-item:not(.active):hover { background: var(--border-strong); color: var(--ink); }
+  .nav-item:active { transform: scale(.98); }
+  .main-content { flex: 1; padding: 32px 36px; max-width: 1500px; min-width: 0; }
+  #pageTitle { font-family: var(--font); letter-spacing: -.01em; }
   .card {
-    background: #F5F4F0; border: 1px solid #E4E0D5; border-radius: 12px;
-    padding: 20px 22px; margin-bottom: 20px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 22px 24px; margin-bottom: 20px;
   }
   .card-title {
-    font-size: 11px; color: #8A8F98; text-transform: uppercase; letter-spacing: .04em;
-    margin-bottom: 12px; font-weight: 600;
+    font-size: 11px; color: var(--ink-40); text-transform: uppercase; letter-spacing: .06em;
+    margin-bottom: 14px; font-weight: 700;
   }
   table.dataTable { width: 100%; border-collapse: collapse; font-size: 13px; }
-  table.dataTable th, table.dataTable td { padding: 7px 10px; text-align: right; }
+  table.dataTable th, table.dataTable td { padding: 8px 10px; text-align: right; }
   table.dataTable th:first-child, table.dataTable td:first-child { text-align: left; }
-  table.dataTable th { border-bottom: 1px solid #E4E0D5; color: #3A3D45; font-weight: 600; }
-  table.dataTable tr.totalRow { background: #EFEAF6; font-weight: 700; }
-  .pct-good { color: #2F6D3A; font-weight: 700; }
-  .pct-warn { color: #B45309; font-weight: 700; }
-  .pct-bad { color: #A32D2D; font-weight: 700; }
+  table.dataTable th { border-bottom: 1.5px solid var(--border-strong); color: var(--ink-70); font-weight: 700; font-size: 12px; }
+  table.dataTable td { border-bottom: 1px solid var(--border); }
+  table.dataTable tr:last-child td { border-bottom: none; }
+  table.dataTable tr.totalRow { background: var(--accent-soft); font-weight: 700; }
+  table.dataTable tr.totalRow td { border-bottom: none; }
+  .pct-good { color: var(--good); font-weight: 700; }
+  .pct-warn { color: var(--warn); font-weight: 700; }
+  .pct-bad { color: var(--bad); font-weight: 700; }
   .range-inputs input {
-    width: 60px; padding: 5px 8px; border: 1px solid #D8D3C7; border-radius: 6px;
-    font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-align: center;
+    width: 60px; padding: 6px 8px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+    font-family: var(--mono); font-size: 13px; text-align: center; background: var(--surface-raised); color: var(--ink);
   }
+  .range-inputs input:focus, select:focus { outline: none; border-color: var(--accent); }
   .split-row { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 28px; }
-  .split-row .card { flex: 1; margin-bottom: 0; }
+  .split-row .card { flex: 1; margin-bottom: 0; min-width: 0; }
   .barSet { margin-bottom: 22px; }
-  .barSet-label { font-size: 13px; font-weight: 600; color: #1A1D24; margin-bottom: 8px; }
+  .barSet-label { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
   .barRow { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 4px 0; }
-  .barTrack { flex: 1; height: 22px; background: #EDEBE5; border-radius: 4px; position: relative; overflow: hidden; }
-  .barFill { height: 100%; border-radius: 4px; transition: width .2s; }
-  .barFill.pos { background: #D9534F; }
-  .barFill.neg { background: #4472C4; }
-  .barValue { font-size: 12px; font-weight: 600; width: 110px; text-align: right; white-space: nowrap; }
-  .quarterBars { display: none; margin: 10px 0 4px 0; padding: 10px 12px; background: #FAFAF7; border-radius: 8px; }
+  .barTrack { flex: 1; height: 22px; background: var(--border); border-radius: var(--radius-sm); position: relative; overflow: hidden; }
+  .barFill { height: 100%; border-radius: var(--radius-sm); transition: width .25s ease; }
+  .barFill.pos { background: var(--pos); }
+  .barFill.neg { background: var(--neg); }
+  .barValue { font-size: 12.5px; font-weight: 700; width: 110px; text-align: right; white-space: nowrap; font-family: var(--mono); }
+  .quarterBars { display: none; margin: 10px 0 4px 0; padding: 12px 14px; background: var(--bg); border-radius: var(--radius-md); }
   .quarterBars.show { display: block; }
   .qBarRow { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; cursor: pointer; }
-  .qBarLabel { width: 46px; font-size: 12px; color: #5B5F6B; }
-  .qBarTrack { flex: 1; height: 16px; background: #EDEBE5; border-radius: 3px; overflow: hidden; }
+  .qBarLabel { width: 46px; font-size: 12px; color: var(--ink-55); }
+  .qBarTrack { flex: 1; height: 16px; background: var(--border); border-radius: var(--radius-sm); overflow: hidden; }
   .qBarFill { height: 100%; }
-  .qBarFill.pos { background: #E8837F; }
-  .qBarFill.neg { background: #7C9BD8; }
-  .qBarValue { font-size: 11px; width: 90px; text-align: right; }
-  #detailArea .empty { color: #9A9689; font-size: 13px; }
+  .qBarFill.pos { background: var(--pos-soft); }
+  .qBarFill.neg { background: var(--neg-soft); }
+  .qBarValue { font-size: 11.5px; width: 90px; text-align: right; font-family: var(--mono); }
+  #detailArea .empty { color: var(--ink-40); font-size: 13px; }
   .detailQuarter { margin-bottom: 14px; }
-  .detailQuarter .qTitle { font-size: 13px; font-weight: 700; color: #1A1D24; margin-bottom: 4px; }
-  .detailQuarter .qItem { font-size: 12px; color: #3A3D45; padding: 2px 0 2px 10px; }
-  .detailQuarter .qItem .amt.pos { color: #2F6D3A; font-weight: 600; }
-  .detailQuarter .qItem .amt.neg { color: #A32D2D; font-weight: 600; }
+  .detailQuarter .qTitle { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .detailQuarter .qItem { font-size: 12px; color: var(--ink-70); padding: 2px 0 2px 10px; }
+  .detailQuarter .qItem .amt.pos { color: var(--good); font-weight: 600; }
+  .detailQuarter .qItem .amt.neg { color: var(--bad); font-weight: 600; }
+  select, button { font-family: var(--font); }
+
+  /* ----- 반응형 (모바일) ----- */
+  @media (max-width: 768px) {
+    .layout { flex-direction: column; }
+    .sidebar {
+      width: 100%; padding: 14px 16px; border-right: none; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px; overflow-x: auto;
+    }
+    .component-label { margin-bottom: 0; flex-shrink: 0; }
+    .nav-item {
+      margin-bottom: 0; padding: 9px 14px; white-space: nowrap; flex-shrink: 0;
+    }
+    .main-content { padding: 18px 16px; max-width: 100%; }
+    .split-row { flex-direction: column; gap: 16px; }
+    .card { padding: 16px 14px; }
+    table.dataTable { font-size: 11.5px; }
+    table.dataTable th, table.dataTable td { padding: 6px 6px; }
+    .barValue { width: 88px; font-size: 11px; }
+    #pageTitle { font-size: 16px; }
+  }
 </style>
 </head>
 <body>
