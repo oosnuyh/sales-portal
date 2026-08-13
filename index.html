@@ -68,9 +68,20 @@
     padding: 22px 24px; margin-bottom: 20px;
   }
   .card-title {
-    font-size: 11px; color: var(--ink-40); text-transform: uppercase; letter-spacing: .06em;
-    margin-bottom: 14px; font-weight: 700;
+    font-size: 12.5px; color: #FFF; letter-spacing: .02em;
+    margin: -22px -24px 16px; padding: 11px 18px; font-weight: 700;
+    background: var(--ink); border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    display: flex; align-items: center; gap: 7px;
   }
+  .card-title::before { content: '◆'; font-size: 10px; color: var(--pos-soft); }
+  .kpiRow { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+  .kpiCard {
+    flex: 1; min-width: 190px; border-radius: var(--radius-lg); padding: 18px 20px;
+    color: #fff; box-shadow: var(--shadow-card);
+  }
+  .kpiCard .kpiLabel { font-size: 12px; opacity: .85; margin-bottom: 8px; font-weight: 500; }
+  .kpiCard .kpiValue { font-size: 22px; font-weight: 800; font-family: var(--mono); letter-spacing: -.01em; }
+  .kpiCard .kpiUnit { font-size: 11px; opacity: .75; margin-top: 4px; }
   table.dataTable { width: 100%; border-collapse: collapse; font-size: 13px; }
   table.dataTable th, table.dataTable td { padding: 8px 10px; text-align: right; }
   table.dataTable th:first-child, table.dataTable td:first-child { text-align: left; }
@@ -128,6 +139,9 @@
     .main-content { padding: 18px 16px; max-width: 100%; }
     .split-row { flex-direction: column; gap: 16px; }
     .card { padding: 16px 14px; }
+    .card-title { margin: -16px -14px 14px; }
+    .kpiRow { flex-direction: column; gap: 10px; }
+    .kpiCard { min-width: 0; }
     table.dataTable { font-size: 11.5px; }
     table.dataTable th, table.dataTable td { padding: 6px 6px; }
     .barValue { width: 88px; font-size: 11px; }
@@ -216,6 +230,7 @@
   function renderMainFeature() {
     const container = document.getElementById('featureContent');
     container.innerHTML = `
+      <div id="kpiRow"></div>
       <div class="card" id="targetCard"></div>
       <div class="split-row">
         <div class="card" id="chartCard"><div class="card-title">구간별 변화량</div><div id="chartArea"></div></div>
@@ -223,9 +238,40 @@
       </div>
       <div class="card" id="checklistCard"></div>
     `;
+    renderKpiCards();
     renderTargetBox();
     renderCharts();
     renderChecklistBox();
+  }
+
+  // ----- 핵심 지표 (KPI) 카드 -----
+  function renderKpiCards() {
+    const row = document.getElementById('kpiRow');
+    const tva = DATA && DATA.targetVsActual;
+    if (!tva) { row.innerHTML = ''; return; }
+
+    let revTarget = 0, revActual = 0, ordTarget = 0, ordActual = 0;
+    for (const team of tva.teams) {
+      revTarget += sumRange(tva.revenueTargets[team], 1, 12);
+      revActual += sumRange(tva.revenueActuals[team], 1, 12);
+      ordTarget += sumRange(tva.orderTargets[team], 1, 12);
+      ordActual += sumRange(tva.orderActuals[team], 1, 12);
+    }
+    const revPct = revTarget ? (revActual / revTarget * 100) : 0;
+    const ordPct = ordTarget ? (ordActual / ordTarget * 100) : 0;
+
+    const cards = [
+      { label: '26년 누적 매출 실적', value: fmtWon(revActual), bg: '#2E5FA3' },
+      { label: '26년 누적 수주 실적', value: fmtWon(ordActual), bg: '#B5472F' },
+      { label: '매출 달성률 (연간)', value: `${revPct.toFixed(1)}%`, bg: revPct >= 100 ? '#3E7A4E' : '#B4791E' },
+      { label: '수주 달성률 (연간)', value: `${ordPct.toFixed(1)}%`, bg: ordPct >= 100 ? '#3E7A4E' : '#B4791E' },
+    ];
+
+    row.innerHTML = `<div class="kpiRow">${cards.map(c => `
+      <div class="kpiCard" style="background:${c.bg};">
+        <div class="kpiLabel">${c.label}</div>
+        <div class="kpiValue">${c.value}</div>
+      </div>`).join('')}</div>`;
   }
 
   // ----- 계약 만기 체크리스트 -----
