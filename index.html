@@ -154,7 +154,7 @@
       margin-bottom: 0; padding: 9px 14px; white-space: nowrap; flex-shrink: 0;
     }
     .main-content { padding: 18px 16px; max-width: 100%; }
-    .split-row { flex-direction: column; gap: 16px; }
+    .split-row, .top10SplitRow { flex-direction: column; gap: 16px; }
     .card { padding: 16px 14px; }
     .card-title { margin: -16px -14px 14px; }
     .kpiRow { flex-direction: column; gap: 10px; }
@@ -658,9 +658,9 @@
       const ordRows = rankTop10(projects.order, team, start, end);
       html += `<div style="margin-bottom:24px;">
         <div style="font-size:14px;font-weight:700;color:#1A1D24;margin-bottom:10px;">${team}</div>
-        <div class="split-row">
-          <div>${top10TableHtml('수주 TOP10', ordRows)}</div>
-          <div>${top10TableHtml('매출 TOP10', revRows)}</div>
+        <div class="top10SplitRow" style="display:flex;gap:20px;align-items:flex-start;">
+          <div style="flex:1 1 0;min-width:0;">${top10TableHtml('수주 TOP10', ordRows)}</div>
+          <div style="flex:1 1 0;min-width:0;">${top10TableHtml('매출 TOP10', revRows)}</div>
         </div>
       </div>`;
     }
