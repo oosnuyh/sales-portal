@@ -43,36 +43,26 @@
     background: var(--bg); color: var(--ink);
     -webkit-font-smoothing: antialiased;
   }
-  .layout { display: flex; min-height: 100vh; }
-  .sidebar {
-    width: 224px; background: var(--sidebar-bg); border-right: 1px solid var(--border);
-    padding: 28px 16px; flex-shrink: 0; transition: width .18s ease, padding .18s ease;
-    overflow: hidden;
+  .appShell { min-height: 100vh; }
+  .topNav {
+    background: var(--sidebar-bg); border-bottom: 1px solid var(--border);
+    padding: 14px 32px; display: flex; align-items: center; gap: 28px;
+    flex-wrap: wrap;
   }
-  .sidebarTop { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
-  #sidebarToggleBtn {
-    flex-shrink: 0; width: 24px; height: 24px; border-radius: 6px; border: 1px solid var(--border-strong);
-    background: var(--surface-raised); color: var(--ink-55); font-size: 10px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; transition: transform .18s ease;
+  .brandLabel {
+    font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .01em;
+    flex-shrink: 0; white-space: nowrap;
   }
-  #sidebarToggleBtn:hover { background: var(--border); }
-  .sidebar.collapsed { width: 56px; padding: 28px 10px; }
-  .sidebar.collapsed .component-label span { display: none; }
-  .sidebar.collapsed .nav-item { display: none; }
-  .sidebar.collapsed #sidebarToggleBtn { transform: rotate(180deg); }
-  .component-label {
-    font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 16px;
-    display: flex; align-items: center; gap: 6px; letter-spacing: .01em;
-  }
+  .tabList { display: flex; gap: 6px; flex-wrap: wrap; }
   .nav-item {
-    background: var(--nav-idle); border-radius: var(--radius-md); padding: 13px 14px; margin-bottom: 8px;
+    background: transparent; border-radius: var(--radius-md); padding: 9px 16px;
     font-size: 13.5px; font-weight: 500; color: var(--ink-70); text-align: center; cursor: pointer;
     transition: background .15s, color .15s, transform .1s;
   }
   .nav-item.active { background: var(--nav-active); color: #FFF; font-weight: 600; }
   .nav-item:not(.active):hover { background: var(--border-strong); color: var(--ink); }
   .nav-item:active { transform: scale(.98); }
-  .main-content { flex: 1; padding: 32px 36px; max-width: 1500px; min-width: 0; }
+  .main-content { padding: 32px 36px; max-width: 1500px; min-width: 0; margin: 0 auto; }
   #pageTitle { font-family: var(--font); letter-spacing: -.01em; }
   .card {
     background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
@@ -86,14 +76,46 @@
     display: flex; align-items: center; gap: 7px;
   }
   .card-title::before { content: '◆'; font-size: 10px; color: var(--accent-soft); }
-  .kpiRow { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
-  .kpiCard {
-    flex: 1; min-width: 190px; border-radius: var(--radius-lg); padding: 18px 20px;
-    color: #fff; box-shadow: var(--shadow-card);
+
+  /* ----- 메인화면 그리드 레이아웃 ----- */
+  .mainGrid {
+    display: grid; gap: 18px;
+    grid-template-columns: 1.35fr 1fr;
+    grid-template-areas:
+      "filter filter"
+      "kpi kpi"
+      "chart detail";
   }
-  .kpiCard .kpiLabel { font-size: 12px; opacity: .85; margin-bottom: 8px; font-weight: 500; }
-  .kpiCard .kpiValue { font-size: 22px; font-weight: 800; font-family: var(--mono); letter-spacing: -.01em; }
-  .kpiCard .kpiUnit { font-size: 11px; opacity: .75; margin-top: 4px; }
+  .mainGrid .card { margin-bottom: 0; }
+  .filterBar {
+    grid-area: filter; display: flex; align-items: center; gap: 0;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card); padding: 14px 22px;
+  }
+  .filterGroup { display: flex; align-items: center; gap: 10px; }
+  .filterIcon { color: var(--accent); font-size: 10px; }
+  .filterBar label { font-size: 12.5px; color: var(--ink-55); font-weight: 600; }
+  .filterBar select {
+    font-size: 13.5px; padding: 7px 12px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+    background: var(--surface-raised); color: var(--ink); font-weight: 500; cursor: pointer;
+  }
+  .filterDivider { width: 1px; height: 24px; background: var(--border-strong); margin: 0 26px; }
+
+  .kpiRow { grid-area: kpi; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .kpiBox {
+    border-radius: var(--radius-lg); padding: 18px 20px; background: var(--surface);
+    border: 1px solid var(--border); box-shadow: var(--shadow-card);
+  }
+  .kpiBoxTitle { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 12px; }
+  .kpiTier { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0; border-bottom: 1px solid var(--border); }
+  .kpiTier:last-of-type { border-bottom: none; }
+  .kpiTierLabel { font-size: 12px; color: var(--ink-55); font-weight: 500; }
+  .kpiTierValue { font-size: 15px; font-weight: 700; color: var(--ink); font-family: var(--mono); }
+  .kpiPct { font-size: 11px; font-weight: 700; font-family: var(--font); margin-left: 4px; }
+  .kpiPct.good { color: var(--good); }
+  .kpiPct.warn { color: var(--warn); }
+  .kpiActual { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0 0; font-size: 12px; color: var(--ink-55); font-weight: 500; }
+  .kpiActualPending { font-size: 11px; color: var(--ink-40); font-style: italic; }
   table.dataTable { width: 100%; border-collapse: collapse; font-size: 13px; }
   table.dataTable th, table.dataTable td { padding: 8px 10px; text-align: right; }
   table.dataTable th:first-child, table.dataTable td:first-child { text-align: left; }
@@ -139,26 +161,20 @@
 
   /* ----- 반응형 (모바일) ----- */
   @media (max-width: 768px) {
-    .layout { flex-direction: column; }
-    .sidebar {
-      width: 100%; padding: 14px 16px; border-right: none; border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; gap: 10px; overflow-x: auto;
+    .topNav {
+      padding: 12px 16px; gap: 12px; overflow-x: auto;
     }
-    .sidebar.collapsed { width: 100%; padding: 14px 16px; }
-    .sidebar.collapsed .component-label span { display: inline; }
-    .sidebar.collapsed .nav-item { display: block; }
-    .sidebarTop { margin-bottom: 0; flex-shrink: 0; }
-    #sidebarToggleBtn { display: none; }
-    .component-label { margin-bottom: 0; flex-shrink: 0; }
-    .nav-item {
-      margin-bottom: 0; padding: 9px 14px; white-space: nowrap; flex-shrink: 0;
-    }
+    .tabList { flex-wrap: nowrap; }
+    .nav-item { white-space: nowrap; flex-shrink: 0; padding: 8px 13px; }
     .main-content { padding: 18px 16px; max-width: 100%; }
     .split-row, .top10SplitRow { flex-direction: column; gap: 16px; }
+    .mainGrid { grid-template-columns: 1fr; grid-template-areas: "filter" "kpi" "chart" "detail"; }
+    .filterBar { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .filterDivider { display: none; }
     .card { padding: 16px 14px; }
     .card-title { margin: -16px -14px 14px; }
-    .kpiRow { flex-direction: column; gap: 10px; }
-    .kpiCard { min-width: 0; }
+    .kpiRow { grid-template-columns: 1fr; gap: 10px; }
+    .kpiBox { min-width: 0; }
     table.dataTable { font-size: 11.5px; }
     table.dataTable th, table.dataTable td { padding: 6px 6px; }
     .barValue { width: 88px; font-size: 11px; }
@@ -168,13 +184,10 @@
 </head>
 <body>
 
-<div class="layout">
-  <div class="sidebar" id="sidebar">
-    <div class="sidebarTop">
-      <div class="component-label"><span>&#10070; Component</span></div>
-      <button id="sidebarToggleBtn" title="메뉴 접기/펼치기">&#9664;</button>
-    </div>
-    <div id="navList"></div>
+<div class="appShell">
+  <div class="topNav">
+    <div class="brandLabel">&#10070; INZENT 세일즈 포털</div>
+    <div id="navList" class="tabList"></div>
   </div>
   <div class="main-content">
     <h2 id="pageTitle" style="font-size:18px;font-weight:600;margin:0 0 18px;"></h2>
@@ -188,6 +201,7 @@
     { id: 'main', label: '메인화면' },
     { id: 'top10', label: 'TOP10' },
     { id: 'schedule', label: '매출일정' },
+    { id: 'checklist', label: '계약 만기' },
     { id: 'rfp', label: '입찰공고', iframeUrl: 'https://oosnuyh.github.io/RPF/' },
     { id: 'ppt', label: 'PPT 폰트·컬러 정리', iframeUrl: './ppt-style-tool.html' },
   ];
@@ -218,12 +232,6 @@
         renderFeature(el.getAttribute('data-id'));
       });
     });
-
-    const sidebar = document.getElementById('sidebar');
-    const toggleBtn = document.getElementById('sidebarToggleBtn');
-    toggleBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('collapsed');
-    });
   }
 
   function renderFeature(id) {
@@ -232,6 +240,7 @@
     if (feature.id === 'main') renderMainFeature();
     if (feature.id === 'top10') renderTop10Feature();
     if (feature.id === 'schedule') renderScheduleFeature();
+    if (feature.id === 'checklist') renderChecklistFeature();
     if (feature.iframeUrl) renderIframeFeature(feature.iframeUrl);
   }
 
@@ -253,54 +262,141 @@
   }
 
   // ----- 메인화면: 구간별 실적조회 + 변화량 그래프 -----
-  function renderMainFeature() {
-    const container = document.getElementById('featureContent');
-    container.innerHTML = `
-      <div id="kpiRow"></div>
-      <div class="card" id="targetCard"></div>
-      <div class="split-row">
-        <div class="card" id="chartCard"><div class="card-title">구간별 변화량</div><div id="chartArea"></div></div>
-        <div class="card" id="detailCard"><div class="card-title">변화 내용</div><div id="detailArea"><div class="empty">막대를 클릭하면 분기별 변화 내용이 여기 나와요.</div></div></div>
-      </div>
-      <div class="card" id="checklistCard"></div>
-    `;
-    renderKpiCards();
-    renderTargetBox();
-    renderCharts();
-    renderChecklistBox();
+  let mainFilter = { team: '전체', period: 'Y' };
+  const PERIOD_RANGES = { Y: [1, 12], Q1: [1, 3], Q2: [4, 6], Q3: [7, 9], Q4: [10, 12] };
+  const PERIOD_LABELS = { Y: '연간 누계', Q1: '1분기', Q2: '2분기', Q3: '3분기', Q4: '4분기' };
+
+  function teamsForFilterValue(value, tva) {
+    if (!tva) return [];
+    if (value === '전체') return tva.teams;
+    if (tva.teams.includes(value)) return [value]; // 특정 팀
+    return tva.teams.filter(t => hqOfTeam(t) === value); // 특정 본부
   }
 
-  // ----- 핵심 지표 (KPI) 카드 -----
+  function buildScopeOptions(tva) {
+    if (!tva) return ['전체'];
+    const hqSet = new Set(tva.teams.map(t => hqOfTeam(t)));
+    return { hqs: Array.from(hqSet), teams: tva.teams };
+  }
+
+  function renderMainFeature() {
+    const container = document.getElementById('featureContent');
+    const tva = DATA && DATA.targetVsActual;
+    const scopes = buildScopeOptions(tva);
+
+    let scopeOptionsHtml = '<option value="전체">전체</option>';
+    if (tva) {
+      scopeOptionsHtml += `<optgroup label="본부">${scopes.hqs.map(h => `<option value="${h}">${h}</option>`).join('')}</optgroup>`;
+      scopeOptionsHtml += `<optgroup label="팀">${scopes.teams.map(t => `<option value="${t}">${t}</option>`).join('')}</optgroup>`;
+    }
+
+    container.innerHTML = `
+      <div class="mainGrid">
+        <div class="filterBar">
+          <div class="filterGroup"><span class="filterIcon">◆</span>
+            <label>본부/팀</label>
+            <select id="mainTeamFilter">${scopeOptionsHtml}</select>
+          </div>
+          <div class="filterDivider"></div>
+          <div class="filterGroup"><span class="filterIcon">◆</span>
+            <label>기간</label>
+            <select id="mainPeriodFilter">
+              <option value="Y">연간 누계</option>
+              <option value="Q1">1분기</option><option value="Q2">2분기</option>
+              <option value="Q3">3분기</option><option value="Q4">4분기</option>
+            </select>
+          </div>
+        </div>
+        <div id="kpiRow" style="grid-area:kpi;"></div>
+        <div class="card" id="chartCard" style="grid-area:chart;"><div class="card-title">전주대비 증감</div><div id="chartArea"></div></div>
+        <div class="card" id="detailCard" style="grid-area:detail;"><div class="card-title">변화 내용</div><div id="detailArea"><div class="empty">막대를 클릭하면 분기별 변화 내용이 여기 나와요.</div></div></div>
+      </div>
+    `;
+
+    document.getElementById('mainTeamFilter').value = mainFilter.team;
+    document.getElementById('mainPeriodFilter').value = mainFilter.period;
+    document.getElementById('mainTeamFilter').addEventListener('change', (e) => { mainFilter.team = e.target.value; refreshMainFeature(); });
+    document.getElementById('mainPeriodFilter').addEventListener('change', (e) => { mainFilter.period = e.target.value; refreshMainFeature(); });
+
+    refreshMainFeature();
+  }
+
+  function refreshMainFeature() {
+    renderKpiCards();
+    renderCharts();
+  }
+
+  // ----- 핵심 지표 (KPI) 카드: 수주/매출 각각 목표 · 연간 예상액(목표대비%) · 실제 금액(연목표대비%) -----
   function renderKpiCards() {
     const row = document.getElementById('kpiRow');
     const tva = DATA && DATA.targetVsActual;
     if (!tva) { row.innerHTML = ''; return; }
 
-    let revTarget = 0, revActual = 0, ordTarget = 0, ordActual = 0;
-    for (const team of tva.teams) {
-      revTarget += sumRange(tva.revenueTargets[team], 1, 12);
-      revActual += sumRange(tva.revenueActuals[team], 1, 12);
-      ordTarget += sumRange(tva.orderTargets[team], 1, 12);
-      ordActual += sumRange(tva.orderActuals[team], 1, 12);
+    const [start, end] = PERIOD_RANGES[mainFilter.period] || [1, 12];
+    const teamsToSum = teamsForFilterValue(mainFilter.team, tva);
+
+    let revTarget = 0, revExpected = 0, ordTarget = 0, ordExpected = 0;
+    let revReal = 0, ordReal = 0;
+    const hasRealData = !!(tva.revenueRealActuals && tva.orderRealActuals);
+    for (const team of teamsToSum) {
+      revTarget += sumRange(tva.revenueTargets[team], start, end);
+      revExpected += sumRange(tva.revenueActuals[team], start, end);
+      ordTarget += sumRange(tva.orderTargets[team], start, end);
+      ordExpected += sumRange(tva.orderActuals[team], start, end);
+      if (hasRealData) {
+        revReal += sumRange(tva.revenueRealActuals[team], start, end);
+        ordReal += sumRange(tva.orderRealActuals[team], start, end);
+      }
     }
-    const revPct = revTarget ? (revActual / revTarget * 100) : 0;
-    const ordPct = ordTarget ? (ordActual / ordTarget * 100) : 0;
+    const revExpPct = revTarget ? (revExpected / revTarget * 100) : 0;
+    const ordExpPct = ordTarget ? (ordExpected / ordTarget * 100) : 0;
+    const pLabel = PERIOD_LABELS[mainFilter.period];
 
-    const cards = [
-      { label: '26년 누적 매출 실적', value: fmtWon(revActual), bg: '#2E5FA3' },
-      { label: '26년 누적 수주 실적', value: fmtWon(ordActual), bg: '#B5472F' },
-      { label: '매출 달성률 (연간)', value: `${revPct.toFixed(1)}%`, bg: revPct >= 100 ? '#3E7A4E' : '#B4791E' },
-      { label: '수주 달성률 (연간)', value: `${ordPct.toFixed(1)}%`, bg: ordPct >= 100 ? '#3E7A4E' : '#B4791E' },
-    ];
+    // 실제 달성 금액 — revenueRealActuals/orderRealActuals가 있으면 연목표대비%까지 계산해서 보여준다.
+    function actualBlockHtml(realAmt, annualTarget) {
+      if (!hasRealData) {
+        return `<div class="kpiActual">실제 달성: <span class="kpiActualPending">데이터 연동 준비 중</span></div>`;
+      }
+      const realPct = annualTarget ? (realAmt / annualTarget * 100) : 0;
+      return `<div class="kpiTier" style="border-bottom:none;padding-top:9px;">
+        <span class="kpiTierLabel">실제 달성 금액</span>
+        <span class="kpiTierValue">${fmtWon(realAmt)} <span class="kpiPct ${realPct >= 100 ? 'good' : 'warn'}">(연목표대비 ${realPct.toFixed(1)}%)</span></span>
+      </div>`;
+    }
 
-    row.innerHTML = `<div class="kpiRow">${cards.map(c => `
-      <div class="kpiCard" style="background:${c.bg};">
-        <div class="kpiLabel">${c.label}</div>
-        <div class="kpiValue">${c.value}</div>
-      </div>`).join('')}</div>`;
+    function boxHtml(title, target, expected, expPct, realAmt, annualTarget, bg) {
+      return `
+        <div class="kpiBox" style="border-top:4px solid ${bg};">
+          <div class="kpiBoxTitle">${title}</div>
+          <div class="kpiTier"><span class="kpiTierLabel">${title} 목표</span><span class="kpiTierValue">${fmtWon(target)}</span></div>
+          <div class="kpiTier">
+            <span class="kpiTierLabel">${pLabel} 예상액</span>
+            <span class="kpiTierValue">${fmtWon(expected)} <span class="kpiPct ${expPct >= 100 ? 'good' : 'warn'}">(목표대비 ${expPct.toFixed(1)}%)</span></span>
+          </div>
+          ${actualBlockHtml(realAmt, annualTarget)}
+        </div>`;
+    }
+
+    let ordAnnualTarget = 0, revAnnualTarget = 0;
+    for (const team of teamsToSum) {
+      ordAnnualTarget += sumRange(tva.orderTargets[team], 1, 12);
+      revAnnualTarget += sumRange(tva.revenueTargets[team], 1, 12);
+    }
+
+    row.innerHTML = `<div class="kpiRow">
+      ${boxHtml('수주', ordTarget, ordExpected, ordExpPct, ordReal, ordAnnualTarget, '#B5472F')}
+      ${boxHtml('매출', revTarget, revExpected, revExpPct, revReal, revAnnualTarget, '#2E5FA3')}
+    </div>`;
   }
 
   // ----- 계약 만기 체크리스트 -----
+  // ----- 계약 만기 체크리스트 (독립 메뉴) -----
+  function renderChecklistFeature() {
+    const container = document.getElementById('featureContent');
+    container.innerHTML = '<div class="card" id="checklistCard"></div>';
+    renderChecklistBox();
+  }
+
   function renderChecklistBox() {
     const card = document.getElementById('checklistCard');
     const rc = DATA && DATA.renewalChecklist;
@@ -330,27 +426,7 @@
   }
 
   // ----- 구간별 실적조회 박스 -----
-  function renderTargetBox() {
-    const card = document.getElementById('targetCard');
-    if (!DATA || !DATA.targetVsActual) {
-      card.innerHTML = '<div class="card-title">구간별 실적조회</div><div style="font-size:13px;color:#9A9689;">목표대비실적 데이터가 없어요 (입력 페이지에서 매출·수주 최신 파일을 올려서 다시 만들어주세요).</div>';
-      return;
-    }
-    const tva = DATA.targetVsActual;
-    card.innerHTML = `
-      <div class="card-title">구간별 실적조회</div>
-      <div class="range-inputs" style="margin-bottom:12px;">
-        <label style="font-size:12px;color:#5B5F6B;margin-right:6px;">시작월</label>
-        <input type="number" id="startMonth" min="1" max="12" value="1" />
-        <label style="font-size:12px;color:#5B5F6B;margin:0 6px 0 14px;">종료월</label>
-        <input type="number" id="endMonth" min="1" max="12" value="12" />
-      </div>
-      <table class="dataTable" id="targetTable"></table>
-    `;
-    document.getElementById('startMonth').addEventListener('input', renderTargetTable);
-    document.getElementById('endMonth').addEventListener('input', renderTargetTable);
-    renderTargetTable();
-  }
+
 
   function sumRange(arr, start, end) {
     let s = 0;
@@ -360,13 +436,10 @@
 
   function renderTargetTable() {
     const tva = DATA.targetVsActual;
-    let start = Number(document.getElementById('startMonth').value) || 1;
-    let end = Number(document.getElementById('endMonth').value) || 12;
-    start = Math.max(1, Math.min(12, start));
-    end = Math.max(1, Math.min(12, end));
-    if (end < start) end = start;
-
-    const rows = [{ label: '본부 전체', isTotal: true }].concat(tva.teams.map(t => ({ label: t, isTotal: false })));
+    if (!tva) { const t = document.getElementById('targetTable'); if (t) t.innerHTML = '<tr><td style="font-size:13px;color:#9A9689;">목표대비실적 데이터가 없어요.</td></tr>'; return; }
+    const start = Math.max(1, Math.min(12, Number(document.getElementById('top10Start').value) || 1));
+    const end = Math.max(1, Math.min(12, Number(document.getElementById('top10End').value) || 12));
+    const teamsToShow = tva.teams;
 
     let html = `<tr>
       <th></th>
@@ -377,7 +450,7 @@
     let totalOrdTarget = 0, totalOrdActual = 0, totalOrdAnnualTarget = 0;
     let totalRevTarget = 0, totalRevActual = 0, totalRevAnnualTarget = 0;
 
-    const teamRows = tva.teams.map((team) => {
+    const teamRows = teamsToShow.map((team) => {
       const ordTarget = sumRange(tva.orderTargets[team], start, end);
       const ordActual = sumRange(tva.orderActuals[team], start, end);
       const ordAnnualTarget = sumRange(tva.orderTargets[team], 1, 12);
@@ -424,34 +497,15 @@
     { key: 'other', label: '기타매출' },
   ];
 
-  let selectedChangeTeam = '전체';
-
-  function collectChangeTeamOptions() {
-    const teams = new Set();
-    // 회사 전체 팀 목록(목표대비실적)이 있으면 그걸 기준으로 삼는다 — 이번 비교에서
-    // 변화가 없어서 monthDetails에 안 잡힌 팀도 옵션에는 항상 나오도록.
-    if (DATA && DATA.targetVsActual && DATA.targetVsActual.teams) {
-      DATA.targetVsActual.teams.forEach(t => teams.add(t));
-    }
-    const changes = (DATA && DATA.changes) || {};
-    for (const key of Object.keys(changes)) {
-      for (const list of changes[key].monthDetails) {
-        for (const item of list) {
-          if (item.team) teams.add(item.team);
-        }
-      }
-    }
-    return ['전체', ...Array.from(teams).sort()];
-  }
-
   // monthDetails(팀 정보 포함)로부터, 선택한 팀만 골라 분기/총합을 다시 계산한다.
-  function filterChangeByTeam(c, team) {
+  function filterChangeByTeam(c, scope) {
     const months = new Array(13).fill(0);
     const monthDetails = Array.from({ length: 13 }, () => []);
     for (let m = 1; m <= 12; m++) {
       const list = c.monthDetails[m - 1] || [];
       for (const item of list) {
-        if (team === '전체' || item.team === team) {
+        const matches = scope === '전체' || item.team === scope || (item.team && hqOfTeam(item.team) === scope);
+        if (matches) {
           months[m] += item.delta;
           monthDetails[m - 1].push(item);
         }
@@ -472,24 +526,11 @@
       return;
     }
 
-    const teamOptions = collectChangeTeamOptions();
-    let html = '';
-    if (teamOptions.length > 2) {
-      html += `<div style="margin-bottom:12px;">
-        <label style="font-size:12px;color:#5B5F6B;margin-right:8px;">팀 선택</label>
-        <select id="changeTeamSelect" style="font-size:13px;padding:5px 10px;border:1px solid #D8D3C7;border-radius:6px;background:#fff;color:#1A1D24;">
-          ${teamOptions.map(t => `<option value="${t}" ${t === selectedChangeTeam ? 'selected' : ''}>${t}</option>`).join('')}
-        </select>
-      </div>`;
-    } else {
-      selectedChangeTeam = '전체';
-    }
-
     const filtered = {};
-    for (const s of availableSets) filtered[s.key] = filterChangeByTeam(changes[s.key], selectedChangeTeam);
+    for (const s of availableSets) filtered[s.key] = filterChangeByTeam(changes[s.key], mainFilter.team);
     const maxAbs = Math.max(1, ...availableSets.map(s => Math.abs(filtered[s.key].total)));
 
-    html += availableSets.map((s) => {
+    let html = availableSets.map((s) => {
       const c = filtered[s.key];
       const widthPct = Math.min(100, Math.abs(c.total) / maxAbs * 100);
       const cls = c.total >= 0 ? 'pos' : 'neg';
@@ -505,16 +546,6 @@
     }).join('');
 
     chartArea.innerHTML = html;
-
-    const teamSelect = document.getElementById('changeTeamSelect');
-    if (teamSelect) {
-      teamSelect.addEventListener('change', (e) => {
-        selectedChangeTeam = e.target.value;
-        openSetKey = null;
-        renderCharts();
-        document.getElementById('detailArea').innerHTML = '<div class="empty">막대를 클릭하면 분기별 변화 내용이 여기 나와요.</div>';
-      });
-    }
 
     chartArea.querySelectorAll('.barRow').forEach((row) => {
       row.addEventListener('click', () => {
@@ -609,18 +640,24 @@
     }
     container.innerHTML = `
       <div class="card">
+        <div class="card-title">구간별 실적조회</div>
         <div class="range-inputs" style="margin-bottom:14px;">
           <label style="font-size:12px;color:#5B5F6B;margin-right:6px;">시작월</label>
           <input type="number" id="top10Start" min="1" max="12" value="1" />
           <label style="font-size:12px;color:#5B5F6B;margin:0 6px 0 14px;">종료월</label>
           <input type="number" id="top10End" min="1" max="12" value="12" />
         </div>
+        <table class="dataTable" id="targetTable"></table>
+      </div>
+      <div class="card">
+        <div class="card-title">TOP 10</div>
         <div id="top10Body"></div>
       </div>
     `;
-    document.getElementById('top10Start').addEventListener('input', renderTop10Body);
-    document.getElementById('top10End').addEventListener('input', renderTop10Body);
-    renderTop10Body();
+    function refreshTop10Page() { renderTargetTable(); renderTop10Body(); }
+    document.getElementById('top10Start').addEventListener('input', refreshTop10Page);
+    document.getElementById('top10End').addEventListener('input', refreshTop10Page);
+    refreshTop10Page();
   }
 
   function rankTop10(records, team, start, end) {
