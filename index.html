@@ -150,6 +150,50 @@
   .qBarFill { height: 100%; }
   .qBarFill.pos { background: var(--pos-soft); }
   .qBarFill.neg { background: var(--neg-soft); }
+
+  /* ----- 세로 막대 (연간 총 변화량) ----- */
+  .vBarChart { display: flex; align-items: flex-end; justify-content: space-around; height: 190px; gap: 20px; padding: 10px 4px 0; }
+  .vBarGroup { display: flex; flex-direction: column; align-items: center; cursor: pointer; flex: 1; min-width: 0; }
+  .vBarValue { font-size: 12px; font-weight: 700; margin-bottom: 8px; font-family: var(--mono); white-space: nowrap; }
+  .vBarTrack {
+    width: 100%; max-width: 64px; height: 130px; display: flex; flex-direction: column; justify-content: flex-end;
+    background: var(--border); border-radius: var(--radius-sm); overflow: hidden; transition: box-shadow .15s;
+  }
+  .vBarFill { width: 100%; transition: height .25s ease; }
+  .vBarFill.pos { background: var(--pos); }
+  .vBarFill.neg { background: var(--neg); }
+  .vBarLabel { font-size: 13px; font-weight: 600; margin-top: 8px; color: var(--ink); }
+  .vBarGroup.active .vBarTrack { box-shadow: 0 0 0 2px var(--accent); }
+  .vBarGroup:hover .vBarTrack { box-shadow: 0 0 0 2px var(--border-strong); }
+
+  /* ----- 변화 내용: 분기 요약 목록 ----- */
+  .qSummaryHint { font-size: 11.5px; color: var(--ink-40); margin-bottom: 10px; }
+  .qSummaryRow {
+    display: flex; justify-content: space-between; align-items: center; padding: 11px 14px;
+    border-radius: var(--radius-md); cursor: pointer; margin-bottom: 6px; background: var(--bg);
+    transition: background .15s;
+  }
+  .qSummaryRow:hover { background: var(--border); }
+  .qSummaryLabel { font-size: 13px; color: var(--ink-70); font-weight: 500; }
+  .qSummaryValue { font-size: 13.5px; font-weight: 700; font-family: var(--mono); }
+  .qSummaryValue.good { color: var(--good); }
+  .qSummaryValue.bad { color: var(--bad); }
+  .qSummaryValue.cancelled { color: var(--warn); }
+
+  /* ----- 분기 상세 팝업 ----- */
+  #detailModalBackdrop { display: none; position: fixed; inset: 0; background: rgba(20,20,20,.45); z-index: 1000; }
+  #detailModal {
+    display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    background: #fff; border-radius: var(--radius-lg); box-shadow: 0 8px 30px rgba(0,0,0,.2);
+    max-width: 460px; width: 90%; max-height: 70vh; overflow-y: auto; z-index: 1001; padding: 20px 22px;
+  }
+  #detailModalTitle { font-size: 15px; font-weight: 700; color: var(--ink); }
+  #detailModalClose { border: none; background: none; font-size: 20px; color: var(--ink-40); cursor: pointer; line-height: 1; }
+  .modalItem { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .modalItem:last-child { border-bottom: none; }
+  .modalItem .amt { font-weight: 700; font-family: var(--mono); white-space: nowrap; }
+  .modalItem .amt.pos { color: var(--good); }
+  .modalItem .amt.neg { color: var(--bad); }
   .qBarValue { font-size: 11.5px; width: 90px; text-align: right; font-family: var(--mono); }
   #detailArea .empty { color: var(--ink-40); font-size: 13px; }
   .detailQuarter { margin-bottom: 14px; }
@@ -195,12 +239,22 @@
   </div>
 </div>
 
+<div id="detailModalBackdrop"></div>
+<div id="detailModal">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+    <div id="detailModalTitle"></div>
+    <button id="detailModalClose">&times;</button>
+  </div>
+  <div id="detailModalBody"></div>
+</div>
+
 <script>
 (function () {
   const FEATURES = [
     { id: 'main', label: '메인화면' },
     { id: 'top10', label: 'TOP10' },
     { id: 'schedule', label: '매출일정' },
+    { id: 'changeDetail', label: '변화 상세' },
     { id: 'checklist', label: '계약 만기' },
     { id: 'rfp', label: '입찰공고', iframeUrl: 'https://oosnuyh.github.io/RPF/' },
     { id: 'ppt', label: 'PPT 폰트·컬러 정리', iframeUrl: './ppt-style-tool.html' },
@@ -240,6 +294,7 @@
     if (feature.id === 'main') renderMainFeature();
     if (feature.id === 'top10') renderTop10Feature();
     if (feature.id === 'schedule') renderScheduleFeature();
+    if (feature.id === 'changeDetail') renderChangeDetailFeature();
     if (feature.id === 'checklist') renderChecklistFeature();
     if (feature.iframeUrl) renderIframeFeature(feature.iframeUrl);
   }
@@ -391,6 +446,81 @@
 
   // ----- 계약 만기 체크리스트 -----
   // ----- 계약 만기 체크리스트 (독립 메뉴) -----
+  // ----- 변화 상세 (독립 메뉴): 매출일정 변경/증가/감소/신규/제외/계약액변경 등 서술형 목록 -----
+  function renderChangeDetailFeature() {
+    const container = document.getElementById('featureContent');
+    const dc = DATA && DATA.detailedChanges;
+    if (!dc || Object.keys(dc).length === 0) {
+      container.innerHTML = '<div class="card"><div style="font-size:13px;color:#9A9689;">변화 상세 데이터가 없어요.</div></div>';
+      return;
+    }
+    container.innerHTML = SET_META.filter(s => dc[s.key]).map(s => `<div class="card" id="changeDetailCard-${s.key}"></div>`).join('');
+    for (const s of SET_META) {
+      if (dc[s.key]) renderChangeDetailCard(s.key, dc[s.key]);
+    }
+  }
+
+  function changeTypeColor(type) {
+    if (type === '증가' || type === '신규추가') return 'var(--good)';
+    if (type === '감소' || type === '제외') return 'var(--bad)';
+    return 'var(--ink-55)';
+  }
+
+  function renderChangeDetailCard(setKey, data) {
+    const card = document.getElementById(`changeDetailCard-${setKey}`);
+    const items = data.items || [];
+    if (items.length === 0) {
+      card.innerHTML = `<div class="card-title">${data.label} 변화 상세</div><div style="font-size:13px;color:#9A9689;">변화가 없어요.</div>`;
+      return;
+    }
+
+    const grouped = new Map();
+    const teamOrder = [];
+    for (const it of items) {
+      const team = it.team || '미분류';
+      if (!grouped.has(team)) { grouped.set(team, []); teamOrder.push(team); }
+      grouped.get(team).push(it);
+    }
+
+    let bodyHtml = '';
+    let textLines = [];
+    for (const team of teamOrder) {
+      const teamItems = grouped.get(team);
+      bodyHtml += `<div style="font-size:12px;font-weight:600;color:var(--ink-70);margin:14px 0 6px;">${team}</div>`;
+      bodyHtml += `<ol style="font-size:13px;color:var(--ink);line-height:1.7;padding-left:20px;margin:0;">`;
+      textLines.push(`${team}:`);
+      teamItems.forEach((it, i) => {
+        const amtText = it.amount ? ` (${it.amount >= 0 ? '+' : ''}${fmtWon(it.amount)})` : '';
+        const color = changeTypeColor(it.type);
+        bodyHtml += `<li style="margin-bottom:6px;"><b>${it.name}</b> ${it.text} <span style="color:${color};font-weight:600;">${amtText}</span></li>`;
+        textLines.push(`  ${i + 1}. ${it.name} ${it.text}${amtText}`);
+      });
+      bodyHtml += `</ol>`;
+    }
+
+    card.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div class="card-title" style="margin-bottom:0;flex:1;">${data.label} 변화 상세 (${items.length}건)</div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin:-6px 0 10px;">
+        <button class="changeDetailCopyBtn" style="font-size:12px;color:var(--ink-55);background:var(--surface-raised);border:1px solid var(--border-strong);border-radius:var(--radius-sm);padding:5px 12px;cursor:pointer;">복사하기</button>
+      </div>
+      ${bodyHtml}
+    `;
+
+    const copyBtn = card.querySelector('.changeDetailCopyBtn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(textLines.join('\n'));
+          const original = copyBtn.textContent;
+          copyBtn.textContent = '복사됨';
+          setTimeout(() => { copyBtn.textContent = original; }, 1500);
+        } catch (e) { /* 무시 */ }
+      });
+    }
+  }
+
   function renderChecklistFeature() {
     const container = document.getElementById('featureContent');
     container.innerHTML = '<div class="card" id="checklistCard"></div>';
@@ -530,105 +660,108 @@
     for (const s of availableSets) filtered[s.key] = filterChangeByTeam(changes[s.key], mainFilter.team);
     const maxAbs = Math.max(1, ...availableSets.map(s => Math.abs(filtered[s.key].total)));
 
-    let html = availableSets.map((s) => {
+    chartArea.innerHTML = `<div class="vBarChart">${availableSets.map((s) => {
       const c = filtered[s.key];
-      const widthPct = Math.min(100, Math.abs(c.total) / maxAbs * 100);
+      const heightPct = Math.min(100, Math.abs(c.total) / maxAbs * 100);
       const cls = c.total >= 0 ? 'pos' : 'neg';
       return `
-        <div class="barSet">
-          <div class="barSet-label">${s.label}</div>
-          <div class="barRow" data-set="${s.key}">
-            <div class="barTrack"><div class="barFill ${cls}" style="width:${widthPct}%;"></div></div>
-            <div class="barValue">${c.total >= 0 ? '+' : ''}${fmtWon(c.total)}</div>
-          </div>
-          <div class="quarterBars" id="qbars-${s.key}"></div>
+        <div class="vBarGroup" data-set="${s.key}">
+          <div class="vBarValue">${c.total >= 0 ? '+' : ''}${fmtWon(c.total)}</div>
+          <div class="vBarTrack"><div class="vBarFill ${cls}" style="height:${heightPct}%;"></div></div>
+          <div class="vBarLabel">${s.label}</div>
         </div>`;
-    }).join('');
+    }).join('')}</div>`;
 
-    chartArea.innerHTML = html;
-
-    chartArea.querySelectorAll('.barRow').forEach((row) => {
-      row.addEventListener('click', () => {
-        const setKey = row.getAttribute('data-set');
-        toggleQuarterBars(setKey, filtered[setKey]);
+    chartArea.querySelectorAll('.vBarGroup').forEach((group) => {
+      group.addEventListener('click', () => {
+        chartArea.querySelectorAll('.vBarGroup').forEach(g => g.classList.remove('active'));
+        group.classList.add('active');
+        const setKey = group.getAttribute('data-set');
+        renderQuarterSummary(setKey, filtered[setKey]);
       });
     });
   }
 
-  let openSetKey = null;
+  const QUARTERS = [
+    { label: '1분기', key: 'q1', months: [1, 2, 3] },
+    { label: '2분기', key: 'q2', months: [4, 5, 6] },
+    { label: '3분기', key: 'q3', months: [7, 8, 9] },
+    { label: '4분기', key: 'q4', months: [10, 11, 12] },
+  ];
 
-  function toggleQuarterBars(setKey, filteredChange) {
-    // 다른 세트가 열려있으면 닫는다 (한 번에 하나만 펼침)
-    if (openSetKey && openSetKey !== setKey) {
-      const prevEl = document.getElementById(`qbars-${openSetKey}`);
-      if (prevEl) prevEl.classList.remove('show');
-    }
-    const el = document.getElementById(`qbars-${setKey}`);
-    const isOpen = el.classList.contains('show');
-    if (isOpen) {
-      el.classList.remove('show');
-      openSetKey = null;
-      document.getElementById('detailArea').innerHTML = '<div class="empty">막대를 클릭하면 분기별 변화 내용이 여기 나와요.</div>';
-      return;
-    }
-    openSetKey = setKey;
-    const c = filteredChange;
+  // 분기 요약 목록 (변화 내용 패널) — 분기를 클릭하면 그 분기 3개월치 개별 항목을 팝업으로 보여준다.
+  function renderQuarterSummary(setKey, c) {
+    const detailArea = document.getElementById('detailArea');
     const setLabel = SET_META.find(s => s.key === setKey).label;
-    const quarters = [
-      { label: '1분기', key: 'q1', months: [1, 2, 3] },
-      { label: '2분기', key: 'q2', months: [4, 5, 6] },
-      { label: '3분기', key: 'q3', months: [7, 8, 9] },
-      { label: '4분기', key: 'q4', months: [10, 11, 12] },
-    ];
-    const maxAbsQ = Math.max(1, ...quarters.map(q => Math.abs(c[q.key])));
     function hasAnyDetail(months) { return months.some(m => (c.monthDetails[m - 1] || []).length > 0); }
-    el.innerHTML = quarters.map((q) => {
+
+    const rowsHtml = QUARTERS.map((q) => {
       const val = c[q.key];
-      const widthPct = Math.min(100, Math.abs(val) / maxAbsQ * 100);
-      const cls = val >= 0 ? 'pos' : 'neg';
       const isCancelled = val === 0 && hasAnyDetail(q.months);
-      const valueHtml = isCancelled
-        ? `<span style="color:#B45309;">0<span style="font-size:10px;">±</span></span>`
-        : `${val >= 0 ? '+' : ''}${fmtWon(val)}`;
-      return `<div class="qBarRow">
-        <div class="qBarLabel">${q.label}</div>
-        <div class="qBarTrack"><div class="qBarFill ${cls}" style="width:${widthPct}%;"></div></div>
-        <div class="qBarValue">${valueHtml}</div>
+      let valueHtml, cls;
+      if (isCancelled) {
+        valueHtml = `0<span style="font-size:10px;">±</span>`;
+        cls = 'cancelled';
+      } else {
+        valueHtml = `${val >= 0 ? '+' : ''}${fmtWon(val)}`;
+        cls = val >= 0 ? 'good' : 'bad';
+      }
+      return `<div class="qSummaryRow" data-quarter="${q.key}">
+        <span class="qSummaryLabel">${q.label}</span>
+        <span class="qSummaryValue ${cls}">${valueHtml}</span>
       </div>`;
     }).join('');
-    el.classList.add('show');
 
-    renderDetailText(setKey, setLabel, c, quarters);
+    detailArea.innerHTML = `<div class="qSummaryHint">${setLabel} — 분기를 클릭하면 세부 내역이 팝업으로 나와요</div>${rowsHtml}`;
+
+    detailArea.querySelectorAll('.qSummaryRow').forEach((row) => {
+      row.addEventListener('click', () => {
+        const qKey = row.getAttribute('data-quarter');
+        showQuarterPopup(qKey, setLabel, c);
+      });
+    });
   }
 
-  function renderDetailText(setKey, setLabel, c, quarters) {
-    const detailArea = document.getElementById('detailArea');
-    const blocks = [];
-    for (const q of quarters) {
-      // 분기 안에서 프로젝트명으로 합치면 같은 분기 안에서의 이동(예: 7월→8월)이
-      // 순변화 0으로 상쇄돼서 안 보이게 된다. 그래서 월 단위로 따로 보여준다.
-      const monthLines = [];
-      for (const m of q.months) {
-        const list = (c.monthDetails[m - 1]) || [];
-        if (list.length === 0) continue;
-        const sorted = list.slice().sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta));
-        const itemsHtml = sorted.map((item) => {
-          const cls = item.delta > 0 ? 'pos' : 'neg';
-          const sign = item.delta > 0 ? '+' : '';
-          return `<div class="qItem">${item.name} : <span class="amt ${cls}">${sign}${fmtWon(item.delta)}</span></div>`;
-        }).join('');
-        monthLines.push(`<div style="margin-bottom:6px;"><div style="font-size:11px;color:#8A8F98;margin-bottom:2px;">${m}월</div>${itemsHtml}</div>`);
-      }
-      if (monthLines.length === 0) continue; // 이 분기엔 어느 달에도 변화가 없음 -> 생략
-
-      blocks.push(`<div class="detailQuarter"><div class="qTitle">${q.label}</div>${monthLines.join('')}</div>`);
+  function showQuarterPopup(qKey, setLabel, c) {
+    const q = QUARTERS.find(qq => qq.key === qKey);
+    const items = [];
+    for (const m of q.months) {
+      const list = c.monthDetails[m - 1] || [];
+      for (const item of list) items.push(item);
     }
-    if (blocks.length === 0) {
-      detailArea.innerHTML = `<div class="empty">${setLabel}에는 분기별로 특별한 변화가 없었어요.</div>`;
+    items.sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta));
+    showDetailModal(`${q.label} ${setLabel} 변화 내역`, items);
+  }
+
+  // ----- 상세 팝업 -----
+  const detailModal = document.getElementById('detailModal');
+  const detailModalBackdrop = document.getElementById('detailModalBackdrop');
+  const detailModalTitle = document.getElementById('detailModalTitle');
+  const detailModalBody = document.getElementById('detailModalBody');
+  const detailModalClose = document.getElementById('detailModalClose');
+
+  function showDetailModal(title, items) {
+    detailModalTitle.textContent = title;
+    if (!items || items.length === 0) {
+      detailModalBody.innerHTML = '<div style="font-size:13px;color:var(--ink-40);">이 분기에는 변화가 없었어요.</div>';
     } else {
-      detailArea.innerHTML = blocks.join('');
+      detailModalBody.innerHTML = items.map((it) => {
+        const cls = it.delta > 0 ? 'pos' : 'neg';
+        const sign = it.delta > 0 ? '+' : '';
+        return `<div class="modalItem"><span>${it.name}</span><span class="amt ${cls}">${sign}${fmtWon(it.delta)}</span></div>`;
+      }).join('');
     }
+    detailModal.style.display = 'block';
+    detailModalBackdrop.style.display = 'block';
   }
+
+  function hideDetailModal() {
+    detailModal.style.display = 'none';
+    detailModalBackdrop.style.display = 'none';
+  }
+
+  detailModalClose.addEventListener('click', hideDetailModal);
+  detailModalBackdrop.addEventListener('click', hideDetailModal);
 
   // ----- TOP10 기능: 시작월/종료월 선택 -> 팀별 매출/수주 상위 10개 프로젝트 -----
   function renderTop10Feature() {
