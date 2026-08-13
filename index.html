@@ -1184,9 +1184,11 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
       function writeSheet(sheetName, solutionRows, maRows) {
         const ws = wb.addWorksheet(sheetName.slice(0, 31));
-        ws.columns = [{ width: 30 }].concat(Array.from({ length: 12 }, () => ({ width: 12 }))).concat([{ width: 14 }]);
+        ws.columns = [{ width: 6 }, { width: 30 }, { width: 20 }, { width: 14 }]
+          .concat(Array.from({ length: 12 }, () => ({ width: 12 })))
+          .concat([{ width: 14 }]);
 
-        const headerRow = ws.addRow(['프로젝트', ...Array.from({ length: 12 }, (_, i) => `${i + 1}월`), '합계']);
+        const headerRow = ws.addRow(['순번', '프로젝트', '기간', '계약액', ...Array.from({ length: 12 }, (_, i) => `${i + 1}월`), '합계']);
         headerRow.eachCell((cell) => {
           cell.fill = headerFill;
           cell.font = { color: { argb: 'FFFFFFFF' }, bold: true };
@@ -1199,6 +1201,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         for (const maRow of maRows) for (let m = 0; m < 12; m++) maTotal[m] += maRow.monthAmt[m];
         const hasMA = sumArr(maTotal) !== 0;
         const keyOf = (r) => (typeof r.sortKey === 'number' ? r.sortKey : 999999);
+        let rowNo = 1;
 
         function writeSectionLabel(text) {
           const row = ws.addRow([text]);
@@ -1208,17 +1211,17 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           const sorted = rows.slice().sort((a, b) => keyOf(a) - keyOf(b));
           for (const r of sorted) {
             const total = sumArr(r.monthAmt);
-            const row = ws.addRow([r.name, ...r.monthAmt, total]);
-            row.eachCell((cell, colNum) => { if (colNum > 1) cell.numFmt = '#,##0'; });
+            const row = ws.addRow([rowNo++, r.name, r.period || '', r.contract || 0, ...r.monthAmt, total]);
+            row.eachCell((cell, colNum) => { if (colNum === 4 || colNum > 4) cell.numFmt = '#,##0'; });
           }
         }
         function writeSubtotalRow(label, monthsArr, fill) {
           const total = sumArr(monthsArr);
-          const row = ws.addRow([label, ...monthsArr, total]);
+          const row = ws.addRow(['', label, '', '', ...monthsArr, total]);
           row.eachCell((cell, colNum) => {
             cell.font = { bold: true };
             cell.fill = fill;
-            if (colNum > 1) cell.numFmt = '#,##0';
+            if (colNum > 4) cell.numFmt = '#,##0';
           });
         }
 
