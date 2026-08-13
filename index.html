@@ -101,7 +101,24 @@
   }
   .filterDivider { width: 1px; height: 24px; background: var(--border-strong); margin: 0 26px; }
 
-  .kpiRow { grid-area: kpi; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .kpiRow { grid-area: kpi; display: flex; flex-direction: column; gap: 14px; }
+  .kpiTargetBar {
+    display: flex; align-items: center; background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: 16px 24px;
+  }
+  .kpiTargetItem { flex: 1; text-align: center; }
+  .kpiTargetLabel { display: block; font-size: 12px; color: var(--ink-55); font-weight: 600; margin-bottom: 6px; }
+  .kpiTargetValue { font-size: 19px; font-weight: 800; font-family: var(--mono); }
+  .kpiTargetDivider { width: 1px; height: 34px; background: var(--border-strong); }
+  .kpiGrid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .kpiMiniBox {
+    border-radius: var(--radius-lg); padding: 16px 12px; background: var(--surface);
+    border: 1px solid var(--border); box-shadow: var(--shadow-card);
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+  }
+  .kpiMiniLabel { font-size: 12.5px; font-weight: 700; color: var(--ink); margin-top: 8px; }
+  .kpiMiniValue { font-size: 13px; font-weight: 700; color: var(--ink); font-family: var(--mono); margin-top: 4px; }
+  .kpiMiniSub { font-size: 10.5px; color: var(--ink-40); margin-top: 2px; }
   .kpiBox {
     border-radius: var(--radius-lg); padding: 18px 20px; background: var(--surface);
     border: 1px solid var(--border); box-shadow: var(--shadow-card);
@@ -219,6 +236,9 @@
     .card-title { margin: -16px -14px 14px; }
     .kpiRow { grid-template-columns: 1fr; gap: 10px; }
     .kpiBox { min-width: 0; }
+    .kpiGrid4 { grid-template-columns: repeat(2, 1fr); }
+    .kpiTargetBar { flex-direction: column; gap: 10px; }
+    .kpiTargetDivider { display: none; }
     table.dataTable { font-size: 11.5px; }
     table.dataTable th, table.dataTable td { padding: 6px 6px; }
     .barValue { width: 88px; font-size: 11px; }
@@ -418,12 +438,15 @@
 
     let revTarget = 0, revExpected = 0, ordTarget = 0, ordExpected = 0;
     let revReal = 0, ordReal = 0;
+    let revAnnualTarget = 0, ordAnnualTarget = 0;
     const hasRealData = !!(tva.revenueRealActuals && tva.orderRealActuals);
     for (const team of teamsToSum) {
       revTarget += sumRange(tva.revenueTargets[team], start, end);
       revExpected += sumRange(tva.revenueActuals[team], start, end);
       ordTarget += sumRange(tva.orderTargets[team], start, end);
       ordExpected += sumRange(tva.orderActuals[team], start, end);
+      revAnnualTarget += sumRange(tva.revenueTargets[team], 1, 12);
+      ordAnnualTarget += sumRange(tva.orderTargets[team], 1, 12);
       if (hasRealData) {
         revReal += sumRange(tva.revenueRealActuals[team], start, end);
         ordReal += sumRange(tva.orderRealActuals[team], start, end);
@@ -431,54 +454,41 @@
     }
     const revExpPct = revTarget ? (revExpected / revTarget * 100) : 0;
     const ordExpPct = ordTarget ? (ordExpected / ordTarget * 100) : 0;
+    const revRealPct = revAnnualTarget ? (revReal / revAnnualTarget * 100) : 0;
+    const ordRealPct = ordAnnualTarget ? (ordReal / ordAnnualTarget * 100) : 0;
     const pLabel = `${start}월~${end}월`;
 
-    function actualBlockHtml(realAmt, annualTarget) {
-      if (!hasRealData) {
-        return `<div class="kpiActual">실제 달성: <span class="kpiActualPending">데이터 연동 준비 중</span></div>`;
-      }
-      const realPct = annualTarget ? (realAmt / annualTarget * 100) : 0;
-      const realDonutColor = realPct >= 100 ? 'var(--good)' : 'var(--neg)';
-      return `
-        <div style="display:flex;gap:12px;align-items:center;margin:10px 0 4px;padding-top:10px;border-top:1px solid var(--border);">
-          ${donutSvg(realPct, realDonutColor, { size: 56, r: 22, sw: 6, fontSize: 12 })}
-          <div style="flex:1;min-width:0;">
-            <div style="font-size:11px;color:var(--ink-40);margin-bottom:2px;">실제 달성 금액 (연목표대비)</div>
-            <div class="kpiTierValue" style="font-size:14px;">${fmtWon(realAmt)}</div>
-          </div>
-        </div>`;
-    }
-
-    function boxHtml(title, target, expected, expPct, realAmt, annualTarget, bg) {
-      const donutColor = expPct >= 100 ? 'var(--good)' : bg;
-      return `
-        <div class="kpiBox" style="border-top:4px solid ${bg};">
-          <div style="display:flex;gap:16px;align-items:center;margin-bottom:12px;">
-            ${donutSvg(expPct, donutColor)}
-            <div style="flex:1;min-width:0;">
-              <div class="kpiBoxTitle" style="margin-bottom:6px;">${title}</div>
-              <div style="font-size:11px;color:var(--ink-40);">${pLabel} 예상액 목표대비</div>
-            </div>
-          </div>
-          <div class="kpiTier"><span class="kpiTierLabel">${title} 목표</span><span class="kpiTierValue">${fmtWon(target)}</span></div>
-          <div class="kpiTier">
-            <span class="kpiTierLabel">${pLabel} 예상액</span>
-            <span class="kpiTierValue">${fmtWon(expected)} <span class="kpiPct ${expPct >= 100 ? 'good' : 'warn'}">(목표대비 ${expPct.toFixed(1)}%)</span></span>
-          </div>
-          ${actualBlockHtml(realAmt, annualTarget)}
-        </div>`;
-    }
-
-    let ordAnnualTarget = 0, revAnnualTarget = 0;
-    for (const team of teamsToSum) {
-      ordAnnualTarget += sumRange(tva.orderTargets[team], 1, 12);
-      revAnnualTarget += sumRange(tva.revenueTargets[team], 1, 12);
-    }
-
-    row.innerHTML = `<div class="kpiRow">
-      ${boxHtml('수주', ordTarget, ordExpected, ordExpPct, ordReal, ordAnnualTarget, '#B5472F')}
-      ${boxHtml('매출', revTarget, revExpected, revExpPct, revReal, revAnnualTarget, '#2E5FA3')}
+    const targetBarHtml = `<div class="kpiTargetBar">
+      <div class="kpiTargetItem"><span class="kpiTargetLabel">수주 목표</span><span class="kpiTargetValue" style="color:#B5472F;">${fmtWon(ordTarget)}</span></div>
+      <div class="kpiTargetDivider"></div>
+      <div class="kpiTargetItem"><span class="kpiTargetLabel">매출 목표</span><span class="kpiTargetValue" style="color:#2E5FA3;">${fmtWon(revTarget)}</span></div>
     </div>`;
+
+    function miniBoxHtml(label, amt, pct, color, sublabel, pending) {
+      if (pending) {
+        return `<div class="kpiMiniBox" style="border-top:3px solid ${color};">
+          <div class="kpiMiniLabel">${label}</div>
+          <div class="kpiActualPending" style="margin-top:20px;">데이터 연동 준비 중</div>
+        </div>`;
+      }
+      const donutColor = pct >= 100 ? 'var(--good)' : color;
+      return `<div class="kpiMiniBox" style="border-top:3px solid ${color};">
+        ${donutSvg(pct, donutColor, { size: 68, r: 27, sw: 7, fontSize: 14 })}
+        <div class="kpiMiniLabel">${label}</div>
+        <div class="kpiMiniValue">${fmtWon(amt)}</div>
+        <div class="kpiMiniSub">${sublabel}</div>
+      </div>`;
+    }
+
+    row.innerHTML = `
+      ${targetBarHtml}
+      <div class="kpiGrid4">
+        ${miniBoxHtml('수주 예상', ordExpected, ordExpPct, '#B5472F', `${pLabel} 목표대비`)}
+        ${miniBoxHtml('수주 실제', ordReal, ordRealPct, '#B5472F', '연목표대비', !hasRealData)}
+        ${miniBoxHtml('매출 예상', revExpected, revExpPct, '#2E5FA3', `${pLabel} 목표대비`)}
+        ${miniBoxHtml('매출 실제', revReal, revRealPct, '#2E5FA3', '연목표대비', !hasRealData)}
+      </div>
+    `;
   }
 
   // ----- 계약 만기 체크리스트 -----
