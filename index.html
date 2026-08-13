@@ -317,9 +317,7 @@
   }
 
   // ----- 메인화면: 구간별 실적조회 + 변화량 그래프 -----
-  let mainFilter = { team: '전체', period: 'Y' };
-  const PERIOD_RANGES = { Y: [1, 12], Q1: [1, 3], Q2: [4, 6], Q3: [7, 9], Q4: [10, 12] };
-  const PERIOD_LABELS = { Y: '연간 누계', Q1: '1분기', Q2: '2분기', Q3: '3분기', Q4: '4분기' };
+  let mainFilter = { team: '전체', startMonth: 1, endMonth: 12 };
 
   function teamsForFilterValue(value, tva) {
     if (!tva) return [];
@@ -354,12 +352,10 @@
           </div>
           <div class="filterDivider"></div>
           <div class="filterGroup"><span class="filterIcon">◆</span>
-            <label>기간</label>
-            <select id="mainPeriodFilter">
-              <option value="Y">연간 누계</option>
-              <option value="Q1">1분기</option><option value="Q2">2분기</option>
-              <option value="Q3">3분기</option><option value="Q4">4분기</option>
-            </select>
+            <label>시작월</label>
+            <input type="number" id="mainStartMonth" min="1" max="12" value="${mainFilter.startMonth}" style="width:52px;padding:6px 8px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);font-family:var(--mono);font-size:13px;text-align:center;" />
+            <label>종료월</label>
+            <input type="number" id="mainEndMonth" min="1" max="12" value="${mainFilter.endMonth}" style="width:52px;padding:6px 8px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);font-family:var(--mono);font-size:13px;text-align:center;" />
           </div>
         </div>
         <div id="kpiRow" style="grid-area:kpi;"></div>
@@ -369,9 +365,9 @@
     `;
 
     document.getElementById('mainTeamFilter').value = mainFilter.team;
-    document.getElementById('mainPeriodFilter').value = mainFilter.period;
     document.getElementById('mainTeamFilter').addEventListener('change', (e) => { mainFilter.team = e.target.value; refreshMainFeature(); });
-    document.getElementById('mainPeriodFilter').addEventListener('change', (e) => { mainFilter.period = e.target.value; refreshMainFeature(); });
+    document.getElementById('mainStartMonth').addEventListener('input', (e) => { mainFilter.startMonth = Math.max(1, Math.min(12, Number(e.target.value) || 1)); renderKpiCards(); });
+    document.getElementById('mainEndMonth').addEventListener('input', (e) => { mainFilter.endMonth = Math.max(1, Math.min(12, Number(e.target.value) || 12)); renderKpiCards(); });
 
     refreshMainFeature();
   }
@@ -382,12 +378,31 @@
   }
 
   // ----- 핵심 지표 (KPI) 카드: 수주/매출 각각 목표 · 연간 예상액(목표대비%) · 실제 금액(연목표대비%) -----
+  function donutSvg(pct, color) {
+    const clamped = Math.max(0, Math.min(100, pct));
+    const overAchieved = pct >= 100;
+    const r = 34, cx = 42, cy = 42, sw = 9;
+    const circumference = 2 * Math.PI * r;
+    const offset = circumference * (1 - clamped / 100);
+    const centerText = overAchieved
+      ? `<text x="${cx}" y="${cy - 3}" text-anchor="middle" font-size="13" font-weight="800" fill="${color}">초과</text>
+         <text x="${cx}" y="${cy + 12}" text-anchor="middle" font-size="10" font-weight="600" fill="${color}">달성</text>`
+      : `<text x="${cx}" y="${cy + 5}" text-anchor="middle" font-size="16" font-weight="800" fill="var(--ink)">${Math.round(pct)}%</text>`;
+    return `<svg width="84" height="84" viewBox="0 0 84 84" style="flex-shrink:0;">
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--border)" stroke-width="${sw}"/>
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="${sw}"
+        stroke-dasharray="${circumference.toFixed(1)}" stroke-dashoffset="${offset.toFixed(1)}"
+        stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})"/>
+      ${centerText}
+    </svg>`;
+  }
+
   function renderKpiCards() {
     const row = document.getElementById('kpiRow');
     const tva = DATA && DATA.targetVsActual;
     if (!tva) { row.innerHTML = ''; return; }
 
-    const [start, end] = PERIOD_RANGES[mainFilter.period] || [1, 12];
+    const start = mainFilter.startMonth, end = mainFilter.endMonth;
     const teamsToSum = teamsForFilterValue(mainFilter.team, tva);
 
     let revTarget = 0, revExpected = 0, ordTarget = 0, ordExpected = 0;
@@ -405,9 +420,8 @@
     }
     const revExpPct = revTarget ? (revExpected / revTarget * 100) : 0;
     const ordExpPct = ordTarget ? (ordExpected / ordTarget * 100) : 0;
-    const pLabel = PERIOD_LABELS[mainFilter.period];
+    const pLabel = `${start}월~${end}월`;
 
-    // 실제 달성 금액 — revenueRealActuals/orderRealActuals가 있으면 연목표대비%까지 계산해서 보여준다.
     function actualBlockHtml(realAmt, annualTarget) {
       if (!hasRealData) {
         return `<div class="kpiActual">실제 달성: <span class="kpiActualPending">데이터 연동 준비 중</span></div>`;
@@ -420,9 +434,16 @@
     }
 
     function boxHtml(title, target, expected, expPct, realAmt, annualTarget, bg) {
+      const donutColor = expPct >= 100 ? 'var(--good)' : bg;
       return `
         <div class="kpiBox" style="border-top:4px solid ${bg};">
-          <div class="kpiBoxTitle">${title}</div>
+          <div style="display:flex;gap:16px;align-items:center;margin-bottom:12px;">
+            ${donutSvg(expPct, donutColor)}
+            <div style="flex:1;min-width:0;">
+              <div class="kpiBoxTitle" style="margin-bottom:6px;">${title}</div>
+              <div style="font-size:11px;color:var(--ink-40);">${pLabel} 예상액 목표대비</div>
+            </div>
+          </div>
           <div class="kpiTier"><span class="kpiTierLabel">${title} 목표</span><span class="kpiTierValue">${fmtWon(target)}</span></div>
           <div class="kpiTier">
             <span class="kpiTierLabel">${pLabel} 예상액</span>
@@ -695,28 +716,38 @@
     const setLabel = SET_META.find(s => s.key === setKey).label;
     function hasAnyDetail(months) { return months.some(m => (c.monthDetails[m - 1] || []).length > 0); }
 
-    const rowsHtml = QUARTERS.map((q) => {
+    // 진짜로 아무 변화도 없는 분기(값도 0이고 세부내역도 없음)는 아예 숨긴다.
+    // 상쇄되어 0이 된 분기(0±, 세부내역은 있음)는 그대로 보여준다.
+    const visibleQuarters = QUARTERS.filter(q => c[q.key] !== 0 || hasAnyDetail(q.months));
+
+    if (visibleQuarters.length === 0) {
+      detailArea.innerHTML = `<div class="empty">${setLabel}에는 분기별로 특별한 변화가 없었어요.</div>`;
+      return;
+    }
+
+    const maxAbsQ = Math.max(1, ...visibleQuarters.map(q => Math.abs(c[q.key])));
+    const barsHtml = visibleQuarters.map((q) => {
       const val = c[q.key];
       const isCancelled = val === 0 && hasAnyDetail(q.months);
-      let valueHtml, cls;
-      if (isCancelled) {
-        valueHtml = `0<span style="font-size:10px;">±</span>`;
-        cls = 'cancelled';
-      } else {
-        valueHtml = `${val >= 0 ? '+' : ''}${fmtWon(val)}`;
-        cls = val >= 0 ? 'good' : 'bad';
-      }
-      return `<div class="qSummaryRow" data-quarter="${q.key}">
-        <span class="qSummaryLabel">${q.label}</span>
-        <span class="qSummaryValue ${cls}">${valueHtml}</span>
+      const heightPct = isCancelled ? 6 : Math.max(6, Math.min(100, Math.abs(val) / maxAbsQ * 100));
+      const cls = isCancelled ? '' : (val >= 0 ? 'pos' : 'neg');
+      const valueHtml = isCancelled ? `0<span style="font-size:9px;">±</span>` : `${val >= 0 ? '+' : ''}${fmtWon(val)}`;
+      const barBg = isCancelled ? 'background:var(--warn);' : '';
+      return `<div class="vBarGroup qSummaryBar" data-quarter="${q.key}" style="flex:1;">
+        <div class="vBarValue" style="${isCancelled ? 'color:var(--warn);' : ''}">${valueHtml}</div>
+        <div class="vBarTrack" style="height:90px;max-width:44px;">
+          <div class="vBarFill ${cls}" style="height:${heightPct}%;${barBg}"></div>
+        </div>
+        <div class="vBarLabel" style="font-size:12px;">${q.label}</div>
       </div>`;
     }).join('');
 
-    detailArea.innerHTML = `<div class="qSummaryHint">${setLabel} — 분기를 클릭하면 세부 내역이 팝업으로 나와요</div>${rowsHtml}`;
+    detailArea.innerHTML = `<div class="qSummaryHint">${setLabel} — 분기를 클릭하면 세부 내역이 팝업으로 나와요</div>
+      <div class="vBarChart" style="height:150px;gap:10px;">${barsHtml}</div>`;
 
-    detailArea.querySelectorAll('.qSummaryRow').forEach((row) => {
-      row.addEventListener('click', () => {
-        const qKey = row.getAttribute('data-quarter');
+    detailArea.querySelectorAll('.qSummaryBar').forEach((el) => {
+      el.addEventListener('click', () => {
+        const qKey = el.getAttribute('data-quarter');
         showQuarterPopup(qKey, setLabel, c);
       });
     });
