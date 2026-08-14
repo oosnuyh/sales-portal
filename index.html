@@ -816,58 +816,46 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
   function renderTargetTable() {
     const tva = DATA.targetVsActual;
-    if (!tva) { const t = document.getElementById('targetTable'); if (t) t.innerHTML = '<tr><td style="font-size:13px;color:#9A9689;">목표대비실적 데이터가 없어요.</td></tr>'; return; }
+    if (!tva) {
+      ['targetTableOrder', 'targetTableRevenue'].forEach((id) => {
+        const t = document.getElementById(id);
+        if (t) t.innerHTML = '<tr><td style="font-size:13px;color:#9A9689;">목표대비실적 데이터가 없어요.</td></tr>';
+      });
+      return;
+    }
     const start = Math.max(1, Math.min(12, Number(document.getElementById('top10Start').value) || 1));
     const end = Math.max(1, Math.min(12, Number(document.getElementById('top10End').value) || 12));
     const teamsToShow = tva.teams;
 
-    let html = `<tr>
-      <th></th>
-      <th>수주목표</th><th>수주실적</th><th>수주달성률</th><th>수주연목표대비</th>
-      <th>매출목표</th><th>매출실적</th><th>매출달성률</th><th>매출연목표대비</th>
-    </tr>`;
-
-    let totalOrdTarget = 0, totalOrdActual = 0, totalOrdAnnualTarget = 0;
-    let totalRevTarget = 0, totalRevActual = 0, totalRevAnnualTarget = 0;
-
-    const teamRows = teamsToShow.map((team) => {
-      const ordTarget = sumRange(tva.orderTargets[team], start, end);
-      const ordActual = sumRange(tva.orderActuals[team], start, end);
-      const ordAnnualTarget = sumRange(tva.orderTargets[team], 1, 12);
-      const revTarget = sumRange(tva.revenueTargets[team], start, end);
-      const revActual = sumRange(tva.revenueActuals[team], start, end);
-      const revAnnualTarget = sumRange(tva.revenueTargets[team], 1, 12);
-
-      totalOrdTarget += ordTarget; totalOrdActual += ordActual; totalOrdAnnualTarget += ordAnnualTarget;
-      totalRevTarget += revTarget; totalRevActual += revActual; totalRevAnnualTarget += revAnnualTarget;
-
-      return { team, ordTarget, ordActual, ordAnnualTarget, revTarget, revActual, revAnnualTarget };
-    });
-
-    function rowHtml(label, ordTarget, ordActual, ordAnnualTarget, revTarget, revActual, revAnnualTarget, isTotal) {
-      const ordPct = ordTarget ? (ordActual / ordTarget * 100) : 0;
-      const ordAnnualPct = ordAnnualTarget ? (ordActual / ordAnnualTarget * 100) : 0;
-      const revPct = revTarget ? (revActual / revTarget * 100) : 0;
-      const revAnnualPct = revAnnualTarget ? (revActual / revAnnualTarget * 100) : 0;
-      return `<tr class="${isTotal ? 'totalRow' : ''}">
-        <td>${label}</td>
-        <td>${Math.round(ordTarget).toLocaleString('en-US')}</td>
-        <td>${Math.round(ordActual).toLocaleString('en-US')}</td>
-        <td class="${pctClass(ordPct)}">${ordPct.toFixed(1)}%</td>
-        <td class="${pctClass(ordAnnualPct)}">${ordAnnualPct.toFixed(1)}%</td>
-        <td>${Math.round(revTarget).toLocaleString('en-US')}</td>
-        <td>${Math.round(revActual).toLocaleString('en-US')}</td>
-        <td class="${pctClass(revPct)}">${revPct.toFixed(1)}%</td>
-        <td class="${pctClass(revAnnualPct)}">${revAnnualPct.toFixed(1)}%</td>
-      </tr>`;
+    function buildOneTable(elId, targetsObj, actualsObj, headerPrefix) {
+      let html = `<tr><th></th><th>${headerPrefix}목표</th><th>${headerPrefix}실적</th><th>${headerPrefix}달성률</th><th>${headerPrefix}연목표대비</th></tr>`;
+      let totalTarget = 0, totalActual = 0, totalAnnualTarget = 0;
+      const rows = teamsToShow.map((team) => {
+        const target = sumRange(targetsObj[team], start, end);
+        const actual = sumRange(actualsObj[team], start, end);
+        const annualTarget = sumRange(targetsObj[team], 1, 12);
+        totalTarget += target; totalActual += actual; totalAnnualTarget += annualTarget;
+        return { team, target, actual, annualTarget };
+      });
+      function rowHtml(label, target, actual, annualTarget, isTotal) {
+        const pct = target ? (actual / target * 100) : 0;
+        const annualPct = annualTarget ? (actual / annualTarget * 100) : 0;
+        return `<tr class="${isTotal ? 'totalRow' : ''}">
+          <td>${label}</td>
+          <td>${Math.round(target).toLocaleString('en-US')}</td>
+          <td>${Math.round(actual).toLocaleString('en-US')}</td>
+          <td class="${pctClass(pct)}">${pct.toFixed(1)}%</td>
+          <td class="${pctClass(annualPct)}">${annualPct.toFixed(1)}%</td>
+        </tr>`;
+      }
+      html += rowHtml('본부 전체', totalTarget, totalActual, totalAnnualTarget, true);
+      for (const r of rows) html += rowHtml(r.team, r.target, r.actual, r.annualTarget, false);
+      const el = document.getElementById(elId);
+      if (el) el.innerHTML = html;
     }
 
-    html += rowHtml('본부 전체', totalOrdTarget, totalOrdActual, totalOrdAnnualTarget, totalRevTarget, totalRevActual, totalRevAnnualTarget, true);
-    for (const r of teamRows) {
-      html += rowHtml(r.team, r.ordTarget, r.ordActual, r.ordAnnualTarget, r.revTarget, r.revActual, r.revAnnualTarget, false);
-    }
-
-    document.getElementById('targetTable').innerHTML = html;
+    buildOneTable('targetTableOrder', tva.orderTargets, tva.orderActuals, '수주');
+    buildOneTable('targetTableRevenue', tva.revenueTargets, tva.revenueActuals, '매출');
   }
 
   // ----- 막대그래프 (연간 -> 분기별 확장) + 변화 내용 -----
@@ -1048,19 +1036,29 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     container.innerHTML = `
       <div class="split-row">
         <div class="card" style="flex:1;min-width:0;">
-          <div class="card-title">월별 목표 대비 실적</div>
+          <div class="card-title">월별 수주 목표 대비 실적</div>
           ${scopeSelectHtml}
-          <div id="monthlyChartArea"></div>
+          <div id="monthlyChartOrder"></div>
         </div>
         <div class="card" style="flex:1;min-width:0;">
-          <div class="card-title">구간별 실적조회</div>
+          <div class="card-title">구간별 수주 실적조회</div>
           <div class="range-inputs" style="margin-bottom:14px;">
             <label style="font-size:12px;color:#5B5F6B;margin-right:6px;">시작월</label>
             <input type="number" id="top10Start" min="1" max="12" value="1" />
             <label style="font-size:12px;color:#5B5F6B;margin:0 6px 0 14px;">종료월</label>
             <input type="number" id="top10End" min="1" max="12" value="12" />
           </div>
-          <table class="dataTable" id="targetTable" style="font-size:11.5px;"></table>
+          <table class="dataTable" id="targetTableOrder" style="font-size:11.5px;"></table>
+        </div>
+      </div>
+      <div class="split-row">
+        <div class="card" style="flex:1;min-width:0;">
+          <div class="card-title">월별 매출 목표 대비 실적</div>
+          <div id="monthlyChartRevenue"></div>
+        </div>
+        <div class="card" style="flex:1;min-width:0;">
+          <div class="card-title">구간별 매출 실적조회</div>
+          <table class="dataTable" id="targetTableRevenue" style="font-size:11.5px;"></table>
         </div>
       </div>
       ${hasProjects ? '<div class="card"><div class="card-title">TOP 10</div><div id="top10Body"></div></div>' : ''}
@@ -1073,7 +1071,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       });
       renderMonthlyChartArea(tva);
     } else {
-      document.getElementById('monthlyChartArea').innerHTML = '<div style="font-size:13px;color:#9A9689;">목표대비실적 데이터가 없어요.</div>';
+      document.getElementById('monthlyChartOrder').innerHTML = '<div style="font-size:13px;color:#9A9689;">목표대비실적 데이터가 없어요.</div>';
     }
 
     if (hasProjects) {
@@ -1104,12 +1102,12 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const revExpectedM = sumMonthly(tva.revenueActuals);
     const revRealM = tva.revenueRealActuals ? sumMonthly(tva.revenueRealActuals) : new Array(12).fill(0);
 
-    const area = document.getElementById('monthlyChartArea');
-    area.innerHTML = `
-      <div style="margin-bottom:16px;">${buildMonthlyBarLineChart('월별 수주', ordTargetsM, ordExpectedM, ordRealM, '#2F6FED', '#B7CEFB')}</div>
-      <div>${buildMonthlyBarLineChart('월별 매출', revTargetsM, revExpectedM, revRealM, '#1B3A6B', '#9FB8E0')}</div>
-    `;
-    attachChartTooltips(area);
+    const orderArea = document.getElementById('monthlyChartOrder');
+    const revenueArea = document.getElementById('monthlyChartRevenue');
+    orderArea.innerHTML = buildMonthlyBarLineChart('수주', ordTargetsM, ordExpectedM, ordRealM, '#2F6FED', '#B7CEFB');
+    revenueArea.innerHTML = buildMonthlyBarLineChart('매출', revTargetsM, revExpectedM, revRealM, '#1B3A6B', '#9FB8E0');
+    attachChartTooltips(orderArea);
+    attachChartTooltips(revenueArea);
   }
 
   // ----- 차트 호버 툴팁 (공용 플로팅 박스 하나를 재사용) -----
