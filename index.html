@@ -1215,22 +1215,35 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   function rankTop10(records, team, start, end) {
     const rows = records
       .filter(r => r.team === team)
-      .map(r => ({ name: r.name, sum: sumRange(r.monthAmt, start, end) }))
+      .map(r => ({ name: r.name, sum: sumRange(r.monthAmt, start, end), projectId: r.projectId || '', repName: r.repName || '' }))
       .filter(r => r.sum !== 0)
       .sort((a, b) => b.sum - a.sum)
       .slice(0, 10);
     return rows;
   }
 
-  function top10TableHtml(title, rows) {
+  function top10TableHtml(title, rows, uid) {
     if (rows.length === 0) return `<div style="font-size:12px;color:#9A9689;margin-bottom:16px;">${title}: 해당 구간에 데이터가 없어요.</div>`;
     return `<div style="margin-bottom:16px;">
       <div style="font-size:12px;font-weight:600;color:#3A3D45;margin-bottom:6px;">${title}</div>
-      <table class="dataTable"><tr><th style="width:30px;">#</th><th>프로젝트</th><th>금액</th></tr>
-      ${rows.map((r, i) => `<tr><td>${i + 1}</td><td style="text-align:left;">${r.name}</td><td>${fmtWon(r.sum)}</td></tr>`).join('')}
+      <table class="dataTable"><tr><th style="width:30px;">#</th><th style="text-align:left;">프로젝트</th><th>금액</th></tr>
+      ${rows.map((r, i) => `<tr class="top10Row" data-uid="${uid}" data-idx="${i}" style="cursor:pointer;"><td>${i + 1}</td><td style="text-align:left;">${r.name}</td><td>${fmtWon(r.sum)}</td></tr>`).join('')}
       </table>
     </div>`;
   }
+
+  function showProjectInfoPopup(item) {
+    detailModalTitle.textContent = item.name;
+    detailModalBody.innerHTML = `
+      <div class="modalItem"><span>프로젝트 ID</span><span>${item.projectId || '-'}</span></div>
+      <div class="modalItem"><span>담당자</span><span>${item.repName || '-'}</span></div>
+      <div class="modalItem"><span>금액</span><span class="amt pos">${fmtWon(item.sum)}</span></div>
+    `;
+    detailModal.style.display = 'block';
+    detailModalBackdrop.style.display = 'block';
+  }
+
+  const top10DataMap = {};
 
   function renderTop10Body() {
     const start = Math.max(1, Math.min(12, Number(document.getElementById('top10Start').value) || 1));
@@ -1245,15 +1258,29 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     for (const team of teams) {
       const revRows = rankTop10(projects.revenue, team, start, end);
       const ordRows = rankTop10(projects.order, team, start, end);
+      const revUid = `${cssSafe(team)}_rev`;
+      const ordUid = `${cssSafe(team)}_ord`;
+      top10DataMap[revUid] = revRows;
+      top10DataMap[ordUid] = ordRows;
       html += `<div style="margin-bottom:24px;">
         <div style="font-size:14px;font-weight:700;color:#1A1D24;margin-bottom:10px;">${team}</div>
         <div class="top10SplitRow" style="display:flex;gap:20px;align-items:flex-start;">
-          <div style="flex:1 1 0;min-width:0;">${top10TableHtml('수주 TOP10', ordRows)}</div>
-          <div style="flex:1 1 0;min-width:0;">${top10TableHtml('매출 TOP10', revRows)}</div>
+          <div style="flex:1 1 0;min-width:0;">${top10TableHtml('수주 TOP10', ordRows, ordUid)}</div>
+          <div style="flex:1 1 0;min-width:0;">${top10TableHtml('매출 TOP10', revRows, revUid)}</div>
         </div>
       </div>`;
     }
-    document.getElementById('top10Body').innerHTML = html || '<div style="font-size:13px;color:#9A9689;">표시할 팀이 없어요.</div>';
+    const body = document.getElementById('top10Body');
+    body.innerHTML = html || '<div style="font-size:13px;color:#9A9689;">표시할 팀이 없어요.</div>';
+
+    body.querySelectorAll('.top10Row').forEach((row) => {
+      row.addEventListener('click', () => {
+        const uid = row.getAttribute('data-uid');
+        const idx = Number(row.getAttribute('data-idx'));
+        const item = top10DataMap[uid] && top10DataMap[uid][idx];
+        if (item) showProjectInfoPopup(item);
+      });
+    });
   }
 
   // ----- 매출일정 기능: 전사 모든 프로젝트를 팀별로 묶어서 1~12월 금액을 표로 -----
