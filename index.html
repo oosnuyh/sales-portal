@@ -408,6 +408,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     { id: 'main', label: '메인화면' },
     { id: 'top10', label: 'TOP10' },
     { id: 'schedule', label: '매출일정' },
+    { id: 'targetView', label: '목표 보기' },
     { id: 'changeDetail', label: '변화 상세' },
     { id: 'checklist', label: '계약 만기' },
     { id: 'rfp', label: '입찰공고', iframeUrl: 'https://oosnuyh.github.io/RPF/' },
@@ -448,6 +449,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     if (feature.id === 'main') renderMainFeature();
     if (feature.id === 'top10') renderTop10Feature();
     if (feature.id === 'schedule') renderScheduleFeature();
+    if (feature.id === 'targetView') renderTargetViewFeature();
     if (feature.id === 'changeDetail') renderChangeDetailFeature();
     if (feature.id === 'checklist') renderChecklistFeature();
     if (feature.iframeUrl) renderIframeFeature(feature.iframeUrl);
@@ -566,13 +568,10 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     </svg>`;
   }
 
-  function renderKpiCards() {
-    const row = document.getElementById('kpiRow');
-    const tva = DATA && DATA.targetVsActual;
-    if (!tva) { row.innerHTML = ''; return; }
-
-    const [start, end] = PERIOD_RANGES[mainFilter.period] || [1, 12];
-    const teamsToSum = teamsForFilterValue(mainFilter.team, tva);
+  // 특정 팀 목록(scope)과 기간에 대한 KPI(목표바+4박스 도넛) HTML을 만든다.
+  // 메인화면(전체/본부/팀 중 하나)과 새 "목표 보기" 페이지(여러 스코프를 한번에) 둘 다 재사용한다.
+  function buildKpiHtml(teamsToSum, period, tva) {
+    const [start, end] = PERIOD_RANGES[period] || [1, 12];
 
     let revTarget = 0, revExpected = 0, ordTarget = 0, ordExpected = 0;
     let revReal = 0, ordReal = 0;
@@ -594,7 +593,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const ordExpPct = ordTarget ? (ordExpected / ordTarget * 100) : 0;
     const revRealPct = revAnnualTarget ? (revReal / revAnnualTarget * 100) : 0;
     const ordRealPct = ordAnnualTarget ? (ordReal / ordAnnualTarget * 100) : 0;
-    const pLabel = PERIOD_LABELS[mainFilter.period];
+    const pLabel = PERIOD_LABELS[period];
 
     const targetBarHtml = `<div class="kpiTargetBar">
       <div class="kpiTargetItem"><span class="kpiTargetLabel">수주 목표</span><span class="kpiTargetValue" style="color:#B5472F;">${fmtWon(ordTarget)}</span></div>
@@ -618,7 +617,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       </div>`;
     }
 
-    row.innerHTML = `
+    return `
       ${targetBarHtml}
       <div class="kpiGrid4">
         ${miniBoxHtml('수주 예상', ordExpected, ordExpPct, '#B5472F', `${pLabel} 목표대비`)}
@@ -629,9 +628,75 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     `;
   }
 
+  function renderKpiCards() {
+    const row = document.getElementById('kpiRow');
+    const tva = DATA && DATA.targetVsActual;
+    if (!tva) { row.innerHTML = ''; return; }
+    const teamsToSum = teamsForFilterValue(mainFilter.team, tva);
+    row.innerHTML = buildKpiHtml(teamsToSum, mainFilter.period, tva);
+  }
+
   // ----- 계약 만기 체크리스트 -----
   // ----- 계약 만기 체크리스트 (독립 메뉴) -----
   // ----- 변화 상세 (독립 메뉴): 매출일정 변경/증가/감소/신규/제외/계약액변경 등 서술형 목록 -----
+  // ----- 목표 보기 (독립 메뉴): 본부/팀 KPI를 한번에 다 쌓아서 보여준다 -----
+  let targetViewPeriod = 'Y';
+
+  function renderTargetViewFeature() {
+    const container = document.getElementById('featureContent');
+    const tva = DATA && DATA.targetVsActual;
+    if (!tva) {
+      container.innerHTML = '<div class="card"><div style="font-size:13px;color:#9A9689;">목표대비실적 데이터가 없어요.</div></div>';
+      return;
+    }
+    container.innerHTML = `
+      <div class="card" style="display:flex;gap:16px;align-items:center;">
+        <div class="filterGroup"><span class="filterIcon">◆</span>
+          <label style="font-size:12.5px;color:var(--ink-55);font-weight:600;">기간</label>
+          <select id="targetViewPeriodFilter">
+            <option value="Y">연간 누계</option>
+            <option value="Q1">1분기</option><option value="Q2">2분기</option>
+            <option value="Q3">3분기</option><option value="Q4">4분기</option>
+          </select>
+        </div>
+      </div>
+      <div id="targetViewBody"></div>
+    `;
+    document.getElementById('targetViewPeriodFilter').value = targetViewPeriod;
+    document.getElementById('targetViewPeriodFilter').addEventListener('change', (e) => {
+      targetViewPeriod = e.target.value;
+      renderTargetViewBody(tva);
+    });
+    renderTargetViewBody(tva);
+  }
+
+  function renderTargetViewBody(tva) {
+    const body = document.getElementById('targetViewBody');
+    const hqMap = new Map(); // hq -> [teams...]
+    for (const team of tva.teams) {
+      const hq = hqOfTeam(team);
+      if (!hqMap.has(hq)) hqMap.set(hq, []);
+      hqMap.get(hq).push(team);
+    }
+
+    let html = '';
+    for (const hq of Array.from(hqMap.keys()).sort()) {
+      const teamsInHq = hqMap.get(hq);
+      html += `<div class="card">
+        <div class="card-title">${hq}</div>
+        ${buildKpiHtml(teamsInHq, targetViewPeriod, tva)}
+      </div>`;
+      for (const team of teamsInHq) {
+        const shortLabel = team.replace(hq, '').trim() || team;
+        html += `<div class="card">
+          <div class="card-title">${hq} ${shortLabel}</div>
+          ${buildKpiHtml([team], targetViewPeriod, tva)}
+        </div>`;
+      }
+    }
+    body.innerHTML = html;
+  }
+
   function renderChangeDetailFeature() {
     const container = document.getElementById('featureContent');
     const dc = DATA && DATA.detailedChanges;
@@ -1177,91 +1242,89 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     btn.disabled = true;
     try {
       const wb = new ExcelJS.Workbook();
+      const fy = (DATA && DATA.fy) || new Date().getFullYear() % 100;
+      const dateStr8 = (DATA && DATA.titleDate) || new Date().toISOString().slice(0, 10).replace(/-/g, '');
       const headerFill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF2D2A3D' } };
-      const subtotalFill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFF2F2F2' } };
-      const maFill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFEDE7FD' } };
       const totalFill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE8E2F9' } };
 
-      function writeSheet(sheetName, solutionRows, maRows) {
-        const ws = wb.addWorksheet(sheetName.slice(0, 31));
-        ws.columns = [{ width: 6 }, { width: 30 }, { width: 20 }, { width: 14 }]
-          .concat(Array.from({ length: 12 }, () => ({ width: 12 })))
-          .concat([{ width: 14 }]);
+      const monthCols = Array.from({ length: 12 }, (_, i) => `${fy}년${i + 1}월매출`);
 
-        const headerRow = ws.addRow(['순번', '프로젝트', '기간', '계약액', ...Array.from({ length: 12 }, (_, i) => `${i + 1}월`), '합계']);
+      function writeSheet(sheetName, scopeTitle, solutionRows, maRows) {
+        const ws = wb.addWorksheet(sheetName.slice(0, 31));
+        ws.columns = [{ width: 6 }, { width: 32 }, { width: 14 }, { width: 10 }, { width: 20 }, { width: 14 }, { width: 11 }, { width: 11 }]
+          .concat(Array.from({ length: 12 }, () => ({ width: 12 })));
+
+        ws.addRow([`Fy'${fy} ${scopeTitle} 매출 진행 내역_${dateStr8}현재`]);
+        ws.getCell(1, 1).font = { bold: true, size: 12 };
+
+        ws.addRow(['1. 기계약 프로젝트']);
+        ws.getCell(2, 1).font = { bold: true };
+
+        const headerRow = ws.addRow(['순번', '프로젝트', '업데이트 날짜', '비고', '기간', '계약액', '1월License', '기매출액', ...monthCols]);
         headerRow.eachCell((cell) => {
           cell.fill = headerFill;
           cell.font = { color: { argb: 'FFFFFFFF' }, bold: true };
           cell.alignment = { horizontal: 'center' };
         });
 
-        const existingRows = solutionRows.filter(r => r.section === '기계약');
-        const newRows = solutionRows.filter(r => r.section === '신규');
+        const keyOf = (r) => (typeof r.sortKey === 'number' ? r.sortKey : 999999);
+        const sortedRows = solutionRows.slice().sort((a, b) => keyOf(a) - keyOf(b));
+        let rowNo = 1;
+        for (const r of sortedRows) {
+          // License 행: 순번/프로젝트/기간/계약액 + License 월별 매출
+          const licenseRow = ws.addRow([rowNo++, r.name, '', '', r.period || '', r.contract || 0, '', '', ...(r.monthAmt1 || r.monthAmt)]);
+          licenseRow.eachCell((cell, colNum) => { if (colNum === 6 || colNum >= 9) cell.numFmt = '#,##0'; });
+          // 용역(Service) 행: 라벨 없이 나머지 월별 매출만
+          const serviceMonths = r.monthAmt2 || new Array(12).fill(0);
+          const serviceRow = ws.addRow([null, null, null, null, null, null, null, null, ...serviceMonths]);
+          serviceRow.eachCell((cell, colNum) => { if (colNum >= 9) cell.numFmt = '#,##0'; });
+        }
+
+        const solutionTotalMonths = new Array(12).fill(0);
+        for (const r of solutionRows) {
+          const m1 = r.monthAmt1 || r.monthAmt;
+          const m2 = r.monthAmt2 || new Array(12).fill(0);
+          for (let m = 0; m < 12; m++) solutionTotalMonths[m] += m1[m] + m2[m];
+        }
+        const solutionSubtotalRow = ws.addRow([null, '합계', null, null, null, null, null, null, ...solutionTotalMonths]);
+        solutionSubtotalRow.eachCell((cell, colNum) => { cell.font = { bold: true }; if (colNum >= 9) cell.numFmt = '#,##0'; });
+
+        ws.addRow([]);
         const maTotal = new Array(12).fill(0);
         for (const maRow of maRows) for (let m = 0; m < 12; m++) maTotal[m] += maRow.monthAmt[m];
         const hasMA = sumArr(maTotal) !== 0;
-        const keyOf = (r) => (typeof r.sortKey === 'number' ? r.sortKey : 999999);
-        let rowNo = 1;
-
-        function writeSectionLabel(text) {
-          const row = ws.addRow([text]);
-          row.getCell(1).font = { italic: true, color: { argb: 'FF8A8F98' }, size: 10 };
-        }
-        function writeProjectRows(rows) {
-          const sorted = rows.slice().sort((a, b) => keyOf(a) - keyOf(b));
-          for (const r of sorted) {
-            const total = sumArr(r.monthAmt);
-            const row = ws.addRow([rowNo++, r.name, r.period || '', r.contract || 0, ...r.monthAmt, total]);
-            row.eachCell((cell, colNum) => { if (colNum === 4 || colNum > 4) cell.numFmt = '#,##0'; });
-          }
-        }
-        function writeSubtotalRow(label, monthsArr, fill) {
-          const total = sumArr(monthsArr);
-          const row = ws.addRow(['', label, '', '', ...monthsArr, total]);
-          row.eachCell((cell, colNum) => {
-            cell.font = { bold: true };
-            cell.fill = fill;
-            if (colNum > 4) cell.numFmt = '#,##0';
-          });
-        }
-
-        if (existingRows.length > 0) {
-          writeSectionLabel('1. 기계약 프로젝트 (Backlog)');
-          writeProjectRows(existingRows);
-          writeSubtotalRow('기계약 소계', monthsOf(existingRows), subtotalFill);
-        }
-        if (newRows.length > 0) {
-          writeSectionLabel('2. 신규 프로젝트');
-          writeProjectRows(newRows);
-          writeSubtotalRow('신규 소계', monthsOf(newRows), subtotalFill);
-        }
         if (hasMA) {
-          writeSectionLabel('3. MA');
-          writeSubtotalRow('MA (통합)', maTotal, maFill);
+          const maHeaderRow = ws.addRow(['3. 26년 MA 및 ULA 계약 매출일정']);
+          maHeaderRow.getCell(1).font = { bold: true };
+          const maRow2 = ws.addRow([null, 'MA (통합)', null, null, null, null, null, null, ...maTotal]);
+          maRow2.eachCell((cell, colNum) => { if (colNum >= 9) cell.numFmt = '#,##0'; });
+          ws.addRow([]);
         }
 
         const grandTotalMonths = new Array(12).fill(0);
-        for (let m = 0; m < 12; m++) grandTotalMonths[m] = monthsOf(existingRows)[m] + monthsOf(newRows)[m] + (hasMA ? maTotal[m] : 0);
-        writeSubtotalRow('(기계약+신규+MA) 합계', grandTotalMonths, totalFill);
+        for (let m = 0; m < 12; m++) grandTotalMonths[m] = solutionTotalMonths[m] + (hasMA ? maTotal[m] : 0);
+        const grandTotalRow = ws.addRow([null, '(기계약+신규+MA) 합계', null, null, null, null, null, null, ...grandTotalMonths]);
+        grandTotalRow.eachCell((cell, colNum) => { cell.font = { bold: true }; cell.fill = totalFill; if (colNum >= 9) cell.numFmt = '#,##0'; });
 
         ws.addRow([]);
-        const cumHeaderRow = ws.addRow(['분기별 누적', '1분기', '1~2분기 누적', '1~3분기 누적', '1~4분기 누적']);
-        cumHeaderRow.getCell(1).font = { bold: true };
-        const cumValues = [3, 6, 9, 12].map(end => sumRange0(grandTotalMonths, 0, end));
-        const cumRow = ws.addRow(['', ...cumValues]);
-        cumRow.eachCell((cell, colNum) => { if (colNum > 1) { cell.numFmt = '#,##0'; cell.font = { bold: true }; } });
+        const qLabels = ['1Q 매출 소계', '2Q 매출누적 소계', '3Q 매출누적 소계', '4Q 매출누적 소계'];
+        const qEnds = [3, 6, 9, 12];
+        qLabels.forEach((label, i) => {
+          const val = sumRange0(grandTotalMonths, 0, qEnds[i]);
+          const row = ws.addRow([null, null, null, null, label, val]);
+          row.getCell(5).font = { bold: true };
+          row.getCell(6).numFmt = '#,##0';
+          row.getCell(6).font = { bold: true };
+        });
       }
 
-      for (const hq of Array.from(hqMap.keys()).sort()) {
-        const teamsInHq = hqMap.get(hq);
-        const hqSolutionRows = projects.revenue.filter(r => teamsInHq.includes(r.team));
-        const hqMaRows = maSchedule.revenue.filter(r => teamsInHq.includes(r.team));
-        writeSheet(`${hq}_통합`, hqSolutionRows, hqMaRows);
-        for (const team of teamsInHq) {
-          const teamSolutionRows = projects.revenue.filter(r => r.team === team);
-          const teamMaRows = maSchedule.revenue.filter(r => r.team === team);
-          writeSheet(team, teamSolutionRows, teamMaRows);
-        }
+      // 통합(전 팀) 시트 + 팀별 시트 = 요청하신 대로 N+1 시트 구성
+      const allTeams = Array.from(hqMap.values()).flat().sort();
+      writeSheet('통합', '전체', projects.revenue, maSchedule.revenue);
+      for (const team of allTeams) {
+        const teamSolutionRows = projects.revenue.filter(r => r.team === team);
+        const teamMaRows = maSchedule.revenue.filter(r => r.team === team);
+        writeSheet(team, team, teamSolutionRows, teamMaRows);
       }
 
       const buf = await wb.xlsx.writeBuffer();
