@@ -1561,8 +1561,9 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       scopeLabel = scope;
     }
     const bodyHtml = unitNote + scheduleTableAndCumHtml(solutionRows, maRows);
+    const summaryHtml = buildScheduleSummaryStrip(solutionRows, maRows);
 
-    card.innerHTML = `<div class="card-title">${scopeLabel} — 매출일정</div>${buttonsHtml}<div id="scheduleBody-${cssSafe(hq)}">${bodyHtml}</div>`;
+    card.innerHTML = `<div class="card-title">${scopeLabel} — 매출일정</div>${summaryHtml}${buttonsHtml}<div id="scheduleBody-${cssSafe(hq)}">${bodyHtml}</div>`;
 
     card.querySelectorAll('.scheduleToggleBtn').forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -1570,6 +1571,48 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         renderHqScheduleCard(hq, teamsInHq, projects, maSchedule);
       });
     });
+  }
+
+  // 현재 titleDate(기준일자) 기준으로, 몇 월까지를 "확정(지난달)"으로 볼지 계산한다.
+  function currentMonthFromTitleDate() {
+    const td = DATA && DATA.titleDate;
+    if (td && /^\d{8}$/.test(td)) {
+      const m = Number(td.slice(4, 6));
+      if (m >= 1 && m <= 12) return m;
+    }
+    return 12;
+  }
+
+  function buildScheduleSummaryStrip(solutionRows, maRows) {
+    const currentMonth = currentMonthFromTitleDate();
+    const projectCount = solutionRows.length;
+    const contractSum = solutionRows.reduce((s, r) => s + (r.contract || 0), 0);
+
+    const grandTotalMonths = new Array(12).fill(0);
+    for (const r of solutionRows) for (let m = 0; m < 12; m++) grandTotalMonths[m] += r.monthAmt[m];
+    for (const maRow of maRows) for (let m = 0; m < 12; m++) grandTotalMonths[m] += maRow.monthAmt[m];
+
+    const annualTotal = sumArr(grandTotalMonths);
+    const confirmedTotal = sumRange0(grandTotalMonths, 0, currentMonth);
+    const remainingTotal = sumRange0(grandTotalMonths, currentMonth, 12);
+    const progressPct = annualTotal ? (confirmedTotal / annualTotal * 100) : 0;
+    const fmtM = (n) => Math.round(n / 1000000).toLocaleString('en-US'); // 백만원 단위
+
+    function cardHtml(label, valueHtml, subHtml) {
+      return `<div style="flex:1;min-width:0;background:var(--surface-raised);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:var(--radius-md);padding:14px 16px;">
+        <div style="font-size:12px;color:var(--ink-55);margin-bottom:8px;">${label}</div>
+        ${valueHtml}
+        <div style="font-size:11px;color:var(--ink-40);margin-top:6px;">${subHtml}</div>
+      </div>`;
+    }
+
+    return `<div style="display:flex;gap:14px;margin-bottom:16px;flex-wrap:wrap;">
+      ${cardHtml('계약 프로젝트', `<span style="font-size:20px;font-weight:800;color:var(--ink);">${projectCount}<span style="font-size:12px;font-weight:600;color:var(--ink-40);margin-left:3px;">건</span></span>`, `계약금액 합계 ${fmtM(contractSum)}백만`)}
+      ${cardHtml('연간 인식 예정 매출', `<span style="font-size:20px;font-weight:800;color:var(--ink);">${fmtM(annualTotal)}<span style="font-size:12px;font-weight:600;color:var(--ink-40);margin-left:3px;">백만</span></span>`, `${DATA.fy}년 스케줄 기준`)}
+      ${cardHtml(`확정 인식 (1~${currentMonth}월)`, `<span style="font-size:20px;font-weight:800;color:var(--ink);">${fmtM(confirmedTotal)}<span style="font-size:12px;font-weight:600;color:var(--ink-40);margin-left:3px;">백만</span></span>`,
+        `진행률 ${progressPct.toFixed(1)}%<div style="height:5px;background:var(--border);border-radius:3px;margin-top:5px;overflow:hidden;"><div style="height:100%;width:${Math.min(100, progressPct).toFixed(1)}%;background:var(--accent);"></div></div>`)}
+      ${cardHtml('잔여 인식 예정', `<span style="font-size:20px;font-weight:800;color:var(--ink);">${fmtM(remainingTotal)}<span style="font-size:12px;font-weight:600;color:var(--ink-40);margin-left:3px;">백만</span></span>`, `${currentMonth + 1 <= 12 ? `${currentMonth + 1}~12월` : '-'}`)}
+    </div>`;
   }
 
   // ----- 초기화: results.json 로드 -----
