@@ -1707,10 +1707,10 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
     return `<div style="display:flex;gap:14px;margin-bottom:16px;flex-wrap:wrap;">
       ${cardHtml('계약 프로젝트', `<span style="font-size:20px;font-weight:800;color:var(--ink);">${projectCount}<span style="font-size:12px;font-weight:600;color:var(--ink-40);margin-left:3px;">건</span></span>`, `계약금액 합계 ${fmtM(contractSum)}백만`)}
-      ${cardHtml('연간 인식 예정 매출', `<span style="font-size:20px;font-weight:800;color:var(--ink);">${fmtM(annualTotal)}<span style="font-size:12px;font-weight:600;color:var(--ink-40);margin-left:3px;">백만</span></span>`, `${DATA.fy}년 스케줄 기준`)}
-      ${cardHtml(`확정 인식 (1~${currentMonth}월)`, `<span style="font-size:20px;font-weight:800;color:var(--ink);">${fmtM(confirmedTotal)}<span style="font-size:12px;font-weight:600;color:var(--ink-40);margin-left:3px;">백만</span></span>`,
+      ${cardHtml('연간 매출 예정', `<span style="font-size:20px;font-weight:800;color:var(--ink);">${fmtM(annualTotal)}<span style="font-size:12px;font-weight:600;color:var(--ink-40);margin-left:3px;">백만</span></span>`, `${DATA.fy}년 스케줄 기준`)}
+      ${cardHtml(`확정 매출 (1~${currentMonth}월)`, `<span style="font-size:20px;font-weight:800;color:var(--ink);">${fmtM(confirmedTotal)}<span style="font-size:12px;font-weight:600;color:var(--ink-40);margin-left:3px;">백만</span></span>`,
         `진행률 ${progressPct.toFixed(1)}%<div style="height:5px;background:var(--border);border-radius:3px;margin-top:5px;overflow:hidden;"><div style="height:100%;width:${Math.min(100, progressPct).toFixed(1)}%;background:var(--accent);"></div></div>`)}
-      ${cardHtml('잔여 인식 예정', `<span style="font-size:20px;font-weight:800;color:var(--ink);">${fmtM(remainingTotal)}<span style="font-size:12px;font-weight:600;color:var(--ink-40);margin-left:3px;">백만</span></span>`, `${currentMonth + 1 <= 12 ? `${currentMonth + 1}~12월` : '-'}`)}
+      ${cardHtml('잔여 매출 예정', `<span style="font-size:20px;font-weight:800;color:var(--ink);">${fmtM(remainingTotal)}<span style="font-size:12px;font-weight:600;color:var(--ink-40);margin-left:3px;">백만</span></span>`, `${currentMonth + 1 <= 12 ? `${currentMonth + 1}~12월` : '-'}`)}
     </div>`;
   }
 
