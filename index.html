@@ -640,28 +640,28 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   // 예상/목표/실제 3개 막대를 세로 막대그래프로 그린다.
   function buildTripleBarChart(title, expected, target, real, color, hasRealData) {
     const items = [
-      { label: `${title} 예상`, value: expected },
-      { label: `${title} 목표`, value: target },
-      { label: `${title} 실제`, value: hasRealData ? real : 0 },
+      { label: '예상', value: expected },
+      { label: '목표', value: target },
+      { label: '실제', value: hasRealData ? real : 0 },
     ];
     const maxVal = Math.max(1, ...items.map(it => it.value));
-    const W = 260, H = 150, padT = 10, padB = 22, gap = 18;
+    const W = 260, H = 150, padT = 10, padB = 22;
     const plotH = H - padT - padB;
     const bandW = W / 3;
-    const barW = bandW * 0.5;
+    const barW = bandW * 0.32;
     const barsHtml = items.map((it, i) => {
       const h = maxVal ? Math.max(0, plotH * (it.value / maxVal)) : 0;
       const x = i * bandW + (bandW - barW) / 2;
       const y = padT + plotH - h;
       return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" fill="${color}" rx="3"
-        data-tip="${it.label}<br/>${fmtWon(it.value)}"/>`;
+        data-tip="${title} ${it.label}<br/>${fmtWon(it.value)}"/>`;
     }).join('');
     const labelsHtml = items.map((it, i) => {
       const x = i * bandW + bandW / 2;
-      return `<text x="${x.toFixed(1)}" y="${H - 6}" text-anchor="middle" font-size="10" fill="var(--accent)" text-decoration="underline">${it.label}</text>`;
+      return `<text x="${x.toFixed(1)}" y="${H - 6}" text-anchor="middle" font-size="11" fill="var(--ink-55)">${it.label}</text>`;
     }).join('');
     return `<div>
-      <div style="font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:8px;">${title}</div>
+      <div style="font-size:16px;font-weight:800;color:var(--ink);margin-bottom:8px;">${title}</div>
       <div class="kpiBarChartWrap"><svg width="100%" viewBox="0 0 ${W} ${H}" style="overflow:hidden;display:block;">${barsHtml}${labelsHtml}</svg></div>
     </div>`;
   }
@@ -1033,24 +1033,15 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const setLabel = SET_META.find(s => s.key === setKey).label;
     function hasAnyDetail(months) { return months.some(m => (c.monthDetails[m - 1] || []).length > 0); }
 
-    // 진짜로 아무 변화도 없는 분기(값도 0이고 세부내역도 없음)는 아예 숨긴다.
-    // 상쇄되어 0이 된 분기(0±, 세부내역은 있음)는 그대로 보여준다.
-    const visibleQuarters = QUARTERS.filter(q => c[q.key] !== 0 || hasAnyDetail(q.months));
-
-    if (visibleQuarters.length === 0) {
-      quarterArea.innerHTML = `<div class="empty">${setLabel}에는 분기별로 특별한 변화가 없었어요.</div>`;
-      detailArea.innerHTML = '';
-      return;
-    }
-
-    const maxAbsQ = Math.max(1, ...visibleQuarters.map(q => Math.abs(c[q.key])));
-    const barsHtml = visibleQuarters.map((q) => {
+    // 이제는 1~4분기를 항상 다 보여준다 (0원이면 0원이라고 그대로 표시).
+    const maxAbsQ = Math.max(1, ...QUARTERS.map(q => Math.abs(c[q.key])));
+    const barsHtml = QUARTERS.map((q) => {
       const val = c[q.key];
       const isCancelled = val === 0 && hasAnyDetail(q.months);
-      const heightPct = isCancelled ? 6 : Math.max(6, Math.min(100, Math.abs(val) / maxAbsQ * 100));
+      const heightPct = (val === 0) ? 4 : Math.max(6, Math.min(100, Math.abs(val) / maxAbsQ * 100));
       const cls = isCancelled ? '' : (val >= 0 ? 'pos' : 'neg');
       const valueHtml = isCancelled ? `0<span style="font-size:9px;">±</span>` : `${val >= 0 ? '+' : ''}${fmtWon(val)}`;
-      const barBg = isCancelled ? 'background:var(--warn);' : '';
+      const barBg = isCancelled ? 'background:var(--warn);' : (val === 0 ? 'background:var(--border-strong);' : '');
       return `<div class="vBarGroup qSummaryBar" data-quarter="${q.key}" style="flex:1;">
         <div class="vBarValue" style="${isCancelled ? 'color:var(--warn);' : ''}">${valueHtml}</div>
         <div class="vBarTrack" style="height:90px;max-width:44px;">
@@ -1070,14 +1061,16 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       });
     });
 
-    // 오른쪽 열: 분기별 변화 내용을 텍스트로 항상 같이 보여준다 (별도 클릭 없이).
-    const textBlocks = visibleQuarters.map((q) => {
+    // 오른쪽 열: 분기별 변화 내용을 텍스트로 항상 같이 보여준다 (별도 클릭 없이). 4분기 다 표시.
+    const textBlocks = QUARTERS.map((q) => {
       const items = [];
       for (const m of q.months) {
         const list = c.monthDetails[m - 1] || [];
         for (const item of list) items.push(item);
       }
-      if (items.length === 0) return '';
+      if (items.length === 0) {
+        return `<div class="detailQuarter"><div class="qTitle">${q.label}</div><div class="qItem" style="color:var(--ink-40);">0원 (변화 없음)</div></div>`;
+      }
       const sorted = items.slice().sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta));
       const lines = sorted.map((it) => {
         const cls = it.delta > 0 ? 'pos' : 'neg';
@@ -1085,9 +1078,9 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         return `<div class="qItem">${it.name} : <span class="amt ${cls}">${sign}${fmtWon(it.delta)}</span></div>`;
       }).join('');
       return `<div class="detailQuarter"><div class="qTitle">${q.label}</div>${lines}</div>`;
-    }).filter(Boolean).join('');
+    }).join('');
 
-    detailArea.innerHTML = textBlocks || `<div class="empty">${setLabel} 세부 내역이 없어요.</div>`;
+    detailArea.innerHTML = textBlocks;
   }
 
   function showQuarterPopup(qKey, setLabel, c) {
