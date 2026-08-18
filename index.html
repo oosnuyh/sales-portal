@@ -83,8 +83,8 @@
     grid-template-columns: 1.35fr 1fr;
     grid-template-areas:
       "filter filter"
-      "targetbar alert"
-      "kpi kpi"
+      "targetbar targetbar"
+      "kpi alert"
       "chart chart"
       "monthly monthly";
   }
@@ -243,7 +243,7 @@
     .nav-item { white-space: nowrap; flex-shrink: 0; padding: 8px 13px; }
     .main-content { padding: 18px 16px; max-width: 100%; }
     .split-row, .top10SplitRow { flex-direction: column; gap: 16px; }
-    .mainGrid { grid-template-columns: 1fr; grid-template-areas: "filter" "targetbar" "alert" "kpi" "chart" "monthly"; }
+    .mainGrid { grid-template-columns: 1fr; grid-template-areas: "filter" "targetbar" "kpi" "alert" "chart" "monthly"; }
     .changeThreeCol { grid-template-columns: 1fr; }
     .filterBar { flex-direction: column; align-items: flex-start; gap: 12px; }
     .filterDivider { display: none; }
@@ -535,11 +535,11 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           </div>
         </div>
         <div id="kpiTargetBarArea" style="grid-area:targetbar;"></div>
+        <div id="kpiRow" style="grid-area:kpi;"></div>
         <div class="card" style="grid-area:alert;">
           <div class="card-title">계약 만기 알림 (이번달)</div>
           <div id="mainChecklistAlert"></div>
         </div>
-        <div id="kpiRow" style="grid-area:kpi;"></div>
         <div class="card" id="changeCard" style="grid-area:chart;">
           <div class="card-title">전주대비 증감</div>
           <div class="changeThreeCol">
