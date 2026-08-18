@@ -83,9 +83,10 @@
     grid-template-columns: 1.35fr 1fr;
     grid-template-areas:
       "filter filter"
+      "targetbar alert"
       "kpi kpi"
       "chart chart"
-      "monthly alert";
+      "monthly monthly";
   }
   .changeThreeCol { display: grid; grid-template-columns: 1fr 1fr 1.1fr; gap: 18px; }
   .mainGrid .card { margin-bottom: 0; }
@@ -107,7 +108,12 @@
   .kpiTargetBar {
     display: flex; align-items: center; background: var(--surface); border: 1px solid var(--border);
     border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: 16px 24px;
+    height: 100%; box-sizing: border-box;
   }
+  .kpiTargetBarSmall { padding: 11px 18px; }
+  .kpiTargetBarSmall .kpiTargetLabel { font-size: 11px; margin-bottom: 3px; }
+  .kpiTargetBarSmall .kpiTargetValue { font-size: 15px; }
+  .kpiTargetBarSmall .kpiTargetDivider { height: 24px; }
   .kpiTargetItem { flex: 1; text-align: center; }
   .kpiTargetLabel { display: block; font-size: 12px; color: var(--ink-55); font-weight: 600; margin-bottom: 6px; }
   .kpiTargetValue { font-size: 19px; font-weight: 800; font-family: var(--mono); }
@@ -237,7 +243,7 @@
     .nav-item { white-space: nowrap; flex-shrink: 0; padding: 8px 13px; }
     .main-content { padding: 18px 16px; max-width: 100%; }
     .split-row, .top10SplitRow { flex-direction: column; gap: 16px; }
-    .mainGrid { grid-template-columns: 1fr; grid-template-areas: "filter" "kpi" "chart" "monthly" "alert"; }
+    .mainGrid { grid-template-columns: 1fr; grid-template-areas: "filter" "targetbar" "alert" "kpi" "chart" "monthly"; }
     .changeThreeCol { grid-template-columns: 1fr; }
     .filterBar { flex-direction: column; align-items: flex-start; gap: 12px; }
     .filterDivider { display: none; }
@@ -528,6 +534,11 @@ https://github.com/nodeca/pako/blob/main/LICENSE
             </select>
           </div>
         </div>
+        <div id="kpiTargetBarArea" style="grid-area:targetbar;"></div>
+        <div class="card" style="grid-area:alert;">
+          <div class="card-title">계약 만기 알림 (이번달)</div>
+          <div id="mainChecklistAlert"></div>
+        </div>
         <div id="kpiRow" style="grid-area:kpi;"></div>
         <div class="card" id="changeCard" style="grid-area:chart;">
           <div class="card-title">전주대비 증감</div>
@@ -539,12 +550,10 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         </div>
         <div class="card" style="grid-area:monthly;">
           <div class="card-title">월별 목표 대비 실적</div>
-          <div id="mainMonthlyChartOrder" style="margin-bottom:16px;"></div>
-          <div id="mainMonthlyChartRevenue"></div>
-        </div>
-        <div class="card" style="grid-area:alert;">
-          <div class="card-title">계약 만기 알림 (이번달)</div>
-          <div id="mainChecklistAlert"></div>
+          <div class="split-row" style="margin-bottom:0;">
+            <div id="mainMonthlyChartOrder" style="flex:1;min-width:0;"></div>
+            <div id="mainMonthlyChartRevenue" style="flex:1;min-width:0;"></div>
+          </div>
         </div>
       </div>
     `;
@@ -622,19 +631,16 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const ordRealPct = ordAnnualTarget ? (ordReal / ordAnnualTarget * 100) : 0;
     const pLabel = PERIOD_LABELS[period];
 
-    const targetBarHtml = `<div class="kpiTargetBar">
+    const targetBarHtml = `<div class="kpiTargetBar kpiTargetBarSmall">
       <div class="kpiTargetItem"><span class="kpiTargetLabel">수주 목표</span><span class="kpiTargetValue" style="color:#B5472F;">${fmtWon(ordTarget)}</span></div>
       <div class="kpiTargetDivider"></div>
       <div class="kpiTargetItem"><span class="kpiTargetLabel">매출 목표</span><span class="kpiTargetValue" style="color:#2E5FA3;">${fmtWon(revTarget)}</span></div>
     </div>`;
-
-    return `
-      ${targetBarHtml}
-      <div class="kpiBarGrid">
+    const gridHtml = `<div class="kpiBarGrid">
         ${buildTripleBarChart('수주', ordExpected, ordTarget, ordReal, '#B5472F', hasRealData)}
         ${buildTripleBarChart('매출', revExpected, revTarget, revReal, '#2E5FA3', hasRealData)}
-      </div>
-    `;
+      </div>`;
+    return { targetBarHtml, gridHtml, combinedHtml: targetBarHtml + gridHtml };
   }
 
   // 예상/목표/실제 3개 막대를 세로 막대그래프로 그린다.
@@ -645,7 +651,8 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       { label: '실제', value: hasRealData ? real : 0 },
     ];
     const maxVal = Math.max(1, ...items.map(it => it.value));
-    const W = 260, H = 150, padT = 10, padB = 22;
+    const fmtCompact = (n) => Math.round(n / 1000000).toLocaleString('en-US'); // 백만원 단위
+    const W = 260, H = 158, padT = 20, padB = 22;
     const plotH = H - padT - padB;
     const bandW = W / 3;
     const barW = bandW * 0.32;
@@ -653,25 +660,32 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       const h = maxVal ? Math.max(0, plotH * (it.value / maxVal)) : 0;
       const x = i * bandW + (bandW - barW) / 2;
       const y = padT + plotH - h;
+      const valueLabel = it.value
+        ? `<text x="${(x + barW / 2).toFixed(1)}" y="${(y - 6).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--ink)">${fmtCompact(it.value)}</text>`
+        : '';
       return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" fill="${color}" rx="3"
-        data-tip="${title} ${it.label}<br/>${fmtWon(it.value)}"/>`;
+        data-tip="${title} ${it.label}<br/>${fmtWon(it.value)}"/>${valueLabel}`;
     }).join('');
     const labelsHtml = items.map((it, i) => {
       const x = i * bandW + bandW / 2;
       return `<text x="${x.toFixed(1)}" y="${H - 6}" text-anchor="middle" font-size="11" fill="var(--ink-55)">${it.label}</text>`;
     }).join('');
     return `<div>
-      <div style="font-size:16px;font-weight:800;color:var(--ink);margin-bottom:8px;">${title}</div>
+      <div style="font-size:16px;font-weight:800;color:var(--ink);margin-bottom:2px;">${title}</div>
+      <div style="font-size:10px;color:var(--ink-40);margin-bottom:6px;">단위: 백만원</div>
       <div class="kpiBarChartWrap"><svg width="100%" viewBox="0 0 ${W} ${H}" style="overflow:hidden;display:block;">${barsHtml}${labelsHtml}</svg></div>
     </div>`;
   }
 
   function renderKpiCards() {
     const row = document.getElementById('kpiRow');
+    const targetBarArea = document.getElementById('kpiTargetBarArea');
     const tva = DATA && DATA.targetVsActual;
-    if (!tva) { row.innerHTML = ''; return; }
+    if (!tva) { row.innerHTML = ''; if (targetBarArea) targetBarArea.innerHTML = ''; return; }
     const teamsToSum = teamsForFilterValue(mainFilter.team, tva);
-    row.innerHTML = buildKpiHtml(teamsToSum, mainFilter.period, tva);
+    const { targetBarHtml, gridHtml } = buildKpiHtml(teamsToSum, mainFilter.period, tva);
+    if (targetBarArea) targetBarArea.innerHTML = targetBarHtml;
+    row.innerHTML = gridHtml;
     attachChartTooltips(row);
   }
 
@@ -723,13 +737,13 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       const teamsInHq = hqMap.get(hq);
       html += `<div class="card">
         <div class="card-title">${hq}</div>
-        ${buildKpiHtml(teamsInHq, targetViewPeriod, tva)}
+        ${buildKpiHtml(teamsInHq, targetViewPeriod, tva).combinedHtml}
       </div>`;
       for (const team of teamsInHq) {
         const shortLabel = team.replace(hq, '').trim() || team;
         html += `<div class="card">
           <div class="card-title">${hq} ${shortLabel}</div>
-          ${buildKpiHtml([team], targetViewPeriod, tva)}
+          ${buildKpiHtml([team], targetViewPeriod, tva).combinedHtml}
         </div>`;
       }
     }
