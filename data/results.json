@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-18T01:25:51.285Z",
+  "generatedAt": "2026-08-18T05:50:28.503Z",
   "fy": 26,
   "titleDate": "20260818",
   "targetVsActual": {
@@ -320,31 +320,38 @@
         "maFlagged": [
           {
             "name": "[25MA] 우리은행 MCA 유지보수",
-            "contract": 65550000
+            "contract": 65550000,
+            "team": "금융영업1본부 2팀"
           },
           {
             "name": "[25MA] 우리은행 FEP 유지보수",
-            "contract": 49200000
+            "contract": 49200000,
+            "team": "금융영업1본부 2팀"
           },
           {
             "name": "[25MA] 카카오뱅크 채널 유지보수",
-            "contract": 194392000
+            "contract": 194392000,
+            "team": "금융영업1본부 1팀"
           },
           {
             "name": "[25MA]KB국민카드 차세대 Xtorm 유지보수",
-            "contract": 27804000
+            "contract": 27804000,
+            "team": "금융영업1본부 1팀"
           },
           {
             "name": "[25MA]우리은행 신분증스캔 이미지관리엔진솔루션 유지보수",
-            "contract": 4392000
+            "contract": 4392000,
+            "team": "금융영업1본부 2팀"
           },
           {
             "name": "[25MA]KB국민카드 전자문서중계서비스 유지보수_연장",
-            "contract": 14400000
+            "contract": 14400000,
+            "team": "금융영업1본부 1팀"
           },
           {
             "name": "[26MA] 국민은행 한국무역보험공사 전자보증 연계 SW(eCrossMX) 유지보수 계약",
-            "contract": 3135600
+            "contract": 3135600,
+            "team": "금융영업1본부 1팀"
           }
         ]
       },
@@ -356,7 +363,8 @@
         "maFlagged": [
           {
             "name": "[25MA]삼성증권 PPR ECM유지보수",
-            "contract": 2880000
+            "contract": 2880000,
+            "team": "금융영업1본부 1팀"
           }
         ]
       },
@@ -368,29 +376,35 @@
           {
             "name": "[25SO] 알씨아이파이낸셜서비스(르노캐피탈) iGate 기술지원",
             "period": "2025-09 ~ 2025-10",
-            "contract": 8000000
+            "contract": 8000000,
+            "team": "금융영업1본부 1팀"
           }
         ],
         "maFlagged": [
           {
             "name": "[25MA] 우리은행 태블릿브랜치 채널 유지보수",
-            "contract": 16016000
+            "contract": 16016000,
+            "team": "금융영업1본부 2팀"
           },
           {
             "name": "[25MA]기업은행 BPR이미지 암호화 유지보수",
-            "contract": 8496000
+            "contract": 8496000,
+            "team": "금융영업1본부 2팀"
           },
           {
             "name": "[25MA]우리은행 BPR 업무용 솔루션 유지보수",
-            "contract": 14712000
+            "contract": 14712000,
+            "team": "금융영업1본부 2팀"
           },
           {
             "name": "[25MA]KB국민카드 지문정보마스킹 유지보수",
-            "contract": 4200000
+            "contract": 4200000,
+            "team": "금융영업1본부 1팀"
           },
           {
             "name": "[26MA]아이엠뱅크 이미지엔진 유지보수",
-            "contract": 12000000
+            "contract": 12000000,
+            "team": "금융영업1본부 1팀"
           }
         ]
       }
