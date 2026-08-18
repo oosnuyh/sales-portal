@@ -874,15 +874,27 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       container.innerHTML = '<div style="font-size:13px;color:var(--ink-40);">이번달 신경써야 할 계약 만기 항목이 없어요.</div>';
       return;
     }
-    let html = `<div style="font-size:12px;font-weight:700;color:#C0392B;margin-bottom:8px;">${thisMonthGroup.year2}년 ${thisMonthGroup.month}월 — 시급</div>`;
-    function itemsHtml(items) {
-      return items.map(item => `<div style="font-size:12px;color:var(--ink-70);padding:4px 0 4px 10px;border-left:2px solid #C0392B;margin-bottom:5px;">${item.name}${item.contract ? ` — ${fmtWon(item.contract)}` : ''}</div>`).join('');
+
+    // 팀별로 묶는다 (솔루션/MA 구분은 각 항목 옆에 작은 라벨로 표시).
+    const byTeam = new Map();
+    for (const item of thisMonthGroup.solutionFlagged) {
+      const team = item.team || '미분류';
+      if (!byTeam.has(team)) byTeam.set(team, []);
+      byTeam.get(team).push({ ...item, type: '무상보증 종료' });
     }
-    if (thisMonthGroup.solutionFlagged.length > 0) {
-      html += `<div style="font-size:11.5px;font-weight:600;color:var(--ink-55);margin:6px 0 4px;">솔루션 매출 — 무상보증 종료</div>${itemsHtml(thisMonthGroup.solutionFlagged)}`;
+    for (const item of thisMonthGroup.maFlagged) {
+      const team = item.team || '미분류';
+      if (!byTeam.has(team)) byTeam.set(team, []);
+      byTeam.get(team).push({ ...item, type: 'MA 갱신 검토' });
     }
-    if (thisMonthGroup.maFlagged.length > 0) {
-      html += `<div style="font-size:11.5px;font-weight:600;color:var(--ink-55);margin:8px 0 4px;">MA 매출 — 계약 갱신 검토</div>${itemsHtml(thisMonthGroup.maFlagged)}`;
+
+    let html = `<div style="font-size:12px;font-weight:700;color:#C0392B;margin-bottom:10px;">${thisMonthGroup.year2}년 ${thisMonthGroup.month}월 — 시급</div>`;
+    for (const team of Array.from(byTeam.keys()).sort()) {
+      html += `<div style="font-size:11.5px;font-weight:700;color:var(--ink);margin:10px 0 5px;">${team}</div>`;
+      html += byTeam.get(team).map(item => `<div style="font-size:12px;color:var(--ink-70);padding:4px 0 4px 10px;border-left:2px solid #C0392B;margin-bottom:5px;">
+        ${item.name}${item.contract ? ` — ${fmtWon(item.contract)}` : ''}
+        <span style="font-size:10.5px;color:var(--ink-40);"> (${item.type})</span>
+      </div>`).join('');
     }
     container.innerHTML = html;
   }
