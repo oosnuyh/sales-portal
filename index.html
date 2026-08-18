@@ -1076,16 +1076,14 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       });
     });
 
-    // 오른쪽 열: 분기별 변화 내용을 텍스트로 항상 같이 보여준다 (별도 클릭 없이). 4분기 다 표시.
+    // 오른쪽 열: 분기별 변화 내용 텍스트는 내용 있는 분기만 보여준다 (막대는 4개 다 표시, 텍스트는 빈 분기 생략).
     const textBlocks = QUARTERS.map((q) => {
       const items = [];
       for (const m of q.months) {
         const list = c.monthDetails[m - 1] || [];
         for (const item of list) items.push(item);
       }
-      if (items.length === 0) {
-        return `<div class="detailQuarter"><div class="qTitle">${q.label}</div><div class="qItem" style="color:var(--ink-40);">0원 (변화 없음)</div></div>`;
-      }
+      if (items.length === 0) return '';
       const sorted = items.slice().sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta));
       const lines = sorted.map((it) => {
         const cls = it.delta > 0 ? 'pos' : 'neg';
@@ -1093,9 +1091,9 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         return `<div class="qItem">${it.name} : <span class="amt ${cls}">${sign}${fmtWon(it.delta)}</span></div>`;
       }).join('');
       return `<div class="detailQuarter"><div class="qTitle">${q.label}</div>${lines}</div>`;
-    }).join('');
+    }).filter(Boolean).join('');
 
-    detailArea.innerHTML = textBlocks;
+    detailArea.innerHTML = textBlocks || `<div class="empty">${setLabel} 세부 내역이 없어요.</div>`;
   }
 
   function showQuarterPopup(qKey, setLabel, c) {
