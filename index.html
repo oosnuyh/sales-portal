@@ -53,7 +53,8 @@
     font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .01em;
     flex-shrink: 0; white-space: nowrap;
   }
-  .tabList { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tabList { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .nav-divider { width: 1px; align-self: stretch; background: var(--border-strong); margin: 0 6px; }
   .nav-item {
     background: transparent; border-radius: var(--radius-md); padding: 9px 16px;
     font-size: 13.5px; font-weight: 500; color: var(--ink-70); text-align: center; cursor: pointer;
@@ -424,11 +425,11 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     { id: 'main', label: '메인화면' },
     { id: 'top10', label: 'TOP10' },
     { id: 'schedule', label: '매출일정' },
-    { id: 'targetView', label: '목표 보기' },
-    { id: 'changeDetail', label: '변화 상세' },
-    { id: 'checklist', label: '계약 만기' },
     { id: 'rfp', label: '입찰공고', iframeUrl: 'https://oosnuyh.github.io/RPF/' },
     { id: 'ppt', label: 'PPT 폰트·컬러 정리', iframeUrl: './ppt-style-tool.html' },
+    { id: 'divider1', divider: true },
+    { id: 'changeDetail', label: '변화 상세' },
+    { id: 'checklist', label: '계약 만기' },
   ];
 
   let DATA = null;
@@ -447,9 +448,10 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   // ----- 사이드바 -----
   function renderNav() {
     const navList = document.getElementById('navList');
-    navList.innerHTML = FEATURES.map((f, i) =>
-      `<div class="nav-item ${i === 0 ? 'active' : ''}" data-id="${f.id}">${f.label}</div>`
-    ).join('');
+    navList.innerHTML = FEATURES.map((f, i) => {
+      if (f.divider) return '<div class="nav-divider"></div>';
+      return `<div class="nav-item ${i === 0 ? 'active' : ''}" data-id="${f.id}">${f.label}</div>`;
+    }).join('');
     navList.querySelectorAll('.nav-item').forEach((el) => {
       el.addEventListener('click', () => {
         navList.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -465,7 +467,6 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     if (feature.id === 'main') renderMainFeature();
     if (feature.id === 'top10') renderTop10Feature();
     if (feature.id === 'schedule') renderScheduleFeature();
-    if (feature.id === 'targetView') renderTargetViewFeature();
     if (feature.id === 'changeDetail') renderChangeDetailFeature();
     if (feature.id === 'checklist') renderChecklistFeature();
     if (feature.iframeUrl) renderIframeFeature(feature.iframeUrl);
@@ -1146,15 +1147,17 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const hasProjects = projects && (projects.revenue.length || projects.order.length);
 
     container.innerHTML = `
+      <div class="card">
+        <div class="range-inputs">
+          <label style="font-size:12px;color:#5B5F6B;margin-right:6px;">시작월</label>
+          <input type="number" id="top10Start" min="1" max="12" value="1" />
+          <label style="font-size:12px;color:#5B5F6B;margin:0 6px 0 14px;">종료월</label>
+          <input type="number" id="top10End" min="1" max="12" value="12" />
+        </div>
+      </div>
       <div class="split-row">
         <div class="card" style="flex:1;min-width:0;">
           <div class="card-title">구간별 수주 실적조회</div>
-          <div class="range-inputs" style="margin-bottom:14px;">
-            <label style="font-size:12px;color:#5B5F6B;margin-right:6px;">시작월</label>
-            <input type="number" id="top10Start" min="1" max="12" value="1" />
-            <label style="font-size:12px;color:#5B5F6B;margin:0 6px 0 14px;">종료월</label>
-            <input type="number" id="top10End" min="1" max="12" value="12" />
-          </div>
           <table class="dataTable" id="targetTableOrder" style="font-size:11.5px;"></table>
         </div>
         <div class="card" style="flex:1;min-width:0;">
