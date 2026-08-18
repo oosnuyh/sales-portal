@@ -84,8 +84,10 @@
     grid-template-areas:
       "filter filter"
       "kpi kpi"
-      "chart detail";
+      "chart chart"
+      "monthly alert";
   }
+  .changeThreeCol { display: grid; grid-template-columns: 1fr 1fr 1.1fr; gap: 18px; }
   .mainGrid .card { margin-bottom: 0; }
   .filterBar {
     grid-area: filter; display: flex; align-items: center; gap: 0;
@@ -111,6 +113,12 @@
   .kpiTargetValue { font-size: 19px; font-weight: 800; font-family: var(--mono); }
   .kpiTargetDivider { width: 1px; height: 34px; background: var(--border-strong); }
   .kpiGrid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .kpiBarGrid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card); padding: 16px 18px;
+  }
+  .kpiBarChartWrap rect { cursor: pointer; }
   .kpiMiniBox {
     border-radius: var(--radius-lg); padding: 16px 12px; background: var(--surface);
     border: 1px solid var(--border); box-shadow: var(--shadow-card);
@@ -229,7 +237,8 @@
     .nav-item { white-space: nowrap; flex-shrink: 0; padding: 8px 13px; }
     .main-content { padding: 18px 16px; max-width: 100%; }
     .split-row, .top10SplitRow { flex-direction: column; gap: 16px; }
-    .mainGrid { grid-template-columns: 1fr; grid-template-areas: "filter" "kpi" "chart" "detail"; }
+    .mainGrid { grid-template-columns: 1fr; grid-template-areas: "filter" "kpi" "chart" "monthly" "alert"; }
+    .changeThreeCol { grid-template-columns: 1fr; }
     .filterBar { flex-direction: column; align-items: flex-start; gap: 12px; }
     .filterDivider { display: none; }
     .card { padding: 16px 14px; }
@@ -237,6 +246,7 @@
     .kpiRow { grid-template-columns: 1fr; gap: 10px; }
     .kpiBox { min-width: 0; }
     .kpiGrid4 { grid-template-columns: repeat(2, 1fr); }
+    .kpiBarGrid { grid-template-columns: 1fr; }
     .kpiTargetBar { flex-direction: column; gap: 10px; }
     .kpiTargetDivider { display: none; }
     table.dataTable { font-size: 11.5px; }
@@ -519,15 +529,30 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           </div>
         </div>
         <div id="kpiRow" style="grid-area:kpi;"></div>
-        <div class="card" id="chartCard" style="grid-area:chart;"><div class="card-title">전주대비 증감</div><div id="chartArea"></div></div>
-        <div class="card" id="detailCard" style="grid-area:detail;"><div class="card-title">변화 내용</div><div id="detailArea"><div class="empty">막대를 클릭하면 분기별 변화 내용이 여기 나와요.</div></div></div>
+        <div class="card" id="changeCard" style="grid-area:chart;">
+          <div class="card-title">전주대비 증감</div>
+          <div class="changeThreeCol">
+            <div id="chartArea"></div>
+            <div id="quarterArea"><div class="empty">왼쪽 막대를 클릭하면 분기별 내역이 여기 나와요.</div></div>
+            <div id="detailArea"><div class="empty">왼쪽 막대를 클릭하면 변화 내용이 여기 나와요.</div></div>
+          </div>
+        </div>
+        <div class="card" style="grid-area:monthly;">
+          <div class="card-title">월별 목표 대비 실적</div>
+          <div id="mainMonthlyChartOrder" style="margin-bottom:16px;"></div>
+          <div id="mainMonthlyChartRevenue"></div>
+        </div>
+        <div class="card" style="grid-area:alert;">
+          <div class="card-title">계약 만기 알림 (이번달)</div>
+          <div id="mainChecklistAlert"></div>
+        </div>
       </div>
     `;
 
     document.getElementById('mainTeamFilter').value = mainFilter.team;
     document.getElementById('mainPeriodFilter').value = mainFilter.period;
     document.getElementById('mainTeamFilter').addEventListener('change', (e) => { mainFilter.team = e.target.value; refreshMainFeature(); });
-    document.getElementById('mainPeriodFilter').addEventListener('change', (e) => { mainFilter.period = e.target.value; renderKpiCards(); });
+    document.getElementById('mainPeriodFilter').addEventListener('change', (e) => { mainFilter.period = e.target.value; refreshMainFeature(); });
 
     refreshMainFeature();
   }
@@ -535,6 +560,8 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   function refreshMainFeature() {
     renderKpiCards();
     renderCharts();
+    renderMainMonthlyCharts();
+    renderMainChecklistAlert();
   }
 
   // ----- 핵심 지표 (KPI) 카드: 수주/매출 각각 목표 · 연간 예상액(목표대비%) · 실제 금액(연목표대비%) -----
@@ -601,31 +628,42 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       <div class="kpiTargetItem"><span class="kpiTargetLabel">매출 목표</span><span class="kpiTargetValue" style="color:#2E5FA3;">${fmtWon(revTarget)}</span></div>
     </div>`;
 
-    function miniBoxHtml(label, amt, pct, color, sublabel, pending) {
-      if (pending) {
-        return `<div class="kpiMiniBox" style="border-top:3px solid ${color};">
-          <div class="kpiMiniLabel">${label}</div>
-          <div class="kpiActualPending" style="margin-top:20px;">데이터 연동 준비 중</div>
-        </div>`;
-      }
-      const donutColor = pct >= 100 ? 'var(--good)' : color;
-      return `<div class="kpiMiniBox" style="border-top:3px solid ${color};">
-        ${donutSvg(pct, donutColor, { size: 68, r: 27, sw: 7, fontSize: 14 })}
-        <div class="kpiMiniLabel">${label}</div>
-        <div class="kpiMiniValue">${fmtWon(amt)}</div>
-        <div class="kpiMiniSub">${sublabel}</div>
-      </div>`;
-    }
-
     return `
       ${targetBarHtml}
-      <div class="kpiGrid4">
-        ${miniBoxHtml('수주 예상', ordExpected, ordExpPct, '#B5472F', `${pLabel} 목표대비`)}
-        ${miniBoxHtml('수주 실제', ordReal, ordRealPct, '#B5472F', '연목표대비', !hasRealData)}
-        ${miniBoxHtml('매출 예상', revExpected, revExpPct, '#2E5FA3', `${pLabel} 목표대비`)}
-        ${miniBoxHtml('매출 실제', revReal, revRealPct, '#2E5FA3', '연목표대비', !hasRealData)}
+      <div class="kpiBarGrid">
+        ${buildTripleBarChart('수주', ordExpected, ordTarget, ordReal, '#B5472F', hasRealData)}
+        ${buildTripleBarChart('매출', revExpected, revTarget, revReal, '#2E5FA3', hasRealData)}
       </div>
     `;
+  }
+
+  // 예상/목표/실제 3개 막대를 세로 막대그래프로 그린다.
+  function buildTripleBarChart(title, expected, target, real, color, hasRealData) {
+    const items = [
+      { label: `${title} 예상`, value: expected },
+      { label: `${title} 목표`, value: target },
+      { label: `${title} 실제`, value: hasRealData ? real : 0 },
+    ];
+    const maxVal = Math.max(1, ...items.map(it => it.value));
+    const W = 260, H = 150, padT = 10, padB = 22, gap = 18;
+    const plotH = H - padT - padB;
+    const bandW = W / 3;
+    const barW = bandW * 0.5;
+    const barsHtml = items.map((it, i) => {
+      const h = maxVal ? Math.max(0, plotH * (it.value / maxVal)) : 0;
+      const x = i * bandW + (bandW - barW) / 2;
+      const y = padT + plotH - h;
+      return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" fill="${color}" rx="3"
+        data-tip="${it.label}<br/>${fmtWon(it.value)}"/>`;
+    }).join('');
+    const labelsHtml = items.map((it, i) => {
+      const x = i * bandW + bandW / 2;
+      return `<text x="${x.toFixed(1)}" y="${H - 6}" text-anchor="middle" font-size="10" fill="var(--accent)" text-decoration="underline">${it.label}</text>`;
+    }).join('');
+    return `<div>
+      <div style="font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:8px;">${title}</div>
+      <div class="kpiBarChartWrap"><svg width="100%" viewBox="0 0 ${W} ${H}" style="overflow:hidden;display:block;">${barsHtml}${labelsHtml}</svg></div>
+    </div>`;
   }
 
   function renderKpiCards() {
@@ -634,6 +672,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     if (!tva) { row.innerHTML = ''; return; }
     const teamsToSum = teamsForFilterValue(mainFilter.team, tva);
     row.innerHTML = buildKpiHtml(teamsToSum, mainFilter.period, tva);
+    attachChartTooltips(row);
   }
 
   // ----- 계약 만기 체크리스트 -----
@@ -695,6 +734,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       }
     }
     body.innerHTML = html;
+    attachChartTooltips(body);
   }
 
   function renderChangeDetailFeature() {
@@ -775,6 +815,61 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const container = document.getElementById('featureContent');
     container.innerHTML = '<div class="card" id="checklistCard"></div>';
     renderChecklistBox();
+  }
+
+  // ----- 메인화면: 월별 목표대비실적 (TOP10에서 이동) -----
+  function renderMainMonthlyCharts() {
+    const orderArea = document.getElementById('mainMonthlyChartOrder');
+    const revenueArea = document.getElementById('mainMonthlyChartRevenue');
+    const tva = DATA && DATA.targetVsActual;
+    if (!tva) {
+      orderArea.innerHTML = '<div style="font-size:13px;color:#9A9689;">목표대비실적 데이터가 없어요.</div>';
+      revenueArea.innerHTML = '';
+      return;
+    }
+    const teamsToSum = teamsForFilterValue(mainFilter.team, tva);
+    const sumMonthly = (obj) => {
+      const out = new Array(12).fill(0);
+      for (const team of teamsToSum) {
+        const arr = obj[team];
+        if (!arr) continue;
+        for (let m = 0; m < 12; m++) out[m] += arr[m] || 0;
+      }
+      return out;
+    };
+    const ordTargetsM = sumMonthly(tva.orderTargets);
+    const ordExpectedM = sumMonthly(tva.orderActuals);
+    const ordRealM = tva.orderRealActuals ? sumMonthly(tva.orderRealActuals) : new Array(12).fill(0);
+    const revTargetsM = sumMonthly(tva.revenueTargets);
+    const revExpectedM = sumMonthly(tva.revenueActuals);
+    const revRealM = tva.revenueRealActuals ? sumMonthly(tva.revenueRealActuals) : new Array(12).fill(0);
+
+    orderArea.innerHTML = buildMonthlyBarLineChart('수주', ordTargetsM, ordExpectedM, ordRealM, '#2F6FED', '#B7CEFB');
+    revenueArea.innerHTML = buildMonthlyBarLineChart('매출', revTargetsM, revExpectedM, revRealM, '#1B3A6B', '#9FB8E0');
+    attachChartTooltips(orderArea);
+    attachChartTooltips(revenueArea);
+  }
+
+  // ----- 메인화면: 계약 만기 알림 (이번달 항목만) -----
+  function renderMainChecklistAlert() {
+    const container = document.getElementById('mainChecklistAlert');
+    const rc = DATA && DATA.renewalChecklist;
+    const thisMonthGroup = rc && rc.monthGroups ? rc.monthGroups.find(g => g.offset === 0) : null;
+    if (!thisMonthGroup || (thisMonthGroup.solutionFlagged.length === 0 && thisMonthGroup.maFlagged.length === 0)) {
+      container.innerHTML = '<div style="font-size:13px;color:var(--ink-40);">이번달 신경써야 할 계약 만기 항목이 없어요.</div>';
+      return;
+    }
+    let html = `<div style="font-size:12px;font-weight:700;color:#C0392B;margin-bottom:8px;">${thisMonthGroup.year2}년 ${thisMonthGroup.month}월 — 시급</div>`;
+    function itemsHtml(items) {
+      return items.map(item => `<div style="font-size:12px;color:var(--ink-70);padding:4px 0 4px 10px;border-left:2px solid #C0392B;margin-bottom:5px;">${item.name}${item.contract ? ` — ${fmtWon(item.contract)}` : ''}</div>`).join('');
+    }
+    if (thisMonthGroup.solutionFlagged.length > 0) {
+      html += `<div style="font-size:11.5px;font-weight:600;color:var(--ink-55);margin:6px 0 4px;">솔루션 매출 — 무상보증 종료</div>${itemsHtml(thisMonthGroup.solutionFlagged)}`;
+    }
+    if (thisMonthGroup.maFlagged.length > 0) {
+      html += `<div style="font-size:11.5px;font-weight:600;color:var(--ink-55);margin:8px 0 4px;">MA 매출 — 계약 갱신 검토</div>${itemsHtml(thisMonthGroup.maFlagged)}`;
+    }
+    container.innerHTML = html;
   }
 
   function renderChecklistBox() {
@@ -918,6 +1013,10 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         renderQuarterSummary(setKey, filtered[setKey]);
       });
     });
+
+    // 처음 열었을 때도 비어있지 않게, 첫 세트를 기본으로 선택해서 보여준다.
+    const firstGroup = chartArea.querySelector('.vBarGroup');
+    if (firstGroup) firstGroup.dispatchEvent(new Event('click', { bubbles: true }));
   }
 
   const QUARTERS = [
@@ -927,8 +1026,9 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     { label: '4분기', key: 'q4', months: [10, 11, 12] },
   ];
 
-  // 분기 요약 목록 (변화 내용 패널) — 분기를 클릭하면 그 분기 3개월치 개별 항목을 팝업으로 보여준다.
+  // 분기 막대(중간 열, 클릭하면 팝업) + 변화 내용 텍스트(오른쪽 열, 항상 표시)를 같이 그린다.
   function renderQuarterSummary(setKey, c) {
+    const quarterArea = document.getElementById('quarterArea');
     const detailArea = document.getElementById('detailArea');
     const setLabel = SET_META.find(s => s.key === setKey).label;
     function hasAnyDetail(months) { return months.some(m => (c.monthDetails[m - 1] || []).length > 0); }
@@ -938,7 +1038,8 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const visibleQuarters = QUARTERS.filter(q => c[q.key] !== 0 || hasAnyDetail(q.months));
 
     if (visibleQuarters.length === 0) {
-      detailArea.innerHTML = `<div class="empty">${setLabel}에는 분기별로 특별한 변화가 없었어요.</div>`;
+      quarterArea.innerHTML = `<div class="empty">${setLabel}에는 분기별로 특별한 변화가 없었어요.</div>`;
+      detailArea.innerHTML = '';
       return;
     }
 
@@ -959,15 +1060,34 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       </div>`;
     }).join('');
 
-    detailArea.innerHTML = `<div class="qSummaryHint">${setLabel} — 분기를 클릭하면 세부 내역이 팝업으로 나와요</div>
+    quarterArea.innerHTML = `<div class="qSummaryHint">${setLabel} — 분기 클릭하면 세부내역 팝업</div>
       <div class="vBarChart" style="height:150px;gap:10px;">${barsHtml}</div>`;
 
-    detailArea.querySelectorAll('.qSummaryBar').forEach((el) => {
+    quarterArea.querySelectorAll('.qSummaryBar').forEach((el) => {
       el.addEventListener('click', () => {
         const qKey = el.getAttribute('data-quarter');
         showQuarterPopup(qKey, setLabel, c);
       });
     });
+
+    // 오른쪽 열: 분기별 변화 내용을 텍스트로 항상 같이 보여준다 (별도 클릭 없이).
+    const textBlocks = visibleQuarters.map((q) => {
+      const items = [];
+      for (const m of q.months) {
+        const list = c.monthDetails[m - 1] || [];
+        for (const item of list) items.push(item);
+      }
+      if (items.length === 0) return '';
+      const sorted = items.slice().sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta));
+      const lines = sorted.map((it) => {
+        const cls = it.delta > 0 ? 'pos' : 'neg';
+        const sign = it.delta > 0 ? '+' : '';
+        return `<div class="qItem">${it.name} : <span class="amt ${cls}">${sign}${fmtWon(it.delta)}</span></div>`;
+      }).join('');
+      return `<div class="detailQuarter"><div class="qTitle">${q.label}</div>${lines}</div>`;
+    }).filter(Boolean).join('');
+
+    detailArea.innerHTML = textBlocks || `<div class="empty">${setLabel} 세부 내역이 없어요.</div>`;
   }
 
   function showQuarterPopup(qKey, setLabel, c) {
@@ -1012,34 +1132,14 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   detailModalBackdrop.addEventListener('click', hideDetailModal);
 
   // ----- TOP10 기능: 시작월/종료월 선택 -> 팀별 매출/수주 상위 10개 프로젝트 -----
-  let top10ChartScope = '전체';
-
   function renderTop10Feature() {
     const container = document.getElementById('featureContent');
     const projects = DATA && DATA.projects;
     const tva = DATA && DATA.targetVsActual;
-
-    let scopeSelectHtml = '';
-    if (tva) {
-      const scopes = buildScopeOptions(tva);
-      let opts = '<option value="전체">전체</option>';
-      opts += `<optgroup label="본부">${scopes.hqs.map(h => `<option value="${h}">${h}</option>`).join('')}</optgroup>`;
-      opts += `<optgroup label="팀">${scopes.teams.map(t => `<option value="${t}">${t}</option>`).join('')}</optgroup>`;
-      scopeSelectHtml = `<div style="margin-bottom:10px;">
-        <label style="font-size:12px;color:var(--ink-55);margin-right:6px;">본부/팀</label>
-        <select id="top10ChartScope">${opts}</select>
-      </div>`;
-    }
-
     const hasProjects = projects && (projects.revenue.length || projects.order.length);
 
     container.innerHTML = `
       <div class="split-row">
-        <div class="card" style="flex:1;min-width:0;">
-          <div class="card-title">월별 수주 목표 대비 실적</div>
-          ${scopeSelectHtml}
-          <div id="monthlyChartOrder"></div>
-        </div>
         <div class="card" style="flex:1;min-width:0;">
           <div class="card-title">구간별 수주 실적조회</div>
           <div class="range-inputs" style="margin-bottom:14px;">
@@ -1050,12 +1150,6 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           </div>
           <table class="dataTable" id="targetTableOrder" style="font-size:11.5px;"></table>
         </div>
-      </div>
-      <div class="split-row">
-        <div class="card" style="flex:1;min-width:0;">
-          <div class="card-title">월별 매출 목표 대비 실적</div>
-          <div id="monthlyChartRevenue"></div>
-        </div>
         <div class="card" style="flex:1;min-width:0;">
           <div class="card-title">구간별 매출 실적조회</div>
           <table class="dataTable" id="targetTableRevenue" style="font-size:11.5px;"></table>
@@ -1063,16 +1157,6 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       </div>
       ${hasProjects ? '<div class="card"><div class="card-title">TOP 10</div><div id="top10Body"></div></div>' : ''}
     `;
-
-    if (tva) {
-      document.getElementById('top10ChartScope').addEventListener('change', (e) => {
-        top10ChartScope = e.target.value;
-        renderMonthlyChartArea(tva);
-      });
-      renderMonthlyChartArea(tva);
-    } else {
-      document.getElementById('monthlyChartOrder').innerHTML = '<div style="font-size:13px;color:#9A9689;">목표대비실적 데이터가 없어요.</div>';
-    }
 
     if (hasProjects) {
       function refreshTop10Page() { renderTargetTable(); renderTop10Body(); }
@@ -1082,32 +1166,6 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     } else if (tva) {
       renderTargetTable();
     }
-  }
-
-  function renderMonthlyChartArea(tva) {
-    const teamsToSum = teamsForFilterValue(top10ChartScope, tva);
-    const sumMonthly = (obj) => {
-      const out = new Array(12).fill(0);
-      for (const team of teamsToSum) {
-        const arr = obj[team];
-        if (!arr) continue;
-        for (let m = 0; m < 12; m++) out[m] += arr[m] || 0;
-      }
-      return out;
-    };
-    const ordTargetsM = sumMonthly(tva.orderTargets);
-    const ordExpectedM = sumMonthly(tva.orderActuals);
-    const ordRealM = tva.orderRealActuals ? sumMonthly(tva.orderRealActuals) : new Array(12).fill(0);
-    const revTargetsM = sumMonthly(tva.revenueTargets);
-    const revExpectedM = sumMonthly(tva.revenueActuals);
-    const revRealM = tva.revenueRealActuals ? sumMonthly(tva.revenueRealActuals) : new Array(12).fill(0);
-
-    const orderArea = document.getElementById('monthlyChartOrder');
-    const revenueArea = document.getElementById('monthlyChartRevenue');
-    orderArea.innerHTML = buildMonthlyBarLineChart('수주', ordTargetsM, ordExpectedM, ordRealM, '#2F6FED', '#B7CEFB');
-    revenueArea.innerHTML = buildMonthlyBarLineChart('매출', revTargetsM, revExpectedM, revRealM, '#1B3A6B', '#9FB8E0');
-    attachChartTooltips(orderArea);
-    attachChartTooltips(revenueArea);
   }
 
   // ----- 차트 호버 툴팁 (공용 플로팅 박스 하나를 재사용) -----
