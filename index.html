@@ -77,6 +77,12 @@
     display: flex; align-items: center; gap: 7px;
   }
   .card-title::before { content: '◆'; font-size: 10px; color: var(--accent-soft); }
+  .cardTitleAction {
+    margin-left: auto; font-size: 11px; font-weight: 600; color: rgba(255,255,255,.85);
+    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25); border-radius: 999px;
+    padding: 4px 13px; cursor: pointer; transition: background .15s; letter-spacing: 0;
+  }
+  .cardTitleAction:hover { background: rgba(255,255,255,.22); }
 
   /* ----- 메인화면 그리드 레이아웃 ----- */
   .mainGrid {
@@ -87,7 +93,8 @@
       "targetbar targetbar"
       "kpi alert"
       "chart chart"
-      "monthly monthly";
+      "monthly monthly"
+      "top10preview top10preview";
   }
   .changeThreeCol { display: grid; grid-template-columns: 1fr 1fr 1.1fr; gap: 18px; }
   .mainGrid .card { margin-bottom: 0; }
@@ -244,7 +251,7 @@
     .nav-item { white-space: nowrap; flex-shrink: 0; padding: 8px 13px; }
     .main-content { padding: 18px 16px; max-width: 100%; }
     .split-row, .top10SplitRow { flex-direction: column; gap: 16px; }
-    .mainGrid { grid-template-columns: 1fr; grid-template-areas: "filter" "targetbar" "kpi" "alert" "chart" "monthly"; }
+    .mainGrid { grid-template-columns: 1fr; grid-template-areas: "filter" "targetbar" "kpi" "alert" "chart" "monthly" "top10preview"; }
     .changeThreeCol { grid-template-columns: 1fr; }
     .filterBar { flex-direction: column; align-items: flex-start; gap: 12px; }
     .filterDivider { display: none; }
@@ -461,6 +468,13 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     });
   }
 
+  // 메인화면의 "더보기"류 버튼에서, 해당 메뉴의 nav-item을 클릭한 것처럼 전환한다.
+  function goToFeature(id) {
+    const navItem = document.querySelector(`.nav-item[data-id="${id}"]`);
+    if (navItem) { navItem.click(); return; }
+    renderFeature(id); // 안전장치: nav-item을 못 찾아도 최소한 화면은 전환되게
+  }
+
   function renderFeature(id) {
     const feature = FEATURES.find(f => f.id === id) || FEATURES[0];
     document.getElementById('pageTitle').textContent = feature.label;
@@ -538,11 +552,11 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         <div id="kpiTargetBarArea" style="grid-area:targetbar;"></div>
         <div id="kpiRow" style="grid-area:kpi;"></div>
         <div class="card" style="grid-area:alert;">
-          <div class="card-title">계약 만기 알림 (이번달)</div>
+          <div class="card-title">계약 만기 알림 (이번달)<button class="cardTitleAction" id="checklistMoreBtn">더보기</button></div>
           <div id="mainChecklistAlert"></div>
         </div>
         <div class="card" id="changeCard" style="grid-area:chart;">
-          <div class="card-title">전주대비 증감</div>
+          <div class="card-title">전주대비 증감<button class="cardTitleAction" id="changeDetailMoreBtn">자세히 보기</button></div>
           <div class="changeThreeCol">
             <div id="chartArea"></div>
             <div id="quarterArea"><div class="empty">왼쪽 막대를 클릭하면 분기별 내역이 여기 나와요.</div></div>
@@ -550,10 +564,17 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           </div>
         </div>
         <div class="card" style="grid-area:monthly;">
-          <div class="card-title">월별 목표 대비 실적</div>
+          <div class="card-title">월별 수주/매출</div>
           <div class="split-row" style="margin-bottom:0;">
             <div id="mainMonthlyChartOrder" style="flex:1;min-width:0;"></div>
             <div id="mainMonthlyChartRevenue" style="flex:1;min-width:0;"></div>
+          </div>
+        </div>
+        <div class="card" style="grid-area:top10preview;">
+          <div class="card-title">TOP 5 프로젝트<button class="cardTitleAction" id="top10PreviewMoreBtn">상세 보기</button></div>
+          <div class="split-row" style="margin-bottom:0;">
+            <div id="mainTop5Order" style="flex:1;min-width:0;"></div>
+            <div id="mainTop5Revenue" style="flex:1;min-width:0;"></div>
           </div>
         </div>
       </div>
@@ -563,6 +584,9 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     document.getElementById('mainPeriodFilter').value = mainFilter.period;
     document.getElementById('mainTeamFilter').addEventListener('change', (e) => { mainFilter.team = e.target.value; refreshMainFeature(); });
     document.getElementById('mainPeriodFilter').addEventListener('change', (e) => { mainFilter.period = e.target.value; refreshMainFeature(); });
+    document.getElementById('checklistMoreBtn').addEventListener('click', () => goToFeature('checklist'));
+    document.getElementById('changeDetailMoreBtn').addEventListener('click', () => goToFeature('changeDetail'));
+    document.getElementById('top10PreviewMoreBtn').addEventListener('click', () => goToFeature('top10'));
 
     refreshMainFeature();
   }
@@ -572,6 +596,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     renderCharts();
     renderMainMonthlyCharts();
     renderMainChecklistAlert();
+    renderMainTop5();
   }
 
   // ----- 핵심 지표 (KPI) 카드: 수주/매출 각각 목표 · 연간 예상액(목표대비%) · 실제 금액(연목표대비%) -----
@@ -909,6 +934,49 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       </div>`).join('');
     }
     container.innerHTML = html;
+  }
+
+  // ----- 메인화면: TOP 5 프로젝트 미리보기 (TOP10 페이지와 같은 로직/팝업 재사용, mainFilter 기준) -----
+  function renderMainTop5() {
+    const orderArea = document.getElementById('mainTop5Order');
+    const revenueArea = document.getElementById('mainTop5Revenue');
+    if (!orderArea || !revenueArea) return;
+    const projects = DATA && DATA.projects;
+    const tva = DATA && DATA.targetVsActual;
+    if (!projects) { orderArea.innerHTML = ''; revenueArea.innerHTML = ''; return; }
+
+    const scopeTeams = tva ? teamsForFilterValue(mainFilter.team, tva) : null;
+    const [start, end] = PERIOD_RANGES[mainFilter.period] || [1, 12];
+
+    function top5(records) {
+      return records
+        .filter(r => !scopeTeams || scopeTeams.includes(r.team))
+        .map(r => ({ name: r.name, sum: sumRange(r.monthAmt, start, end), projectId: r.projectId || '', repName: r.repName || '', team: r.team }))
+        .filter(r => r.sum !== 0)
+        .sort((a, b) => b.sum - a.sum)
+        .slice(0, 5);
+    }
+
+    const orderRows = top5(projects.order);
+    const revenueRows = top5(projects.revenue);
+    const orderUid = 'mainTop5_order';
+    const revenueUid = 'mainTop5_revenue';
+    top10DataMap[orderUid] = orderRows;
+    top10DataMap[revenueUid] = revenueRows;
+
+    orderArea.innerHTML = top10TableHtml('수주 TOP5', orderRows, orderUid);
+    revenueArea.innerHTML = top10TableHtml('매출 TOP5', revenueRows, revenueUid);
+
+    [orderArea, revenueArea].forEach((area) => {
+      area.querySelectorAll('.top10Row').forEach((row) => {
+        row.addEventListener('click', () => {
+          const uid = row.getAttribute('data-uid');
+          const idx = Number(row.getAttribute('data-idx'));
+          const item = top10DataMap[uid] && top10DataMap[uid][idx];
+          if (item) showProjectInfoPopup(item);
+        });
+      });
+    });
   }
 
   function renderChecklistBox() {
