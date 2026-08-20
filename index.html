@@ -9,61 +9,98 @@
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
 <style>
   :root {
-    --bg: #F8F6FD;
+    /* ===== INZENT flat-blue design system ===== */
+    --bg: #eef1f6;
     --surface: #FFFFFF;
     --surface-raised: #FFFFFF;
-    --ink: #241F33;
-    --ink-70: rgba(36,31,51,.72);
-    --ink-55: rgba(36,31,51,.55);
-    --ink-40: rgba(36,31,51,.38);
-    --border: #EAE4F7;
-    --border-strong: #D8CDF0;
-    --accent: #7C5CFC;
-    --accent-soft: #EDE7FD;
+    --ink: #1a1d24;
+    --ink-70: rgba(26,29,36,.74);
+    --ink-55: rgba(26,29,36,.62);
+    --ink-40: rgba(26,29,36,.48);
+    --border: #dde2ea;
+    --border-strong: #c3ccd9;
+    --accent: #1c69d4;
+    --accent-deep: #0653b6;
+    --accent-soft: #e9f1fd;
     --sidebar-bg: #FFFFFF;
-    --nav-idle: #F0EBFB;
-    --nav-active: #7C5CFC;
-    --pos: #C0503B;
-    --pos-soft: #E7A79A;
-    --neg: #3D6B96;
-    --neg-soft: #9AB9D3;
-    --good: #3E7A4E;
-    --warn: #B4791E;
-    --bad: #B3402C;
+    --nav-idle: #eef4fc;
+    --nav-active: #1c69d4;
+    --pos: #d6403c;
+    --pos-soft: #f3a89f;
+    --neg: #2f6fd1;
+    --neg-soft: #a7c2ea;
+    --good: #1f8a4c;
+    --warn: #b4791e;
+    --bad: #c0392b;
     --radius-sm: 6px;
     --radius-md: 10px;
     --radius-lg: 14px;
-    --shadow-card: 0 1px 2px rgba(36,34,29,.04), 0 1px 10px rgba(36,34,29,.03);
-    --font: 'Pretendard Variable', 'Pretendard', 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-    --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+    --shadow-card: 0 1px 2px rgba(20,25,40,.05), 0 1px 10px rgba(20,25,40,.04);
+    --font: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'SFMono-Regular', Consolas, monospace;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0; font-family: var(--font);
     background: var(--bg); color: var(--ink);
     -webkit-font-smoothing: antialiased;
+    line-height: 1.6; font-size: 13px;
   }
-  .appShell { min-height: 100vh; }
-  .topNav {
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--accent-soft); color: var(--accent-deep); }
+  .tableScroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tableScroll::-webkit-scrollbar { height: 8px; }
+  .tableScroll::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+  .tableScroll::-webkit-scrollbar-track { background: transparent; }
+  .vScroll { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .vScroll::-webkit-scrollbar { width: 8px; }
+  .vScroll::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+  .vScroll::-webkit-scrollbar-track { background: transparent; }
+  .appShell { display: flex; flex-direction: column; min-height: 100vh; }
+  .topbar {
+    width: 100%; flex-shrink: 0;
     background: var(--sidebar-bg); border-bottom: 1px solid var(--border);
-    padding: 14px 32px; display: flex; align-items: center; gap: 28px;
-    flex-wrap: wrap;
+    position: sticky; top: 0; z-index: 20;
+    box-shadow: 0 1px 2px rgba(20,25,40,.04);
+  }
+  .topbarInner {
+    width: 100%; padding: 14px 24px;
+    display: flex; align-items: center; gap: 4px;
+    box-sizing: border-box;
   }
   .brandLabel {
     font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .01em;
-    flex-shrink: 0; white-space: nowrap;
+    flex-shrink: 0; white-space: nowrap; margin-right: 6px;
   }
-  .tabList { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-  .nav-divider { width: 1px; align-self: stretch; background: var(--border-strong); margin: 0 6px; }
+  .navList {
+    flex: 1; display: flex; align-items: center; gap: 2px;
+    flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
+  }
+  .navList::-webkit-scrollbar { display: none; }
+  .nav-divider { width: 1px; align-self: stretch; background: var(--border-strong); margin: 4px 10px; }
   .nav-item {
-    background: transparent; border-radius: var(--radius-md); padding: 9px 16px;
-    font-size: 13.5px; font-weight: 500; color: var(--ink-70); text-align: center; cursor: pointer;
-    transition: background .15s, color .15s, transform .1s;
+    display: flex; align-items: center; white-space: nowrap; flex-shrink: 0;
+    padding: 9px 12px; font-size: 13.5px; font-weight: 600; color: var(--ink-55);
+    border: none; border-bottom: 2px solid transparent; border-radius: 0; cursor: pointer;
+    background: transparent; transition: color .12s, border-color .12s;
   }
-  .nav-item.active { background: var(--nav-active); color: #FFF; font-weight: 600; }
-  .nav-item:not(.active):hover { background: var(--border-strong); color: var(--ink); }
-  .nav-item:active { transform: scale(.98); }
-  .main-content { padding: 32px 36px; max-width: 1500px; min-width: 0; margin: 0 auto; }
+  .nav-item:hover { color: var(--ink); }
+  .nav-item.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 700; background: transparent; }
+  .nav-item:active { opacity: .7; }
+  .sidebar-foot { flex-shrink: 0; padding: 0 0 0 18px; margin-left: 10px; border-left: 1px solid var(--border); font-size: 10.5px; color: var(--ink-40); line-height: 1.4; white-space: nowrap; }
+  .main-content { flex: 1; min-width: 0; padding: 28px 32px 60px; width: 100%; box-sizing: border-box; }
+  .page-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4px; flex-wrap: wrap; gap: 12px; }
+  .page-date { font-size: 12.5px; color: var(--ink-55); font-weight: 500; margin-top: 5px; }
+  .page-actions { display: flex; justify-content: flex-end; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .btn-accent, .btn-ghost {
+    font-size: 12.5px; font-weight: 700; border-radius: var(--radius-sm); padding: 8px 16px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px; font-family: inherit; transition: background .12s ease;
+  }
+  .btn-accent { color: #fff; background: var(--accent); border: none; }
+  .btn-accent:hover { background: var(--accent-deep); }
+  .btn-accent:disabled { background: var(--border-strong); cursor: not-allowed; }
+  .btn-ghost { color: var(--ink-55); background: #fff; border: 1px solid var(--border-strong); }
+  .btn-ghost:hover { background: var(--bg); }
   #pageTitle { font-family: var(--font); letter-spacing: -.01em; }
   .card {
     background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
@@ -77,26 +114,36 @@
     display: flex; align-items: center; gap: 7px;
   }
   .card-title::before { content: '◆'; font-size: 10px; color: var(--accent-soft); }
+  .card-title .sub { font-weight: 400; color: rgba(255,255,255,.6); font-size: 11.5px; margin-left: 4px; }
   .cardTitleAction {
     margin-left: auto; font-size: 11px; font-weight: 600; color: rgba(255,255,255,.85);
     background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25); border-radius: 999px;
     padding: 4px 13px; cursor: pointer; transition: background .15s; letter-spacing: 0;
   }
   .cardTitleAction:hover { background: rgba(255,255,255,.22); }
+  .cardTitleToggle { margin-left: auto; display: flex; gap: 6px; }
+  .cardTitleToggleBtn {
+    font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 999px; cursor: pointer;
+    border: 1px solid rgba(255,255,255,.3); background: rgba(255,255,255,.08); color: rgba(255,255,255,.75);
+    transition: background .15s, color .15s;
+  }
+  .cardTitleToggleBtn.active { background: #fff; color: var(--ink); border-color: #fff; }
+  .cardTitleToggleBtn2 {
+    font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 999px; cursor: pointer;
+    border: 1.5px solid var(--accent); background: #fff; color: var(--accent); transition: background .15s, color .15s;
+  }
+  .cardTitleToggleBtn2.active { background: var(--accent); color: #fff; }
 
   /* ----- 메인화면 그리드 레이아웃 ----- */
   .mainGrid {
-    display: grid; gap: 18px;
-    grid-template-columns: 1.35fr 1fr;
+    display: grid; gap: 20px;
+    grid-template-columns: 1fr 1.15fr 1fr;
     grid-template-areas:
-      "filter filter"
-      "targetbar targetbar"
-      "kpi alert"
-      "chart chart"
-      "monthly monthly"
-      "top10preview top10preview";
+      "filter filter filter"
+      "kpi monthly alert"
+      "chart chart top10preview"
+      "schedulesummary schedulesummary schedulesummary";
   }
-  .changeThreeCol { display: grid; grid-template-columns: 1fr 1fr 1.1fr; gap: 18px; }
   .mainGrid .card { margin-bottom: 0; }
   .filterBar {
     grid-area: filter; display: flex; align-items: center; gap: 0;
@@ -110,6 +157,16 @@
     font-size: 13.5px; padding: 7px 12px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
     background: var(--surface-raised); color: var(--ink); font-weight: 500; cursor: pointer;
   }
+  .filterBar input[type="number"] {
+    font-size: 13.5px; padding: 7px 10px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+    background: var(--surface-raised); color: var(--ink); font-weight: 500; width: 56px; text-align: center;
+  }
+  .filterBar input[type="number"]:focus { outline: none; border-color: var(--accent); }
+  .top10QuarterBtn {
+    font-size: 12.5px; font-weight: 600; padding: 6px 13px; border-radius: var(--radius-sm);
+    border: 1px solid var(--border-strong); background: var(--surface-raised); color: var(--ink-55); cursor: pointer;
+  }
+  .top10QuarterBtn.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
   .filterDivider { width: 1px; height: 24px; background: var(--border-strong); margin: 0 26px; }
 
   .kpiRow { grid-area: kpi; display: flex; flex-direction: column; gap: 14px; }
@@ -129,9 +186,13 @@
   .kpiGrid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
   .kpiBarGrid {
     display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
-    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card); padding: 16px 18px;
+    box-sizing: border-box; height: 100%;
   }
+  /* 계약 만기 알림 카드와 옆의 수주/매출 박스 높이를 항상 똑같이 맞춘다 (내용 많고 적음과 상관없이 고정). */
+  #kpiRow { display: flex; }
+  .mainRowCard { height: 320px; box-sizing: border-box; display: flex; flex-direction: column; }
+  .mainRowCard > .card-title { flex-shrink: 0; }
+  .mainRowCard > .mainRowCardBody { flex: 1; min-height: 0; }
   .kpiBarChartWrap rect { cursor: pointer; }
   .kpiMiniBox {
     border-radius: var(--radius-lg); padding: 16px 12px; background: var(--surface);
@@ -158,19 +219,21 @@
   table.dataTable { width: 100%; border-collapse: collapse; font-size: 13px; }
   table.dataTable th, table.dataTable td { padding: 8px 10px; text-align: right; }
   table.dataTable th:first-child, table.dataTable td:first-child { text-align: left; }
-  table.dataTable th { border-bottom: 1.5px solid var(--border-strong); color: var(--ink-70); font-weight: 700; font-size: 12px; }
+  table.dataTable th {
+    border-bottom: 1.5px solid var(--border-strong); color: var(--ink-70); font-weight: 700; font-size: 11.5px;
+    position: sticky; top: 0; background: var(--surface); z-index: 1;
+  }
   table.dataTable td { border-bottom: 1px solid var(--border); }
+  table.dataTable tbody tr:nth-child(even):not(.totalRow) { background: #f7f9fc; }
+  table.dataTable tbody tr:hover:not(.totalRow) { background: var(--accent-soft); }
   table.dataTable tr:last-child td { border-bottom: none; }
+  .detail-empty { padding: 40px 20px; text-align: center; font-size: 12.5px; color: var(--ink-40); }
   table.dataTable tr.totalRow { background: var(--accent-soft); font-weight: 700; }
   table.dataTable tr.totalRow td { border-bottom: none; }
   .pct-good { color: var(--good); font-weight: 700; }
   .pct-warn { color: var(--warn); font-weight: 700; }
   .pct-bad { color: var(--bad); font-weight: 700; }
-  .range-inputs input {
-    width: 60px; padding: 6px 8px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
-    font-family: var(--mono); font-size: 13px; text-align: center; background: var(--surface-raised); color: var(--ink);
-  }
-  .range-inputs input:focus, select:focus { outline: none; border-color: var(--accent); }
+  select:focus { outline: none; border-color: var(--accent); }
   .split-row { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 28px; }
   .split-row .card { flex: 1; margin-bottom: 0; min-width: 0; }
   .barSet { margin-bottom: 22px; }
@@ -191,22 +254,31 @@
   .qBarFill.neg { background: var(--neg-soft); }
 
   /* ----- 세로 막대 (연간 총 변화량) ----- */
-  .vBarChart { display: flex; align-items: flex-end; justify-content: space-around; height: 190px; gap: 20px; padding: 10px 4px 0; }
+  .vBarChart { display: flex; align-items: flex-end; justify-content: space-around; height: 178px; gap: 14px; padding: 8px 2px 0; }
   .vBarGroup { display: flex; flex-direction: column; align-items: center; cursor: pointer; flex: 1; min-width: 0; }
-  .vBarValue { font-size: 12px; font-weight: 700; margin-bottom: 8px; font-family: var(--mono); white-space: nowrap; }
+  .vBarValue { font-size: 12.5px; font-weight: 700; margin-bottom: 10px; font-family: var(--mono); white-space: nowrap; letter-spacing: -.01em; color: var(--ink); }
+  .vBarValue.zero { color: var(--ink-40); font-weight: 600; }
   .vBarTrack {
-    width: 100%; max-width: 64px; height: 130px; display: flex; flex-direction: column; justify-content: flex-end;
-    background: var(--border); border-radius: var(--radius-sm); overflow: hidden; transition: box-shadow .15s;
+    width: 100%; max-width: 46px; height: 116px; display: flex; flex-direction: column; justify-content: flex-end;
+    background: var(--bg); overflow: hidden;
   }
-  .vBarFill { width: 100%; transition: height .25s ease; }
+  .vBarFill { width: 100%; }
   .vBarFill.pos { background: var(--pos); }
   .vBarFill.neg { background: var(--neg); }
-  .vBarLabel { font-size: 13px; font-weight: 600; margin-top: 8px; color: var(--ink); }
-  .vBarGroup.active .vBarTrack { box-shadow: 0 0 0 2px var(--accent); }
-  .vBarGroup:hover .vBarTrack { box-shadow: 0 0 0 2px var(--border-strong); }
+  .vBarFill.zero { background: var(--border-strong); }
+  .vBarLabel { font-size: 12.5px; font-weight: 600; margin-top: 10px; color: var(--ink-55); }
+  .vBarGroup.active .vBarLabel { color: var(--ink); font-weight: 700; }
 
-  /* ----- 변화 내용: 분기 요약 목록 ----- */
-  .qSummaryHint { font-size: 11.5px; color: var(--ink-40); margin-bottom: 10px; }
+  /* ----- 변화 내용: 3개 영역을 각각 독립된 박스로 분리 ----- */
+  .changeThreeCol { display: grid; grid-template-columns: 1fr 1fr 1.15fr; gap: 16px; align-items: start; }
+  .changeThreeCol > div {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+    padding: 18px; min-width: 0;
+  }
+  .qSummaryHint {
+    font-size: 11px; font-weight: 600; color: var(--accent-deep); background: var(--accent-soft);
+    display: inline-block; padding: 4px 10px; border-radius: 999px; margin-bottom: 14px;
+  }
   .qSummaryRow {
     display: flex; justify-content: space-between; align-items: center; padding: 11px 14px;
     border-radius: var(--radius-md); cursor: pointer; margin-bottom: 6px; background: var(--bg);
@@ -235,24 +307,59 @@
   .modalItem .amt.neg { color: var(--bad); }
   .qBarValue { font-size: 11.5px; width: 90px; text-align: right; font-family: var(--mono); }
   #detailArea .empty { color: var(--ink-40); font-size: 13px; }
-  .detailQuarter { margin-bottom: 14px; }
-  .detailQuarter .qTitle { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
-  .detailQuarter .qItem { font-size: 12px; color: var(--ink-70); padding: 2px 0 2px 10px; }
-  .detailQuarter .qItem .amt.pos { color: var(--good); font-weight: 600; }
-  .detailQuarter .qItem .amt.neg { color: var(--bad); font-weight: 600; }
+  .detailQuarter { margin-bottom: 18px; }
+  .detailQuarter:last-child { margin-bottom: 0; }
+  .detailQuarter .qTitle {
+    font-size: 11px; font-weight: 700; color: var(--ink-55); text-transform: uppercase; letter-spacing: .04em;
+    margin-bottom: 8px;
+  }
+  .detailQuarter .qItem {
+    font-size: 12.5px; color: var(--ink-70); padding: 9px 12px; border-radius: var(--radius-sm);
+    background: var(--bg); margin-bottom: 6px; line-height: 1.4;
+  }
+  .detailQuarter .qItem:last-child { margin-bottom: 0; }
+  .detailQuarter .qItem .amt.pos { color: var(--good); font-weight: 700; }
+  .detailQuarter .qItem .amt.neg { color: var(--bad); font-weight: 700; }
+
+  /* ----- 메인화면: 계약 만기 알림 (1팀/2팀 버튼으로 전환) ----- */
+  .checklistAlertHead {
+    font-size: 12px; font-weight: 700; color: var(--bad); margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .checklistAlertHead .badge {
+    font-size: 10.5px; font-weight: 700; color: #fff; background: var(--bad);
+    padding: 2px 9px; border-radius: 999px;
+  }
+  .checklistAlertTabs { display: flex; gap: 6px; margin-bottom: 14px; }
+  .alertTeamTab {
+    font-size: 12px; font-weight: 700; padding: 5px 16px; border-radius: 7px; cursor: pointer;
+    border: 1.5px solid var(--bad); background: #fff; color: var(--bad);
+  }
+  .alertTeamTab.active { background: var(--bad); color: #fff; }
+  .checklistAlertItem { padding: 9px 0; border-bottom: 1px solid var(--border); }
+  .checklistAlertItem:last-child { border-bottom: none; }
+  .checklistAlertItem .name { font-size: 12.5px; color: var(--ink); font-weight: 600; line-height: 1.4; display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .checklistAlertItem .meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .checklistAlertItem .amt { font-size: 12px; color: var(--ink-55); font-family: var(--mono); font-weight: 600; flex-shrink: 0; white-space: nowrap; }
+  .checklistAlertBadge { font-size: 10.5px; font-weight: 700; padding: 2px 9px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
+  .checklistAlertBadge.warranty { background: rgba(180,121,30,.12); color: var(--warn); }
+  .checklistAlertBadge.ma { background: rgba(192,57,43,.12); color: var(--bad); }
   select, button { font-family: var(--font); }
 
   /* ----- 반응형 (모바일) ----- */
+  @media (max-width: 860px) {
+    .sidebar-foot { display: none; }
+  }
   @media (max-width: 768px) {
-    .topNav {
-      padding: 12px 16px; gap: 12px; overflow-x: auto;
+    .topbarInner {
+      padding: 12px 16px; gap: 12px;
     }
-    .tabList { flex-wrap: nowrap; }
-    .nav-item { white-space: nowrap; flex-shrink: 0; padding: 8px 13px; }
-    .main-content { padding: 18px 16px; max-width: 100%; }
+    .nav-item { padding: 8px 10px; font-size: 12.5px; }
+    .main-content { padding: 18px 16px; }
     .split-row, .top10SplitRow { flex-direction: column; gap: 16px; }
-    .mainGrid { grid-template-columns: 1fr; grid-template-areas: "filter" "targetbar" "kpi" "alert" "chart" "monthly" "top10preview"; }
-    .changeThreeCol { grid-template-columns: 1fr; }
+    .mainGrid { grid-template-columns: 1fr; grid-template-areas: "filter" "kpi" "monthly" "alert" "chart" "top10preview" "schedulesummary"; }
+    .page-head { flex-direction: column; align-items: flex-start; }
+    .changeThreeCol { grid-template-columns: 1fr; gap: 16px; }
     .filterBar { flex-direction: column; align-items: flex-start; gap: 12px; }
     .filterDivider { display: none; }
     .card { padding: 16px 14px; }
@@ -273,9 +380,11 @@
 <body>
 
 <div class="appShell">
-  <div class="topNav">
-    <div class="brandLabel">&#10070; INZENT 세일즈 포털</div>
-    <div id="navList" class="tabList"></div>
+  <div class="topbar">
+    <div class="topbarInner">
+      <div id="navList" class="navList"></div>
+      <div class="sidebar-foot">ⓒ INZENT<br>내부 영업 관리용 · 외부 배포 금지</div>
+    </div>
   </div>
   <div class="main-content">
     <h2 id="pageTitle" style="font-size:18px;font-weight:600;margin:0 0 18px;"></h2>
@@ -433,7 +542,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     { id: 'top10', label: 'TOP10' },
     { id: 'schedule', label: '매출일정' },
     { id: 'rfp', label: '입찰공고', iframeUrl: 'https://oosnuyh.github.io/RPF/' },
-    { id: 'ppt', label: 'PPT 폰트·컬러 정리', iframeUrl: './ppt-style-tool.html' },
+    { id: 'docstyle', label: '문서 스타일 정리' },
     { id: 'divider1', divider: true },
     { id: 'changeDetail', label: '변화 상세' },
     { id: 'checklist', label: '계약 만기' },
@@ -468,13 +577,6 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     });
   }
 
-  // 메인화면의 "더보기"류 버튼에서, 해당 메뉴의 nav-item을 클릭한 것처럼 전환한다.
-  function goToFeature(id) {
-    const navItem = document.querySelector(`.nav-item[data-id="${id}"]`);
-    if (navItem) { navItem.click(); return; }
-    renderFeature(id); // 안전장치: nav-item을 못 찾아도 최소한 화면은 전환되게
-  }
-
   function renderFeature(id) {
     const feature = FEATURES.find(f => f.id === id) || FEATURES[0];
     document.getElementById('pageTitle').textContent = feature.label;
@@ -483,7 +585,15 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     if (feature.id === 'schedule') renderScheduleFeature();
     if (feature.id === 'changeDetail') renderChangeDetailFeature();
     if (feature.id === 'checklist') renderChecklistFeature();
+    if (feature.id === 'docstyle') renderDocStyleFeature();
     if (feature.iframeUrl) renderIframeFeature(feature.iframeUrl);
+  }
+
+  // 메인화면 등에서 "더보기/자세히 보기" 버튼으로 다른 메뉴로 이동할 때 쓴다 (사이드바 클릭과 동일하게 동작).
+  function goToFeature(id) {
+    const navItem = document.querySelector(`.nav-item[data-id="${id}"]`);
+    if (navItem) { navItem.click(); return; }
+    renderFeature(id); // 안전장치: nav-item을 못 찾아도 최소한 화면은 전환되게
   }
 
   function renderIframeFeature(url) {
@@ -505,6 +615,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
   // ----- 메인화면: 구간별 실적조회 + 변화량 그래프 -----
   let mainFilter = { team: '전체', period: 'Y' };
+  let mainChecklistAlertActiveTeam = null;
   const PERIOD_RANGES = { Y: [1, 12], Q1: [1, 3], Q2: [4, 6], Q3: [7, 9], Q4: [10, 12] };
   const PERIOD_LABELS = { Y: '연간 누계', Q1: '1분기', Q2: '2분기', Q3: '3분기', Q4: '4분기' };
 
@@ -549,34 +660,44 @@ https://github.com/nodeca/pako/blob/main/LICENSE
             </select>
           </div>
         </div>
-        <div id="kpiTargetBarArea" style="grid-area:targetbar;"></div>
-        <div id="kpiRow" style="grid-area:kpi;"></div>
-        <div class="card" style="grid-area:alert;">
+        <div class="card mainRowCard" style="grid-area:kpi;">
+          <div class="card-title">수주/매출 목표 대비</div>
+          <div id="kpiRow" class="mainRowCardBody"></div>
+        </div>
+        <div class="card mainRowCard" style="grid-area:monthly;">
+          <div class="card-title">월별 수주/매출
+            <div class="cardTitleToggle">
+              <button class="cardTitleToggleBtn active" id="mainMonthlyTypeOrder">수주</button>
+              <button class="cardTitleToggleBtn" id="mainMonthlyTypeRevenue">매출</button>
+            </div>
+          </div>
+          <div id="mainMonthlyChart" class="mainRowCardBody"></div>
+        </div>
+        <div class="card mainRowCard" style="grid-area:alert;">
           <div class="card-title">계약 만기 알림 (이번달)<button class="cardTitleAction" id="checklistMoreBtn">더보기</button></div>
-          <div id="mainChecklistAlert"></div>
+          <div id="mainChecklistAlert" class="vScroll mainRowCardBody"></div>
         </div>
         <div class="card" id="changeCard" style="grid-area:chart;">
           <div class="card-title">전주대비 증감<button class="cardTitleAction" id="changeDetailMoreBtn">자세히 보기</button></div>
           <div class="changeThreeCol">
             <div id="chartArea"></div>
             <div id="quarterArea"><div class="empty">왼쪽 막대를 클릭하면 분기별 내역이 여기 나와요.</div></div>
-            <div id="detailArea"><div class="empty">왼쪽 막대를 클릭하면 변화 내용이 여기 나와요.</div></div>
-          </div>
-        </div>
-        <div class="card" style="grid-area:monthly;">
-          <div class="card-title">월별 수주/매출</div>
-          <div class="split-row" style="margin-bottom:0;">
-            <div id="mainMonthlyChartOrder" style="flex:1;min-width:0;"></div>
-            <div id="mainMonthlyChartRevenue" style="flex:1;min-width:0;"></div>
+            <div id="detailArea" class="vScroll" style="max-height:220px;"><div class="empty">왼쪽 막대를 클릭하면 변화 내용이 여기 나와요.</div></div>
           </div>
         </div>
         <div class="card" style="grid-area:top10preview;">
-          <div class="card-title">TOP 5 프로젝트<button class="cardTitleAction" id="top10PreviewMoreBtn">상세 보기</button></div>
-          <div class="split-row" style="margin-bottom:0;">
-            <div id="mainTop5Order" style="flex:1;min-width:0;"></div>
-            <div id="mainTop5Revenue" style="flex:1;min-width:0;"></div>
+          <div class="card-title">TOP 5 프로젝트<button class="cardTitleAction" id="top10PreviewMoreBtn">자세히 보기</button></div>
+          <div class="cardTitleToggle" style="margin:0 0 12px;">
+            <button class="cardTitleToggleBtn2 active" id="mainTop5TypeOrder">수주</button>
+            <button class="cardTitleToggleBtn2" id="mainTop5TypeRevenue">매출</button>
           </div>
+          <div id="mainTop5"></div>
         </div>
+        <div class="card" style="grid-area:schedulesummary;">
+          <div class="card-title">매출 스케줄 현황<button class="cardTitleAction" id="scheduleSummaryMoreBtn">자세히 보기</button></div>
+          <div id="mainScheduleSummary"></div>
+        </div>
+
       </div>
     `;
 
@@ -587,6 +708,11 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     document.getElementById('checklistMoreBtn').addEventListener('click', () => goToFeature('checklist'));
     document.getElementById('changeDetailMoreBtn').addEventListener('click', () => goToFeature('changeDetail'));
     document.getElementById('top10PreviewMoreBtn').addEventListener('click', () => goToFeature('top10'));
+    document.getElementById('scheduleSummaryMoreBtn').addEventListener('click', () => goToFeature('schedule'));
+    document.getElementById('mainMonthlyTypeOrder').addEventListener('click', () => { mainMonthlyType = 'order'; renderMainMonthlyCharts(); });
+    document.getElementById('mainMonthlyTypeRevenue').addEventListener('click', () => { mainMonthlyType = 'revenue'; renderMainMonthlyCharts(); });
+    document.getElementById('mainTop5TypeOrder').addEventListener('click', () => { mainTop5Type = 'order'; renderMainTop5(); });
+    document.getElementById('mainTop5TypeRevenue').addEventListener('click', () => { mainTop5Type = 'revenue'; renderMainTop5(); });
 
     refreshMainFeature();
   }
@@ -596,6 +722,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     renderCharts();
     renderMainMonthlyCharts();
     renderMainChecklistAlert();
+    renderMainScheduleSummary();
     renderMainTop5();
   }
 
@@ -812,43 +939,31 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       grouped.get(team).push(it);
     }
 
-    let bodyHtml = '';
-    let textLines = [];
+    let rowsHtml = '';
     for (const team of teamOrder) {
       const teamItems = grouped.get(team);
-      bodyHtml += `<div style="font-size:12px;font-weight:600;color:var(--ink-70);margin:14px 0 6px;">${team}</div>`;
-      bodyHtml += `<ol style="font-size:13px;color:var(--ink);line-height:1.7;padding-left:20px;margin:0;">`;
-      textLines.push(`${team}:`);
-      teamItems.forEach((it, i) => {
-        const amtText = it.amount ? ` (${it.amount >= 0 ? '+' : ''}${fmtWon(it.amount)})` : '';
+      teamItems.forEach((it) => {
+        const amtText = it.amount ? `${it.amount >= 0 ? '+' : ''}${fmtWon(it.amount)}` : '–';
         const color = changeTypeColor(it.type);
-        bodyHtml += `<li style="margin-bottom:6px;"><b>${it.name}</b> ${it.text} <span style="color:${color};font-weight:600;">${amtText}</span></li>`;
-        textLines.push(`  ${i + 1}. ${it.name} ${it.text}${amtText}`);
+        rowsHtml += `<tr>
+          <td>${team}</td>
+          <td style="text-align:left;">${it.name}</td>
+          <td style="text-align:left;">${it.text}</td>
+          <td style="color:${color};font-weight:600;">${amtText}</td>
+        </tr>`;
       });
-      bodyHtml += `</ol>`;
     }
+
+    const bodyHtml = `<table class="dataTable" style="font-size:12.5px;table-layout:fixed;">
+      <colgroup><col style="width:18%;"><col style="width:38%;"><col style="width:24%;"><col style="width:20%;"></colgroup>
+      <thead><tr><th>팀</th><th style="text-align:left;">프로젝트명</th><th style="text-align:left;">내용</th><th>금액</th></tr></thead>
+      <tbody>${rowsHtml}</tbody>
+    </table>`;
 
     card.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <div class="card-title" style="margin-bottom:0;flex:1;">${data.label} 변화 상세 (${items.length}건)</div>
-      </div>
-      <div style="display:flex;justify-content:flex-end;margin:-6px 0 10px;">
-        <button class="changeDetailCopyBtn" style="font-size:12px;color:var(--ink-55);background:var(--surface-raised);border:1px solid var(--border-strong);border-radius:var(--radius-sm);padding:5px 12px;cursor:pointer;">복사하기</button>
-      </div>
+      <div class="card-title">${data.label} 변화 상세 (${items.length}건)</div>
       ${bodyHtml}
     `;
-
-    const copyBtn = card.querySelector('.changeDetailCopyBtn');
-    if (copyBtn) {
-      copyBtn.addEventListener('click', async () => {
-        try {
-          await navigator.clipboard.writeText(textLines.join('\n'));
-          const original = copyBtn.textContent;
-          copyBtn.textContent = '복사됨';
-          setTimeout(() => { copyBtn.textContent = original; }, 1500);
-        } catch (e) { /* 무시 */ }
-      });
-    }
   }
 
   function renderChecklistFeature() {
@@ -858,13 +973,14 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   }
 
   // ----- 메인화면: 월별 목표대비실적 (TOP10에서 이동) -----
+  let mainMonthlyType = 'order'; // 'order' | 'revenue'
+
   function renderMainMonthlyCharts() {
-    const orderArea = document.getElementById('mainMonthlyChartOrder');
-    const revenueArea = document.getElementById('mainMonthlyChartRevenue');
+    const area = document.getElementById('mainMonthlyChart');
+    if (!area) return;
     const tva = DATA && DATA.targetVsActual;
     if (!tva) {
-      orderArea.innerHTML = '<div style="font-size:13px;color:#9A9689;">목표대비실적 데이터가 없어요.</div>';
-      revenueArea.innerHTML = '';
+      area.innerHTML = '<div style="font-size:13px;color:#9A9689;">목표대비실적 데이터가 없어요.</div>';
       return;
     }
     const teamsToSum = teamsForFilterValue(mainFilter.team, tva);
@@ -877,17 +993,128 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       }
       return out;
     };
-    const ordTargetsM = sumMonthly(tva.orderTargets);
-    const ordExpectedM = sumMonthly(tva.orderActuals);
-    const ordRealM = tva.orderRealActuals ? sumMonthly(tva.orderRealActuals) : new Array(12).fill(0);
-    const revTargetsM = sumMonthly(tva.revenueTargets);
-    const revExpectedM = sumMonthly(tva.revenueActuals);
-    const revRealM = tva.revenueRealActuals ? sumMonthly(tva.revenueRealActuals) : new Array(12).fill(0);
 
-    orderArea.innerHTML = buildMonthlyBarLineChart('수주', ordTargetsM, ordExpectedM, ordRealM, '#2F6FED', '#B7CEFB');
-    revenueArea.innerHTML = buildMonthlyBarLineChart('매출', revTargetsM, revExpectedM, revRealM, '#1B3A6B', '#9FB8E0');
-    attachChartTooltips(orderArea);
-    attachChartTooltips(revenueArea);
+    if (mainMonthlyType === 'order') {
+      const ordTargetsM = sumMonthly(tva.orderTargets);
+      const ordExpectedM = sumMonthly(tva.orderActuals);
+      const ordRealM = tva.orderRealActuals ? sumMonthly(tva.orderRealActuals) : new Array(12).fill(0);
+      area.innerHTML = buildMonthlyBarLineChart('수주', ordTargetsM, ordExpectedM, ordRealM, '#2F6FED', '#B7CEFB');
+    } else {
+      const revTargetsM = sumMonthly(tva.revenueTargets);
+      const revExpectedM = sumMonthly(tva.revenueActuals);
+      const revRealM = tva.revenueRealActuals ? sumMonthly(tva.revenueRealActuals) : new Array(12).fill(0);
+      area.innerHTML = buildMonthlyBarLineChart('매출', revTargetsM, revExpectedM, revRealM, '#1B3A6B', '#9FB8E0');
+    }
+    attachChartTooltips(area);
+
+    const btnO = document.getElementById('mainMonthlyTypeOrder');
+    const btnR = document.getElementById('mainMonthlyTypeRevenue');
+    if (btnO && btnR) {
+      btnO.classList.toggle('active', mainMonthlyType === 'order');
+      btnR.classList.toggle('active', mainMonthlyType === 'revenue');
+    }
+  }
+
+  // ----- 메인화면: 매출 스케줄 현황 (원형 그래프로 진행률 표시) -----
+  function renderMainScheduleSummary() {
+    const area = document.getElementById('mainScheduleSummary');
+    if (!area) return;
+    const projects = DATA && DATA.projects;
+    const maSchedule = (DATA && DATA.maSchedule) || { revenue: [], order: [] };
+    const tva = DATA && DATA.targetVsActual;
+    if (!projects) { area.innerHTML = ''; return; }
+
+    const scopeTeams = tva ? teamsForFilterValue(mainFilter.team, tva) : null;
+    function inScope(r) { return !scopeTeams || scopeTeams.includes(r.team); }
+
+    const solutionRows = projects.revenue.filter(inScope);
+    const maRows = maSchedule.revenue.filter(inScope);
+
+    const currentMonth = currentMonthFromTitleDate();
+    const projectCount = solutionRows.length;
+    const contractSum = solutionRows.reduce((s, r) => s + (r.contract || 0), 0);
+
+    const grandTotalMonths = new Array(12).fill(0);
+    for (const r of solutionRows) for (let m = 0; m < 12; m++) grandTotalMonths[m] += r.monthAmt[m];
+    for (const r of maRows) for (let m = 0; m < 12; m++) grandTotalMonths[m] += r.monthAmt[m];
+
+    const annualTotal = sumArr(grandTotalMonths);
+    const confirmedTotal = sumRange0(grandTotalMonths, 0, currentMonth);
+    const remainingTotal = sumRange0(grandTotalMonths, currentMonth, 12);
+    const progressPct = annualTotal ? (confirmedTotal / annualTotal * 100) : 0;
+    const fmtM = (n) => Math.round(n / 1000000).toLocaleString('en-US');
+
+    const donut = donutSvg(progressPct, 'var(--accent)', { size: 100, r: 40, sw: 10, fontSize: 17 });
+
+    function statBlock(label, valueHtml, dotColor) {
+      const dot = dotColor ? `<span style="display:inline-block;width:7px;height:7px;border-radius:2px;background:${dotColor};margin-right:6px;flex-shrink:0;"></span>` : '';
+      return `<div style="min-width:0;">
+        <div style="font-size:12px;color:var(--ink-55);margin-bottom:6px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${dot}${label}</div>
+        <div style="font-size:19px;font-weight:800;color:var(--ink);white-space:nowrap;">${valueHtml}</div>
+      </div>`;
+    }
+
+    area.innerHTML = `
+      <div style="display:flex;align-items:center;gap:36px;flex-wrap:wrap;">
+        <div style="flex-shrink:0;">${donut}</div>
+        <div style="flex:1;min-width:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;">
+          ${statBlock('계약 프로젝트', `${projectCount}<span style="font-size:11px;font-weight:600;color:var(--ink-40);margin-left:2px;">건</span>`)}
+          ${statBlock('연간 매출 예정', `${fmtM(annualTotal)}<span style="font-size:11px;font-weight:600;color:var(--ink-40);margin-left:2px;">백만</span>`)}
+          ${statBlock(`확정 매출 (1~${currentMonth}월)`, `${fmtM(confirmedTotal)}<span style="font-size:11px;font-weight:600;color:var(--ink-40);margin-left:2px;">백만</span>`, 'var(--accent)')}
+          ${statBlock('잔여 매출 예정', `${fmtM(remainingTotal)}<span style="font-size:11px;font-weight:600;color:var(--ink-40);margin-left:2px;">백만</span>`, 'var(--border-strong)')}
+        </div>
+      </div>
+    `;
+  }
+
+  // ----- 메인화면: TOP 5 프로젝트 미리보기 (본부 전체 기준, TOP10 페이지로 연결) -----
+  let mainTop5Type = 'order'; // 'order' | 'revenue'
+
+  function renderMainTop5() {
+    const area = document.getElementById('mainTop5');
+    if (!area) return;
+    const projects = DATA && DATA.projects;
+    const tva = DATA && DATA.targetVsActual;
+    if (!projects) { area.innerHTML = ''; return; }
+
+    const scopeTeams = tva ? teamsForFilterValue(mainFilter.team, tva) : null;
+    const [start, end] = PERIOD_RANGES[mainFilter.period] || [1, 12];
+
+    function top5(records) {
+      return records
+        .filter(r => !scopeTeams || scopeTeams.includes(r.team))
+        .map(r => ({
+          name: r.name, sum: sumRange(r.monthAmt, start, end), projectId: r.projectId || '', repName: r.repName || '', team: r.team,
+          customer: r.customer || '',
+          breakdown: (r.breakdown || []).map(b => ({ category: b.category, subCategory: b.subCategory, sum: sumRange(b.monthAmt, start, end) })).filter(b => b.sum !== 0),
+        }))
+        .filter(r => r.sum !== 0)
+        .sort((a, b) => b.sum - a.sum)
+        .slice(0, 5);
+    }
+
+    const isOrder = mainTop5Type === 'order';
+    const rows = top5(isOrder ? projects.order : projects.revenue);
+    const uid = isOrder ? 'mainTop5_order' : 'mainTop5_revenue';
+    top10DataMap[uid] = rows;
+
+    area.innerHTML = top10TableHtml(isOrder ? '수주 TOP5' : '매출 TOP5', rows, uid);
+
+    area.querySelectorAll('.top10Row').forEach((row) => {
+      row.addEventListener('click', () => {
+        const rowUid = row.getAttribute('data-uid');
+        const idx = Number(row.getAttribute('data-idx'));
+        const item = top10DataMap[rowUid] && top10DataMap[rowUid][idx];
+        if (item) showProjectInfoPopup(item);
+      });
+    });
+
+    const btnO = document.getElementById('mainTop5TypeOrder');
+    const btnR = document.getElementById('mainTop5TypeRevenue');
+    if (btnO && btnR) {
+      btnO.classList.toggle('active', mainTop5Type === 'order');
+      btnR.classList.toggle('active', mainTop5Type === 'revenue');
+    }
   }
 
   // ----- 메인화면: 계약 만기 알림 (이번달 항목만) -----
@@ -912,101 +1139,278 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       return;
     }
 
-    // 팀별로 묶는다 (솔루션/MA 구분은 각 항목 옆에 작은 라벨로 표시).
+    // 팀별로 묶는다 (솔루션/MA 구분은 각 항목에 색깔 있는 배지로 표시).
     const byTeam = new Map();
     for (const item of solutionFlagged) {
       const team = item.team || '미분류';
       if (!byTeam.has(team)) byTeam.set(team, []);
-      byTeam.get(team).push({ ...item, type: '무상보증 종료' });
+      byTeam.get(team).push({ ...item, type: '무상보증 종료', badgeCls: 'warranty' });
     }
     for (const item of maFlagged) {
       const team = item.team || '미분류';
       if (!byTeam.has(team)) byTeam.set(team, []);
-      byTeam.get(team).push({ ...item, type: 'MA 갱신 검토' });
+      byTeam.get(team).push({ ...item, type: 'MA 갱신', badgeCls: 'ma' });
     }
 
-    let html = `<div style="font-size:12px;font-weight:700;color:#C0392B;margin-bottom:10px;">${thisMonthGroupRaw.year2}년 ${thisMonthGroupRaw.month}월 — 시급</div>`;
-    for (const team of Array.from(byTeam.keys()).sort()) {
-      html += `<div style="font-size:11.5px;font-weight:700;color:var(--ink);margin:10px 0 5px;">${team}</div>`;
-      html += byTeam.get(team).map(item => `<div style="font-size:12px;color:var(--ink-70);padding:4px 0 4px 10px;border-left:2px solid #C0392B;margin-bottom:5px;">
-        ${item.name}${item.contract ? ` — ${fmtWon(item.contract)}` : ''}
-        <span style="font-size:10.5px;color:var(--ink-40);"> (${item.type})</span>
-      </div>`).join('');
+    // 팀은 버튼으로 골라서 하나씩 본다 (1팀/2팀).
+    const teamNames = Array.from(byTeam.keys()).sort();
+    if (!mainChecklistAlertActiveTeam || !teamNames.includes(mainChecklistAlertActiveTeam)) {
+      mainChecklistAlertActiveTeam = teamNames[0];
     }
+
+    function itemHtml(item) {
+      return `<div class="checklistAlertItem">
+        <div class="meta">
+          <div class="name"><span class="checklistAlertBadge ${item.badgeCls}">${item.type}</span>${item.name}</div>
+          ${item.contract ? `<span class="amt">${fmtWon(item.contract)}</span>` : ''}
+        </div>
+      </div>`;
+    }
+
+    let html = `<div class="checklistAlertHead"><span class="badge">시급</span>${thisMonthGroupRaw.year2}년 ${thisMonthGroupRaw.month}월</div>`;
+
+    if (teamNames.length > 1) {
+      html += `<div class="checklistAlertTabs">`;
+      html += teamNames.map(team => {
+        const shortLabel = team.replace(/^.*본부\s*/, '') || team;
+        const isActive = team === mainChecklistAlertActiveTeam;
+        return `<button class="alertTeamTab${isActive ? ' active' : ''}" data-team="${team}">${shortLabel}</button>`;
+      }).join('');
+      html += `</div>`;
+    }
+
+    html += `<div id="mainChecklistAlertBody"></div>`;
     container.innerHTML = html;
-  }
 
-  // ----- 메인화면: TOP 5 프로젝트 미리보기 (TOP10 페이지와 같은 로직/팝업 재사용, mainFilter 기준) -----
-  function renderMainTop5() {
-    const orderArea = document.getElementById('mainTop5Order');
-    const revenueArea = document.getElementById('mainTop5Revenue');
-    if (!orderArea || !revenueArea) return;
-    const projects = DATA && DATA.projects;
-    const tva = DATA && DATA.targetVsActual;
-    if (!projects) { orderArea.innerHTML = ''; revenueArea.innerHTML = ''; return; }
-
-    const scopeTeams = tva ? teamsForFilterValue(mainFilter.team, tva) : null;
-    const [start, end] = PERIOD_RANGES[mainFilter.period] || [1, 12];
-
-    function top5(records) {
-      return records
-        .filter(r => !scopeTeams || scopeTeams.includes(r.team))
-        .map(r => ({
-          name: r.name, sum: sumRange(r.monthAmt, start, end), projectId: r.projectId || '', repName: r.repName || '', team: r.team,
-          customer: r.customer || '',
-          breakdown: (r.breakdown || []).map(b => ({ category: b.category, subCategory: b.subCategory, sum: sumRange(b.monthAmt, start, end) })).filter(b => b.sum !== 0),
-        }))
-        .filter(r => r.sum !== 0)
-        .sort((a, b) => b.sum - a.sum)
-        .slice(0, 5);
+    function renderBody() {
+      const body = document.getElementById('mainChecklistAlertBody');
+      const teamsToShow = teamNames.length > 1 ? [mainChecklistAlertActiveTeam] : teamNames;
+      let bodyHtml = '';
+      for (const team of teamsToShow) bodyHtml += byTeam.get(team).map(itemHtml).join('');
+      body.innerHTML = bodyHtml || '<div style="font-size:13px;color:var(--ink-40);">해당 팀의 만기 항목이 없어요.</div>';
     }
+    renderBody();
 
-    const orderRows = top5(projects.order);
-    const revenueRows = top5(projects.revenue);
-    const orderUid = 'mainTop5_order';
-    const revenueUid = 'mainTop5_revenue';
-    top10DataMap[orderUid] = orderRows;
-    top10DataMap[revenueUid] = revenueRows;
-
-    orderArea.innerHTML = top10TableHtml('수주 TOP5', orderRows, orderUid);
-    revenueArea.innerHTML = top10TableHtml('매출 TOP5', revenueRows, revenueUid);
-
-    [orderArea, revenueArea].forEach((area) => {
-      area.querySelectorAll('.top10Row').forEach((row) => {
-        row.addEventListener('click', () => {
-          const uid = row.getAttribute('data-uid');
-          const idx = Number(row.getAttribute('data-idx'));
-          const item = top10DataMap[uid] && top10DataMap[uid][idx];
-          if (item) showProjectInfoPopup(item);
+    if (teamNames.length > 1) {
+      container.querySelectorAll('.alertTeamTab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          mainChecklistAlertActiveTeam = btn.dataset.team;
+          renderMainChecklistAlert();
         });
       });
-    });
+    }
+  }
+
+
+  // ===== TOP10 엑셀 다운로드 =====
+  window.downloadTop10Excel = async function downloadTop10Excel() {
+    if (!DATA || !DATA.projects) { alert('데이터가 없습니다.'); return; }
+    const btn = document.querySelector('button[onclick="downloadTop10Excel()"]');
+    if (btn) { btn.disabled = true; btn.textContent = '생성 중...'; }
+
+    try {
+      const projects = DATA.projects;
+
+      // FY month index: monthAmt[0]=1월, [1]=2월, ...[11]=12월 (1-indexed via sumRange)
+      // CQ = Q3 (months 7-9), NQ = Q4 (months 10-12)
+      // 금융1 + 금융2 전체를 합쳐서 본부 단위로 TOP10 산출
+      function getTop10(records, start, end) {
+        return records
+          .map(r => ({ projectId: r.projectId || '', name: r.name, repName: r.repName || '',
+                       sum: Math.round(sumRange(r.monthAmt, start, end)) }))
+          .filter(r => r.sum > 0)
+          .sort((a, b) => b.sum - a.sum)
+          .slice(0, 10);
+      }
+
+      function xmlEsc(s) {
+        return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');
+      }
+
+      // Build cell XML helpers
+      function inlineCell(ref, style, text) {
+        if (!text) return `<c r="${ref}" s="${style}"/>`;
+        return `<c r="${ref}" s="${style}" t="inlineStr"><is><t>${xmlEsc(text)}</t></is></c>`;
+      }
+      function numCell(ref, style, val) {
+        if (!val) return `<c r="${ref}" s="${style}"/>`;
+        return `<c r="${ref}" s="${style}"><v>${val}</v></c>`;
+      }
+
+      // Styles for each group type
+      // g1 = rows 4-24 (금융1), g2 = rows 26-46 (금융2, currently has different styles)
+      const STYLES = {
+        g1_order_first:  {C:'34',D:'34',E:'35',F:'35',G:'36',H:'32',I:'32',J:'37',K:'38',LR:'39',S:'40',T:'41',U:'42',V:'43'},
+        g1_order_other:  {C:'34',D:'34',E:'44',F:'44',G:'45',H:'46',I:'46',J:'37',K:'38',LR:'39',S:'40',T:'41',U:'42',V:'43'},
+        g1_revenue_first:{C:'34',D:'34',E:'35',F:'35',G:'36',H:'32',I:'32',J:'33',K:'38',LR:'41',S:'40',T:'41',U:'49',V:'43'},
+        g1_revenue_other:{C:'34',D:'34',E:'44',F:'44',G:'45',H:'46',I:'46',J:'33',K:'38',LR:'41',S:'40',T:'41',U:'49',V:'43'},
+        g2_order_first:  {C:'12',D:'12',E:'13',F:'13',G:'14',H:'15',I:'15',J:'16',K:'20',LR:'20',S:'19',T:'20',U:'20',V:'21'},
+        g2_order_other:  {C:'12',D:'12',E:'13',F:'59',G:'12',H:'15',I:'15',J:'16',K:'60',LR:'20',S:'19',T:'20',U:'20',V:'61'},
+        g2_revenue_first:{C:'12',D:'12',E:'13',F:'59',G:'12',H:'15',I:'15',J:'16',K:'20',LR:'20',S:'19',T:'20',U:'20',V:'21'},
+        g2_revenue_other:{C:'12',D:'12',E:'13',F:'59',G:'12',H:'15',I:'15',J:'16',K:'60',LR:'20',S:'19',T:'20',U:'20',V:'61'},
+      };
+
+      function buildDataCells(rowNum, styleKey, no, proj) {
+        const s = STYLES[styleKey];
+        const p = proj || {};
+        let cells = '';
+        cells += `<c r="A${rowNum}" s="93"/>`;
+        cells += `<c r="B${rowNum}" s="93"/>`;
+        cells += numCell(`C${rowNum}`, s.C, no);
+        cells += inlineCell(`D${rowNum}`, s.D, p.projectId);
+        cells += `<c r="E${rowNum}" s="${s.E}"/>`;
+        cells += inlineCell(`F${rowNum}`, s.F, p.name);
+        cells += inlineCell(`G${rowNum}`, s.G, p.repName);
+        cells += `<c r="H${rowNum}" s="${s.H}"/>`;
+        cells += `<c r="I${rowNum}" s="${s.I}"/>`;
+        cells += `<c r="J${rowNum}" s="${s.J}"/>`;
+        cells += `<c r="K${rowNum}" s="${s.K}"/>`;
+        for (const col of ['L','M','N','O','P','Q','R']) cells += `<c r="${col}${rowNum}" s="${s.LR}"/>`;
+        cells += numCell(`S${rowNum}`, s.S, p.sum);
+        cells += `<c r="T${rowNum}" s="${s.T}"/>`;
+        cells += `<c r="U${rowNum}" s="${s.U}"/>`;
+        cells += `<c r="V${rowNum}" s="${s.V}"/>`;
+        return cells;
+      }
+
+      function modifySheet(xml, allOrder, allRevenue) {
+        // 금융2 행(26-47)은 숨김 유지 — 본부 단일 표기(금융1)만 사용
+
+        const sections = [
+          { startRow: 4,  data: allOrder,   sk: 'g1_order',   firstA: '10', firstB: '3' },  // 금융1, 수주
+          { startRow: 15, data: allRevenue, sk: 'g1_revenue', firstA: null, firstB: '2' },  // 금융1, 매출
+        ];
+
+        for (const sec of sections) {
+          for (let i = 0; i < 10; i++) {
+            const rowNum = sec.startRow + i;
+            const isFirst = i === 0;
+            const proj = sec.data[i];
+            const styleKey = sec.sk + (isFirst ? '_first' : '_other');
+            let cells = buildDataCells(rowNum, styleKey, i + 1, proj);
+
+            // For first row of section, fix A and B cells
+            if (isFirst) {
+              // Replace A cell
+              const aCell = sec.firstA
+                ? `<c r="A${rowNum}" s="93" t="s"><v>${sec.firstA}</v></c>`
+                : `<c r="A${rowNum}" s="93"/>`;
+              cells = cells.replace(`<c r="A${rowNum}" s="93"/>`, aCell);
+              // Replace B cell with group type (수주/매출)
+              cells = cells.replace(`<c r="B${rowNum}" s="93"/>`,
+                `<c r="B${rowNum}" s="93" t="s"><v>${sec.firstB}</v></c>`);
+            }
+
+            // Replace entire row in XML
+            xml = xml.replace(
+              new RegExp(`<row r="${rowNum}"[^>]*>.*?</row>`, 's'),
+              `<row r="${rowNum}" spans="1:22" ht="26.1" customHeight="1" x14ac:dyDescent="0.4">${cells}</row>`
+            );
+          }
+        }
+        return xml;
+      }
+
+      // Load template
+      const zip = await JSZip.loadAsync(TEMPLATE_XLSX_B64, { base64: true });
+
+      // UI에서 선택한 월 범위 사용
+      const uiStart = Math.max(1, Math.min(12, Number(document.getElementById('top10Start').value) || 1));
+      const uiEnd   = Math.max(1, Math.min(12, Number(document.getElementById('top10End').value) || 12));
+
+      const allOrder   = getTop10(projects.order,   uiStart, uiEnd);
+      const allRevenue = getTop10(projects.revenue, uiStart, uiEnd);
+
+      // sheet1(CQ), sheet2(NQ) 모두 동일 범위로 채움
+      for (const sheetFile of ['xl/worksheets/sheet1.xml', 'xl/worksheets/sheet2.xml']) {
+        let sheetXml = await zip.file(sheetFile).async('string');
+        sheetXml = modifySheet(sheetXml, allOrder, allRevenue);
+        zip.file(sheetFile, sheetXml);
+      }
+
+      const blob = await zip.generateAsync({ type: 'blob', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'FY26_TOP10_' + new Date().toISOString().slice(0,10) + '.xlsx';
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch(e) {
+      console.error(e);
+      alert('엑셀 생성 오류: ' + e.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = '📥 엑셀 다운로드'; }
+    }
   }
 
   function renderChecklistBox() {
     const card = document.getElementById('checklistCard');
     const rc = DATA && DATA.renewalChecklist;
     if (!rc || !rc.monthGroups || !rc.monthGroups.some(g => g.solutionFlagged.length > 0 || g.maFlagged.length > 0)) {
-      card.innerHTML = '<div class="card-title">계약 만기 체크리스트</div><div style="font-size:13px;color:#9A9689;">지금 확인해야 할 계약 만기 항목이 없어요.</div>';
+      card.innerHTML = '<div class="card-title">계약 만기 체크리스트</div><div style="font-size:13px;color:#9A9689;padding:16px 0;">지금 확인해야 할 계약 만기 항목이 없어요.</div>';
       return;
     }
-    function offsetLabel(offset) { return offset === 0 ? '이번달' : `${offset}개월 후`; }
+
+    // ── 섹션 레이블·배지 설정
+    const sectionMeta = {
+      0: { label: '시급', badge: '이번달', badgeStyle: 'background:#fff0ee;color:#c0392b;border:1px solid #f5b7b1;', borderColor: '#c0392b', headerBg: '#fff0ee' },
+      1: { label: '1개월 후', badge: '1M', badgeStyle: 'background:#fffbea;color:#b45309;border:1px solid #f9e4ae;', borderColor: '#b45309', headerBg: '#fffbea' },
+      2: { label: '2개월 후', badge: '2M', badgeStyle: 'background:#f0f4ff;color:#1c5fba;border:1px solid #b3c8f0;', borderColor: '#1c5fba', headerBg: '#f0f4ff' },
+    };
+
+    // ── 표 한 섹션 생성 함수
+    function buildSection(g) {
+      const meta = sectionMeta[g.offset] || { label: `${g.offset}개월 후`, badge: `+${g.offset}M`, badgeStyle:'background:#f0f0f0;color:#555;border:1px solid #ccc;', borderColor:'#888', headerBg:'#f5f5f5' };
+      const allItems = [
+        ...g.solutionFlagged.map(i => ({ ...i, kind: '솔루션' })),
+        ...g.maFlagged.map(i => ({ ...i, kind: 'MA' })),
+      ];
+      if (allItems.length === 0) return '';
+
+      const rows = allItems.map((item, idx) => {
+        const stripe = idx % 2 === 1 ? 'background:#fafbfc;' : '';
+        const kindBadge = item.kind === '솔루션'
+          ? '<span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;background:#e8f5e9;color:#1f8a4c;border:1px solid #a5d6a7;white-space:nowrap;">솔루션</span>'
+          : '<span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;background:#e3f0ff;color:#1c5fba;border:1px solid #b3c8f0;white-space:nowrap;">MA</span>';
+        const teamBadge = item.team ? `<span style="font-size:10px;color:var(--ink-55);white-space:nowrap;">${item.team.replace('금융영업1본부 ','')}</span>` : '';
+        const amt = item.contract ? `<span style="font-family:var(--mono);font-weight:700;">${(item.contract/1e6).toFixed(1)}백만</span>` : '<span style="color:var(--ink-40);">—</span>';
+        const periodStr = item.period ? `<div style="font-size:10.5px;color:var(--ink-40);margin-top:2px;">${item.period}</div>` : '';
+        return `<tr style="${stripe}">
+          <td style="padding:9px 10px;vertical-align:top;font-size:12.5px;line-height:1.45;">
+            <div>${item.name}</div>${periodStr}
+          </td>
+          <td style="padding:9px 10px;vertical-align:middle;">
+            <div style="display:flex;align-items:center;gap:6px;">${kindBadge}${teamBadge}</div>
+          </td>
+          <td style="padding:9px 10px;vertical-align:middle;text-align:right;white-space:nowrap;">${amt}</td>
+        </tr>`;
+      }).join('');
+
+      return `<div style="margin-bottom:28px;border:1.5px solid ${meta.borderColor};border-radius:12px;overflow:hidden;">
+        <div style="background:${meta.headerBg};padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:1.5px solid ${meta.borderColor};">
+          <span style="font-size:13px;font-weight:700;color:${meta.borderColor};">${g.year2}년 ${g.month}월 — ${meta.label}</span>
+          <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;${meta.badgeStyle}">${meta.badge}</span>
+          <span style="font-size:11.5px;color:var(--ink-55);margin-left:auto;">${allItems.length}건</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;table-layout:fixed;">
+            <colgroup><col style="width:55%;"><col style="width:25%;"><col style="width:20%;"></colgroup>
+            <thead>
+              <tr style="background:#f7f9fc;">
+                <th style="padding:7px 10px;text-align:left;font-size:11.5px;font-weight:700;color:var(--ink-55);border-bottom:1px solid var(--border);">프로젝트명</th>
+                <th style="padding:7px 10px;text-align:left;font-size:11.5px;font-weight:700;color:var(--ink-55);border-bottom:1px solid var(--border);">유형 / 팀</th>
+                <th style="padding:7px 10px;text-align:right;font-size:11.5px;font-weight:700;color:var(--ink-55);border-bottom:1px solid var(--border);">계약금액</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </div>`;
+    }
+
     let html = '<div class="card-title">계약 만기 체크리스트</div>';
     for (const g of rc.monthGroups) {
-      if (g.solutionFlagged.length === 0 && g.maFlagged.length === 0) continue;
-      const urgent = g.offset === 0;
-      const color = urgent ? '#C0392B' : '#B45309';
-      html += `<div style="margin-bottom:14px;">
-        <div style="font-size:13px;font-weight:700;color:${color};margin-bottom:6px;">${g.year2}년 ${g.month}월 (${offsetLabel(g.offset)}${urgent ? ' — 시급' : ''})</div>`;
-      if (g.solutionFlagged.length > 0) {
-        html += `<div style="font-size:12px;color:${color};font-weight:600;margin:4px 0 2px;">솔루션 매출 — 무상보증 종료 (유상전환 검토)</div>`;
-        html += g.solutionFlagged.map(item => `<div style="font-size:12px;color:#3A3D45;padding:2px 0 2px 10px;">${item.name}${item.period ? ` <span style="color:#9A9689;">(${item.period})</span>` : ''}${item.contract ? ` — ${fmtWon(item.contract)}` : ''}</div>`).join('');
-      }
-      if (g.maFlagged.length > 0) {
-        html += `<div style="font-size:12px;color:${color};font-weight:600;margin:6px 0 2px;">MA 매출 — 계약 갱신 검토</div>`;
-        html += g.maFlagged.map(item => `<div style="font-size:12px;color:#3A3D45;padding:2px 0 2px 10px;">${item.name}${item.contract ? ` — ${fmtWon(item.contract)}` : ''}</div>`).join('');
-      }
-      html += `</div>`;
+      html += buildSection(g);
     }
     card.innerHTML = html;
   }
@@ -1106,11 +1510,12 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
     chartArea.innerHTML = `<div class="vBarChart">${availableSets.map((s) => {
       const c = filtered[s.key];
-      const heightPct = Math.min(100, Math.abs(c.total) / maxAbs * 100);
-      const cls = c.total >= 0 ? 'pos' : 'neg';
+      const isZero = c.total === 0;
+      const heightPct = isZero ? 4 : Math.max(6, Math.min(100, Math.abs(c.total) / maxAbs * 100));
+      const cls = isZero ? 'zero' : (c.total >= 0 ? 'pos' : 'neg');
       return `
         <div class="vBarGroup" data-set="${s.key}">
-          <div class="vBarValue">${c.total >= 0 ? '+' : ''}${fmtWon(c.total)}</div>
+          <div class="vBarValue${isZero ? ' zero' : ''}">${c.total >= 0 ? '+' : ''}${fmtWon(c.total)}</div>
           <div class="vBarTrack"><div class="vBarFill ${cls}" style="height:${heightPct}%;"></div></div>
           <div class="vBarLabel">${s.label}</div>
         </div>`;
@@ -1150,12 +1555,13 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       const val = c[q.key];
       const isCancelled = val === 0 && hasAnyDetail(q.months);
       const heightPct = (val === 0) ? 4 : Math.max(6, Math.min(100, Math.abs(val) / maxAbsQ * 100));
-      const cls = isCancelled ? '' : (val >= 0 ? 'pos' : 'neg');
+      const cls = isCancelled ? '' : (val === 0 ? 'zero' : (val >= 0 ? 'pos' : 'neg'));
       const valueHtml = isCancelled ? `0<span style="font-size:9px;">±</span>` : `${val >= 0 ? '+' : ''}${fmtWon(val)}`;
-      const barBg = isCancelled ? 'background:var(--warn);' : (val === 0 ? 'background:var(--border-strong);' : '');
+      const barBg = isCancelled ? 'background:var(--warn);' : '';
+      const valueCls = isCancelled ? '' : (val === 0 ? ' zero' : '');
       return `<div class="vBarGroup qSummaryBar" data-quarter="${q.key}" style="flex:1;">
-        <div class="vBarValue" style="${isCancelled ? 'color:var(--warn);' : ''}">${valueHtml}</div>
-        <div class="vBarTrack" style="height:90px;max-width:44px;">
+        <div class="vBarValue${valueCls}" style="${isCancelled ? 'color:var(--warn);' : ''}">${valueHtml}</div>
+        <div class="vBarTrack" style="height:82px;max-width:36px;">
           <div class="vBarFill ${cls}" style="height:${heightPct}%;${barBg}"></div>
         </div>
         <div class="vBarLabel" style="font-size:12px;">${q.label}</div>
@@ -1234,6 +1640,8 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   detailModalBackdrop.addEventListener('click', hideDetailModal);
 
   // ----- TOP10 기능: 시작월/종료월 선택 -> 팀별 매출/수주 상위 10개 프로젝트 -----
+  const TEMPLATE_XLSX_B64 = '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';
+
   function renderTop10Feature() {
     const container = document.getElementById('featureContent');
     const projects = DATA && DATA.projects;
@@ -1241,12 +1649,26 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const hasProjects = projects && (projects.revenue.length || projects.order.length);
 
     container.innerHTML = `
-      <div class="card">
-        <div class="range-inputs">
-          <label style="font-size:12px;color:#5B5F6B;margin-right:6px;">시작월</label>
+      <div class="filterBar" style="margin-bottom:20px;">
+        <div class="filterGroup"><span class="filterIcon">◆</span>
+          <label>시작월</label>
           <input type="number" id="top10Start" min="1" max="12" value="1" />
-          <label style="font-size:12px;color:#5B5F6B;margin:0 6px 0 14px;">종료월</label>
+        </div>
+        <div class="filterDivider"></div>
+        <div class="filterGroup"><span class="filterIcon">◆</span>
+          <label>종료월</label>
           <input type="number" id="top10End" min="1" max="12" value="12" />
+        </div>
+        <div class="filterDivider"></div>
+        <div class="filterGroup"><span class="filterIcon">◆</span>
+          <label>분기</label>
+          <div style="display:flex;gap:6px;">
+            <button class="top10QuarterBtn" data-q="Y">연간</button>
+            <button class="top10QuarterBtn" data-q="Q1">1분기</button>
+            <button class="top10QuarterBtn" data-q="Q2">2분기</button>
+            <button class="top10QuarterBtn" data-q="Q3">3분기</button>
+            <button class="top10QuarterBtn" data-q="Q4">4분기</button>
+          </div>
         </div>
       </div>
       <div class="split-row">
@@ -1259,13 +1681,46 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           <table class="dataTable" id="targetTableRevenue" style="font-size:11.5px;"></table>
         </div>
       </div>
-      ${hasProjects ? '<div class="card"><div class="card-title">TOP 10</div><div id="top10Body"></div></div>' : ''}
+      ${hasProjects ? '<div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;"><div class="card-title" style="margin-bottom:0;">TOP 10</div><button class="btn-accent" style="font-size:12px;padding:5px 14px;" onclick="downloadTop10Excel()">📥 엑셀 다운로드</button></div><div style="display:flex;gap:6px;margin-bottom:16px;"><button id="btnTypeOrder" style="font-size:13px;padding:6px 22px;border:1.5px solid var(--accent);border-radius:7px;cursor:pointer;font-weight:700;background:var(--accent);color:#fff;">수주</button><button id="btnTypeRevenue" style="font-size:13px;padding:6px 22px;border:1.5px solid var(--border);border-radius:7px;cursor:pointer;font-weight:600;background:#fff;color:var(--ink-60);">매출</button></div><div id="top10Body"></div></div>' : ''}
     `;
 
     if (hasProjects) {
-      function refreshTop10Page() { renderTargetTable(); renderTop10Body(); }
+      let top10Type = 'order'; // 'order' | 'revenue'
+      function refreshTop10Page() { renderTargetTable(); renderTop10Body(top10Type); syncQuarterButtons(); }
       document.getElementById('top10Start').addEventListener('input', refreshTop10Page);
       document.getElementById('top10End').addEventListener('input', refreshTop10Page);
+
+      // 분기 버튼: 누르면 시작월/종료월 입력값이 그 분기 범위로 자동 바뀌고 바로 갱신된다.
+      function syncQuarterButtons() {
+        const s = Number(document.getElementById('top10Start').value);
+        const e = Number(document.getElementById('top10End').value);
+        document.querySelectorAll('.top10QuarterBtn').forEach((btn) => {
+          const range = PERIOD_RANGES[btn.getAttribute('data-q')];
+          btn.classList.toggle('active', range && range[0] === s && range[1] === e);
+        });
+      }
+      document.querySelectorAll('.top10QuarterBtn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const range = PERIOD_RANGES[btn.getAttribute('data-q')];
+          if (!range) return;
+          document.getElementById('top10Start').value = range[0];
+          document.getElementById('top10End').value = range[1];
+          refreshTop10Page();
+        });
+      });
+
+      function setTop10Type(type) {
+        top10Type = type;
+        const btnO = document.getElementById('btnTypeOrder');
+        const btnR = document.getElementById('btnTypeRevenue');
+        const activeStyle = 'font-size:13px;padding:6px 22px;border:1.5px solid var(--accent);border-radius:7px;cursor:pointer;font-weight:700;background:var(--accent);color:#fff;';
+        const inactiveStyle = 'font-size:13px;padding:6px 22px;border:1.5px solid var(--border);border-radius:7px;cursor:pointer;font-weight:600;background:#fff;color:var(--ink-60);';
+        btnO.style.cssText = type === 'order' ? activeStyle : inactiveStyle;
+        btnR.style.cssText = type === 'revenue' ? activeStyle : inactiveStyle;
+        renderTop10Body(top10Type);
+      }
+      document.getElementById('btnTypeOrder').addEventListener('click', () => setTop10Type('order'));
+      document.getElementById('btnTypeRevenue').addEventListener('click', () => setTop10Type('revenue'));
       refreshTop10Page();
     } else if (tva) {
       renderTargetTable();
@@ -1377,9 +1832,9 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
   function rankTop10(records, team, start, end) {
     const rows = records
-      .filter(r => r.team === team)
+      .filter(r => (team ? r.team === team : true))
       .map(r => ({
-        name: r.name, sum: sumRange(r.monthAmt, start, end), projectId: r.projectId || '', repName: r.repName || '',
+        name: r.name, sum: sumRange(r.monthAmt, start, end), projectId: r.projectId || '', repName: r.repName || '', team: r.team,
         customer: r.customer || '',
         breakdown: (r.breakdown || []).map(b => ({ category: b.category, subCategory: b.subCategory, sum: sumRange(b.monthAmt, start, end) })).filter(b => b.sum !== 0),
       }))
@@ -1418,8 +1873,10 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   }
 
   const top10DataMap = {};
+  let top10RightTeam = null; // 오른쪽 표에서 선택된 팀
 
-  function renderTop10Body() {
+  function renderTop10Body(type) {
+    type = type || 'order';
     const start = Math.max(1, Math.min(12, Number(document.getElementById('top10Start').value) || 1));
     const end = Math.max(1, Math.min(12, Number(document.getElementById('top10End').value) || 12));
     const projects = DATA.projects;
@@ -1428,24 +1885,45 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     projects.order.forEach(r => teamSet.add(r.team));
     const teams = Array.from(teamSet).sort();
 
-    let html = '';
-    for (const team of teams) {
-      const revRows = rankTop10(projects.revenue, team, start, end);
-      const ordRows = rankTop10(projects.order, team, start, end);
-      const revUid = `${cssSafe(team)}_rev`;
-      const ordUid = `${cssSafe(team)}_ord`;
-      top10DataMap[revUid] = revRows;
-      top10DataMap[ordUid] = ordRows;
-      html += `<div style="margin-bottom:24px;">
-        <div style="font-size:14px;font-weight:700;color:#1A1D24;margin-bottom:10px;">${team}</div>
-        <div class="top10SplitRow" style="display:flex;gap:20px;align-items:flex-start;">
-          <div style="flex:1 1 0;min-width:0;">${top10TableHtml('수주 TOP10', ordRows, ordUid)}</div>
-          <div style="flex:1 1 0;min-width:0;">${top10TableHtml('매출 TOP10', revRows, revUid)}</div>
-        </div>
-      </div>`;
+    if (!top10RightTeam || !teams.includes(top10RightTeam)) top10RightTeam = teams[0];
+
+    const isOrder = type === 'order';
+    const records = isOrder ? projects.order : projects.revenue;
+    const label = isOrder ? '수주 TOP10' : '매출 TOP10';
+
+    if (teams.length === 0) {
+      document.getElementById('top10Body').innerHTML = '<div style="font-size:13px;color:#9A9689;">표시할 데이터가 없어요.</div>';
+      return;
     }
+
+    // 왼쪽: 본부 전체(팀 구분 없이 합계) TOP10 — 기본으로 항상 보여준다.
+    const allRows = rankTop10(records, null, start, end);
+    const allUid = `__all___${type}`;
+    top10DataMap[allUid] = allRows;
+    const leftHtml = `<div style="flex:1;min-width:0;">
+      <div style="font-size:13px;font-weight:700;color:#1A1D24;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--accent);">본부 전체</div>
+      ${top10TableHtml(label, allRows, allUid)}
+    </div>`;
+
+    // 오른쪽: 버튼으로 고른 팀 하나만 보여준다 (버튼을 위쪽에 먼저 두고, 왼쪽과 같은 구조로 통일).
+    const teamRows = rankTop10(records, top10RightTeam, start, end);
+    const teamUid = `${cssSafe(top10RightTeam)}_${type}`;
+    top10DataMap[teamUid] = teamRows;
+    const tabsHtml = teams.length > 1 ? `<div style="display:flex;gap:6px;margin-bottom:10px;">
+      ${teams.map(team => {
+        const shortLabel = team.replace(/^.*본부\s*/, '') || team;
+        const isActive = team === top10RightTeam;
+        return `<button class="top10TeamTab" data-team="${team}" style="font-size:12px;padding:5px 16px;border-radius:7px;cursor:pointer;font-weight:700;border:1.5px solid var(--accent);background:${isActive ? 'var(--accent)' : '#fff'};color:${isActive ? '#fff' : 'var(--accent)'};">${shortLabel}</button>`;
+      }).join('')}
+    </div>` : '';
+    const rightHtml = `<div style="flex:1;min-width:0;">
+      ${tabsHtml}
+      <div style="font-size:13px;font-weight:700;color:#1A1D24;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--border-strong);">${top10RightTeam}</div>
+      ${top10TableHtml(label, teamRows, teamUid)}
+    </div>`;
+
     const body = document.getElementById('top10Body');
-    body.innerHTML = html || '<div style="font-size:13px;color:#9A9689;">표시할 팀이 없어요.</div>';
+    body.innerHTML = `<div class="top10SplitRow" style="display:flex;gap:24px;align-items:flex-start;">${leftHtml}${rightHtml}</div>`;
 
     body.querySelectorAll('.top10Row').forEach((row) => {
       row.addEventListener('click', () => {
@@ -1453,6 +1931,13 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         const idx = Number(row.getAttribute('data-idx'));
         const item = top10DataMap[uid] && top10DataMap[uid][idx];
         if (item) showProjectInfoPopup(item);
+      });
+    });
+
+    body.querySelectorAll('.top10TeamTab').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        top10RightTeam = btn.getAttribute('data-team');
+        renderTop10Body(type);
       });
     });
   }
@@ -1468,12 +1953,13 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     return Math.round(n / 1000).toLocaleString('en-US');
   }
 
-  let scheduleViewMode = {}; // hq -> '통합' | '팀별'
+  let scheduleFilter = '전체';
 
   function renderScheduleFeature() {
     const container = document.getElementById('featureContent');
     const projects = DATA && DATA.projects;
     const maSchedule = (DATA && DATA.maSchedule) || { revenue: [], order: [] };
+    const tva = DATA && DATA.targetVsActual;
     if (!projects || !projects.revenue.length) {
       container.innerHTML = '<div class="card"><div style="font-size:13px;color:#9A9689;">매출일정 데이터가 없어요.</div></div>';
       return;
@@ -1481,7 +1967,17 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const teamSet = new Set();
     projects.revenue.forEach(r => teamSet.add(r.team));
     maSchedule.revenue.forEach(r => teamSet.add(r.team));
-    const teams = Array.from(teamSet).sort();
+    const allTeams = Array.from(teamSet).sort();
+
+    const scopes = buildScopeOptions(tva);
+    let scopeOptionsHtml = '<option value="전체">전체</option>';
+    if (tva) {
+      scopeOptionsHtml += `<optgroup label="본부">${scopes.hqs.map(h => `<option value="${h}">${h}</option>`).join('')}</optgroup>`;
+      scopeOptionsHtml += `<optgroup label="팀">${scopes.teams.map(t => `<option value="${t}">${t}</option>`).join('')}</optgroup>`;
+    }
+
+    const allowedTeams = tva ? teamsForFilterValue(scheduleFilter, tva) : allTeams;
+    const teams = allTeams.filter(t => allowedTeams.includes(t));
 
     const hqMap = new Map(); // hq -> [teams...]
     for (const team of teams) {
@@ -1491,15 +1987,26 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     }
 
     container.innerHTML = `
-      <div style="display:flex;justify-content:flex-end;margin-bottom:10px;">
-        <button id="scheduleExportBtn" style="font-size:12.5px;font-weight:600;color:#fff;background:var(--accent);border:none;border-radius:var(--radius-sm);padding:8px 16px;cursor:pointer;display:flex;align-items:center;gap:6px;">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+        <div class="filterBar" style="flex:1;">
+          <div class="filterGroup"><span class="filterIcon">◆</span>
+            <label>본부/팀</label>
+            <select id="scheduleTeamFilter">${scopeOptionsHtml}</select>
+          </div>
+        </div>
+        <button id="scheduleExportBtn" style="flex-shrink:0;font-size:12.5px;font-weight:600;color:#fff;background:var(--accent);border:none;border-radius:var(--radius-sm);padding:10px 18px;cursor:pointer;display:flex;align-items:center;gap:6px;">
           <span>&#11015;</span> 엑셀로 내보내기
         </button>
       </div>
-      ${Array.from(hqMap.keys()).sort().map(hq => `<div class="card" id="hqCard-${cssSafe(hq)}"></div>`).join('')}
+      ${hqMap.size ? Array.from(hqMap.keys()).sort().map(hq => `<div class="card" id="hqCard-${cssSafe(hq)}"></div>`).join('') : '<div class="card"><div style="font-size:13px;color:#9A9689;">해당 조건의 매출일정 데이터가 없어요.</div></div>'}
     `;
     for (const hq of hqMap.keys()) renderHqScheduleCard(hq, hqMap.get(hq), projects, maSchedule);
 
+    document.getElementById('scheduleTeamFilter').value = scheduleFilter;
+    document.getElementById('scheduleTeamFilter').addEventListener('change', (e) => {
+      scheduleFilter = e.target.value;
+      renderScheduleFeature();
+    });
     document.getElementById('scheduleExportBtn').addEventListener('click', () => {
       exportScheduleToExcel(hqMap, projects, maSchedule);
     });
@@ -1807,43 +2314,15 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
   function renderHqScheduleCard(hq, teamsInHq, projects, maSchedule) {
     const card = document.getElementById(`hqCard-${cssSafe(hq)}`);
-    const scope = scheduleViewMode[hq] || '통합'; // '통합' 또는 특정 팀 이름
-    const showButtons = teamsInHq.length > 1;
-
-    let buttonsHtml = '';
-    if (showButtons) {
-      const options = ['통합', ...teamsInHq];
-      buttonsHtml = `<div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;">
-        ${options.map((opt) => {
-          const isActive = scope === opt;
-          const label = opt === '통합' ? '본부 통합' : opt.replace(hq, '').trim();
-          return `<button class="scheduleToggleBtn" data-hq="${cssSafe(hq)}" data-scope="${opt}" style="font-size:12px;padding:6px 14px;border-radius:6px;border:1px solid ${isActive ? '#3A3D45' : '#D8D3C7'};background:${isActive ? '#3A3D45' : '#fff'};color:${isActive ? '#fff' : '#5B5F6B'};cursor:pointer;">${label}</button>`;
-        }).join('')}
-      </div>`;
-    }
+    const scopeLabel = teamsInHq.length === 1 ? teamsInHq[0] : hq;
 
     const unitNote = '<div style="font-size:11px;color:#9A9689;margin-bottom:10px;">단위: 천원</div>';
-    let solutionRows, maRows, scopeLabel;
-    if (scope === '통합' || !showButtons) {
-      solutionRows = projects.revenue.filter(r => teamsInHq.includes(r.team));
-      maRows = maSchedule.revenue.filter(r => teamsInHq.includes(r.team));
-      scopeLabel = hq;
-    } else {
-      solutionRows = projects.revenue.filter(r => r.team === scope);
-      maRows = maSchedule.revenue.filter(r => r.team === scope);
-      scopeLabel = scope;
-    }
+    const solutionRows = projects.revenue.filter(r => teamsInHq.includes(r.team));
+    const maRows = maSchedule.revenue.filter(r => teamsInHq.includes(r.team));
     const bodyHtml = unitNote + scheduleTableAndCumHtml(solutionRows, maRows);
     const summaryHtml = buildScheduleSummaryStrip(solutionRows, maRows);
 
-    card.innerHTML = `<div class="card-title">${scopeLabel} — 매출일정</div>${summaryHtml}${buttonsHtml}<div id="scheduleBody-${cssSafe(hq)}">${bodyHtml}</div>`;
-
-    card.querySelectorAll('.scheduleToggleBtn').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        scheduleViewMode[hq] = btn.getAttribute('data-scope');
-        renderHqScheduleCard(hq, teamsInHq, projects, maSchedule);
-      });
-    });
+    card.innerHTML = `<div class="card-title">${scopeLabel} — 매출일정</div>${summaryHtml}<div id="scheduleBody-${cssSafe(hq)}">${bodyHtml}</div>`;
   }
 
   // 현재 titleDate(기준일자) 기준으로, 몇 월까지를 "확정(지난달)"으로 볼지 계산한다.
@@ -1888,7 +2367,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     </div>`;
   }
 
-  // ----- 초기화: results.json 로드 -----
+  // ----- 초기화: results.json 을 fetch로 불러온다 -----
   async function init() {
     renderNav();
     try {
@@ -1906,6 +2385,1080 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
   init();
 })();
+
+
+  // ================= 문서(PPT/워드) 폰트·컬러 정리 도구 (이식됨) =================
+const DOC_STYLE_TOOL_HTML = `<style>
+:root{
+    /* --- Lovable-inspired warm design tokens --- */
+    --pst-bg:#eef1f6;
+    --pst-surface:#FFFFFF;
+    --pst-surface-raised:#FFFFFF;
+    --pst-ink:#1a1d24;
+    --pst-ink-83:rgba(26,29,36,.83);
+    --pst-ink-60:rgba(26,29,36,.62);
+    --pst-ink-45:rgba(26,29,36,.48);
+    --pst-ink-40:rgba(26,29,36,.4);
+    --pst-ink-10:rgba(26,29,36,.1);
+    --pst-ink-4:rgba(26,29,36,.04);
+    --pst-ink-3:rgba(26,29,36,.03);
+    --pst-border:#dde2ea;
+    --pst-border-strong:#c3ccd9;
+    --pst-on-dark:#ffffff;
+
+    /* muted accent hues for the 4-step flow — warm, not saturated */
+    --pst-step-1:#7c93c9;
+    --pst-step-2:#a98bb0;
+    --pst-step-3:#6e9482;
+    --pst-step-4:#c98a5e;
+
+    --pst-accent:#1c69d4;
+    --pst-ok:#1f8a4c;
+    --pst-warn:#b4791e;
+
+    --pst-rounded-xs:4px;
+    --pst-rounded-sm:6px;
+    --pst-rounded-md:8px;
+    --pst-rounded-lg:12px;
+    --pst-rounded-xl:16px;
+    --pst-rounded-full:9999px;
+
+    --pst-space-xxs:4px;
+    --pst-space-xs:8px;
+    --pst-space-sm:12px;
+    --pst-space-md:16px;
+    --pst-space-lg:24px;
+    --pst-space-xl:32px;
+    --pst-space-xxl:56px;
+
+    --pst-shadow-inset: rgba(255,255,255,0.5) 0px 0.5px 0px 0px inset, rgba(0,0,0,0.2) 0px 0px 0px 0.5px inset, rgba(0,0,0,0.08) 0px 1px 2px 0px;
+    --pst-shadow-focus: rgba(0,0,0,0.1) 0px 4px 12px;
+    --pst-shadow-card: 0 1px 2px rgba(28,28,28,.04);
+
+    --pst-font:'Pretendard Variable', 'Pretendard', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Malgun Gothic', 'Apple SD Gothic Neo', system-ui, sans-serif;
+    --pst-mono:'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  }.pstRoot *{box-sizing:border-box;}.pstRoot{
+    margin:0;
+    font-family:var(--pst-font);
+    background:var(--pst-bg);
+    color:var(--pst-ink);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }.pstRoot .wrap{max-width:100%;margin:0;padding:0;}.pstRoot header.top{margin-bottom:18px;}.pstRoot .eyebrow{
+    display:inline-flex;align-items:center;background:var(--pst-surface-raised);color:var(--pst-ink-83);
+    font-size:12px;font-weight:600;letter-spacing:.02em;padding:5px 12px;border-radius:var(--pst-rounded-full);
+    border:1px solid var(--pst-border);
+  }.pstRoot header.top h1{
+    font-size:34px;font-weight:600;letter-spacing:-0.9px;line-height:1.15;margin:16px 0 10px;color:var(--pst-ink);
+    font-family:var(--pst-font);
+  }@media (min-width:640px){.pstRoot header.top h1{ font-size:42px; letter-spacing:-1.1px; } }.pstRoot header.top p{color:var(--pst-ink-60);font-size:16px;margin:0;max-width:640px;line-height:1.55;}.pstRoot .card{
+    background:var(--pst-surface);
+    border:1px solid var(--pst-border);
+    border-radius:var(--pst-rounded-xl);
+    padding:32px;
+    margin-bottom:20px;
+    position:relative;
+    transition:opacity .2s ease;
+  }.pstRoot .card::before{
+    content:'';
+    position:absolute;top:0;left:24px;right:24px;height:2px;
+    background:var(--pst-card-accent, transparent);
+    border-radius:0 0 3px 3px;
+  }.pstRoot .card.accent-sky{ --pst-card-accent: var(--pst-step-1); }.pstRoot .card.accent-purple{ --pst-card-accent: var(--pst-step-2); }.pstRoot .card.accent-teal{ --pst-card-accent: var(--pst-step-3); }.pstRoot .card.accent-orange{ --pst-card-accent: var(--pst-step-4); }.pstRoot .card h2{
+    font-size:19px;font-weight:600;letter-spacing:-0.2px;margin:0 0 6px;
+    display:flex;align-items:center;gap:12px;color:var(--pst-ink);
+  }.pstRoot .card h2 .num{
+    width:26px;height:26px;border-radius:var(--pst-rounded-full);color:#fff;
+    font-size:12px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
+  }.pstRoot .num.n1{background:var(--pst-step-1);}.pstRoot .num.n2{background:var(--pst-step-2);}.pstRoot .num.n3{background:var(--pst-step-3);}.pstRoot .num.n4{background:var(--pst-step-4);}.pstRoot .card .desc{font-size:14px;color:var(--pst-ink-60);margin:0 0 20px;line-height:1.6;max-width:680px;}.pstRoot /* ---- buttons ---- */
+  .btn-primary{
+    background:var(--pst-ink);color:var(--pst-on-dark);border:none;border-radius:var(--pst-rounded-sm);
+    padding:10px 20px;font-size:14px;font-weight:500;font-family:var(--pst-font);cursor:pointer;
+    box-shadow:var(--pst-shadow-inset);
+    transition:transform .08s ease, opacity .12s ease, box-shadow .12s ease;
+  }.pstRoot .btn-primary:hover{opacity:.88;}.pstRoot .btn-primary:active{transform:scale(.97);opacity:.8;}.pstRoot .btn-primary:focus-visible{box-shadow:var(--pst-shadow-inset), var(--pst-shadow-focus);outline:none;}.pstRoot .btn-primary:disabled{background:var(--pst-ink-10);color:var(--pst-ink-40);box-shadow:none;cursor:not-allowed;transform:none;}.pstRoot .btn-utility{
+    background:transparent;border:1px solid var(--pst-border-strong);border-radius:var(--pst-rounded-sm);
+    color:var(--pst-ink);padding:8px 16px;font-size:13px;font-weight:500;font-family:var(--pst-font);cursor:pointer;
+    transition:transform .08s ease, background .12s ease, opacity .12s ease;
+  }.pstRoot .btn-utility:hover{background:var(--pst-ink-4);}.pstRoot .btn-utility:active{transform:scale(.97);}.pstRoot .btn-utility:disabled{color:var(--pst-ink-40);border-color:var(--pst-border);cursor:not-allowed;transform:none;background:none;}.pstRoot .badge-pill{
+    display:inline-flex;align-items:center;background:var(--pst-surface-raised);color:var(--pst-ink-83);
+    font-size:11px;font-weight:600;padding:4px 11px;border-radius:var(--pst-rounded-full);border:1px solid var(--pst-border);
+  }.pstRoot /* ---- upload ---- */
+  .dropzone{
+    border:1.5px dashed var(--pst-border-strong);border-radius:var(--pst-rounded-lg);padding:44px 20px;text-align:center;
+    cursor:pointer;transition:.15s;background:var(--pst-ink-3);
+  }.pstRoot .dropzone:hover, .pstRoot .dropzone.drag{border-color:var(--pst-ink);background:var(--pst-ink-4);}.pstRoot .dropzone input{display:none;}.pstRoot .dropzone .icon{font-size:24px;margin-bottom:10px;opacity:.7;}.pstRoot .dropzone .main{font-size:15px;font-weight:600;color:var(--pst-ink);}.pstRoot .dropzone .sub{font-size:13px;color:var(--pst-ink-45);margin-top:5px;}.pstRoot .filepill{
+    display:inline-flex;align-items:center;gap:10px;background:var(--pst-surface-raised);color:var(--pst-ink);
+    padding:8px 16px;border-radius:var(--pst-rounded-full);font-size:13px;font-weight:600;margin-top:14px;
+    border:1px solid var(--pst-border);
+  }.pstRoot .filepill button{border:none;background:none;color:var(--pst-accent);cursor:pointer;font-size:13px;font-weight:600;}.pstRoot /* ---- tables ---- */
+  table{width:100%;border-collapse:collapse;font-size:13px;}.pstRoot th{
+    text-align:left;color:var(--pst-ink-45);font-weight:600;font-size:11px;letter-spacing:.04em;
+    text-transform:uppercase;padding:8px;border-bottom:1px solid var(--pst-border);
+  }.pstRoot td{padding:10px 8px;border-bottom:1px solid var(--pst-border);vertical-align:middle;}.pstRoot tr:last-child td{border-bottom:none;}.pstRoot .swatch{
+    width:20px;height:20px;border-radius:var(--pst-rounded-xs);border:1px solid var(--pst-ink-10);
+    display:inline-block;vertical-align:middle;margin-right:8px;flex-shrink:0;
+  }.pstRoot .hexcell{display:flex;align-items:center;font-family:var(--pst-mono);font-size:12.5px;}.pstRoot .count-badge{background:var(--pst-ink-4);color:var(--pst-ink-60);font-size:11px;padding:2px 9px;border-radius:var(--pst-rounded-full);}.pstRoot .member-list{font-size:11px;color:var(--pst-ink-45);margin-top:3px;font-family:var(--pst-mono);}.pstRoot .repl-row{display:flex;align-items:center;gap:8px;}.pstRoot .repl-row input[type=text]{
+    border:1px solid var(--pst-border);border-radius:var(--pst-rounded-xs);padding:7px 9px;font-size:13px;
+    width:130px;font-family:var(--pst-mono);background:var(--pst-surface-raised);color:var(--pst-ink);
+  }.pstRoot .repl-row input[type=text]:focus{outline:none;border-color:var(--pst-border-strong);box-shadow:var(--pst-shadow-focus);}.pstRoot .repl-row input[type=color]{
+    width:30px;height:28px;border:1px solid var(--pst-border);border-radius:var(--pst-rounded-xs);padding:0;cursor:pointer;background:none;
+  }.pstRoot .grid2{display:grid;grid-template-columns:1fr 1fr;gap:32px;}@media (max-width:780px){.pstRoot .grid2{grid-template-columns:1fr;}}.pstRoot .subhead{font-size:13px;font-weight:600;margin:24px 0 10px;color:var(--pst-ink);}.pstRoot .subhead:first-child{margin-top:0;}.pstRoot .subrow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:24px 0 10px;}.pstRoot .subrow .subhead{margin:0;}.pstRoot .subrow .threshold-label{font-size:11px;color:var(--pst-ink-45);font-family:var(--pst-mono);}.pstRoot .empty-note{font-size:13px;color:var(--pst-ink-45);padding:10px 0;}.pstRoot /* ---- image color extractor ---- */
+  .hint{font-size:12px;color:var(--pst-ink-60);margin-top:8px;}.pstRoot .hint.ok{color:var(--pst-ok);}.pstRoot .hint.warn{color:var(--pst-warn);}.pstRoot .imgsampler{border:1px solid var(--pst-border);border-radius:var(--pst-rounded-lg);padding:20px;background:var(--pst-ink-3);margin-bottom:24px;}.pstRoot .imgsampler-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:8px;}.pstRoot .imgsampler-head label{font-size:14px;font-weight:600;color:var(--pst-ink);}.pstRoot #pstSampleCanvas{max-width:100%;border-radius:var(--pst-rounded-sm);border:1px solid var(--pst-border);display:none;margin-top:14px;}.pstRoot .extracted-list{display:flex;flex-direction:column;gap:6px;margin-top:16px;}.pstRoot .extracted-row{
+    display:flex;align-items:center;gap:10px;background:var(--pst-surface-raised);border:1px solid var(--pst-border);
+    border-radius:var(--pst-rounded-md);padding:9px 12px;
+  }.pstRoot .extracted-row .swatch{width:28px;height:28px;border-radius:var(--pst-rounded-sm);flex-shrink:0;border:1px solid var(--pst-ink-10);}.pstRoot .extracted-row .hexval{font-family:var(--pst-mono);font-size:13px;font-weight:600;color:var(--pst-ink);width:80px;flex-shrink:0;}.pstRoot .extracted-row .pctbar-wrap{flex:1;background:var(--pst-ink-4);border-radius:var(--pst-rounded-full);height:8px;overflow:hidden;min-width:60px;}.pstRoot .extracted-row .pctbar{height:100%;border-radius:var(--pst-rounded-full);}.pstRoot .extracted-row .pctval{font-size:12px;color:var(--pst-ink-60);width:44px;text-align:right;flex-shrink:0;}.pstRoot .suggest-row{
+    display:flex;align-items:center;gap:10px;background:var(--pst-surface-raised);border:1px solid var(--pst-border);
+    border-radius:var(--pst-rounded-md);padding:9px 12px;
+  }.pstRoot .suggest-row .swatch{width:24px;height:24px;border-radius:var(--pst-rounded-sm);flex-shrink:0;border:1px solid var(--pst-ink-10);}.pstRoot .suggest-row .arrow{color:var(--pst-ink-45);flex-shrink:0;}.pstRoot .suggest-row .hexval{font-family:var(--pst-mono);font-size:12.5px;font-weight:600;color:var(--pst-ink);}.pstRoot .suggest-row .meta{font-size:11.5px;color:var(--pst-ink-60);margin-left:2px;flex-shrink:0;}.pstRoot .suggest-row .spacer{flex:1;}.pstRoot .apply-btn{
+    border:1px solid var(--pst-border-strong);background:transparent;border-radius:var(--pst-rounded-xs);
+    font-size:11px;padding:5px 10px;cursor:pointer;color:var(--pst-ink-83);font-family:var(--pst-font);font-weight:600;flex-shrink:0;
+    transition:background .12s ease;
+  }.pstRoot .apply-btn:hover{background:var(--pst-ink-4);}.pstRoot .apply-btn.applied{border-color:var(--pst-ok);color:var(--pst-ok);background:none;cursor:default;}.pstRoot .copy-btn{
+    border:1px solid var(--pst-border);background:transparent;border-radius:var(--pst-rounded-xs);
+    font-size:11px;padding:5px 9px;cursor:pointer;color:var(--pst-ink-60);font-family:var(--pst-font);flex-shrink:0;
+    transition:background .12s ease;
+  }.pstRoot .copy-btn:hover{background:var(--pst-ink-4);border-color:var(--pst-border-strong);}.pstRoot .copy-btn.copied{border-color:var(--pst-ok);color:var(--pst-ok);}.pstRoot .fontunify{
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;border:1px solid var(--pst-border);
+    border-radius:var(--pst-rounded-md);padding:14px 16px;background:var(--pst-ink-3);margin-bottom:24px;
+  }.pstRoot .fontunify input[type=text]{
+    border:1px solid var(--pst-border);border-radius:var(--pst-rounded-xs);padding:9px 11px;font-size:13px;width:200px;
+    font-family:var(--pst-font);background:var(--pst-surface-raised);color:var(--pst-ink);
+  }.pstRoot .fontunify .label{font-size:12px;color:var(--pst-ink-60);font-weight:600;}.pstRoot /* ---- xml chips + editor ---- */
+  .xmllist{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}.pstRoot .xmlchip{
+    font-family:var(--pst-mono);font-size:11.5px;background:var(--pst-ink-4);color:var(--pst-ink-60);
+    padding:6px 11px;border-radius:var(--pst-rounded-sm);cursor:pointer;border:1px solid transparent;
+    transition:background .12s ease, border-color .12s ease;
+  }.pstRoot .xmlchip.edited{border-color:var(--pst-step-4);color:var(--pst-step-4);background:transparent;}.pstRoot .xmlchip:hover{border-color:var(--pst-border-strong);color:var(--pst-ink);background:var(--pst-surface-raised);}.pstRoot .modal-bg{
+    position:fixed;inset:0;background:rgba(20,25,40,.45);display:none;
+    align-items:center;justify-content:center;z-index:50;padding:24px;
+  }.pstRoot .modal-bg.show{display:flex;}.pstRoot .modal{
+    background:var(--pst-surface-raised);color:var(--pst-ink);border-radius:var(--pst-rounded-xl);width:100%;max-width:860px;
+    max-height:84vh;display:flex;flex-direction:column;overflow:hidden;
+    box-shadow:0 24px 60px rgba(20,25,40,.15);border:1px solid var(--pst-border);
+  }.pstRoot .modal .mh{
+    padding:14px 18px;border-bottom:1px solid var(--pst-border);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+  }.pstRoot .modal .mh span.path{font-family:var(--pst-mono);font-size:12px;color:var(--pst-ink-60);}.pstRoot .modal .mh .mh-actions{display:flex;gap:6px;align-items:center;}.pstRoot .modal .mh button.close{background:none;border:none;color:var(--pst-ink-45);font-size:18px;cursor:pointer;}.pstRoot .modal textarea#pstModalBody{
+    flex:1;margin:0;padding:18px;border:none;outline:none;resize:none;
+    font-family:var(--pst-mono);font-size:11.5px;line-height:1.65;color:var(--pst-ink);background:var(--pst-surface-raised);
+  }.pstRoot .modal input[type=file]{display:none;}.pstRoot /* ---- log ---- */
+  #pstLog{
+    font-family:var(--pst-mono);font-size:11.5px;color:var(--pst-ink-83);
+    background:var(--pst-ink-3);border:1px solid var(--pst-border);border-radius:var(--pst-rounded-md);
+    padding:12px 14px;margin-top:18px;white-space:pre-wrap;max-height:220px;overflow:auto;display:none;
+  }.pstRoot #pstLog .warn{color:var(--pst-warn);}.pstRoot #pstLog .ok{color:var(--pst-ok);}.pstRoot .toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:6px;}.pstRoot .toolbar .fname{
+    border:1px solid var(--pst-border);border-radius:var(--pst-rounded-xs);padding:10px 12px;font-size:13px;
+    font-family:var(--pst-mono);min-width:230px;background:var(--pst-surface-raised);color:var(--pst-ink);
+  }.pstRoot .step-disabled{opacity:.4;pointer-events:none;}
+
+</style>
+<div class="pstRoot">
+<div class="wrap">
+  <header class="top">
+    <p>PPTX(제안서) 또는 DOCX(문서)를 업로드해 내부 XML을 분석하고, 사용된 폰트·색상을 원하는 디자인 시스템 값으로 한번에 치환한 새 파일을 만듭니다. 모든 처리는 브라우저 안에서만 이뤄지며 외부 서버로 전송되지 않습니다.</p>
+  </header>
+
+  <!-- STEP 1: UPLOAD -->
+  <div class="card accent-sky">
+    <h2><span class="num n1">1</span> 파일 업로드</h2>
+    <p class="desc">PPTX/POTX(파워포인트) 또는 DOCX/DOTX(워드) 파일을 올려주세요.</p>
+    <div class="dropzone" id="pstDropzone">
+      <input type="file" id="pstFileInput" accept=".pptx,.potx,.docx,.dotx">
+      <div class="icon">📎</div>
+      <div class="main">클릭하거나 파일을 끌어다 놓으세요</div>
+      <div class="sub">.pptx / .potx / .docx / .dotx 파일 지원</div>
+    </div>
+    <div id="pstFilepillWrap"></div>
+    <div id="pstLog"></div>
+  </div>
+
+  <!-- STEP 2: XML CONVERSION -->
+  <div class="card accent-purple step-disabled" id="pstStepXml">
+    <h2><span class="num n2">2</span> 원본 → XML 변환</h2>
+    <p class="desc">업로드한 파일 내부 압축을 풀어 모든 XML 파트로 변환했습니다. 이 XML을 기준으로 폰트·색상이 분석·치환됩니다. 항목을 클릭하면 실제 변환된 XML을 확인하거나 직접 편집할 수 있습니다.</p>
+    <div class="badge-pill" id="pstXmlSummary" style="margin-bottom:12px;">변환 대기 중</div>
+    <div class="xmllist" id="pstXmlList"></div>
+  </div>
+
+  <!-- STEP 3: ANALYSIS -->
+  <div class="card accent-teal step-disabled" id="pstStepAnalysis">
+    <h2><span class="num n3">3</span> 디자인 시스템 적용 &amp; 치환 값 입력</h2>
+    <p class="desc">위에서 변환된 XML을 분석해, 테마(전체 디자인)에 지정된 값과 슬라이드·본문에 개별적으로 지정된(하드코딩된) 값을 구분해서 보여드립니다. 필요하면 아래에서 색상표 이미지를 올려 색상 코드를 확인한 뒤, 표에서 각 항목의 변경할 값을 직접 입력하세요.</p>
+
+    <div class="imgsampler">
+      <div class="imgsampler-head">
+        <label>🖼 색상표 캡쳐 이미지에서 색 추출</label>
+        <button type="button" class="btn-utility" id="pstImgSampleBtnTrigger">이미지 올리기</button>
+        <input type="file" id="pstColorImgInput" accept="image/*">
+      </div>
+      <div class="hint">이미지를 올리면 자동으로 주요 색상을 추출해 사용 비율 순으로 보여드립니다. 색상 코드 옆 복사 버튼으로 복사할 수 있고, 파일이 이미 분석되어 있다면 아래에 "변경하면 좋을 색상" 추천도 함께 표시됩니다.</div>
+      <canvas id="pstSampleCanvas"></canvas>
+      <div class="extracted-list" id="pstSampledList"></div>
+
+      <div id="pstSuggestWrap" style="display:none;">
+        <div class="subhead" style="margin-top:18px;margin-bottom:6px;">🎯 색상 변경 추천</div>
+        <div class="hint" id="pstSuggestHint"></div>
+        <div class="extracted-list" id="pstSuggestList"></div>
+      </div>
+    </div>
+
+    <div class="fontunify">
+      <span class="label">✒️ 폰트 일괄 통일</span>
+      <input type="text" id="pstFontUnifyInput" placeholder="예: Pretendard, KoPub돋움체 Medium">
+      <button type="button" class="btn-utility" id="pstFontUnifyBtn">감지된 모든 폰트를 이 폰트로 통일</button>
+      <span id="pstFontUnifyResult" style="font-size:12px;color:var(--pst-ink-60);"></span>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <div class="subhead">🎨 테마 색상 (전체 디자인에 영향)</div>
+        <table>
+          <thead><tr><th style="width:40%">현재 색상</th><th>변경할 색상</th></tr></thead>
+          <tbody id="pstThemeColorBody"></tbody>
+        </table>
+
+        <div class="subhead">✒️ 테마 폰트</div>
+        <table>
+          <thead><tr><th style="width:40%">현재 폰트</th><th>변경할 폰트</th></tr></thead>
+          <tbody id="pstThemeFontBody"></tbody>
+        </table>
+      </div>
+
+      <div>
+        <div class="subrow">
+          <div class="subhead">🎨 슬라이드/본문에 직접 지정된 색상 (실제 사용된 색상만 표시)</div>
+        </div>
+        <table>
+          <thead><tr><th>현재 색상</th><th>사용 비율</th><th>변경할 색상</th></tr></thead>
+          <tbody id="pstDirectColorBody"></tbody>
+        </table>
+
+        <div class="subhead">✒️ 슬라이드/본문에 직접 지정된 폰트</div>
+        <table>
+          <thead><tr><th>현재 폰트</th><th></th><th>변경할 폰트</th></tr></thead>
+          <tbody id="pstDirectFontBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: PREVIEW & APPLY -->
+  <div class="card accent-orange step-disabled" id="pstStepApply">
+    <h2><span class="num n4">4</span> 변경사항 확인 후 적용</h2>
+    <p class="desc">먼저 <b>미리보기</b>로 XML에서 실제로 몇 건이 바뀔지 확인하세요. 0건으로 표시되는 항목은 해당 값이 XML에 없다는 뜻이니, 위 표의 입력값이나 2단계의 XML 원문을 다시 확인해보세요. 확인 후에만 적용·다운로드할 수 있습니다.</p>
+    <button type="button" class="btn-utility" id="pstPreviewBtn">🔍 변경사항 미리보기</button>
+    <div id="pstPreviewArea" style="margin-top:14px;"></div>
+    <div class="toolbar" style="margin-top:16px;">
+      <input type="text" class="fname" id="pstOutName" value="normalized_output.pptx">
+      <button class="btn-primary" id="pstApplyBtn" disabled>먼저 미리보기를 확인하세요</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="pstModalBg">
+  <div class="modal">
+    <div class="mh">
+      <span class="path" id="pstModalTitle"></span>
+      <div class="mh-actions">
+        <button type="button" class="btn-utility" id="pstModalDownload">다운로드</button>
+        <label class="btn-utility" for="pstModalReplaceFile" style="cursor:pointer;">파일로 교체</label>
+        <input type="file" id="pstModalReplaceFile" accept=".xml">
+        <button type="button" class="btn-primary" id="pstModalSave" style="padding:7px 16px;font-size:13px;">저장</button>
+        <button class="close" id="pstModalClose">✕</button>
+      </div>
+    </div>
+    <textarea id="pstModalBody" spellcheck="false"></textarea>
+  </div>
+</div>
+</div>
+`;
+
+// ============================================================
+// 문서 폰트·컬러 정리 도구 (PPTX + DOCX 공용)
+// index.html의 "문서 스타일 정리" 메뉴에 이식되어 사용됩니다.
+// ============================================================
+
+function pstFreshState(){
+  return {
+    zip: null,
+    fileName: '',
+    fileType: null,      // 'pptx' | 'docx'
+    xmlParts: {},        // path -> string content
+    editedPaths: new Set(), // paths manually edited/replaced by the user
+    themeFiles: [],
+    themeColors: [],      // [{slot,hex}]
+    themeFonts: {major:{latin:'',ea:'',cs:''}, minor:{latin:'',ea:'',cs:''}},
+    directColors: [],     // [{hex,count}]
+    directFonts: [],      // [{name,count}]
+    extractedColors: [],  // [{hex,count,pct}] — from an uploaded reference image
+  };
+}
+let docState = pstFreshState();
+
+// pptx/docx 공용 처리를 위한 파일형식별 설정
+// (파워포인트 · 워드는 둘 다 OOXML이라 테마 구조(a:clrScheme/a:fontScheme)는 완전히 동일합니다.
+//  다른 부분은 "본문" 파트를 어디서 찾는지, 그리고 폰트 지정 방식(DrawingML typeface vs WordprocessingML rFonts) 뿐입니다.)
+const PST_FILE_TYPES = {
+  pptx: {
+    label: 'PPTX',
+    themeRe: /^ppt\/theme\/theme\d*\.xml$/,
+    contentRe: /^ppt\/slides\/slide\d+\.xml$/,
+    contentUnitLabel: '슬라이드',
+    outSuffix(lowerName){ return lowerName.endsWith('.potx') ? '.potx' : '.pptx'; },
+  },
+  docx: {
+    label: 'DOCX',
+    themeRe: /^word\/theme\/theme\d*\.xml$/,
+    contentRe: /^word\/(document|styles|header\d*|footer\d*|footnotes|endnotes)\.xml$/,
+    contentUnitLabel: '본문 파트',
+    outSuffix(lowerName){ return lowerName.endsWith('.dotx') ? '.dotx' : '.docx'; },
+  },
+};
+
+function pstDetectFileType(lowerName){
+  if (lowerName.endsWith('.pptx') || lowerName.endsWith('.potx')) return 'pptx';
+  if (lowerName.endsWith('.docx') || lowerName.endsWith('.dotx')) return 'docx';
+  return null;
+}
+
+const PST_COLOR_SLOTS = ['dk1','lt1','dk2','lt2','accent1','accent2','accent3','accent4','accent5','accent6','hlink','folHlink'];
+const PST_SLOT_LABEL = {
+  dk1:'dk1 (어두운 텍스트1)', lt1:'lt1 (밝은 배경1)', dk2:'dk2 (어두운 텍스트2)', lt2:'lt2 (밝은 배경2)',
+  accent1:'accent1', accent2:'accent2', accent3:'accent3', accent4:'accent4', accent5:'accent5', accent6:'accent6',
+  hlink:'hlink (하이퍼링크)', folHlink:'folHlink (열어본 링크)'
+};
+
+function pstLog(msg, cls){
+  const el = document.getElementById('pstLog');
+  if (!el) return;
+  el.style.display = 'block';
+  const line = cls ? `<span class="${cls}">${pstEscapeHtml(msg)}</span>` : pstEscapeHtml(msg);
+  el.innerHTML += line + '\n';
+  el.scrollTop = el.scrollHeight;
+}
+function pstEscapeRegex(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+function pstEscapeHtml(s){ return s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+// extract latin/ea/cs typeface names from a <a:majorFont>...</a:majorFont> (or minorFont) inner block
+// — pptx/docx 테마 파일 모두 동일한 구조라 그대로 재사용됩니다.
+function pstExtractFontsFromBlock(blockXml){
+  const latin = (blockXml.match(/<a:latin\s+typeface="([^"]*)"/) || [])[1] || '';
+  const ea = (blockXml.match(/<a:ea\s+typeface="([^"]*)"/) || [])[1] || '';
+  const cs = (blockXml.match(/<a:cs\s+typeface="([^"]*)"/) || [])[1] || '';
+  return { latin, ea, cs };
+}
+function pstReplaceFontInBlock(xml, blockTag, subTag, newValue){
+  const blockRe = new RegExp(`<a:${blockTag}>[\\s\\S]*?<\\/a:${blockTag}>`);
+  return xml.replace(blockRe, full =>
+    full.replace(new RegExp(`(<a:${subTag}\\s+typeface=")[^"]*(")`), `$1${newValue}$2`)
+  );
+}
+
+// ---------- 슬라이드/본문에 직접 지정된 색상·폰트 탐지용 정규식 ----------
+// 색상: DrawingML(<a:srgbClr val="..">, PPT+워드 도형 공용) / WordprocessingML 텍스트 색상(<w:color w:val="..">)
+//       / 워드 표·문단 배경(<w:shd w:fill="..">) 세 가지를 모두 인식합니다.
+const PST_COLOR_DETECT_RE = /<[\w]+:srgbClr\b[^>]*\bval="([0-9A-Fa-f]{6})"|<w:color\b[^>]*\bw:val="([0-9A-Fa-f]{6})"|<w:shd\b[^>]*\bw:fill="([0-9A-Fa-f]{6})"/g;
+// 폰트: DrawingML typeface(PPT 텍스트상자·워드 도형 공용) / WordprocessingML 런폰트(<w:rFonts w:ascii=".." w:eastAsia=".." ...>) 모두 인식합니다.
+const PST_FONT_DETECT_RE = /(?:typeface|w:ascii|w:eastAsia|w:hAnsi|w:cs)="([^"]+)"/g;
+
+// ---------- Color math ----------
+function pstHexToRgbArr(hex){ return [parseInt(hex.substr(0,2),16), parseInt(hex.substr(2,2),16), parseInt(hex.substr(4,2),16)]; }
+function pstColorDistance(hexA,hexB){
+  const a = pstHexToRgbArr(hexA), b = pstHexToRgbArr(hexB);
+  return Math.sqrt((a[0]-b[0])**2 + (a[1]-b[1])**2 + (a[2]-b[2])**2);
+}
+
+// ---------- Image color extractor ----------
+function pstExtractColorsFromCanvas(canvas, ctx){
+  const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const STEP = 8;
+  const counts = {};
+  let total = 0;
+  for (let i = 0; i < data.length; i += 4){
+    const a = data[i+3];
+    if (a < 128) continue;
+    const r = Math.round(data[i]   / STEP) * STEP;
+    const g = Math.round(data[i+1] / STEP) * STEP;
+    const b = Math.round(data[i+2] / STEP) * STEP;
+    const hex = [r,g,b].map(v => Math.min(255,v).toString(16).padStart(2,'0')).join('').toUpperCase();
+    counts[hex] = (counts[hex] || 0) + 1;
+    total++;
+  }
+  const sorted = Object.entries(counts)
+    .map(([hex, count]) => ({ hex, count, pct: total ? (count/total*100) : 0 }))
+    .sort((a,b) => b.count - a.count)
+    .filter(c => c.pct >= 0.5)
+    .slice(0, 16);
+  docState.extractedColors = sorted;
+  pstRenderExtractedColors();
+  pstRenderSuggestions();
+}
+
+function pstRenderExtractedColors(){
+  const wrap = document.getElementById('pstSampledList');
+  if (!wrap) return;
+  if (!docState.extractedColors.length){
+    wrap.innerHTML = `<div class="hint">추출된 색상이 없습니다. 다른 이미지를 올려보세요.</div>`;
+    return;
+  }
+  const maxPct = Math.max(...docState.extractedColors.map(c => c.pct));
+  wrap.innerHTML = docState.extractedColors.map((c,i) => `
+    <div class="extracted-row">
+      <span class="swatch" style="background:#${c.hex}"></span>
+      <span class="hexval">#${c.hex}</span>
+      <span class="pctbar-wrap"><span class="pctbar" style="width:${(c.pct/maxPct*100).toFixed(1)}%;background:#${c.hex}"></span></span>
+      <span class="pctval">${c.pct.toFixed(1)}%</span>
+      <button type="button" class="copy-btn" data-pst-copy-idx="${i}">복사</button>
+    </div>`).join('');
+  wrap.querySelectorAll('[data-pst-copy-idx]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const hex = docState.extractedColors[+btn.dataset.pstCopyIdx].hex;
+      try {
+        await navigator.clipboard.writeText('#' + hex);
+        btn.textContent = '복사됨'; btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = '복사'; btn.classList.remove('copied'); }, 1200);
+      } catch {
+        alert('#' + hex);
+      }
+    });
+  });
+}
+
+const PST_SUGGEST_THRESHOLD = 25;
+
+function pstRenderSuggestions(){
+  const suggestWrap = document.getElementById('pstSuggestWrap');
+  const hintEl = document.getElementById('pstSuggestHint');
+  const listEl = document.getElementById('pstSuggestList');
+  if (!suggestWrap || !hintEl || !listEl) return;
+
+  if (!docState.extractedColors.length){
+    suggestWrap.style.display = 'none';
+    listEl.innerHTML = '';
+    return;
+  }
+  suggestWrap.style.display = 'block';
+
+  if (!docState.directColors.length){
+    hintEl.textContent = '파일을 먼저 업로드해 분석하면, 이 이미지의 색상을 기준으로 변경하면 좋을 색상을 추천해드립니다.';
+    listEl.innerHTML = '';
+    return;
+  }
+
+  const matched = docState.directColors.map((c, i) => {
+    let best = null, bestDist = Infinity;
+    for (const ec of docState.extractedColors){
+      const d = pstColorDistance(c.hex, ec.hex);
+      if (d < bestDist){ bestDist = d; best = ec; }
+    }
+    return { i, from: c, to: best, dist: bestDist };
+  });
+
+  const totalCount = docState.directColors.reduce((sum,c) => sum + c.count, 0);
+  const suggestions = matched
+    .filter(s => s.dist > PST_SUGGEST_THRESHOLD)
+    .sort((a,b) => b.from.count - a.from.count)
+    .slice(0, 10);
+
+  if (!suggestions.length){
+    hintEl.textContent = '이미 사용된 색상이 이 이미지의 색상과 유사합니다 — 추천할 변경 사항이 없습니다.';
+    listEl.innerHTML = '';
+    return;
+  }
+
+  hintEl.textContent = `사용된 색상 중 이 이미지 색상과 차이가 큰 ${suggestions.length}개를 사용 빈도 순으로 추천합니다. "적용"을 누르면 아래 표의 해당 항목에 바로 반영됩니다.`;
+  listEl.innerHTML = suggestions.map(s => {
+    const pct = totalCount ? (s.from.count / totalCount * 100) : 0;
+    return `
+    <div class="suggest-row">
+      <span class="swatch" style="background:#${s.from.hex}"></span>
+      <span class="hexval">#${s.from.hex}</span>
+      <span class="meta">${s.from.count}회 · ${pct.toFixed(1)}%</span>
+      <span class="arrow">→</span>
+      <span class="swatch" style="background:#${s.to.hex}"></span>
+      <span class="hexval">#${s.to.hex}</span>
+      <span class="spacer"></span>
+      <button type="button" class="apply-btn" data-pst-suggest-idx="${s.i}" data-pst-suggest-hex="${s.to.hex}">적용</button>
+    </div>`;
+  }).join('');
+
+  listEl.querySelectorAll('[data-pst-suggest-idx]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = btn.dataset.pstSuggestIdx;
+      const hex = btn.dataset.pstSuggestHex;
+      const input = document.querySelector(`[data-pst-direct-color-hex-idx="${idx}"]`);
+      if (input) input.value = hex;
+      btn.textContent = '적용됨';
+      btn.classList.add('applied');
+    });
+  });
+}
+
+// ---------- Upload handling ----------
+async function pstHandleFile(file){
+  const lowerName = file.name.toLowerCase();
+  const fileType = pstDetectFileType(lowerName);
+  if (!fileType){ alert('.pptx / .potx / .docx / .dotx 파일만 지원합니다.'); return; }
+
+  document.getElementById('pstLog').innerHTML = '';
+  document.getElementById('pstLog').style.display = 'block';
+  pstLog(`[읽는 중] ${file.name} (${(file.size/1024/1024).toFixed(2)}MB)`);
+
+  document.getElementById('pstFilepillWrap').innerHTML =
+    `<div class="filepill">📄 ${pstEscapeHtml(file.name)} <button id="pstClearFile">변경</button></div>`;
+  document.getElementById('pstClearFile').onclick = () => { docState = pstFreshState(); renderDocStyleFeature(); };
+
+  try {
+    const buf = await file.arrayBuffer();
+    const zip = await JSZip.loadAsync(buf);
+    docState.zip = zip;
+    docState.fileName = file.name;
+    docState.fileType = fileType;
+    docState.editedPaths = new Set();
+
+    const rootPrefix = fileType === 'pptx' ? 'ppt/' : 'word/';
+    const cfg = PST_FILE_TYPES[fileType];
+
+    const paths = Object.keys(zip.files).filter(p => p.startsWith(rootPrefix) && p.endsWith('.xml') && !zip.files[p].dir);
+    pstLog(`[완료] XML 파트 ${paths.length}개 발견 (${cfg.label})`);
+
+    docState.xmlParts = {};
+    for (const p of paths){ docState.xmlParts[p] = await zip.files[p].async('string'); }
+
+    docState.themeFiles = paths.filter(p => cfg.themeRe.test(p));
+    pstLog(`[완료] 테마 파일 ${docState.themeFiles.length}개: ${docState.themeFiles.join(', ') || '(없음)'}`);
+
+    const contentCount = paths.filter(p => cfg.contentRe.test(p)).length;
+    document.getElementById('pstXmlSummary').textContent =
+      `✅ XML 변환 완료 — ${cfg.contentUnitLabel} ${contentCount}개 · XML 파트 ${paths.length}개 · 테마 파일 ${docState.themeFiles.length}개`;
+
+    pstAnalyze();
+    pstRenderXmlList(paths);
+
+    document.getElementById('pstStepXml').classList.remove('step-disabled');
+    document.getElementById('pstStepAnalysis').classList.remove('step-disabled');
+    document.getElementById('pstStepApply').classList.remove('step-disabled');
+    document.getElementById('pstPreviewArea').innerHTML = '';
+    const applyBtnEl = document.getElementById('pstApplyBtn');
+    applyBtnEl.disabled = true;
+    applyBtnEl.textContent = '먼저 미리보기를 확인하세요';
+
+    const ext = cfg.outSuffix(lowerName);
+    const base = file.name.replace(/\.(pptx|potx|docx|dotx)$/i, '');
+    document.getElementById('pstOutName').value = `${base}_normalized${ext}`;
+
+    pstLog('[준비 완료] 아래에서 치환할 값을 입력해주세요.', 'ok');
+  } catch (err){
+    console.error(err);
+    pstLog('[오류] ' + err.message, 'warn');
+    alert('파일을 읽는 중 오류가 발생했습니다: ' + err.message);
+  }
+}
+
+// ---------- Analysis ----------
+function pstAnalyze(){
+  docState.themeColors = [];
+  docState.themeFonts = { major:{latin:'',ea:'',cs:''}, minor:{latin:'',ea:'',cs:''} };
+  const cfg = PST_FILE_TYPES[docState.fileType];
+
+  if (docState.themeFiles.length){
+    const themeXml = docState.xmlParts[docState.themeFiles[0]];
+
+    for (const slot of PST_COLOR_SLOTS){
+      const re = new RegExp(`<a:${slot}>\\s*<a:(?:srgbClr val="([0-9A-Fa-f]{6})"|sysClr[^>]*lastClr="([0-9A-Fa-f]{6})")`, 's');
+      const m = themeXml.match(re);
+      if (m) docState.themeColors.push({ slot, hex: (m[1] || m[2]).toUpperCase() });
+    }
+
+    const majorBlockM = themeXml.match(/<a:majorFont>([\s\S]*?)<\/a:majorFont>/);
+    const minorBlockM = themeXml.match(/<a:minorFont>([\s\S]*?)<\/a:minorFont>/);
+    docState.themeFonts.major = majorBlockM ? pstExtractFontsFromBlock(majorBlockM[1]) : {latin:'',ea:'',cs:''};
+    docState.themeFonts.minor = minorBlockM ? pstExtractFontsFromBlock(minorBlockM[1]) : {latin:'',ea:'',cs:''};
+  }
+
+  const contentPaths = Object.keys(docState.xmlParts).filter(p => cfg.contentRe.test(p));
+  const themeHexSet = new Set(docState.themeColors.map(c => c.hex));
+
+  const colorCount = {};
+  const fontCount = {};
+
+  for (const p of contentPaths){
+    const xml = docState.xmlParts[p];
+    let m;
+    const colorRe = new RegExp(PST_COLOR_DETECT_RE.source, 'g');
+    while ((m = colorRe.exec(xml)) !== null){
+      const hex = (m[1] || m[2] || m[3]).toUpperCase();
+      colorCount[hex] = (colorCount[hex] || 0) + 1;
+    }
+    const fontRe = new RegExp(PST_FONT_DETECT_RE.source, 'g');
+    while ((m = fontRe.exec(xml)) !== null){
+      const name = m[1];
+      if (name.startsWith('+mj-') || name.startsWith('+mn-')) continue; // 테마 폰트 참조는 제외
+      fontCount[name] = (fontCount[name] || 0) + 1;
+    }
+  }
+
+  docState.directColors = Object.entries(colorCount)
+    .map(([hex, count]) => ({ hex, count, inTheme: themeHexSet.has(hex) }))
+    .sort((a,b) => b.count - a.count);
+
+  docState.directFonts = Object.entries(fontCount)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a,b) => b.count - a.count);
+
+  pstRenderAnalysis();
+}
+
+function pstRenderAnalysis(){
+  pstRenderThemeColors();
+  pstRenderThemeFonts();
+  pstRenderDirectColors();
+  pstRenderDirectFonts();
+  pstRenderSuggestions();
+}
+
+function pstRenderThemeColors(){
+  const tcBody = document.getElementById('pstThemeColorBody');
+  if (!tcBody) return;
+  tcBody.innerHTML = docState.themeColors.length ? docState.themeColors.map((c,i) => `
+    <tr>
+      <td><span class="hexcell"><span class="swatch" style="background:#${c.hex}"></span>${PST_SLOT_LABEL[c.slot]} · #${c.hex}</span></td>
+      <td>
+        <div class="repl-row">
+          <input type="color" data-pst-theme-color-idx="${i}" value="#${c.hex}">
+          <input type="text" data-pst-theme-color-hex-idx="${i}" placeholder="비워두면 유지" maxlength="7">
+        </div>
+      </td>
+    </tr>`).join('') : `<tr><td colspan="2" class="empty-note">테마 색상을 찾지 못했습니다.</td></tr>`;
+
+  docState.themeColors.forEach((c,i) => {
+    const picker = tcBody.querySelector(`[data-pst-theme-color-idx="${i}"]`);
+    const text = tcBody.querySelector(`[data-pst-theme-color-hex-idx="${i}"]`);
+    picker.addEventListener('input', () => text.value = picker.value.replace('#','').toUpperCase());
+  });
+}
+
+function pstRenderThemeFonts(){
+  const tfBody = document.getElementById('pstThemeFontBody');
+  if (!tfBody) return;
+  const rows = [];
+  if (docState.themeFonts.major.latin) rows.push({label:'제목용 · 서양(latin)', val: docState.themeFonts.major.latin, key:'major_latin'});
+  if (docState.themeFonts.major.ea) rows.push({label:'제목용 · 한글(ea)', val: docState.themeFonts.major.ea, key:'major_ea'});
+  if (docState.themeFonts.minor.latin) rows.push({label:'본문용 · 서양(latin)', val: docState.themeFonts.minor.latin, key:'minor_latin'});
+  if (docState.themeFonts.minor.ea) rows.push({label:'본문용 · 한글(ea)', val: docState.themeFonts.minor.ea, key:'minor_ea'});
+  tfBody.innerHTML = rows.length ? rows.map(r => `
+    <tr>
+      <td>${r.label} · ${pstEscapeHtml(r.val)}</td>
+      <td><input type="text" data-pst-theme-font-key="${r.key}" placeholder="비워두면 유지" style="width:180px"></td>
+    </tr>`).join('') : `<tr><td colspan="2" class="empty-note">테마 폰트를 찾지 못했습니다.</td></tr>`;
+}
+
+function pstRenderDirectColors(){
+  const dcBody = document.getElementById('pstDirectColorBody');
+  if (!dcBody) return;
+  const totalCount = docState.directColors.reduce((sum,c) => sum + c.count, 0);
+  dcBody.innerHTML = docState.directColors.length ? docState.directColors.map((c,i) => {
+    const pct = totalCount ? (c.count / totalCount * 100) : 0;
+    return `
+    <tr>
+      <td><span class="hexcell"><span class="swatch" style="background:#${c.hex}"></span>#${c.hex}</span></td>
+      <td><span class="count-badge">${c.count}회 · ${pct.toFixed(1)}%</span></td>
+      <td>
+        <div class="repl-row">
+          <input type="color" data-pst-direct-color-idx="${i}" value="#${c.hex}">
+          <input type="text" data-pst-direct-color-hex-idx="${i}" placeholder="비워두면 유지" maxlength="7">
+        </div>
+      </td>
+    </tr>`;
+  }).join('') : `<tr><td colspan="3" class="empty-note">직접 지정된 색상이 없습니다. (테마 색상만 사용 중)</td></tr>`;
+
+  docState.directColors.forEach((c,i) => {
+    const picker = dcBody.querySelector(`[data-pst-direct-color-idx="${i}"]`);
+    const text = dcBody.querySelector(`[data-pst-direct-color-hex-idx="${i}"]`);
+    picker.addEventListener('input', () => text.value = picker.value.replace('#','').toUpperCase());
+  });
+}
+
+function pstRenderDirectFonts(){
+  const dfBody = document.getElementById('pstDirectFontBody');
+  if (!dfBody) return;
+  dfBody.innerHTML = docState.directFonts.length ? docState.directFonts.map((f,i) => `
+    <tr>
+      <td>${pstEscapeHtml(f.name)}</td>
+      <td><span class="count-badge">${f.count}회</span></td>
+      <td><input type="text" data-pst-direct-font-idx="${i}" placeholder="비워두면 유지" style="width:180px"></td>
+    </tr>`).join('') : `<tr><td colspan="3" class="empty-note">직접 지정된 폰트가 없습니다. (테마 폰트만 사용 중)</td></tr>`;
+}
+
+function pstRenderXmlList(paths){
+  const wrap = document.getElementById('pstXmlList');
+  if (!wrap) return;
+  const prefix = docState.fileType === 'pptx' ? 'ppt/' : 'word/';
+  wrap.innerHTML = paths.map(p => `<span class="xmlchip" data-pst-path="${pstEscapeHtml(p)}">${pstEscapeHtml(p.replace(prefix,''))}</span>`).join('');
+  wrap.querySelectorAll('.xmlchip').forEach(chip => chip.addEventListener('click', () => pstOpenXmlModal(chip.dataset.pstPath)));
+}
+function pstRefreshXmlChipState(path){
+  const chip = document.querySelector(`.xmlchip[data-pst-path="${CSS.escape(path)}"]`);
+  if (chip) chip.classList.toggle('edited', docState.editedPaths.has(path));
+}
+
+// ---------- XML modal (view / edit / replace / download) ----------
+let pstCurrentModalPath = null;
+function pstOpenXmlModal(path){
+  pstCurrentModalPath = path;
+  document.getElementById('pstModalTitle').textContent = path + (docState.editedPaths.has(path) ? '  (수정됨)' : '');
+  document.getElementById('pstModalBody').value = pstPrettyXml(docState.xmlParts[path]);
+  document.getElementById('pstModalBg').classList.add('show');
+}
+
+function pstPrettyXml(xml){
+  let formatted = '';
+  let pad = 0;
+  xml.replace(/>\s*</g, '><').split(/(?=<)/).forEach(node => {
+    if (node.match(/^<\/\w/)) pad = Math.max(pad - 1, 0);
+    formatted += '  '.repeat(pad) + node + '\n';
+    if (node.match(/^<[^!?/][^>]*[^/]>$/) && !node.match(/^<[^>]+\/>$/)) pad++;
+  });
+  return formatted;
+}
+
+// ---------- Gather replacement mappings from the input tables ----------
+function pstGatherMappings(){
+  const themeColorRepl = {};
+  docState.themeColors.forEach((c,i) => {
+    const v = document.querySelector(`[data-pst-theme-color-hex-idx="${i}"]`).value.trim().replace('#','').toUpperCase();
+    if (v && /^[0-9A-F]{6}$/.test(v) && v !== c.hex) themeColorRepl[c.slot] = v;
+  });
+
+  const themeFontRepl = {};
+  ['major_latin','major_ea','minor_latin','minor_ea'].forEach(key => {
+    const el = document.querySelector(`[data-pst-theme-font-key="${key}"]`);
+    if (el){ const v = el.value.trim(); if (v) themeFontRepl[key] = v; }
+  });
+
+  const directColorRepl = {};
+  docState.directColors.forEach((c,i) => {
+    const v = document.querySelector(`[data-pst-direct-color-hex-idx="${i}"]`).value.trim().replace('#','').toUpperCase();
+    if (v && /^[0-9A-F]{6}$/.test(v) && v !== c.hex) directColorRepl[c.hex] = v;
+  });
+
+  const directFontRepl = {};
+  docState.directFonts.forEach((f,i) => {
+    const v = document.querySelector(`[data-pst-direct-font-idx="${i}"]`).value.trim();
+    if (v && v !== f.name) directFontRepl[f.name] = v;
+  });
+
+  return { themeColorRepl, themeFontRepl, directColorRepl, directFontRepl };
+}
+
+// oldHex 하나에 걸리는 실제 색상 속성 개수를 센다 (a:srgbClr val=.. / w:color w:val=.. / w:shd w:fill=.. 모두 포함)
+function pstCountColorHits(xml, oldHex){
+  const re = new RegExp(`(?:val|w:fill)="${oldHex}"`, 'gi');
+  return (xml.match(re) || []).length;
+}
+function pstReplaceColor(xml, oldHex, newHex){
+  const re = new RegExp(`(val|w:fill)="${oldHex}"`, 'gi');
+  return xml.replace(re, (m, attr) => `${attr}="${newHex}"`);
+}
+// oldFont 하나에 걸리는 실제 폰트 지정 개수를 센다 (DrawingML typeface=.. / WordprocessingML w:ascii= 등 모두 포함)
+function pstCountFontHits(xml, oldFont){
+  const re = new RegExp(`(?:typeface|w:ascii|w:eastAsia|w:hAnsi|w:cs)="${pstEscapeRegex(oldFont)}"`, 'g');
+  return (xml.match(re) || []).length;
+}
+function pstReplaceFont(xml, oldFont, newFont){
+  const re = new RegExp(`(typeface|w:ascii|w:eastAsia|w:hAnsi|w:cs)="${pstEscapeRegex(oldFont)}"`, 'g');
+  return xml.replace(re, (m, attr) => `${attr}="${newFont}"`);
+}
+
+// ---------- Step 4a: preview (dry run, no mutation, no download) ----------
+function pstPreview(){
+  if (!docState.zip){ alert('먼저 파일을 업로드해주세요.'); return; }
+  const { themeColorRepl, themeFontRepl, directColorRepl, directFontRepl } = pstGatherMappings();
+  const totalChanges = Object.keys(themeColorRepl).length + Object.keys(themeFontRepl).length +
+    Object.keys(directColorRepl).length + Object.keys(directFontRepl).length;
+
+  if (totalChanges === 0 && docState.editedPaths.size === 0){
+    document.getElementById('pstPreviewArea').innerHTML = `<div class="empty-note">변경할 값이 입력되지 않았습니다. 3단계 표에서 최소 하나 이상 입력해주세요.</div>`;
+    document.getElementById('pstApplyBtn').disabled = true;
+    document.getElementById('pstApplyBtn').textContent = '먼저 미리보기를 확인하세요';
+    return;
+  }
+
+  const rows = [];
+  const cfg = PST_FILE_TYPES[docState.fileType];
+
+  for (const [slot, newHex] of Object.entries(themeColorRepl)){
+    const before = docState.themeColors.find(c => c.slot === slot);
+    const hitFiles = docState.themeFiles.filter(p => new RegExp(`<a:${slot}>`).test(docState.xmlParts[p]));
+    rows.push({ type:'테마 색상', old:`#${before.hex} (${slot})`, next:`#${newHex}`, count: hitFiles.length, unit:'개 테마 파일' });
+  }
+  for (const [key, newVal] of Object.entries(themeFontRepl)){
+    const [blockName, subTag] = key.split('_');
+    const before = docState.themeFonts[blockName][subTag];
+    rows.push({ type:'테마 폰트', old: before || '(비어있음)', next:newVal, count: docState.themeFiles.length, unit:'개 테마 파일' });
+  }
+  for (const [oldHex, newHex] of Object.entries(directColorRepl)){
+    let count = 0;
+    for (const path of Object.keys(docState.xmlParts)) count += pstCountColorHits(docState.xmlParts[path], oldHex);
+    rows.push({ type:'직접 지정 색상', old:`#${oldHex}`, next:`#${newHex}`, count, unit:'건' });
+  }
+  for (const [oldFont, newFont] of Object.entries(directFontRepl)){
+    let count = 0;
+    for (const path of Object.keys(docState.xmlParts)) count += pstCountFontHits(docState.xmlParts[path], oldFont);
+    rows.push({ type:'직접 지정 폰트', old:oldFont, next:newFont, count, unit:'건' });
+  }
+
+  const zeroCount = rows.filter(r => r.count === 0).length;
+  const areaHtml = `
+    <table>
+      <thead><tr><th>구분</th><th>기존 값</th><th>변경 값</th><th>예상 반영</th></tr></thead>
+      <tbody>
+        ${rows.map(r => `
+          <tr>
+            <td>${pstEscapeHtml(r.type)}</td>
+            <td style="font-family:var(--pst-mono);">${pstEscapeHtml(String(r.old))}</td>
+            <td style="font-family:var(--pst-mono);">${pstEscapeHtml(String(r.next))}</td>
+            <td>${r.count > 0 ? `<span class="hint ok" style="margin:0;">${r.count}${r.unit}</span>` : `<span class="hint warn" style="margin:0;">0${r.unit} — XML에서 못 찾음</span>`}</td>
+          </tr>`).join('')}
+        ${docState.editedPaths.size ? `<tr><td>수동 편집 XML</td><td colspan="2" style="font-family:var(--pst-mono);">${[...docState.editedPaths].join(', ')}</td><td><span class="hint ok" style="margin:0;">그대로 반영됨</span></td></tr>` : ''}
+      </tbody>
+    </table>
+    ${zeroCount ? `<div class="hint warn" style="margin-top:8px;">⚠ ${zeroCount}개 항목이 0건입니다 — 값이 정확한지, 혹은 2단계에서 해당 XML을 직접 확인해보세요.</div>` : `<div class="hint ok" style="margin-top:8px;">모든 항목이 XML에서 확인되었습니다. 적용해도 좋습니다.</div>`}
+  `;
+  document.getElementById('pstPreviewArea').innerHTML = areaHtml;
+
+  const applyBtnEl = document.getElementById('pstApplyBtn');
+  applyBtnEl.disabled = false;
+  applyBtnEl.textContent = '✅ 이대로 적용 & 다운로드';
+}
+
+// ---------- Step 4b: apply & download (only after preview) ----------
+async function pstApplyAndDownload(){
+  if (!docState.zip){ alert('먼저 파일을 업로드해주세요.'); return; }
+  const btn = document.getElementById('pstApplyBtn');
+  btn.disabled = true;
+  btn.textContent = '처리 중...';
+
+  try {
+    const { themeColorRepl, themeFontRepl, directColorRepl, directFontRepl } = pstGatherMappings();
+
+    const totalChanges = Object.keys(themeColorRepl).length + Object.keys(themeFontRepl).length +
+      Object.keys(directColorRepl).length + Object.keys(directFontRepl).length;
+
+    if (totalChanges === 0 && docState.editedPaths.size === 0){
+      alert('변경할 값이 입력되지 않았습니다. 최소 하나 이상 입력해주세요.');
+      btn.disabled = false; btn.textContent = '✅ 이대로 적용 & 다운로드';
+      return;
+    }
+
+    pstLog('--- 치환 적용 시작 ---');
+    pstLog(`테마 색상 ${Object.keys(themeColorRepl).length}개, 테마 폰트 ${Object.keys(themeFontRepl).length}개, ` +
+        `직접 지정 색상 ${Object.keys(directColorRepl).length}개, 직접 지정 폰트 ${Object.keys(directFontRepl).length}개, ` +
+        `수동 편집 XML ${docState.editedPaths.size}개`);
+
+    const updated = {};
+    for (const path of Object.keys(docState.xmlParts)) updated[path] = docState.xmlParts[path];
+
+    // 1) theme slot colors + major/minor fonts (theme files only)
+    for (const themePath of docState.themeFiles){
+      let content = updated[themePath];
+      for (const [slot, newHex] of Object.entries(themeColorRepl)){
+        const re = new RegExp(`(<a:${slot}>).*?(</a:${slot}>)`, 's');
+        content = content.replace(re, `$1<a:srgbClr val="${newHex}"/>$2`);
+      }
+      for (const [key, newVal] of Object.entries(themeFontRepl)){
+        const [blockName, subTag] = key.split('_');
+        const blockTag = blockName === 'major' ? 'majorFont' : 'minorFont';
+        content = pstReplaceFontInBlock(content, blockTag, subTag, newVal);
+      }
+      updated[themePath] = content;
+    }
+
+    // 2) direct colors & fonts across every xml part — with per-mapping hit counting for diagnostics
+    const colorHitCounts = {};
+    const fontHitCounts = {};
+    Object.keys(directColorRepl).forEach(k => colorHitCounts[k] = 0);
+    Object.keys(directFontRepl).forEach(k => fontHitCounts[k] = 0);
+
+    for (const path of Object.keys(updated)){
+      let content = updated[path];
+      for (const [oldHex, newHex] of Object.entries(directColorRepl)){
+        const hits = pstCountColorHits(content, oldHex);
+        if (hits){ content = pstReplaceColor(content, oldHex, newHex); colorHitCounts[oldHex] += hits; }
+      }
+      for (const [oldFont, newFont] of Object.entries(directFontRepl)){
+        const hits = pstCountFontHits(content, oldFont);
+        if (hits){ content = pstReplaceFont(content, oldFont, newFont); fontHitCounts[oldFont] += hits; }
+      }
+      updated[path] = content;
+    }
+
+    for (const [oldHex, newHex] of Object.entries(directColorRepl)){
+      const n = colorHitCounts[oldHex];
+      if (n > 0) pstLog(`[색상] #${oldHex} → #${newHex} : ${n}건 변경`, 'ok');
+      else pstLog(`[색상] #${oldHex} → #${newHex} : 0건 (XML에서 찾지 못함)`, 'warn');
+    }
+    for (const [oldFont, newFont] of Object.entries(directFontRepl)){
+      const n = fontHitCounts[oldFont];
+      if (n > 0) pstLog(`[폰트] '${oldFont}' → '${newFont}' : ${n}건 변경`, 'ok');
+      else pstLog(`[폰트] '${oldFont}' → '${newFont}' : 0건 (XML에서 찾지 못함 — 표기가 정확한지 확인해주세요)`, 'warn');
+    }
+
+    for (const [path, content] of Object.entries(updated)) docState.zip.file(path, content);
+
+    pstLog('[진행] 새 파일 압축 중...');
+    const blob = await docState.zip.generateAsync({ type: 'blob', compression: 'DEFLATE' });
+
+    const cfg = PST_FILE_TYPES[docState.fileType];
+    const outName = document.getElementById('pstOutName').value.trim() || `normalized_output${cfg.outSuffix(docState.fileName.toLowerCase())}`;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = outName;
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+
+    pstLog(`[완료] ${outName} 다운로드 완료`, 'ok');
+  } catch (err){
+    console.error(err);
+    pstLog('[오류] ' + err.message, 'warn');
+    alert('처리 중 오류가 발생했습니다: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✅ 이대로 적용 & 다운로드';
+  }
+}
+
+// ---------- 초기화: DOM이 새로 그려질 때마다(=탭 재방문마다) 호출 ----------
+function initDocStyleTool(){
+  if (typeof JSZip === 'undefined'){
+    pstLog('[오류] JSZip 라이브러리를 불러오지 못했습니다. 네트워크 연결을 확인해주세요.', 'warn');
+  }
+
+  // Image color extractor
+  document.getElementById('pstImgSampleBtnTrigger').addEventListener('click', () => document.getElementById('pstColorImgInput').click());
+  document.getElementById('pstColorImgInput').addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const canvas = document.getElementById('pstSampleCanvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.onload = () => {
+      const maxW = 640;
+      const scale = Math.min(1, maxW / img.width);
+      canvas.width = Math.round(img.width * scale);
+      canvas.height = Math.round(img.height * scale);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      canvas.style.display = 'block';
+      URL.revokeObjectURL(img.src);
+      pstExtractColorsFromCanvas(canvas, ctx);
+    };
+    img.src = URL.createObjectURL(file);
+  });
+
+  // Font unify
+  document.getElementById('pstFontUnifyBtn').addEventListener('click', () => {
+    const v = document.getElementById('pstFontUnifyInput').value.trim();
+    const resultEl = document.getElementById('pstFontUnifyResult');
+    if (!v){ resultEl.textContent = '통일할 폰트명을 입력해주세요.'; return; }
+    if (!docState.zip){ alert('먼저 파일을 업로드해주세요.'); return; }
+    let count = 0;
+    ['major_latin','major_ea','minor_latin','minor_ea'].forEach(key => {
+      const el = document.querySelector(`[data-pst-theme-font-key="${key}"]`);
+      if (el){ el.value = v; count++; }
+    });
+    docState.directFonts.forEach((f,i) => {
+      const el = document.querySelector(`[data-pst-direct-font-idx="${i}"]`);
+      if (el){ el.value = v; count++; }
+    });
+    resultEl.textContent = `감지된 폰트 항목 ${count}개를 '${v}'(으)로 채웠습니다. 아래 "치환 적용"을 눌러 실제로 반영하세요.`;
+  });
+
+  // Upload handling
+  const dropzone = document.getElementById('pstDropzone');
+  const fileInput = document.getElementById('pstFileInput');
+  dropzone.addEventListener('click', () => fileInput.click());
+  dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag'); });
+  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag'));
+  dropzone.addEventListener('drop', e => {
+    e.preventDefault(); dropzone.classList.remove('drag');
+    if (e.dataTransfer.files.length) pstHandleFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', e => { if (e.target.files.length) pstHandleFile(e.target.files[0]); });
+
+  // XML modal
+  document.getElementById('pstModalClose').onclick = () => document.getElementById('pstModalBg').classList.remove('show');
+  document.getElementById('pstModalBg').addEventListener('click', e => { if (e.target.id === 'pstModalBg') e.target.classList.remove('show'); });
+
+  document.getElementById('pstModalSave').addEventListener('click', () => {
+    if (!pstCurrentModalPath) return;
+    docState.xmlParts[pstCurrentModalPath] = document.getElementById('pstModalBody').value;
+    docState.editedPaths.add(pstCurrentModalPath);
+    pstRefreshXmlChipState(pstCurrentModalPath);
+    document.getElementById('pstModalTitle').textContent = pstCurrentModalPath + '  (수정됨)';
+    pstLog(`[XML 저장] ${pstCurrentModalPath} 을(를) 직접 수정했습니다. 최종 다운로드 시 반영됩니다.`, 'ok');
+  });
+
+  document.getElementById('pstModalDownload').addEventListener('click', () => {
+    if (!pstCurrentModalPath) return;
+    const blob = new Blob([document.getElementById('pstModalBody').value], {type:'application/xml'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = pstCurrentModalPath.split('/').pop();
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  });
+
+  document.getElementById('pstModalReplaceFile').addEventListener('change', async e => {
+    const file = e.target.files[0];
+    if (!file || !pstCurrentModalPath) return;
+    const text = await file.text();
+    document.getElementById('pstModalBody').value = text;
+    docState.xmlParts[pstCurrentModalPath] = text;
+    docState.editedPaths.add(pstCurrentModalPath);
+    pstRefreshXmlChipState(pstCurrentModalPath);
+    document.getElementById('pstModalTitle').textContent = pstCurrentModalPath + '  (수정됨 · 파일 교체)';
+    pstLog(`[XML 교체] ${pstCurrentModalPath} 을(를) 업로드한 파일로 교체했습니다.`, 'ok');
+    e.target.value = '';
+  });
+
+  document.getElementById('pstPreviewBtn').addEventListener('click', pstPreview);
+  document.getElementById('pstApplyBtn').addEventListener('click', pstApplyAndDownload);
+
+  // 탭을 벗어났다가 다시 돌아온 경우 — 이전 업로드/분석 결과를 그대로 복원
+  if (docState.zip){
+    const cfg = PST_FILE_TYPES[docState.fileType];
+    document.getElementById('pstFilepillWrap').innerHTML =
+      `<div class="filepill">📄 ${pstEscapeHtml(docState.fileName)} <button id="pstClearFile">변경</button></div>`;
+    document.getElementById('pstClearFile').onclick = () => { docState = pstFreshState(); renderDocStyleFeature(); };
+
+    const paths = Object.keys(docState.xmlParts);
+    const contentCount = paths.filter(p => cfg.contentRe.test(p)).length;
+    document.getElementById('pstXmlSummary').textContent =
+      `✅ XML 변환 완료 — ${cfg.contentUnitLabel} ${contentCount}개 · XML 파트 ${paths.length}개 · 테마 파일 ${docState.themeFiles.length}개`;
+    pstRenderXmlList(paths);
+    paths.forEach(p => pstRefreshXmlChipState(p));
+
+    document.getElementById('pstStepXml').classList.remove('step-disabled');
+    document.getElementById('pstStepAnalysis').classList.remove('step-disabled');
+    document.getElementById('pstStepApply').classList.remove('step-disabled');
+    pstRenderAnalysis();
+
+    const base = docState.fileName.replace(/\.(pptx|potx|docx|dotx)$/i, '');
+    const ext = cfg.outSuffix(docState.fileName.toLowerCase());
+    document.getElementById('pstOutName').value = `${base}_normalized${ext}`;
+    document.getElementById('pstLog').style.display = 'none';
+  }
+}
+
+
+  function renderDocStyleFeature(){
+    const container = document.getElementById('featureContent');
+    container.innerHTML = DOC_STYLE_TOOL_HTML;
+    initDocStyleTool();
+  }
+  // ================= /문서(PPT/워드) 폰트·컬러 정리 도구 =================
+
 </script>
 
 </body>
