@@ -951,7 +951,11 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     function top5(records) {
       return records
         .filter(r => !scopeTeams || scopeTeams.includes(r.team))
-        .map(r => ({ name: r.name, sum: sumRange(r.monthAmt, start, end), projectId: r.projectId || '', repName: r.repName || '', team: r.team }))
+        .map(r => ({
+          name: r.name, sum: sumRange(r.monthAmt, start, end), projectId: r.projectId || '', repName: r.repName || '', team: r.team,
+          customer: r.customer || '',
+          breakdown: (r.breakdown || []).map(b => ({ category: b.category, subCategory: b.subCategory, sum: sumRange(b.monthAmt, start, end) })).filter(b => b.sum !== 0),
+        }))
         .filter(r => r.sum !== 0)
         .sort((a, b) => b.sum - a.sum)
         .slice(0, 5);
@@ -1374,7 +1378,11 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   function rankTop10(records, team, start, end) {
     const rows = records
       .filter(r => r.team === team)
-      .map(r => ({ name: r.name, sum: sumRange(r.monthAmt, start, end), projectId: r.projectId || '', repName: r.repName || '' }))
+      .map(r => ({
+        name: r.name, sum: sumRange(r.monthAmt, start, end), projectId: r.projectId || '', repName: r.repName || '',
+        customer: r.customer || '',
+        breakdown: (r.breakdown || []).map(b => ({ category: b.category, subCategory: b.subCategory, sum: sumRange(b.monthAmt, start, end) })).filter(b => b.sum !== 0),
+      }))
       .filter(r => r.sum !== 0)
       .sort((a, b) => b.sum - a.sum)
       .slice(0, 10);
@@ -1393,10 +1401,17 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
   function showProjectInfoPopup(item) {
     detailModalTitle.textContent = item.name;
+    let breakdownHtml = '';
+    if (item.breakdown && item.breakdown.length > 0) {
+      breakdownHtml = `<div style="font-size:11.5px;font-weight:700;color:var(--ink-55);margin:12px 0 6px;">세부분류별 매출</div>`
+        + item.breakdown.map(b => `<div class="modalItem"><span>${b.category ? `${b.category} — ` : ''}${b.subCategory}</span><span class="amt pos">${fmtWon(b.sum)}</span></div>`).join('');
+    }
     detailModalBody.innerHTML = `
       <div class="modalItem"><span>프로젝트 ID</span><span>${item.projectId || '-'}</span></div>
+      <div class="modalItem"><span>매출처</span><span>${item.customer || '-'}</span></div>
       <div class="modalItem"><span>담당자</span><span>${item.repName || '-'}</span></div>
       <div class="modalItem"><span>금액</span><span class="amt pos">${fmtWon(item.sum)}</span></div>
+      ${breakdownHtml}
     `;
     detailModal.style.display = 'block';
     detailModalBackdrop.style.display = 'block';
