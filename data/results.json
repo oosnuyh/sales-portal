@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-18T05:50:28.503Z",
+  "generatedAt": "2026-08-20T00:47:52.969Z",
   "fy": 26,
-  "titleDate": "20260818",
+  "titleDate": "20260820",
   "targetVsActual": {
     "teams": [
       "금융영업1본부 1팀",
@@ -462,7 +462,28 @@
           0
         ],
         "projectId": "P2455405",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "(주)아이웍스",
+        "breakdown": [
+          {
+            "category": "ECM",
+            "subCategory": "License",
+            "monthAmt": [
+              333333,
+              333333,
+              333333,
+              333333,
+              333333,
+              333333,
+              333333,
+              333333,
+              333333,
+              333333,
+              333333,
+              333333
+            ]
+          }
+        ]
       },
       {
         "name": "[24SO] KDB캐피탈 차세대 사업",
@@ -514,7 +535,46 @@
           0
         ],
         "projectId": "P2455464",
-        "repName": "최성화"
+        "repName": "최성화",
+        "customer": "주식회사비케이텍",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              108000000,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              226000000,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[24SO] 한국은행 ISO 20022 MCI솔루션 대응개발",
@@ -566,7 +626,28 @@
           0
         ],
         "projectId": "P2455660",
-        "repName": "이성현"
+        "repName": "이성현",
+        "customer": "(주)엘지씨엔에스",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              15300000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO] 한국신용정보원 차세대시스템 구축 - 2차",
@@ -618,7 +699,46 @@
           0
         ],
         "projectId": "P2455442",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "에스티엑스네트워크서비스주식회사",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              128000000,
+              0,
+              0,
+              0,
+              75000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              61250000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO] 현대차증권 차세대시스템 구축 (인터페이스 시스템 신규 구축)",
@@ -670,7 +790,46 @@
           45548091
         ],
         "projectId": "P2354992",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "SK(주)",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              249750000
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              44360389,
+              38315102,
+              0,
+              33161092,
+              33161092,
+              33161092,
+              26663209,
+              22400000,
+              22400000,
+              22400000,
+              22400000,
+              45548091
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO] DB생명 영업지원 시스템 고도화 iGate v5",
@@ -722,7 +881,28 @@
           0
         ],
         "projectId": "P2556773",
-        "repName": "최성화"
+        "repName": "최성화",
+        "customer": "",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              50000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO] DB생명 영업지원시스템 고도화",
@@ -774,7 +954,28 @@
           0
         ],
         "projectId": "P2556343",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "주식회사디비아이엔씨(DBInc.)",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              44000000,
+              0,
+              0,
+              66000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO]  기업은행 대외계시스템 재구축",
@@ -826,7 +1027,64 @@
           0
         ],
         "projectId": "P2354989",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "(주)아이비케이시스템",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              814200000,
+              0
+            ]
+          },
+          {
+            "category": "Etc",
+            "subCategory": "Others",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              426702544,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              422750000,
+              0,
+              422750000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO]기업은행 공과금시스템 ECM업그레이드",
@@ -878,7 +1136,46 @@
           0
         ],
         "projectId": "P2455762",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "(주)아이비케이시스템",
+        "breakdown": [
+          {
+            "category": "ECM",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              74700000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "ECM",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              152100000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO]업무 개발 및 정보계 등 구축 사업_공수",
@@ -930,7 +1227,28 @@
           0
         ],
         "projectId": "P2556899",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "에스티엑스네트워크서비스주식회사",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              123000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO] 한은망 ISO 20022 도입을 위한 시스템 구축",
@@ -982,7 +1300,46 @@
           0
         ],
         "projectId": "P2556736",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "주식회사비에스엔텍",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              30000000,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              10000000,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO] 알씨아이파이낸셜서비스(르노캐피탈) iGate 기술지원",
@@ -1034,7 +1391,28 @@
           0
         ],
         "projectId": "P2556901",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "주식회사포에버아이씨티",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              8000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO]업무 개발 및 정보계 등 구축 사업_라이센스",
@@ -1086,7 +1464,28 @@
           0
         ],
         "projectId": "P2556715",
-        "repName": "송효재"
+        "repName": "송효재",
+        "customer": "(주)신세계아이앤씨",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              105000000
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO] 우리은행 중장기 IT 인프라 구축 - 통합FEP/대외파일전송",
@@ -1138,7 +1537,46 @@
           0
         ],
         "projectId": "P2455571",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "삼성에스디에스(주)",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              180000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              190245000,
+              0,
+              281000000,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              600000000,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO] 우리카드 FEP솔루션 금융결제원 대응개발",
@@ -1190,7 +1628,28 @@
           0
         ],
         "projectId": "P2455853",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "주식회사우리카드",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              40900000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 서울보증보험 종합 보안강화 착수 EIMS DR 구축 지원",
@@ -1242,7 +1701,28 @@
           0
         ],
         "projectId": "P2556867",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "주식회사메타넷엑스",
+        "breakdown": [
+          {
+            "category": "EIMS",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              27000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 우리투자증권 신 시스템 구축 - 라이선스",
@@ -1294,7 +1774,28 @@
           0
         ],
         "projectId": "P2557087",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "SK(주)",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              150000000
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO] 우리투자증권 신 시스템 구축 - 인건비",
@@ -1346,7 +1847,28 @@
           133875000
         ],
         "projectId": "P2455934",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "SK(주)",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              133875000,
+              0,
+              0,
+              133875000
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO] 우리은행 베트남 MCI 교체 사업",
@@ -1398,7 +1920,46 @@
           0
         ],
         "projectId": "P2455931",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "인포플러스",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              77937500,
+              0,
+              0,
+              0,
+              0,
+              77937500,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              76792652,
+              0,
+              0,
+              66312922,
+              0,
+              143105576,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU]한국신용카드결제 결재대행업무 eXperDB 구독",
@@ -1450,7 +2011,28 @@
           0
         ],
         "projectId": "P2657617",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "한국신용카드결제(주)",
+        "breakdown": [
+          {
+            "category": "eXperDB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              9600000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU]한국신용카드결제 영업지원시스템 eXperDB 구독",
@@ -1502,7 +2084,28 @@
           0
         ],
         "projectId": "P2657618",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "한국신용카드결제(주)",
+        "breakdown": [
+          {
+            "category": "eXperDB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              9600000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] KB국민은행 API Hub 기반환경 구축 - 선도개발",
@@ -1554,7 +2157,28 @@
           0
         ],
         "projectId": "P2556935",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "(주)코비엔",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              10800000,
+              0,
+              0,
+              25200000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO]롯데홈쇼핑 차세대 1단계 구축 사업",
@@ -1606,7 +2230,46 @@
           0
         ],
         "projectId": "P2556457",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "(주)롯데이노베이트",
+        "breakdown": [
+          {
+            "category": "APIM",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              61500000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "APIM",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              18000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 우리은행 중장기 IT인프라 최적화 3차 제안 작업 지원",
@@ -1658,7 +2321,28 @@
           0
         ],
         "projectId": "P2657616",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "삼성에스디에스(주)",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              300000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 웅진프리드라이프 차세대 시스템 구축",
@@ -1710,7 +2394,46 @@
           0
         ],
         "projectId": "P2557128",
-        "repName": "이성현"
+        "repName": "이성현",
+        "customer": "(주)웅진",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              51860000,
+              0,
+              0,
+              0,
+              51860000,
+              0,
+              0,
+              0,
+              51480000,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              100000000,
+              0,
+              0,
+              0,
+              100000000,
+              0,
+              0,
+              0,
+              151000000,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] KB국민은행 대면 서비스 전면 재구축 - 제안서 작성 비용",
@@ -1762,7 +2485,28 @@
           0
         ],
         "projectId": "P2657731",
-        "repName": "송효재"
+        "repName": "송효재",
+        "customer": "SK(주)",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              300000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU]DGBC 코어뱅킹 eXperDB 26년 구독",
@@ -1814,7 +2558,28 @@
           0
         ],
         "projectId": "P2657890",
-        "repName": "송효재"
+        "repName": "송효재",
+        "customer": "DGB특수은행",
+        "breakdown": [
+          {
+            "category": "eXperDB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              44040000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 서민금융진흥원_채무이행 청구서류 시스템 고도화 구축",
@@ -1866,7 +2631,46 @@
           0
         ],
         "projectId": "P2556774",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "서민금융진흥원",
+        "breakdown": [
+          {
+            "category": "ESB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              75000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "ESB",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              18000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO] 신한카드 프로젝트 라이센스 구매",
@@ -1918,7 +2722,28 @@
           0
         ],
         "projectId": "P2556743",
-        "repName": "송효재"
+        "repName": "송효재",
+        "customer": "신한카드(주)",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              295000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU] 유진투자증권 캠페인시스템 구축",
@@ -1970,7 +2795,28 @@
           0
         ],
         "projectId": "P2556398",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "오브젠주식회사",
+        "breakdown": [
+          {
+            "category": "eXperDB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              2166667,
+              4333334,
+              2166667,
+              2166667,
+              2166667,
+              2166667,
+              2166667,
+              2166667
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 한국평가데이타 노후 장비 교체",
@@ -2022,7 +2868,28 @@
           20000000
         ],
         "projectId": "P2657231",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "(주)비트라이스",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              20000000
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 금융감독원 FEP 고도화",
@@ -2074,7 +2941,46 @@
           0
         ],
         "projectId": "P2657522",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "(주)엘지씨엔에스",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              126000000,
+              0,
+              0,
+              126000000
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              34650000,
+              0,
+              0,
+              0,
+              14850000,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 서민금융진흥원 햇살론 연계 마케팅 자료 작성 지원",
@@ -2126,7 +3032,28 @@
           0
         ],
         "projectId": "P2657793",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "서민금융진흥원",
+        "breakdown": [
+          {
+            "category": "ESB",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              1000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 아이엠캐피탈 서민금융진흥원 송수신 ESB 도입",
@@ -2178,7 +3105,46 @@
           0
         ],
         "projectId": "P2657756",
-        "repName": "송효재"
+        "repName": "송효재",
+        "customer": "㈜아이엠캐피탈",
+        "breakdown": [
+          {
+            "category": "ESB",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              3000000,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "ESB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              15000000,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 우리은행 중장기 IT 최적화 3단계 프로젝트",
@@ -2230,7 +3196,46 @@
           0
         ],
         "projectId": "P2557033",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "(주)우리은행",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              290100000,
+              0,
+              0,
+              0,
+              0,
+              193400000,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              865000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU] 한국신용정보원 eXperDB CarePack 30 구매",
@@ -2282,7 +3287,28 @@
           0
         ],
         "projectId": "P2657880",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "에스티엑스네트워크서비스주식회사",
+        "breakdown": [
+          {
+            "category": "eXperDB",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              4000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] KB국민은행 API Hub 구축 - 개발비",
@@ -2334,7 +3360,28 @@
           0
         ],
         "projectId": "P2556924",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "(주)엘지씨엔에스",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              344030000,
+              0,
+              0,
+              516045000,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] KB국민은행 API Hub 구축 - 라이선스",
@@ -2386,7 +3433,28 @@
           0
         ],
         "projectId": "P2657925",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "(주)코비엔",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              652500000,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] KB국민은행 API 비대면시스템 구축",
@@ -2438,7 +3506,28 @@
           56630000
         ],
         "projectId": "P2657190",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "SK(주)",
+        "breakdown": [
+          {
+            "category": "APIM",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              10274300,
+              0,
+              56630000,
+              56630000,
+              56630000,
+              56630000,
+              56630000
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] KB국민은행 APIX 구축 - 라이선스",
@@ -2490,7 +3579,28 @@
           0
         ],
         "projectId": "P2657977",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "(주)엘지씨엔에스",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              75000000
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU] 한국신용정보원 일반신용 eXperDB 도입",
@@ -2542,7 +3652,28 @@
           0
         ],
         "projectId": "P2657685",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "에스티엑스네트워크서비스주식회사",
+        "breakdown": [
+          {
+            "category": "eXperDB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              13000000,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 한국투자캐피탈 대위변제시스템 연계용 Agent 구매",
@@ -2594,7 +3725,46 @@
           0
         ],
         "projectId": "P2657776",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "한국투자캐피탈주식회사",
+        "breakdown": [
+          {
+            "category": "ESB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              30000000,
+              0
+            ]
+          },
+          {
+            "category": "ESB",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              4500000,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 카카오뱅크 eCross DR 추가 구축",
@@ -2646,7 +3816,46 @@
           150000
         ],
         "projectId": "P2657955",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "주식회사카카오뱅크",
+        "breakdown": [
+          {
+            "category": "ESB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              5250000,
+              0,
+              2250000
+            ]
+          },
+          {
+            "category": "ESB",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              350000,
+              0,
+              150000
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] KB국민카드 MCI 시스템 노후교체",
@@ -2698,7 +3907,46 @@
           54500000
         ],
         "projectId": "P2657715",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "(주)KB국민카드",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              54500000
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Others",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              35000000
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 코스콤 토큰증권 시스템 구축",
@@ -2750,7 +3998,46 @@
           0
         ],
         "projectId": "P2455861",
-        "repName": "최성화"
+        "repName": "최성화",
+        "customer": "",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              90000000
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              19500000,
+              19500000,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] IM뱅크 연계시스템 재구축",
@@ -2802,7 +4089,46 @@
           0
         ],
         "projectId": "P2354978",
-        "repName": "최성화"
+        "repName": "최성화",
+        "customer": "",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              200000000
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              130000000,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 미즈호은행 TDM솔루션 업그레이드",
@@ -2854,7 +4180,28 @@
           0
         ],
         "projectId": "P2657964",
-        "repName": "소현수"
+        "repName": "소현수",
+        "customer": "",
+        "breakdown": [
+          {
+            "category": "TDM",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              30000000
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU] 비씨카드 결제인증 이전 및 고도화(eXperDB)",
@@ -2906,7 +4253,46 @@
           0
         ],
         "projectId": "P2657769",
-        "repName": "이성현"
+        "repName": "이성현",
+        "customer": "비씨카드(주)",
+        "breakdown": [
+          {
+            "category": "eXperDB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              18000000,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "eXperDB",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              8480000,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] BP 대한한공 오픈소스 DBMS 도입",
@@ -2958,7 +4344,28 @@
           0
         ],
         "projectId": "P2657474",
-        "repName": "송효재"
+        "repName": "송효재",
+        "customer": "",
+        "breakdown": [
+          {
+            "category": "eXperDB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              23040000
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU]우리금융캐피탈 전사 AI혁신 서비스 플랫폼 구축_eXperDB도입",
@@ -3010,7 +4417,28 @@
           20000000
         ],
         "projectId": "P2657881",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": [
+          {
+            "category": "eXperDB",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              20000000
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU]한국신용정보원 차세대 3단계_eXperDB",
@@ -3062,7 +4490,28 @@
           20000000
         ],
         "projectId": "P2657196",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "에스티엑스네트워크서비스주식회사",
+        "breakdown": [
+          {
+            "category": "eXperDB",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              20000000
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU] BC카드 페이북 시스템 통합DBMS(eXperDB) Subscription 연장(기업)",
@@ -3114,7 +4563,46 @@
           0
         ],
         "projectId": "P2557036",
-        "repName": "송효재"
+        "repName": "송효재",
+        "customer": "비씨카드(주)",
+        "breakdown": [
+          {
+            "category": "eXperDB",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              5909091,
+              0
+            ]
+          },
+          {
+            "category": "eXperDB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              135909091,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] DB생명 차세대 2차 구축",
@@ -3166,7 +4654,46 @@
           0
         ],
         "projectId": "P2557001",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "주식회사디비아이엔씨(DBInc.)",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              93000000,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              180000000,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO]롯데파이낸스(베트남) ESB 재구축 프로젝트",
@@ -3218,7 +4745,46 @@
           30000000
         ],
         "projectId": "P2658025",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "인포플러스",
+        "breakdown": [
+          {
+            "category": "ESB",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              30000000
+            ]
+          },
+          {
+            "category": "ESB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              50000000
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 애큐온캐피탈 ECM 업그레이드 및 이중화 구성",
@@ -3270,7 +4836,28 @@
           0
         ],
         "projectId": "P2657921",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "(주)로시스정보기술",
+        "breakdown": [
+          {
+            "category": "ECM",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              40000000
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 우리은행 클라우드 DB 도입 프로젝트",
@@ -3322,7 +4909,46 @@
           40000000
         ],
         "projectId": "P2657837",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "(주)우리은행",
+        "breakdown": [
+          {
+            "category": "eXperDB",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              40000000
+            ]
+          },
+          {
+            "category": "eXperDB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              200000000
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 교보증권 차세대시스템 구축",
@@ -3374,7 +5000,28 @@
           120000000
         ],
         "projectId": "P2657187",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": [
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              120000000
+            ]
+          }
+        ]
       }
     ],
     "order": [
@@ -3428,7 +5075,9 @@
           0
         ],
         "projectId": "P2557087",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[25SO] 우리은행 베트남 MCI 교체 사업",
@@ -3480,7 +5129,9 @@
           0
         ],
         "projectId": "P2455931",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SU]한국신용카드결제 결재대행업무 eXperDB 구독",
@@ -3532,7 +5183,9 @@
           0
         ],
         "projectId": "P2657617",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SU]한국신용카드결제 영업지원시스템 eXperDB 구독",
@@ -3584,7 +5237,9 @@
           0
         ],
         "projectId": "P2657618",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] KB국민은행 API Hub 기반환경 구축 - 선도개발",
@@ -3636,7 +5291,9 @@
           0
         ],
         "projectId": "P2556935",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[25SO]롯데홈쇼핑 차세대 1단계 구축 사업",
@@ -3688,7 +5345,9 @@
           0
         ],
         "projectId": "P2556457",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 우리은행 중장기 IT인프라 최적화 3차 제안 작업 지원",
@@ -3740,7 +5399,9 @@
           0
         ],
         "projectId": "P2657616",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 웅진프리드라이프 차세대 시스템 구축",
@@ -3792,7 +5453,9 @@
           0
         ],
         "projectId": "P2557128",
-        "repName": "이성현"
+        "repName": "이성현",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] KB국민은행 대면 서비스 전면 재구축 - 제안서 작성 비용",
@@ -3844,7 +5507,9 @@
           0
         ],
         "projectId": "P2657731",
-        "repName": "송효재"
+        "repName": "송효재",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SU]DGBC 코어뱅킹 eXperDB 26년 구독",
@@ -3896,7 +5561,9 @@
           0
         ],
         "projectId": "P2657890",
-        "repName": "송효재"
+        "repName": "송효재",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 서민금융진흥원_채무이행 청구서류 시스템 고도화 구축",
@@ -3948,7 +5615,9 @@
           0
         ],
         "projectId": "P2556774",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[25SO] 신한카드 프로젝트 라이센스 구매",
@@ -4000,7 +5669,9 @@
           0
         ],
         "projectId": "P2556743",
-        "repName": "송효재"
+        "repName": "송효재",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SU] 유진투자증권 캠페인시스템 구축",
@@ -4052,7 +5723,9 @@
           0
         ],
         "projectId": "P2556398",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 한국평가데이타 노후 장비 교체",
@@ -4104,7 +5777,9 @@
           0
         ],
         "projectId": "P2657231",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 금융감독원 FEP 고도화",
@@ -4156,7 +5831,9 @@
           0
         ],
         "projectId": "P2657522",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 서민금융진흥원 햇살론 연계 마케팅 자료 작성 지원",
@@ -4208,7 +5885,9 @@
           0
         ],
         "projectId": "P2657793",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 아이엠캐피탈 서민금융진흥원 송수신 ESB 도입",
@@ -4260,7 +5939,9 @@
           0
         ],
         "projectId": "P2657756",
-        "repName": "송효재"
+        "repName": "송효재",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 우리은행 중장기 IT 최적화 3단계 프로젝트",
@@ -4312,7 +5993,9 @@
           0
         ],
         "projectId": "P2557033",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SU] 한국신용정보원 eXperDB CarePack 30 구매",
@@ -4364,7 +6047,9 @@
           0
         ],
         "projectId": "P2657880",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] KB국민은행 API Hub 구축 - 개발비",
@@ -4416,7 +6101,9 @@
           0
         ],
         "projectId": "P2556924",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] KB국민은행 API Hub 구축 - 라이선스",
@@ -4468,7 +6155,9 @@
           0
         ],
         "projectId": "P2657925",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] KB국민은행 API 비대면시스템 구축",
@@ -4520,7 +6209,9 @@
           0
         ],
         "projectId": "P2657190",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] KB국민은행 APIX 구축 - 라이선스",
@@ -4572,7 +6263,9 @@
           0
         ],
         "projectId": "P2657977",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SU] 한국신용정보원 일반신용 eXperDB 도입",
@@ -4624,7 +6317,9 @@
           0
         ],
         "projectId": "P2657685",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 한국투자캐피탈 대위변제시스템 연계용 Agent 구매",
@@ -4676,7 +6371,9 @@
           0
         ],
         "projectId": "P2657776",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 카카오뱅크 eCross DR 추가 구축",
@@ -4728,7 +6425,9 @@
           0
         ],
         "projectId": "P2657955",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] KB국민카드 MCI 시스템 노후교체",
@@ -4780,7 +6479,9 @@
           0
         ],
         "projectId": "P2657715",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 코스콤 토큰증권 시스템 구축",
@@ -4832,7 +6533,9 @@
           0
         ],
         "projectId": "P2455861",
-        "repName": "최성화"
+        "repName": "최성화",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] IM뱅크 연계시스템 재구축",
@@ -4884,7 +6587,9 @@
           0
         ],
         "projectId": "P2354978",
-        "repName": "최성화"
+        "repName": "최성화",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SU] KB증권 PostgreSQL 통합유지보수",
@@ -4936,7 +6641,9 @@
           0
         ],
         "projectId": "P2657905",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 미즈호은행 TDM솔루션 업그레이드",
@@ -4988,7 +6695,9 @@
           0
         ],
         "projectId": "P2657964",
-        "repName": "소현수"
+        "repName": "소현수",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SU] 비씨카드 결제인증 이전 및 고도화(eXperDB)",
@@ -5040,7 +6749,9 @@
           0
         ],
         "projectId": "P2657769",
-        "repName": "이성현"
+        "repName": "이성현",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] BP 대한한공 오픈소스 DBMS 도입",
@@ -5092,7 +6803,9 @@
           0
         ],
         "projectId": "P2657474",
-        "repName": "송효재"
+        "repName": "송효재",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SU]우리금융캐피탈 전사 AI혁신 서비스 플랫폼 구축_eXperDB도입",
@@ -5144,7 +6857,9 @@
           0
         ],
         "projectId": "P2657881",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SU]한국신용정보원 차세대 3단계_eXperDB",
@@ -5196,7 +6911,9 @@
           0
         ],
         "projectId": "P2657196",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SU] BC카드 페이북 시스템 통합DBMS(eXperDB) Subscription 연장(기업)",
@@ -5248,7 +6965,9 @@
           0
         ],
         "projectId": "P2557036",
-        "repName": "송효재"
+        "repName": "송효재",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] DB생명 차세대 2차 구축",
@@ -5300,7 +7019,9 @@
           0
         ],
         "projectId": "P2557001",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO]롯데파이낸스(베트남) ESB 재구축 프로젝트",
@@ -5352,7 +7073,9 @@
           0
         ],
         "projectId": "P2658025",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 삼성증권 전자증명수취열람서비스 구축 - ECM",
@@ -5404,7 +7127,9 @@
           0
         ],
         "projectId": "P2658003",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 서민금융진흥원 재해복구 2센터 구축(가칭)",
@@ -5456,7 +7181,9 @@
           0
         ],
         "projectId": "P2557080",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 애큐온캐피탈 ECM 업그레이드 및 이중화 구성",
@@ -5508,7 +7235,9 @@
           0
         ],
         "projectId": "P2657921",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 우리은행 클라우드 DB 도입 프로젝트",
@@ -5560,7 +7289,9 @@
           0
         ],
         "projectId": "P2657837",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 현대카드 단위업무 eXperDB 도입",
@@ -5612,7 +7343,9 @@
           0
         ],
         "projectId": "P2657811",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 삼성증권 채널 인터페이스 통합 구축",
@@ -5664,7 +7397,9 @@
           0
         ],
         "projectId": "P2557088",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 삼성카드 ECM 노후교체 사업",
@@ -5716,7 +7451,9 @@
           0
         ],
         "projectId": "P2657791",
-        "repName": "이성현"
+        "repName": "이성현",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 여신금융협회 TDM솔루션(infoSeer-Trans) 도입_신규",
@@ -5768,7 +7505,9 @@
           0
         ],
         "projectId": "P2557039",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 우리라이프 IT통합 사업",
@@ -5820,7 +7559,9 @@
           0
         ],
         "projectId": "P2657794",
-        "repName": "이성현"
+        "repName": "이성현",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 카카오뱅크 모바일신분증 망 분리",
@@ -5872,7 +7613,9 @@
           0
         ],
         "projectId": "P2658013",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 한국기업평가 연계솔루션 구축",
@@ -5924,7 +7667,9 @@
           0
         ],
         "projectId": "P2557003",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] MG캐피탈 차세대시스템 구축",
@@ -5976,7 +7721,9 @@
           0
         ],
         "projectId": "P2657976",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 교보증권 차세대시스템 구축",
@@ -6028,7 +7775,9 @@
           0
         ],
         "projectId": "P2657187",
-        "repName": "손한승"
+        "repName": "손한승",
+        "customer": "",
+        "breakdown": []
       },
       {
         "name": "[26SO] 우리은행 중국 채널통합시스템 재구축",
@@ -6080,7 +7829,9 @@
           0
         ],
         "projectId": "P2556733",
-        "repName": "김성일"
+        "repName": "김성일",
+        "customer": "",
+        "breakdown": []
       }
     ]
   },
