@@ -144,7 +144,8 @@
       "chart chart top10preview"
       "schedulesummary schedulesummary schedulesummary";
   }
-  .mainGrid .card { margin-bottom: 0; }
+  .mainGrid .card { margin-bottom: 0; min-width: 0; }
+  .mainGrid > * { min-width: 0; }
   .filterBar {
     grid-area: filter; display: flex; align-items: center; gap: 0;
     background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
@@ -179,7 +180,7 @@
   .kpiTargetBarSmall .kpiTargetLabel { font-size: 11px; margin-bottom: 3px; }
   .kpiTargetBarSmall .kpiTargetValue { font-size: 15px; }
   .kpiTargetBarSmall .kpiTargetDivider { height: 24px; }
-  .kpiTargetItem { flex: 1; text-align: center; }
+  .kpiTargetItem { flex: 1; text-align: center; min-width: 0; }
   .kpiTargetLabel { display: block; font-size: 12px; color: var(--ink-55); font-weight: 600; margin-bottom: 6px; }
   .kpiTargetValue { font-size: 19px; font-weight: 800; font-family: var(--mono); }
   .kpiTargetDivider { width: 1px; height: 34px; background: var(--border-strong); }
@@ -216,8 +217,11 @@
   .kpiPct.warn { color: var(--warn); }
   .kpiActual { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0 0; font-size: 12px; color: var(--ink-55); font-weight: 500; }
   .kpiActualPending { font-size: 11px; color: var(--ink-40); font-style: italic; }
-  table.dataTable { width: 100%; border-collapse: collapse; font-size: 13px; }
-  table.dataTable th, table.dataTable td { padding: 8px 10px; text-align: right; }
+  table.dataTable { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+  table.dataTable th, table.dataTable td {
+    padding: 8px 10px; text-align: right;
+    overflow-wrap: break-word; word-break: keep-all;
+  }
   table.dataTable th:first-child, table.dataTable td:first-child { text-align: left; }
   table.dataTable th {
     border-bottom: 1.5px solid var(--border-strong); color: var(--ink-70); font-weight: 700; font-size: 11.5px;
@@ -256,7 +260,7 @@
   /* ----- 세로 막대 (연간 총 변화량) ----- */
   .vBarChart { display: flex; align-items: flex-end; justify-content: space-around; height: 178px; gap: 14px; padding: 8px 2px 0; }
   .vBarGroup { display: flex; flex-direction: column; align-items: center; cursor: pointer; flex: 1; min-width: 0; }
-  .vBarValue { font-size: 12.5px; font-weight: 700; margin-bottom: 10px; font-family: var(--mono); white-space: nowrap; letter-spacing: -.01em; color: var(--ink); }
+  .vBarValue { font-size: 12.5px; font-weight: 700; margin-bottom: 10px; font-family: var(--mono); white-space: normal; overflow-wrap: break-word; text-align: center; letter-spacing: -.01em; color: var(--ink); }
   .vBarValue.zero { color: var(--ink-40); font-weight: 600; }
   .vBarTrack {
     width: 100%; max-width: 46px; height: 116px; display: flex; flex-direction: column; justify-content: flex-end;
@@ -1050,7 +1054,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       const dot = dotColor ? `<span style="display:inline-block;width:7px;height:7px;border-radius:2px;background:${dotColor};margin-right:6px;flex-shrink:0;"></span>` : '';
       return `<div style="min-width:0;">
         <div style="font-size:12px;color:var(--ink-55);margin-bottom:6px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${dot}${label}</div>
-        <div style="font-size:19px;font-weight:800;color:var(--ink);white-space:nowrap;">${valueHtml}</div>
+        <div style="font-size:19px;font-weight:800;color:var(--ink);overflow-wrap:break-word;">${valueHtml}</div>
       </div>`;
     }
 
@@ -1216,8 +1220,16 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       // 금융1 + 금융2 전체를 합쳐서 본부 단위로 TOP10 산출
       function getTop10(records, start, end) {
         return records
-          .map(r => ({ projectId: r.projectId || '', name: r.name, repName: r.repName || '',
-                       sum: Math.round(sumRange(r.monthAmt, start, end)) }))
+          .map(r => {
+            const breakdown = (r.breakdown || []).map(b => ({ category: b.category, subCategory: b.subCategory, sum: Math.round(sumRange(b.monthAmt, start, end)) }));
+            return {
+              projectId: r.projectId || '', name: r.name, repName: r.repName || '',
+              customer: r.customer || '',
+              category: breakdown.length > 0 ? Array.from(new Set(breakdown.map(b => b.category).filter(Boolean))).join(', ') : '',
+              breakdown,
+              sum: Math.round(sumRange(r.monthAmt, start, end)),
+            };
+          })
           .filter(r => r.sum > 0)
           .sort((a, b) => b.sum - a.sum)
           .slice(0, 10);
@@ -1250,22 +1262,40 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         g2_revenue_other:{C:'12',D:'12',E:'13',F:'59',G:'12',H:'15',I:'15',J:'16',K:'60',LR:'20',S:'19',T:'20',U:'20',V:'61'},
       };
 
+      // 세부분류(subCategory) 문자열을 템플릿의 L~Q 컬럼(License/Sub/MA/Service/상품/용역)에 매칭한다.
+      function subCategoryColLetter(subCategory) {
+        const norm = String(subCategory || '').trim().toLowerCase();
+        if (norm === 'license') return 'L';
+        if (norm === 'sub') return 'M';
+        if (norm === 'ma') return 'N';
+        if (norm === 'service') return 'O';
+        if (norm === '상품') return 'P';
+        if (norm === '용역') return 'Q';
+        return null; // 매칭 안 되면 R(기타)로 몰아준다
+      }
+
       function buildDataCells(rowNum, styleKey, no, proj) {
         const s = STYLES[styleKey];
         const p = proj || {};
+        // L~R(License/Sub/MA/Service/상품/용역/기타) 금액을 세부분류별로 채워 넣는다.
+        const breakdownByCol = { L: 0, M: 0, N: 0, O: 0, P: 0, Q: 0, R: 0 };
+        for (const b of (p.breakdown || [])) {
+          const col = subCategoryColLetter(b.subCategory) || 'R';
+          breakdownByCol[col] += b.sum || 0;
+        }
         let cells = '';
         cells += `<c r="A${rowNum}" s="93"/>`;
         cells += `<c r="B${rowNum}" s="93"/>`;
         cells += numCell(`C${rowNum}`, s.C, no);
         cells += inlineCell(`D${rowNum}`, s.D, p.projectId);
-        cells += `<c r="E${rowNum}" s="${s.E}"/>`;
+        cells += p.customer ? inlineCell(`E${rowNum}`, s.E, p.customer) : `<c r="E${rowNum}" s="${s.E}"/>`;
         cells += inlineCell(`F${rowNum}`, s.F, p.name);
         cells += inlineCell(`G${rowNum}`, s.G, p.repName);
         cells += `<c r="H${rowNum}" s="${s.H}"/>`;
         cells += `<c r="I${rowNum}" s="${s.I}"/>`;
         cells += `<c r="J${rowNum}" s="${s.J}"/>`;
-        cells += `<c r="K${rowNum}" s="${s.K}"/>`;
-        for (const col of ['L','M','N','O','P','Q','R']) cells += `<c r="${col}${rowNum}" s="${s.LR}"/>`;
+        cells += p.category ? inlineCell(`K${rowNum}`, s.K, p.category) : `<c r="K${rowNum}" s="${s.K}"/>`;
+        for (const col of ['L','M','N','O','P','Q','R']) cells += numCell(`${col}${rowNum}`, s.LR, breakdownByCol[col]);
         cells += numCell(`S${rowNum}`, s.S, p.sum);
         cells += `<c r="T${rowNum}" s="${s.T}"/>`;
         cells += `<c r="U${rowNum}" s="${s.U}"/>`;
