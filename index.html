@@ -808,54 +808,65 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       <div class="kpiTargetItem"><span class="kpiTargetLabel">매출 목표</span><span class="kpiTargetValue" style="color:#2E5FA3;">${fmtWon(revTarget)}</span></div>
     </div>`;
     const gridHtml = `<div class="kpiBarGrid">
-        ${buildFiveBarChart('수주', ordTarget, ordExpSolution, ordExpMA, ordRealSolution, ordRealMA, '#B5472F', hasBreakdown)}
-        ${buildFiveBarChart('매출', revTarget, revExpSolution, revExpMA, revRealSolution, revRealMA, '#2E5FA3', hasBreakdown)}
+        ${buildStackedKpiChart('수주', ordTarget, ordExpSolution, ordExpMA, ordRealSolution, ordRealMA, '#B5472F', hasBreakdown)}
+        ${buildStackedKpiChart('매출', revTarget, revExpSolution, revExpMA, revRealSolution, revRealMA, '#2E5FA3', hasBreakdown)}
       </div>`;
     return { targetBarHtml, gridHtml, combinedHtml: targetBarHtml + gridHtml };
   }
 
   // 목표/예상(솔루션)/예상(MA)/실제(솔루션)/실제(MA) 5개 막대를 세로 막대그래프로 그린다.
-  function buildFiveBarChart(title, target, expSolution, expMA, realSolution, realMA, color, hasBreakdown) {
+  function buildStackedKpiChart(title, target, expSolution, expMA, realSolution, realMA, color, hasBreakdown) {
     const maColor = 'color-mix(in srgb, ' + color + ' 55%, white)';
-    const items = hasBreakdown ? [
-      { label: '목표', value: target, shade: color },
-      { label: '예상(솔루션)', value: expSolution, shade: color },
-      { label: '예상(MA)', value: expMA, shade: maColor },
-      { label: '실제(솔루션)', value: realSolution, shade: color },
-      { label: '실제(MA)', value: realMA, shade: maColor },
-    ] : [
-      { label: '예상', value: expSolution + expMA, shade: color },
-      { label: '목표', value: target, shade: color },
-      { label: '실제', value: realSolution + realMA, shade: color },
+    const expTotal = expSolution + expMA;
+    const realTotal = realSolution + realMA;
+    const items = [
+      { label: '예상', total: expTotal, solution: expSolution, ma: expMA, stacked: hasBreakdown },
+      { label: '목표', total: target, solution: target, ma: 0, stacked: false },
+      { label: '실제', total: realTotal, solution: realSolution, ma: realMA, stacked: hasBreakdown },
     ];
-    const maxVal = Math.max(1, ...items.map(it => it.value));
+    const maxVal = Math.max(1, ...items.map(it => it.total));
     const fmtCompact = (n) => Math.round(n / 1000000).toLocaleString('en-US');
-    const n = items.length;
-    const W = n === 5 ? 320 : 260, H = 158, padT = 20, padB = 30;
+    const W = 260, H = 158, padT = 20, padB = 22;
     const plotH = H - padT - padB;
-    const bandW = W / n;
-    const barW = bandW * (n === 5 ? 0.42 : 0.32);
+    const bandW = W / 3;
+    const barW = bandW * 0.4;
+
     const barsHtml = items.map((it, i) => {
-      const h = maxVal ? Math.max(0, plotH * (it.value / maxVal)) : 0;
       const x = i * bandW + (bandW - barW) / 2;
-      const y = padT + plotH - h;
-      const valueLabel = it.value
-        ? `<text x="${(x + barW / 2).toFixed(1)}" y="${(y - 6).toFixed(1)}" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--ink)">${fmtCompact(it.value)}</text>`
+      const totalH = maxVal ? Math.max(0, plotH * (it.total / maxVal)) : 0;
+      const solutionH = maxVal ? Math.max(0, plotH * (it.solution / maxVal)) : 0;
+      const maH = maxVal ? Math.max(0, plotH * (it.ma / maxVal)) : 0;
+      const yTop = padT + plotH - totalH;
+      const ySolutionTop = padT + plotH - solutionH;
+      const yMaTop = ySolutionTop - maH;
+      const valueLabel = it.total
+        ? `<text x="${(x + barW / 2).toFixed(1)}" y="${(yTop - 6).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--ink)">${fmtCompact(it.total)}</text>`
         : '';
-      return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" fill="${it.shade}" rx="3"
-        data-tip="${title} ${it.label}<br/>${fmtWon(it.value)}"/>${valueLabel}`;
+      if (it.stacked && it.ma > 0) {
+        return `<rect x="${x.toFixed(1)}" y="${ySolutionTop.toFixed(1)}" width="${barW.toFixed(1)}" height="${solutionH.toFixed(1)}" fill="${color}" rx="2"
+            data-tip="${title} ${it.label}(솔루션)<br/>${fmtWon(it.solution)}"/>
+          <rect x="${x.toFixed(1)}" y="${yMaTop.toFixed(1)}" width="${barW.toFixed(1)}" height="${maH.toFixed(1)}" fill="${maColor}" rx="2"
+            data-tip="${title} ${it.label}(MA)<br/>${fmtWon(it.ma)}"/>
+          ${valueLabel}`;
+      }
+      return `<rect x="${x.toFixed(1)}" y="${ySolutionTop.toFixed(1)}" width="${barW.toFixed(1)}" height="${solutionH.toFixed(1)}" fill="${color}" rx="3"
+          data-tip="${title} ${it.label}<br/>${fmtWon(it.total)}"/>${valueLabel}`;
     }).join('');
+
     const labelsHtml = items.map((it, i) => {
       const x = i * bandW + bandW / 2;
-      const lines = it.label.includes('(') ? it.label.split('(') : [it.label];
-      const l1 = lines[0];
-      const l2 = lines[1] ? '(' + lines[1] : '';
-      return `<text x="${x.toFixed(1)}" y="${H - 18}" text-anchor="middle" font-size="9.5" fill="var(--ink-55)">${l1}</text>
-        ${l2 ? `<text x="${x.toFixed(1)}" y="${H - 7}" text-anchor="middle" font-size="9" fill="var(--ink-40)">${l2}</text>` : ''}`;
+      return `<text x="${x.toFixed(1)}" y="${H - 7}" text-anchor="middle" font-size="11" fill="var(--ink-55)">${it.label}</text>`;
     }).join('');
+
+    const legendHtml = hasBreakdown ? `<div style="display:flex;gap:10px;font-size:9.5px;color:var(--ink-55);margin-bottom:4px;">
+      <span><span style="display:inline-block;width:8px;height:8px;background:${color};border-radius:2px;margin-right:3px;"></span>솔루션</span>
+      <span><span style="display:inline-block;width:8px;height:8px;background:${maColor};border-radius:2px;margin-right:3px;"></span>MA</span>
+    </div>` : '';
+
     return `<div>
       <div style="font-size:16px;font-weight:800;color:var(--ink);margin-bottom:2px;">${title}</div>
-      <div style="font-size:10px;color:var(--ink-40);margin-bottom:6px;">단위: 백만원</div>
+      <div style="font-size:10px;color:var(--ink-40);margin-bottom:4px;">단위: 백만원</div>
+      ${legendHtml}
       <div class="kpiBarChartWrap"><svg width="100%" viewBox="0 0 ${W} ${H}" style="overflow:hidden;display:block;">${barsHtml}${labelsHtml}</svg></div>
     </div>`;
   }
