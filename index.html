@@ -1050,12 +1050,14 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
     const donut = donutSvg(progressPct, 'var(--accent)', { size: 54, r: 21, sw: 6, fontSize: 12 });
 
-    function miniStat(label, value) {
+    function miniStat(label, value, unit) {
+      const unitHtml = unit ? `<span style="font-size:10px;font-weight:600;color:var(--ink-40);margin-left:2px;">${unit}</span>` : '';
       return `<div style="min-width:0;">
-        <div style="font-size:10.5px;color:var(--ink-40);white-space:nowrap;margin-bottom:2px;">${label}</div>
-        <div style="font-size:14px;font-weight:800;color:var(--ink);white-space:nowrap;">${value}<span style="font-size:10px;font-weight:600;color:var(--ink-40);margin-left:2px;">백만</span></div>
+        <div style="font-size:10.5px;color:var(--ink-40);white-space:nowrap;margin-bottom:3px;">${label}</div>
+        <div style="font-size:15px;font-weight:800;color:var(--ink);white-space:nowrap;">${value}${unitHtml}</div>
       </div>`;
     }
+    function statDivider() { return `<div style="width:1px;align-self:stretch;background:var(--border);"></div>`; }
 
     area.innerHTML = `
       <div id="mainScheduleSummaryClickable" style="display:flex;align-items:center;gap:14px;cursor:pointer;background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 18px;height:100%;box-sizing:border-box;" title="매출일정 자세히 보기">
@@ -1064,10 +1066,13 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           ${donut}
         </div>
         <div style="display:flex;gap:24px;flex:1;justify-content:space-around;min-width:0;">
-          ${miniStat('계약', `${projectCount}건`)}
-          ${miniStat('연간예정', fmtM(annualTotal))}
-          ${miniStat(`확정(~${currentMonth}월)`, fmtM(confirmedTotal))}
-          ${miniStat('잔여예정', fmtM(remainingTotal))}
+          ${miniStat('계약', `${projectCount}`, '건')}
+          ${statDivider()}
+          ${miniStat('연간예정', fmtM(annualTotal), '백만')}
+          ${statDivider()}
+          ${miniStat(`확정(~${currentMonth}월)`, fmtM(confirmedTotal), '백만')}
+          ${statDivider()}
+          ${miniStat('잔여예정', fmtM(remainingTotal), '백만')}
         </div>
       </div>
     `;
