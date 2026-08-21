@@ -1364,6 +1364,18 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         zip.file(sheetFile, sheetXml);
       }
 
+      // calcChain.xml은 "이 셀들은 수식이다"라고 기록해두는 파일인데, 우리가 그 자리를
+      // 값으로 덮어써서 내용이 안 맞게 된다 — 그대로 두면 엑셀이 열 때 "복구하시겠습니까?"
+      // 경고를 띄운다. 통째로 제거하면 엑셀이 열 때 알아서 다시 계산하므로 안전하다.
+      if (zip.file('xl/calcChain.xml')) {
+        zip.remove('xl/calcChain.xml');
+        try {
+          let contentTypesXml = await zip.file('[Content_Types].xml').async('string');
+          contentTypesXml = contentTypesXml.replace(/<Override[^>]*calcChain\.xml[^>]*\/>/, '');
+          zip.file('[Content_Types].xml', contentTypesXml);
+        } catch (e) { /* Content_Types 정리 실패해도 calcChain 제거만으로 충분히 안전함 */ }
+      }
+
       const blob = await zip.generateAsync({ type: 'blob', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
