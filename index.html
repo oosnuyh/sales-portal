@@ -689,13 +689,15 @@ https://github.com/nodeca/pako/blob/main/LICENSE
             <div id="detailArea" class="vScroll" style="max-height:220px;"><div class="empty">왼쪽 막대를 클릭하면 변화 내용이 여기 나와요.</div></div>
           </div>
         </div>
-        <div class="card" style="grid-area:top10preview;">
+        <div class="card mainRowCard" style="grid-area:top10preview;">
           <div class="card-title">TOP 5 프로젝트<button class="cardTitleAction" id="top10PreviewMoreBtn">자세히 보기</button></div>
-          <div class="cardTitleToggle" style="margin:0 0 12px;">
-            <button class="cardTitleToggleBtn2 active" id="mainTop5TypeOrder">수주</button>
-            <button class="cardTitleToggleBtn2" id="mainTop5TypeRevenue">매출</button>
+          <div class="mainRowCardBody" style="display:flex;flex-direction:column;min-height:0;">
+            <div class="cardTitleToggle" style="margin:0 0 12px;flex-shrink:0;">
+              <button class="cardTitleToggleBtn2 active" id="mainTop5TypeOrder">수주</button>
+              <button class="cardTitleToggleBtn2" id="mainTop5TypeRevenue">매출</button>
+            </div>
+            <div id="mainTop5" class="vScroll" style="flex:1;min-height:0;"></div>
           </div>
-          <div id="mainTop5"></div>
         </div>
         <div class="card" style="grid-area:schedulesummary;">
           <div class="card-title">매출 스케줄 현황<button class="cardTitleAction" id="scheduleSummaryMoreBtn">자세히 보기</button></div>
@@ -1786,8 +1788,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   // 월별 막대(실적/예상) + 점선(월 목표) 콤보 차트를 SVG로 그린다.
   function buildMonthlyBarLineChart(title, targets, expected, real, darkColor, lightColor) {
     const W = 420, H = 170;
-    const padL = 52, padR = 14, padT = 14, padB = 24;
-    const plotW = W - padL - padR, plotH = H - padT - padB;
+    const padR = 14, padT = 14, padB = 24;
     const n = 12;
     const barValues = Array.from({ length: n }, (_, i) => (real[i] > 0 ? real[i] : expected[i]));
     const isReal = Array.from({ length: n }, (_, i) => real[i] > 0);
@@ -1799,8 +1800,13 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       for (const s of steps) { if (maxVal <= s * magnitude) return s * magnitude; }
       return 10 * magnitude;
     })();
-    const yFor = (v) => padT + plotH * (1 - v / niceMax);
     const fmtCompact = (n) => Math.round(n / 1000000).toLocaleString('en-US'); // 백만원 단위로 축약(Y축 라벨 넘침 방지)
+    // Y축 라벨(가장 큰 눈금값 기준) 길이에 맞춰 왼쪽 여백을 동적으로 넉넉하게 잡는다.
+    // (본부 전체처럼 숫자 자릿수가 큰 경우에도 카드 밖으로 비지지 않도록)
+    const maxLabelLen = fmtCompact(niceMax).length;
+    const padL = Math.max(40, 18 + maxLabelLen * 7);
+    const plotW = W - padL - padR, plotH = H - padT - padB;
+    const yFor = (v) => padT + plotH * (1 - v / niceMax);
     const gridLines = [0, 0.25, 0.5, 0.75, 1].map((f) => {
       const val = niceMax * f;
       const y = yFor(val);
