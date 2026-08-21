@@ -145,8 +145,7 @@
     grid-template-areas:
       "filter filter filter"
       "kpi monthly alert"
-      "chart chart top10preview"
-      "schedulesummary schedulesummary schedulesummary";
+      "chart chart top10preview";
   }
   .mainGrid .card { margin-bottom: 0; min-width: 0; }
   .mainGrid > * { min-width: 0; }
@@ -365,7 +364,7 @@
     .nav-item { padding: 8px 10px; font-size: 12.5px; }
     .main-content { padding: 18px 16px; }
     .split-row, .top10SplitRow { flex-direction: column; gap: 16px; }
-    .mainGrid { grid-template-columns: 1fr; grid-template-areas: "filter" "kpi" "monthly" "alert" "chart" "top10preview" "schedulesummary"; }
+    .mainGrid { grid-template-columns: 1fr; grid-template-areas: "filter" "kpi" "monthly" "alert" "chart" "top10preview"; }
     .page-head { flex-direction: column; align-items: flex-start; }
     .changeThreeCol { grid-template-columns: 1fr; gap: 16px; }
     .filterBar { flex-direction: column; align-items: flex-start; gap: 12px; }
@@ -653,20 +652,23 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
     container.innerHTML = `
       <div class="mainGrid">
-        <div class="filterBar">
-          <div class="filterGroup"><span class="filterIcon">◆</span>
-            <label>본부/팀</label>
-            <select id="mainTeamFilter">${scopeOptionsHtml}</select>
+        <div class="filterBar" style="justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:0;">
+            <div class="filterGroup"><span class="filterIcon">◆</span>
+              <label>본부/팀</label>
+              <select id="mainTeamFilter">${scopeOptionsHtml}</select>
+            </div>
+            <div class="filterDivider"></div>
+            <div class="filterGroup"><span class="filterIcon">◆</span>
+              <label>기간</label>
+              <select id="mainPeriodFilter">
+                <option value="Y">연간 누계</option>
+                <option value="Q1">1분기</option><option value="Q2">2분기</option>
+                <option value="Q3">3분기</option><option value="Q4">4분기</option>
+              </select>
+            </div>
           </div>
-          <div class="filterDivider"></div>
-          <div class="filterGroup"><span class="filterIcon">◆</span>
-            <label>기간</label>
-            <select id="mainPeriodFilter">
-              <option value="Y">연간 누계</option>
-              <option value="Q1">1분기</option><option value="Q2">2분기</option>
-              <option value="Q3">3분기</option><option value="Q4">4분기</option>
-            </select>
-          </div>
+          <div id="mainScheduleSummaryCompact" style="flex:1;min-width:0;margin-left:24px;"></div>
         </div>
         <div class="card mainRowCard" style="grid-area:kpi;">
           <div class="card-title">수주/매출 목표 대비</div>
@@ -703,10 +705,6 @@ https://github.com/nodeca/pako/blob/main/LICENSE
             <div id="mainTop5" class="vScroll" style="flex:1;min-height:0;"></div>
           </div>
         </div>
-        <div class="card" style="grid-area:schedulesummary;">
-          <div class="card-title">매출 스케줄 현황<button class="cardTitleAction" id="scheduleSummaryMoreBtn">자세히 보기</button></div>
-          <div id="mainScheduleSummary"></div>
-        </div>
 
       </div>
     `;
@@ -718,7 +716,6 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     document.getElementById('checklistMoreBtn').addEventListener('click', () => goToFeature('checklist'));
     document.getElementById('changeDetailMoreBtn').addEventListener('click', () => goToFeature('changeDetail'));
     document.getElementById('top10PreviewMoreBtn').addEventListener('click', () => goToFeature('top10'));
-    document.getElementById('scheduleSummaryMoreBtn').addEventListener('click', () => goToFeature('schedule'));
     document.getElementById('mainMonthlyTypeOrder').addEventListener('click', () => { mainMonthlyType = 'order'; renderMainMonthlyCharts(); });
     document.getElementById('mainMonthlyTypeRevenue').addEventListener('click', () => { mainMonthlyType = 'revenue'; renderMainMonthlyCharts(); });
     document.getElementById('mainTop5TypeOrder').addEventListener('click', () => { mainTop5Type = 'order'; renderMainTop5(); });
@@ -1027,7 +1024,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
   // ----- 메인화면: 매출 스케줄 현황 (원형 그래프로 진행률 표시) -----
   function renderMainScheduleSummary() {
-    const area = document.getElementById('mainScheduleSummary');
+    const area = document.getElementById('mainScheduleSummaryCompact');
     if (!area) return;
     const projects = DATA && DATA.projects;
     const maSchedule = (DATA && DATA.maSchedule) || { revenue: [], order: [] };
@@ -1042,7 +1039,6 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
     const currentMonth = currentMonthFromTitleDate();
     const projectCount = solutionRows.length;
-    const contractSum = solutionRows.reduce((s, r) => s + (r.contract || 0), 0);
 
     const grandTotalMonths = new Array(12).fill(0);
     for (const r of solutionRows) for (let m = 0; m < 12; m++) grandTotalMonths[m] += r.monthAmt[m];
@@ -1054,27 +1050,28 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const progressPct = annualTotal ? (confirmedTotal / annualTotal * 100) : 0;
     const fmtM = (n) => Math.round(n / 1000000).toLocaleString('en-US');
 
-    const donut = donutSvg(progressPct, 'var(--accent)', { size: 100, r: 40, sw: 10, fontSize: 17 });
+    const donut = donutSvg(progressPct, 'var(--accent)', { size: 68, r: 27, sw: 7, fontSize: 15 });
 
-    function statBlock(label, valueHtml, dotColor) {
-      const dot = dotColor ? `<span style="display:inline-block;width:7px;height:7px;border-radius:2px;background:${dotColor};margin-right:6px;flex-shrink:0;"></span>` : '';
+    function miniStat(label, value) {
       return `<div style="min-width:0;">
-        <div style="font-size:12px;color:var(--ink-55);margin-bottom:6px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${dot}${label}</div>
-        <div style="font-size:19px;font-weight:800;color:var(--ink);overflow-wrap:break-word;">${valueHtml}</div>
+        <div style="font-size:11.5px;color:var(--ink-40);white-space:nowrap;margin-bottom:3px;">${label}</div>
+        <div style="font-size:18px;font-weight:800;color:var(--ink);white-space:nowrap;">${value}<span style="font-size:11px;font-weight:600;color:var(--ink-40);margin-left:2px;">백만</span></div>
       </div>`;
     }
 
     area.innerHTML = `
-      <div style="display:flex;align-items:center;gap:36px;flex-wrap:wrap;">
+      <div id="mainScheduleSummaryClickable" style="display:flex;align-items:center;gap:22px;cursor:pointer;background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 24px;height:100%;box-sizing:border-box;" title="매출일정 자세히 보기">
+        <div style="font-size:13px;font-weight:700;color:var(--ink-55);white-space:nowrap;flex-shrink:0;">◆ 매출 스케줄</div>
         <div style="flex-shrink:0;">${donut}</div>
-        <div style="flex:1;min-width:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;">
-          ${statBlock('계약 프로젝트', `${projectCount}<span style="font-size:11px;font-weight:600;color:var(--ink-40);margin-left:2px;">건</span>`)}
-          ${statBlock('연간 매출 예정', `${fmtM(annualTotal)}<span style="font-size:11px;font-weight:600;color:var(--ink-40);margin-left:2px;">백만</span>`)}
-          ${statBlock(`확정 매출 (1~${currentMonth}월)`, `${fmtM(confirmedTotal)}<span style="font-size:11px;font-weight:600;color:var(--ink-40);margin-left:2px;">백만</span>`, 'var(--accent)')}
-          ${statBlock('잔여 매출 예정', `${fmtM(remainingTotal)}<span style="font-size:11px;font-weight:600;color:var(--ink-40);margin-left:2px;">백만</span>`, 'var(--border-strong)')}
+        <div style="display:flex;gap:28px;flex:1;justify-content:space-around;">
+          ${miniStat('계약', `${projectCount}건`)}
+          ${miniStat('연간예정', fmtM(annualTotal))}
+          ${miniStat(`확정(~${currentMonth}월)`, fmtM(confirmedTotal))}
+          ${miniStat('잔여예정', fmtM(remainingTotal))}
         </div>
       </div>
     `;
+    document.getElementById('mainScheduleSummaryClickable').addEventListener('click', () => goToFeature('schedule'));
   }
 
   // ----- 메인화면: TOP 5 프로젝트 미리보기 (본부 전체 기준, TOP10 페이지로 연결) -----
