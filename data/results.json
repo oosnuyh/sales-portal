@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-20T00:47:52.969Z",
+  "generatedAt": "2026-08-21T00:22:16.892Z",
   "fy": 26,
-  "titleDate": "20260820",
+  "titleDate": "20260821",
   "targetVsActual": {
     "teams": [
       "금융영업1본부 1팀",
@@ -463,7 +463,7 @@
         ],
         "projectId": "P2455405",
         "repName": "손한승",
-        "customer": "(주)아이웍스",
+        "customer": "(주)케이카캐피탈",
         "breakdown": [
           {
             "category": "ECM",
@@ -536,7 +536,7 @@
         ],
         "projectId": "P2455464",
         "repName": "최성화",
-        "customer": "주식회사비케이텍",
+        "customer": "산은캐피탈(주)",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -627,7 +627,7 @@
         ],
         "projectId": "P2455660",
         "repName": "이성현",
-        "customer": "(주)엘지씨엔에스",
+        "customer": "한국은행",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -700,7 +700,7 @@
         ],
         "projectId": "P2455442",
         "repName": "김성일",
-        "customer": "에스티엑스네트워크서비스주식회사",
+        "customer": "사단법인한국신용정보원",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -791,7 +791,7 @@
         ],
         "projectId": "P2354992",
         "repName": "손한승",
-        "customer": "SK(주)",
+        "customer": "현대차증권주식회사",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -882,7 +882,7 @@
         ],
         "projectId": "P2556773",
         "repName": "최성화",
-        "customer": "",
+        "customer": "주식회사디비아이엔씨(DBInc.)",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -955,7 +955,7 @@
         ],
         "projectId": "P2556343",
         "repName": "손한승",
-        "customer": "주식회사디비아이엔씨(DBInc.)",
+        "customer": "디비생명보험(주)",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1028,7 +1028,7 @@
         ],
         "projectId": "P2354989",
         "repName": "김성일",
-        "customer": "(주)아이비케이시스템",
+        "customer": "중소기업은행",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1137,7 +1137,7 @@
         ],
         "projectId": "P2455762",
         "repName": "김성일",
-        "customer": "(주)아이비케이시스템",
+        "customer": "중소기업은행",
         "breakdown": [
           {
             "category": "ECM",
@@ -1228,7 +1228,7 @@
         ],
         "projectId": "P2556899",
         "repName": "김성일",
-        "customer": "에스티엑스네트워크서비스주식회사",
+        "customer": "사단법인한국신용정보원",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1301,7 +1301,7 @@
         ],
         "projectId": "P2556736",
         "repName": "김성일",
-        "customer": "주식회사비에스엔텍",
+        "customer": "(주)우리은행",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1392,7 +1392,7 @@
         ],
         "projectId": "P2556901",
         "repName": "손한승",
-        "customer": "주식회사포에버아이씨티",
+        "customer": "알씨아이파이낸셜서비스코리아(주)",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1465,7 +1465,7 @@
         ],
         "projectId": "P2556715",
         "repName": "송효재",
-        "customer": "(주)신세계아이앤씨",
+        "customer": "사단법인한국신용정보원",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1538,7 +1538,7 @@
         ],
         "projectId": "P2455571",
         "repName": "김성일",
-        "customer": "삼성에스디에스(주)",
+        "customer": "(주)우리은행",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1702,7 +1702,7 @@
         ],
         "projectId": "P2556867",
         "repName": "손한승",
-        "customer": "주식회사메타넷엑스",
+        "customer": "서울보증보험(주)",
         "breakdown": [
           {
             "category": "EIMS",
@@ -1775,7 +1775,7 @@
         ],
         "projectId": "P2557087",
         "repName": "손한승",
-        "customer": "SK(주)",
+        "customer": "(주)우리투자증권",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1848,7 +1848,7 @@
         ],
         "projectId": "P2455934",
         "repName": "손한승",
-        "customer": "SK(주)",
+        "customer": "(주)우리투자증권",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1921,7 +1921,7 @@
         ],
         "projectId": "P2455931",
         "repName": "김성일",
-        "customer": "인포플러스",
+        "customer": "(주)우리은행",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -2158,7 +2158,7 @@
         ],
         "projectId": "P2556935",
         "repName": "손한승",
-        "customer": "(주)코비엔",
+        "customer": "(주)국민은행",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -2322,7 +2322,7 @@
         ],
         "projectId": "P2657616",
         "repName": "김성일",
-        "customer": "삼성에스디에스(주)",
+        "customer": "(주)우리은행",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -2395,7 +2395,7 @@
         ],
         "projectId": "P2557128",
         "repName": "이성현",
-        "customer": "(주)웅진",
+        "customer": "주식회사웅진프리드라이프",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -2486,7 +2486,7 @@
         ],
         "projectId": "P2657731",
         "repName": "송효재",
-        "customer": "SK(주)",
+        "customer": "(주)국민은행",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -2796,7 +2796,7 @@
         ],
         "projectId": "P2556398",
         "repName": "손한승",
-        "customer": "오브젠주식회사",
+        "customer": "유진투자증권(주)",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -2869,7 +2869,7 @@
         ],
         "projectId": "P2657231",
         "repName": "김성일",
-        "customer": "(주)비트라이스",
+        "customer": "한국평가데이터(주)",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -2942,7 +2942,7 @@
         ],
         "projectId": "P2657522",
         "repName": "손한승",
-        "customer": "(주)엘지씨엔에스",
+        "customer": "금융감독원",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -3288,7 +3288,7 @@
         ],
         "projectId": "P2657880",
         "repName": "김성일",
-        "customer": "에스티엑스네트워크서비스주식회사",
+        "customer": "사단법인한국신용정보원",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -3361,7 +3361,7 @@
         ],
         "projectId": "P2556924",
         "repName": "손한승",
-        "customer": "(주)엘지씨엔에스",
+        "customer": "(주)국민은행",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -3434,7 +3434,7 @@
         ],
         "projectId": "P2657925",
         "repName": "손한승",
-        "customer": "(주)코비엔",
+        "customer": "(주)국민은행",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -3507,7 +3507,7 @@
         ],
         "projectId": "P2657190",
         "repName": "손한승",
-        "customer": "SK(주)",
+        "customer": "(주)국민은행",
         "breakdown": [
           {
             "category": "APIM",
@@ -3580,7 +3580,7 @@
         ],
         "projectId": "P2657977",
         "repName": "손한승",
-        "customer": "(주)엘지씨엔에스",
+        "customer": "(주)국민은행",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -3653,7 +3653,7 @@
         ],
         "projectId": "P2657685",
         "repName": "김성일",
-        "customer": "에스티엑스네트워크서비스주식회사",
+        "customer": "사단법인한국신용정보원",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -3999,7 +3999,7 @@
         ],
         "projectId": "P2455861",
         "repName": "최성화",
-        "customer": "",
+        "customer": "(주)코스콤",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -4090,7 +4090,7 @@
         ],
         "projectId": "P2354978",
         "repName": "최성화",
-        "customer": "",
+        "customer": "주식회사아이엠뱅크",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -4181,7 +4181,7 @@
         ],
         "projectId": "P2657964",
         "repName": "소현수",
-        "customer": "",
+        "customer": "주식회사미즈호은행",
         "breakdown": [
           {
             "category": "TDM",
@@ -4345,7 +4345,7 @@
         ],
         "projectId": "P2657474",
         "repName": "송효재",
-        "customer": "",
+        "customer": "(주)대한항공",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -4418,7 +4418,7 @@
         ],
         "projectId": "P2657881",
         "repName": "김성일",
-        "customer": "",
+        "customer": "우리금융캐피탈주식회사",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -4491,7 +4491,7 @@
         ],
         "projectId": "P2657196",
         "repName": "김성일",
-        "customer": "에스티엑스네트워크서비스주식회사",
+        "customer": "사단법인한국신용정보원",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -4655,7 +4655,7 @@
         ],
         "projectId": "P2557001",
         "repName": "손한승",
-        "customer": "주식회사디비아이엔씨(DBInc.)",
+        "customer": "디비생명보험(주)",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -4746,7 +4746,7 @@
         ],
         "projectId": "P2658025",
         "repName": "김성일",
-        "customer": "인포플러스",
+        "customer": "기타 거래처",
         "breakdown": [
           {
             "category": "ESB",
@@ -4837,7 +4837,7 @@
         ],
         "projectId": "P2657921",
         "repName": "김성일",
-        "customer": "(주)로시스정보기술",
+        "customer": "(주)애큐온캐피탈",
         "breakdown": [
           {
             "category": "ECM",
@@ -5001,7 +5001,7 @@
         ],
         "projectId": "P2657187",
         "repName": "손한승",
-        "customer": "",
+        "customer": "교보증권(주)",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -5076,8 +5076,27 @@
         ],
         "projectId": "P2557087",
         "repName": "손한승",
-        "customer": "",
-        "breakdown": []
+        "customer": "(주)우리투자증권",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              300000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO] 우리은행 베트남 MCI 교체 사업",
@@ -5130,8 +5149,27 @@
         ],
         "projectId": "P2455931",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "(주)우리은행",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              442086150,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU]한국신용카드결제 결재대행업무 eXperDB 구독",
@@ -5184,8 +5222,27 @@
         ],
         "projectId": "P2657617",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "한국신용카드결제(주)",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              9600000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU]한국신용카드결제 영업지원시스템 eXperDB 구독",
@@ -5238,8 +5295,27 @@
         ],
         "projectId": "P2657618",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "한국신용카드결제(주)",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              9600000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] KB국민은행 API Hub 기반환경 구축 - 선도개발",
@@ -5292,8 +5368,27 @@
         ],
         "projectId": "P2556935",
         "repName": "손한승",
-        "customer": "",
-        "breakdown": []
+        "customer": "(주)국민은행",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              36000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO]롯데홈쇼핑 차세대 1단계 구축 사업",
@@ -5346,8 +5441,27 @@
         ],
         "projectId": "P2556457",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "(주)롯데이노베이트",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              79500000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 우리은행 중장기 IT인프라 최적화 3차 제안 작업 지원",
@@ -5400,8 +5514,27 @@
         ],
         "projectId": "P2657616",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "(주)우리은행",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              300000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 웅진프리드라이프 차세대 시스템 구축",
@@ -5454,8 +5587,27 @@
         ],
         "projectId": "P2557128",
         "repName": "이성현",
-        "customer": "",
-        "breakdown": []
+        "customer": "주식회사웅진프리드라이프",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              506200000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] KB국민은행 대면 서비스 전면 재구축 - 제안서 작성 비용",
@@ -5508,8 +5660,27 @@
         ],
         "projectId": "P2657731",
         "repName": "송효재",
-        "customer": "",
-        "breakdown": []
+        "customer": "(주)국민은행",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              300000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU]DGBC 코어뱅킹 eXperDB 26년 구독",
@@ -5562,8 +5733,27 @@
         ],
         "projectId": "P2657890",
         "repName": "송효재",
-        "customer": "",
-        "breakdown": []
+        "customer": "DGB특수은행",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              44040000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 서민금융진흥원_채무이행 청구서류 시스템 고도화 구축",
@@ -5616,8 +5806,27 @@
         ],
         "projectId": "P2556774",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "서민금융진흥원",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              93000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[25SO] 신한카드 프로젝트 라이센스 구매",
@@ -5670,8 +5879,27 @@
         ],
         "projectId": "P2556743",
         "repName": "송효재",
-        "customer": "",
-        "breakdown": []
+        "customer": "신한카드(주)",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              295000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU] 유진투자증권 캠페인시스템 구축",
@@ -5724,8 +5952,27 @@
         ],
         "projectId": "P2556398",
         "repName": "손한승",
-        "customer": "",
-        "breakdown": []
+        "customer": "유진투자증권(주)",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              26000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 한국평가데이타 노후 장비 교체",
@@ -5778,8 +6025,27 @@
         ],
         "projectId": "P2657231",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "한국평가데이터(주)",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              20000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 금융감독원 FEP 고도화",
@@ -5832,8 +6098,27 @@
         ],
         "projectId": "P2657522",
         "repName": "손한승",
-        "customer": "",
-        "breakdown": []
+        "customer": "금융감독원",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              301500000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 서민금융진흥원 햇살론 연계 마케팅 자료 작성 지원",
@@ -5886,8 +6171,27 @@
         ],
         "projectId": "P2657793",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "서민금융진흥원",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              1000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 아이엠캐피탈 서민금융진흥원 송수신 ESB 도입",
@@ -5940,8 +6244,27 @@
         ],
         "projectId": "P2657756",
         "repName": "송효재",
-        "customer": "",
-        "breakdown": []
+        "customer": "㈜아이엠캐피탈",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              18000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 우리은행 중장기 IT 최적화 3단계 프로젝트",
@@ -5994,8 +6317,27 @@
         ],
         "projectId": "P2557033",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "(주)우리은행",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              2697000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU] 한국신용정보원 eXperDB CarePack 30 구매",
@@ -6048,8 +6390,27 @@
         ],
         "projectId": "P2657880",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "사단법인한국신용정보원",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              4000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] KB국민은행 API Hub 구축 - 개발비",
@@ -6102,8 +6463,27 @@
         ],
         "projectId": "P2556924",
         "repName": "손한승",
-        "customer": "",
-        "breakdown": []
+        "customer": "(주)국민은행",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              3440300000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] KB국민은행 API Hub 구축 - 라이선스",
@@ -6156,8 +6536,27 @@
         ],
         "projectId": "P2657925",
         "repName": "손한승",
-        "customer": "",
-        "breakdown": []
+        "customer": "(주)국민은행",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1305000000,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] KB국민은행 API 비대면시스템 구축",
@@ -6210,8 +6609,27 @@
         ],
         "projectId": "P2657190",
         "repName": "손한승",
-        "customer": "",
-        "breakdown": []
+        "customer": "(주)국민은행",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              809000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] KB국민은행 APIX 구축 - 라이선스",
@@ -6264,8 +6682,27 @@
         ],
         "projectId": "P2657977",
         "repName": "손한승",
-        "customer": "",
-        "breakdown": []
+        "customer": "(주)국민은행",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              150000000,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU] 한국신용정보원 일반신용 eXperDB 도입",
@@ -6318,8 +6755,27 @@
         ],
         "projectId": "P2657685",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "사단법인한국신용정보원",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              13000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 한국투자캐피탈 대위변제시스템 연계용 Agent 구매",
@@ -6372,8 +6828,27 @@
         ],
         "projectId": "P2657776",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "한국투자캐피탈주식회사",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              34500000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 카카오뱅크 eCross DR 추가 구축",
@@ -6426,8 +6901,27 @@
         ],
         "projectId": "P2657955",
         "repName": "손한승",
-        "customer": "",
-        "breakdown": []
+        "customer": "주식회사카카오뱅크",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              8000000,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] KB국민카드 MCI 시스템 노후교체",
@@ -6480,8 +6974,27 @@
         ],
         "projectId": "P2657715",
         "repName": "손한승",
-        "customer": "",
-        "breakdown": []
+        "customer": "(주)KB국민카드",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              89500000,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 코스콤 토큰증권 시스템 구축",
@@ -6534,8 +7047,27 @@
         ],
         "projectId": "P2455861",
         "repName": "최성화",
-        "customer": "",
-        "breakdown": []
+        "customer": "(주)코스콤",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              231818182,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] IM뱅크 연계시스템 재구축",
@@ -6588,8 +7120,27 @@
         ],
         "projectId": "P2354978",
         "repName": "최성화",
-        "customer": "",
-        "breakdown": []
+        "customer": "주식회사아이엠뱅크",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              900000000,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU] KB증권 PostgreSQL 통합유지보수",
@@ -6642,8 +7193,27 @@
         ],
         "projectId": "P2657905",
         "repName": "손한승",
-        "customer": "",
-        "breakdown": []
+        "customer": "케이비증권주식회사",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              10000000,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 미즈호은행 TDM솔루션 업그레이드",
@@ -6696,8 +7266,27 @@
         ],
         "projectId": "P2657964",
         "repName": "소현수",
-        "customer": "",
-        "breakdown": []
+        "customer": "주식회사미즈호은행",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              30000000,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU] 비씨카드 결제인증 이전 및 고도화(eXperDB)",
@@ -6750,8 +7339,27 @@
         ],
         "projectId": "P2657769",
         "repName": "이성현",
-        "customer": "",
-        "breakdown": []
+        "customer": "비씨카드(주)",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              66200000,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] BP 대한한공 오픈소스 DBMS 도입",
@@ -6804,8 +7412,27 @@
         ],
         "projectId": "P2657474",
         "repName": "송효재",
-        "customer": "",
-        "breakdown": []
+        "customer": "(주)대한항공",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              23040000,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU]우리금융캐피탈 전사 AI혁신 서비스 플랫폼 구축_eXperDB도입",
@@ -6858,8 +7485,27 @@
         ],
         "projectId": "P2657881",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "우리금융캐피탈주식회사",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              20000000,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU]한국신용정보원 차세대 3단계_eXperDB",
@@ -6912,8 +7558,27 @@
         ],
         "projectId": "P2657196",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "사단법인한국신용정보원",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              20000000,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SU] BC카드 페이북 시스템 통합DBMS(eXperDB) Subscription 연장(기업)",
@@ -6966,8 +7631,27 @@
         ],
         "projectId": "P2557036",
         "repName": "송효재",
-        "customer": "",
-        "breakdown": []
+        "customer": "비씨카드(주)",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              141818182,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] DB생명 차세대 2차 구축",
@@ -7020,8 +7704,27 @@
         ],
         "projectId": "P2557001",
         "repName": "손한승",
-        "customer": "",
-        "breakdown": []
+        "customer": "디비생명보험(주)",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              800000000,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO]롯데파이낸스(베트남) ESB 재구축 프로젝트",
@@ -7074,8 +7777,27 @@
         ],
         "projectId": "P2658025",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "기타 거래처",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              160000000,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 삼성증권 전자증명수취열람서비스 구축 - ECM",
@@ -7128,8 +7850,27 @@
         ],
         "projectId": "P2658003",
         "repName": "손한승",
-        "customer": "",
-        "breakdown": []
+        "customer": "삼성증권(주)",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              30000000,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 서민금융진흥원 재해복구 2센터 구축(가칭)",
@@ -7182,8 +7923,27 @@
         ],
         "projectId": "P2557080",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "서민금융진흥원",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              250000000,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 애큐온캐피탈 ECM 업그레이드 및 이중화 구성",
@@ -7236,8 +7996,27 @@
         ],
         "projectId": "P2657921",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "(주)애큐온캐피탈",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              40000000,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 우리은행 클라우드 DB 도입 프로젝트",
@@ -7290,8 +8069,27 @@
         ],
         "projectId": "P2657837",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "(주)우리은행",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              240000000,
+              0,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 현대카드 단위업무 eXperDB 도입",
@@ -7344,8 +8142,27 @@
         ],
         "projectId": "P2657811",
         "repName": "손한승",
-        "customer": "",
-        "breakdown": []
+        "customer": "현대카드주식회사",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              20000000,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 삼성증권 채널 인터페이스 통합 구축",
@@ -7398,8 +8215,27 @@
         ],
         "projectId": "P2557088",
         "repName": "손한승",
-        "customer": "",
-        "breakdown": []
+        "customer": "삼성증권(주)",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              300000000
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 삼성카드 ECM 노후교체 사업",
@@ -7452,8 +8288,27 @@
         ],
         "projectId": "P2657791",
         "repName": "이성현",
-        "customer": "",
-        "breakdown": []
+        "customer": "삼성카드",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              90000000
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 여신금융협회 TDM솔루션(infoSeer-Trans) 도입_신규",
@@ -7506,8 +8361,27 @@
         ],
         "projectId": "P2557039",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "여신금융협회",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              100000000
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 우리라이프 IT통합 사업",
@@ -7560,8 +8434,27 @@
         ],
         "projectId": "P2657794",
         "repName": "이성현",
-        "customer": "",
-        "breakdown": []
+        "customer": "기타 거래처",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              280000000,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 카카오뱅크 모바일신분증 망 분리",
@@ -7614,8 +8507,27 @@
         ],
         "projectId": "P2658013",
         "repName": "손한승",
-        "customer": "",
-        "breakdown": []
+        "customer": "주식회사카카오뱅크",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              30000000,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 한국기업평가 연계솔루션 구축",
@@ -7668,8 +8580,27 @@
         ],
         "projectId": "P2557003",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "기타 거래처",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              220000000,
+              0
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] MG캐피탈 차세대시스템 구축",
@@ -7722,8 +8653,27 @@
         ],
         "projectId": "P2657976",
         "repName": "손한승",
-        "customer": "",
-        "breakdown": []
+        "customer": "엠지캐피탈(주)",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              300000000
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 교보증권 차세대시스템 구축",
@@ -7776,8 +8726,27 @@
         ],
         "projectId": "P2657187",
         "repName": "손한승",
-        "customer": "",
-        "breakdown": []
+        "customer": "교보증권(주)",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              300000000
+            ]
+          }
+        ]
       },
       {
         "name": "[26SO] 우리은행 중국 채널통합시스템 재구축",
@@ -7830,8 +8799,27 @@
         ],
         "projectId": "P2556733",
         "repName": "김성일",
-        "customer": "",
-        "breakdown": []
+        "customer": "(주)우리은행",
+        "breakdown": [
+          {
+            "category": "전체",
+            "subCategory": "전체",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              300000000
+            ]
+          }
+        ]
       }
     ]
   },
