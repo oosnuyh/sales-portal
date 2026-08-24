@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-21T05:38:35.527Z",
+  "generatedAt": "2026-08-24T00:16:07.868Z",
   "fy": 26,
-  "titleDate": "20260821",
+  "titleDate": "20260824",
   "targetVsActual": {
     "teams": [
       "금융영업1본부 1팀",
@@ -106,8 +106,8 @@
         368193636,
         4442085600,
         151536800,
-        2074291998,
-        902880000,
+        2064291998,
+        912880000,
         190658182,
         912648000,
         929231000
@@ -136,7 +136,7 @@
         329280630,
         584177996,
         512660110,
-        59655950,
+        87797899,
         0,
         0,
         0,
@@ -150,7 +150,7 @@
         256246386,
         2106799256,
         191498335,
-        67621420,
+        367922984,
         0,
         0,
         0,
@@ -166,7 +166,7 @@
         368193636,
         4442085600,
         151544800,
-        1980000,
+        91480000,
         0,
         0,
         0,
@@ -186,246 +186,6 @@
         0,
         0
       ]
-    },
-    "revenueActualsSolution": {
-      "금융영업1본부 1팀": [
-        44693722,
-        82648435,
-        46133333,
-        33794425,
-        186311092,
-        412342059,
-        391193209,
-        734030000,
-        820255000,
-        622675000,
-        515848182,
-        1469243091
-      ],
-      "금융영업1본부 2팀": [
-        128000000,
-        577860000,
-        318630152,
-        423050000,
-        141250000,
-        1983822922,
-        13000000,
-        261043076,
-        643427544,
-        202480000,
-        1923100000,
-        450000000
-      ]
-    },
-    "revenueActualsMA": {
-      "금융영업1본부 1팀": [
-        125651462,
-        81557227,
-        141633221,
-        122083042,
-        87075863,
-        171804447,
-        121484465,
-        98270927,
-        144836018,
-        126904089,
-        80229248,
-        152428233
-      ],
-      "금융영업1본부 2팀": [
-        158157585,
-        115863885,
-        130807335,
-        179487701,
-        114995886,
-        122976335,
-        178498335,
-        125447335,
-        132538835,
-        183398335,
-        118247335,
-        142212675
-      ]
-    },
-    "orderActualsSolution": {
-      "금융영업1본부 1팀": [
-        300000000,
-        36000000,
-        300000,
-        321000000,
-        319500000,
-        4293340000,
-        8000000,
-        1786318182,
-        900000000,
-        164858182,
-        880000000,
-        900000000
-      ],
-      "금융영업1본부 2팀": [
-        442086150,
-        604900000,
-        20300000,
-        93000000,
-        2702000000,
-        47500000,
-        0,
-        66200000,
-        70000000,
-        690000000,
-        500000000,
-        490000000
-      ]
-    },
-    "orderActualsMA": {
-      "금융영업1본부 1팀": [
-        258948504,
-        137427600,
-        178887818,
-        25500000,
-        48693636,
-        148745600,
-        143536800,
-        287973816,
-        2880000,
-        25800000,
-        32648000,
-        29231000
-      ],
-      "금융영업1본부 2팀": [
-        566221124,
-        16800000,
-        298828400,
-        241780566,
-        3600000,
-        125897424,
-        92276760,
-        128814000,
-        21432000,
-        35120000,
-        34007600,
-        31930080
-      ]
-    },
-    "revenueRealActualsSolution": {
-      "금융영업1본부 1팀": [
-        44693722,
-        82648435,
-        46133333,
-        33794425,
-        186311092,
-        412373549,
-        391193209,
-        52677950,
-        0,
-        0,
-        0,
-        0
-      ],
-      "금융영업1본부 2팀": [
-        128000000,
-        577860000,
-        318630152,
-        423049999,
-        141250000,
-        1983822921,
-        13000000,
-        40000000,
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    "revenueRealActualsMA": {
-      "금융영업1본부 1팀": [
-        123832125,
-        75843140,
-        82740249,
-        122083705,
-        142969538,
-        171804447,
-        121466901,
-        6978000,
-        0,
-        0,
-        0,
-        0
-      ],
-      "금융영업1본부 2팀": [
-        164859585,
-        115863885,
-        130807335,
-        179487701,
-        114996386,
-        122976335,
-        178498335,
-        27621420,
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    "orderRealActualsSolution": {
-      "금융영업1본부 1팀": [
-        300000000,
-        36000000,
-        300000,
-        321000000,
-        319500000,
-        4293340000,
-        8000000,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "금융영업1본부 2팀": [
-        442086150,
-        604900000,
-        20300000,
-        93000000,
-        2702000000,
-        47500000,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    "orderRealActualsMA": {
-      "금융영업1본부 1팀": [
-        258948504,
-        137427600,
-        178887818,
-        25500000,
-        48693636,
-        148745600,
-        143544800,
-        1980000,
-        0,
-        0,
-        0,
-        7511000
-      ],
-      "금융영업1본부 2팀": [
-        566221124,
-        16800000,
-        298828400,
-        241780566,
-        3600000,
-        125897424,
-        92276760,
-        127614000,
-        0,
-        0,
-        0,
-        0
-      ]
     }
   },
   "changes": {
@@ -434,8 +194,8 @@
       "q1": 0,
       "q2": 0,
       "q3": 0,
-      "q4": 160000000,
-      "total": 160000000,
+      "q4": 0,
+      "total": 0,
       "months": [
         0,
         0,
@@ -444,9 +204,9 @@
         0,
         0,
         0,
+        -10000000,
+        10000000,
         0,
-        0,
-        160000000,
         0,
         0
       ],
@@ -458,63 +218,27 @@
         [],
         [],
         [],
-        [],
-        [],
         [
           {
-            "name": "[26SO]롯데파이낸스(베트남) ESB 재구축 프로젝트",
-            "delta": 160000000,
-            "team": "금융영업1본부 2팀"
+            "name": "[26SU] KB증권 PostgreSQL 통합유지보수",
+            "delta": -10000000,
+            "team": "금융영업1본부 1팀"
           }
         ],
+        [
+          {
+            "name": "[26SU] KB증권 PostgreSQL 통합유지보수",
+            "delta": 10000000,
+            "team": "금융영업1본부 1팀"
+          }
+        ],
+        [],
         [],
         []
       ]
     },
     "revenue": {
       "label": "매출",
-      "q1": 0,
-      "q2": 0,
-      "q3": 0,
-      "q4": 80000000,
-      "total": 80000000,
-      "months": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        80000000
-      ],
-      "monthDetails": [
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [
-          {
-            "name": "[26SO]롯데파이낸스(베트남) ESB 재구축 프로젝트",
-            "delta": 80000000,
-            "team": "금융영업1본부 2팀"
-          }
-        ]
-      ]
-    },
-    "other": {
-      "label": "기타매출",
       "q1": 0,
       "q2": 0,
       "q3": 0,
@@ -547,6 +271,107 @@
         [],
         [],
         []
+      ]
+    },
+    "other": {
+      "label": "기타매출",
+      "q1": 0,
+      "q2": 0,
+      "q3": -92720928,
+      "q4": 92720928,
+      "total": 0,
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        -104220928,
+        26500000,
+        -15000000,
+        0,
+        66615928,
+        26105000
+      ],
+      "monthDetails": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          {
+            "name": "[25SO] 현대차증권 차세대시스템 구축 (인터페이스 시스템 신규 구축)",
+            "delta": -37500000,
+            "team": "금융영업1본부 1팀"
+          },
+          {
+            "name": "[26SO] KB국민은행 API Hub 구축 - 개발비",
+            "delta": -29115928,
+            "team": "금융영업1본부 1팀"
+          },
+          {
+            "name": "[26SO] KB국민은행 API 비대면시스템 구축",
+            "delta": -26105000,
+            "team": "금융영업1본부 1팀"
+          },
+          {
+            "name": "[24SO] KDB캐피탈 차세대 사업",
+            "delta": -17500000,
+            "team": "금융영업1본부 1팀"
+          },
+          {
+            "name": "[26SO] 금융감독원 FEP 고도화",
+            "delta": 15000000,
+            "team": "금융영업1본부 1팀"
+          },
+          {
+            "name": "[26SO] 우리은행 중장기 IT 최적화 3단계 프로젝트",
+            "delta": -9000000,
+            "team": "금융영업1본부 2팀"
+          }
+        ],
+        [
+          {
+            "name": "[24SO] KDB캐피탈 차세대 사업",
+            "delta": 17500000,
+            "team": "금융영업1본부 1팀"
+          },
+          {
+            "name": "[26SO] 우리은행 중장기 IT 최적화 3단계 프로젝트",
+            "delta": 9000000,
+            "team": "금융영업1본부 2팀"
+          }
+        ],
+        [
+          {
+            "name": "[26SO] 금융감독원 FEP 고도화",
+            "delta": -15000000,
+            "team": "금융영업1본부 1팀"
+          }
+        ],
+        [],
+        [
+          {
+            "name": "[25SO] 현대차증권 차세대시스템 구축 (인터페이스 시스템 신규 구축)",
+            "delta": 37500000,
+            "team": "금융영업1본부 1팀"
+          },
+          {
+            "name": "[26SO] KB국민은행 API Hub 구축 - 개발비",
+            "delta": 29115928,
+            "team": "금융영업1본부 1팀"
+          }
+        ],
+        [
+          {
+            "name": "[26SO] KB국민은행 API 비대면시스템 구축",
+            "delta": 26105000,
+            "team": "금융영업1본부 1팀"
+          }
+        ]
       ]
     }
   },
@@ -1035,24 +860,6 @@
         "breakdown": [
           {
             "category": "MCI/FEP",
-            "subCategory": "License",
-            "monthAmt": [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              249750000
-            ]
-          },
-          {
-            "category": "MCI/FEP",
             "subCategory": "Service",
             "monthAmt": [
               44360389,
@@ -1067,6 +874,24 @@
               22400000,
               22400000,
               45548091
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              249750000
             ]
           }
         ]
@@ -1545,24 +1370,6 @@
         "breakdown": [
           {
             "category": "MCI/FEP",
-            "subCategory": "License",
-            "monthAmt": [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              30000000,
-              0,
-              0,
-              0,
-              0
-            ]
-          },
-          {
-            "category": "MCI/FEP",
             "subCategory": "Service",
             "monthAmt": [
               0,
@@ -1573,6 +1380,24 @@
               0,
               0,
               10000000,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              30000000,
               0,
               0,
               0,
@@ -2475,14 +2300,14 @@
         "breakdown": [
           {
             "category": "APIM",
-            "subCategory": "License",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
               0,
               0,
               0,
-              61500000,
+              18000000,
               0,
               0,
               0,
@@ -2493,14 +2318,14 @@
           },
           {
             "category": "APIM",
-            "subCategory": "Service",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
               0,
               0,
               0,
-              18000000,
+              61500000,
               0,
               0,
               0,
@@ -2876,14 +2701,14 @@
         "breakdown": [
           {
             "category": "ESB",
-            "subCategory": "License",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
               0,
               0,
               0,
-              75000000,
+              18000000,
               0,
               0,
               0,
@@ -2894,14 +2719,14 @@
           },
           {
             "category": "ESB",
-            "subCategory": "Service",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
               0,
               0,
               0,
-              18000000,
+              75000000,
               0,
               0,
               0,
@@ -4117,7 +3942,7 @@
         "section": "신규",
         "sortKey": 202608,
         "period": "2026-08 ~ 2026-12",
-        "contract": 0,
+        "contract": 89500000,
         "monthAmt1": [
           0,
           0,
@@ -4152,24 +3977,6 @@
         "breakdown": [
           {
             "category": "MCI/FEP",
-            "subCategory": "Service",
-            "monthAmt": [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              54500000
-            ]
-          },
-          {
-            "category": "MCI/FEP",
             "subCategory": "Others",
             "monthAmt": [
               0,
@@ -4184,6 +3991,24 @@
               0,
               0,
               35000000
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              54500000
             ]
           }
         ]
@@ -4473,7 +4298,7 @@
           0,
           0,
           0,
-          18000000,
+          0,
           0,
           0,
           0
@@ -4487,7 +4312,7 @@
           0,
           0,
           0,
-          8480000,
+          26480000,
           0,
           0,
           0
@@ -4496,24 +4321,6 @@
         "repName": "이성현",
         "customer": "비씨카드(주)",
         "breakdown": [
-          {
-            "category": "eXperDB",
-            "subCategory": "License",
-            "monthAmt": [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              18000000,
-              0,
-              0,
-              0
-            ]
-          },
           {
             "category": "eXperDB",
             "subCategory": "Service",
@@ -4526,7 +4333,7 @@
               0,
               0,
               0,
-              8480000,
+              26480000,
               0,
               0,
               0
@@ -5154,24 +4961,6 @@
         "breakdown": [
           {
             "category": "eXperDB",
-            "subCategory": "Service",
-            "monthAmt": [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              40000000
-            ]
-          },
-          {
-            "category": "eXperDB",
             "subCategory": "License",
             "monthAmt": [
               0,
@@ -5186,6 +4975,24 @@
               0,
               0,
               200000000
+            ]
+          },
+          {
+            "category": "eXperDB",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              40000000
             ]
           }
         ]
@@ -5319,8 +5126,8 @@
         "customer": "(주)우리투자증권",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "License",
             "monthAmt": [
               300000000,
               0,
@@ -5392,10 +5199,28 @@
         "customer": "(주)우리은행",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "License",
             "monthAmt": [
-              442086150,
+              155875000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              286211150,
               0,
               0,
               0,
@@ -5465,8 +5290,8 @@
         "customer": "한국신용카드결제(주)",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "eXperDB",
+            "subCategory": "License",
             "monthAmt": [
               0,
               9600000,
@@ -5538,8 +5363,8 @@
         "customer": "한국신용카드결제(주)",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "eXperDB",
+            "subCategory": "License",
             "monthAmt": [
               0,
               9600000,
@@ -5611,8 +5436,8 @@
         "customer": "(주)국민은행",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               36000000,
@@ -5684,11 +5509,29 @@
         "customer": "(주)롯데이노베이트",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "APIM",
+            "subCategory": "Service",
             "monthAmt": [
               0,
-              79500000,
+              18000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "APIM",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              61500000,
               0,
               0,
               0,
@@ -5757,8 +5600,8 @@
         "customer": "(주)우리은행",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -5830,11 +5673,29 @@
         "customer": "주식회사웅진프리드라이프",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "License",
             "monthAmt": [
               0,
-              506200000,
+              155200000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              351000000,
               0,
               0,
               0,
@@ -5903,8 +5764,8 @@
         "customer": "(주)국민은행",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -5976,8 +5837,8 @@
         "customer": "DGB특수은행",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "eXperDB",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -6049,13 +5910,31 @@
         "customer": "서민금융진흥원",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "ESB",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
               0,
-              93000000,
+              75000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "ESB",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              18000000,
               0,
               0,
               0,
@@ -6122,8 +6001,8 @@
         "customer": "신한카드(주)",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -6195,8 +6074,8 @@
         "customer": "유진투자증권(주)",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "eXperDB",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -6268,8 +6147,8 @@
         "customer": "한국평가데이터(주)",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -6341,14 +6220,32 @@
         "customer": "금융감독원",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
               0,
               0,
-              301500000,
+              49500000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              252000000,
               0,
               0,
               0,
@@ -6414,8 +6311,8 @@
         "customer": "서민금융진흥원",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "ESB",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -6487,14 +6384,32 @@
         "customer": "㈜아이엠캐피탈",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "ESB",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
               0,
               0,
-              18000000,
+              15000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "ESB",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              3000000,
               0,
               0,
               0,
@@ -6560,14 +6475,32 @@
         "customer": "(주)우리은행",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
               0,
               0,
-              2697000000,
+              1730000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              967000000,
               0,
               0,
               0,
@@ -6633,8 +6566,8 @@
         "customer": "사단법인한국신용정보원",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "eXperDB",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -6706,8 +6639,8 @@
         "customer": "(주)국민은행",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -6779,8 +6712,8 @@
         "customer": "(주)국민은행",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -6852,8 +6785,8 @@
         "customer": "(주)국민은행",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "APIM",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -6925,8 +6858,8 @@
         "customer": "(주)국민은행",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -6998,8 +6931,8 @@
         "customer": "사단법인한국신용정보원",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "eXperDB",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -7071,15 +7004,33 @@
         "customer": "한국투자캐피탈주식회사",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "ESB",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
               0,
               0,
               0,
-              34500000,
+              4500000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "ESB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              30000000,
               0,
               0,
               0,
@@ -7144,8 +7095,8 @@
         "customer": "주식회사카카오뱅크",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "ESB",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -7153,7 +7104,25 @@
               0,
               0,
               0,
-              8000000,
+              500000,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "ESB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              7500000,
               0,
               0,
               0,
@@ -7217,8 +7186,8 @@
         "customer": "(주)KB국민카드",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "Others",
             "monthAmt": [
               0,
               0,
@@ -7227,7 +7196,25 @@
               0,
               0,
               0,
-              89500000,
+              35000000,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              54500000,
               0,
               0,
               0,
@@ -7290,8 +7277,8 @@
         "customer": "(주)코스콤",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -7300,7 +7287,25 @@
               0,
               0,
               0,
-              231818182,
+              180000000,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              51818182,
               0,
               0,
               0,
@@ -7363,8 +7368,8 @@
         "customer": "주식회사아이엠뱅크",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -7374,7 +7379,25 @@
               0,
               0,
               0,
-              900000000,
+              500000000,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              400000000,
               0,
               0,
               0
@@ -7393,8 +7416,8 @@
           0,
           0,
           0,
-          10000000,
           0,
+          10000000,
           0,
           0,
           0
@@ -7411,8 +7434,8 @@
           0,
           0,
           0,
-          10000000,
           0,
+          10000000,
           0,
           0,
           0
@@ -7436,8 +7459,8 @@
         "customer": "케이비증권주식회사",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "eXperDB",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -7446,8 +7469,8 @@
               0,
               0,
               0,
-              10000000,
               0,
+              10000000,
               0,
               0,
               0
@@ -7509,8 +7532,8 @@
         "customer": "주식회사미즈호은행",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "TDM",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -7582,8 +7605,8 @@
         "customer": "비씨카드(주)",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "eXperDB",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -7655,8 +7678,8 @@
         "customer": "(주)대한항공",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "eXperDB",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -7728,8 +7751,8 @@
         "customer": "우리금융캐피탈주식회사",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "eXperDB",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -7801,8 +7824,8 @@
         "customer": "사단법인한국신용정보원",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "eXperDB",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -7874,8 +7897,8 @@
         "customer": "비씨카드(주)",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "eXperDB",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -7886,7 +7909,25 @@
               0,
               0,
               0,
-              141818182,
+              5909091,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "eXperDB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              135909091,
               0,
               0
             ]
@@ -7947,8 +7988,8 @@
         "customer": "디비생명보험(주)",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -7960,7 +8001,25 @@
               0,
               0,
               0,
-              800000000,
+              186000000,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              614000000,
               0
             ]
           }
@@ -8020,8 +8079,8 @@
         "customer": "기타 거래처",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "ESB",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -8032,7 +8091,25 @@
               0,
               0,
               0,
-              160000000,
+              60000000,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "ESB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              100000000,
               0,
               0
             ]
@@ -8093,8 +8170,8 @@
         "customer": "삼성증권(주)",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "ECM",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -8166,8 +8243,8 @@
         "customer": "서민금융진흥원",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -8178,7 +8255,25 @@
               0,
               0,
               0,
-              250000000,
+              200000000,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "ESB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              50000000,
               0,
               0
             ]
@@ -8239,8 +8334,8 @@
         "customer": "(주)애큐온캐피탈",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "ECM",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -8312,8 +8407,8 @@
         "customer": "(주)우리은행",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "eXperDB",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -8324,7 +8419,25 @@
               0,
               0,
               0,
-              240000000,
+              200000000,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "eXperDB",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              40000000,
               0,
               0
             ]
@@ -8385,8 +8498,8 @@
         "customer": "현대카드주식회사",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "eXperDB",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -8458,8 +8571,8 @@
         "customer": "삼성증권(주)",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -8472,7 +8585,25 @@
               0,
               0,
               0,
-              300000000
+              100000000
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              200000000
             ]
           }
         ]
@@ -8531,8 +8662,8 @@
         "customer": "삼성카드",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "ECM",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -8545,7 +8676,25 @@
               0,
               0,
               0,
-              90000000
+              10000000
+            ]
+          },
+          {
+            "category": "ECM",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              80000000
             ]
           }
         ]
@@ -8604,8 +8753,8 @@
         "customer": "여신금융협회",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "TDM",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -8677,8 +8826,8 @@
         "customer": "기타 거래처",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -8690,7 +8839,61 @@
               0,
               0,
               0,
-              280000000,
+              100000000,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              100000000,
+              0
+            ]
+          },
+          {
+            "category": "eXperDB",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              30000000,
+              0
+            ]
+          },
+          {
+            "category": "eXperDB",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              50000000,
               0
             ]
           }
@@ -8750,8 +8953,8 @@
         "customer": "주식회사카카오뱅크",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "EDM",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -8763,7 +8966,25 @@
               0,
               0,
               0,
-              30000000,
+              10000000,
+              0
+            ]
+          },
+          {
+            "category": "EDM",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              20000000,
               0
             ]
           }
@@ -8823,8 +9044,8 @@
         "customer": "기타 거래처",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -8836,7 +9057,25 @@
               0,
               0,
               0,
-              220000000,
+              120000000,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              100000000,
               0
             ]
           }
@@ -8896,8 +9135,8 @@
         "customer": "엠지캐피탈(주)",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -8910,7 +9149,25 @@
               0,
               0,
               0,
-              300000000
+              200000000
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              100000000
             ]
           }
         ]
@@ -8969,8 +9226,8 @@
         "customer": "교보증권(주)",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "License",
             "monthAmt": [
               0,
               0,
@@ -8983,7 +9240,25 @@
               0,
               0,
               0,
-              300000000
+              100000000
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "Service",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              200000000
             ]
           }
         ]
@@ -9042,8 +9317,8 @@
         "customer": "(주)우리은행",
         "breakdown": [
           {
-            "category": "전체",
-            "subCategory": "전체",
+            "category": "MCI/FEP",
+            "subCategory": "Service",
             "monthAmt": [
               0,
               0,
@@ -9056,7 +9331,25 @@
               0,
               0,
               0,
-              300000000
+              150000000
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              150000000
             ]
           }
         ]
@@ -9142,29 +9435,64 @@
       "label": "수주",
       "items": [
         {
-          "team": "금융영업1본부 2팀",
-          "name": "[26SO]롯데파이낸스(베트남) ESB 재구축 프로젝트",
-          "type": "신규추가",
-          "text": "신규 프로젝트 추가",
-          "amount": 160000000
+          "team": "금융영업1본부 1팀",
+          "name": "[26SU] KB증권 PostgreSQL 통합유지보수",
+          "type": "일정변경",
+          "text": "매출일정 변경 8월 → 9월",
+          "amount": 10000000
         }
       ]
     },
     "revenue": {
       "label": "매출",
-      "items": [
-        {
-          "team": "금융영업1본부 2팀",
-          "name": "[26SO]롯데파이낸스(베트남) ESB 재구축 프로젝트",
-          "type": "신규추가",
-          "text": "신규 프로젝트 추가",
-          "amount": 0
-        }
-      ]
+      "items": []
     },
     "other": {
       "label": "기타매출",
-      "items": []
+      "items": [
+        {
+          "team": "금융영업1본부 1팀",
+          "name": "[25SO] 현대차증권 차세대시스템 구축 (인터페이스 시스템 신규 구축)",
+          "type": "일정변경",
+          "text": "매출일정 변경 7월 → 11월",
+          "amount": 37500000
+        },
+        {
+          "team": "금융영업1본부 1팀",
+          "name": "[24SO] KDB캐피탈 차세대 사업",
+          "type": "일정변경",
+          "text": "매출일정 변경 7월 → 8월",
+          "amount": 17500000
+        },
+        {
+          "team": "금융영업1본부 1팀",
+          "name": "[26SO] KB국민은행 API Hub 구축 - 개발비",
+          "type": "일정변경",
+          "text": "매출일정 변경 7월 → 11월",
+          "amount": 29115928
+        },
+        {
+          "team": "금융영업1본부 2팀",
+          "name": "[26SO] 우리은행 중장기 IT 최적화 3단계 프로젝트",
+          "type": "일정변경",
+          "text": "매출일정 변경 7월 → 8월",
+          "amount": 9000000
+        },
+        {
+          "team": "금융영업1본부 1팀",
+          "name": "[26SO] KB국민은행 API 비대면시스템 구축",
+          "type": "일정변경",
+          "text": "매출일정 변경 7월 → 12월",
+          "amount": 26105000
+        },
+        {
+          "team": "금융영업1본부 1팀",
+          "name": "[26SO] 금융감독원 FEP 고도화",
+          "type": "일정변경",
+          "text": "매출일정 변경 9월 → 7월",
+          "amount": 15000000
+        }
+      ]
     }
   }
 }
