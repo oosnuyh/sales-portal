@@ -796,6 +796,12 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         ordRealMA += sumRange(tva.orderRealActualsMA[team], start, end);
       }
     }
+    // 솔루션/MA로 나눈 데이터가 없는(예전) json이면, 합계값을 그대로 "솔루션" 칸에 넣어서
+    // 막대가 0으로 비어보이지 않게 한다 (MA는 0으로 처리, 결과적으로 예전처럼 단일 막대로 보임).
+    if (!hasBreakdown) {
+      revExpSolution = revExpected; ordExpSolution = ordExpected;
+      revRealSolution = revReal; ordRealSolution = ordReal;
+    }
     const revExpPct = revTarget ? (revExpected / revTarget * 100) : 0;
     const ordExpPct = ordTarget ? (ordExpected / ordTarget * 100) : 0;
     const revRealPct = revAnnualTarget ? (revReal / revAnnualTarget * 100) : 0;
@@ -1231,7 +1237,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     for (const item of maFlagged) {
       const team = item.team || '미분류';
       if (!byTeam.has(team)) byTeam.set(team, []);
-      byTeam.get(team).push({ ...item, type: 'MA 갱신', badgeCls: 'ma' });
+      byTeam.get(team).push({ ...item, type: '계약 확인 필요', badgeCls: 'ma' });
     }
 
     // 팀은 버튼으로 골라서 하나씩 본다 (1팀/2팀).
