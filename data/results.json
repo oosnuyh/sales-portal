@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-25T01:24:00.570Z",
+  "generatedAt": "2026-08-24T00:29:07.051Z",
   "fy": 26,
-  "titleDate": "20260825",
+  "titleDate": "20260824",
   "targetVsActual": {
     "teams": [
       "금융영업1본부 1팀",
@@ -624,6 +624,16 @@
         "solutionFlagged": [],
         "maFlagged": [
           {
+            "name": "[25MA] 우리은행 MCA 유지보수",
+            "contract": 65550000,
+            "team": "금융영업1본부 2팀"
+          },
+          {
+            "name": "[25MA] 우리은행 FEP 유지보수",
+            "contract": 49200000,
+            "team": "금융영업1본부 2팀"
+          },
+          {
             "name": "[25MA] 카카오뱅크 채널 유지보수",
             "contract": 194392000,
             "team": "금융영업1본부 1팀"
@@ -641,6 +651,11 @@
           {
             "name": "[25MA]KB국민카드 전자문서중계서비스 유지보수_연장",
             "contract": 14400000,
+            "team": "금융영업1본부 1팀"
+          },
+          {
+            "name": "[26MA] 국민은행 한국무역보험공사 전자보증 연계 SW(eCrossMX) 유지보수 계약",
+            "contract": 3135600,
             "team": "금융영업1본부 1팀"
           }
         ]
@@ -672,6 +687,11 @@
         ],
         "maFlagged": [
           {
+            "name": "[25MA] 우리은행 태블릿브랜치 채널 유지보수",
+            "contract": 16016000,
+            "team": "금융영업1본부 2팀"
+          },
+          {
             "name": "[25MA]기업은행 BPR이미지 암호화 유지보수",
             "contract": 8496000,
             "team": "금융영업1본부 2팀"
@@ -685,129 +705,15 @@
             "name": "[25MA]KB국민카드 지문정보마스킹 유지보수",
             "contract": 4200000,
             "team": "금융영업1본부 1팀"
+          },
+          {
+            "name": "[26MA]아이엠뱅크 이미지엔진 유지보수",
+            "contract": 12000000,
+            "team": "금융영업1본부 1팀"
           }
         ]
       }
-    ],
-    "overdue": {
-      "solutionFlagged": [],
-      "maFlagged": [
-        {
-          "name": "[24MA] 우리은행 채널 유지보수",
-          "contract": 114750000,
-          "team": "금융영업1본부 2팀",
-          "overdueYM": 202508
-        },
-        {
-          "name": "[24MA] 한국신용정보원 iGate 유지보수",
-          "contract": 40800000,
-          "team": "금융영업1본부 2팀",
-          "overdueYM": 202512
-        },
-        {
-          "name": "[25MA]BC카드 IT통합유지보수",
-          "contract": 69430000,
-          "team": "금융영업1본부 2팀",
-          "overdueYM": 202604
-        },
-        {
-          "name": "[25MA] 기업은행 채널 유지보수",
-          "contract": 294752724,
-          "team": "금융영업1본부 2팀",
-          "overdueYM": 202601
-        },
-        {
-          "name": "[25MA] 신한은행 채널 유지보수",
-          "contract": 38645460,
-          "team": "금융영업1본부 1팀",
-          "overdueYM": 202601
-        },
-        {
-          "name": "[25MA] 케이뱅크 채널 유지보수",
-          "contract": 67236000,
-          "team": "금융영업1본부 2팀",
-          "overdueYM": 202603
-        },
-        {
-          "name": "[25MA] 우리카드 독자가맹점시스템 구축 FEP 증설 유지보수",
-          "contract": 10632000,
-          "team": "금융영업1본부 2팀",
-          "overdueYM": 202607
-        },
-        {
-          "name": "[25MA] 금융감독원 iGate 유지보수",
-          "contract": 6000000,
-          "team": "금융영업1본부 1팀",
-          "overdueYM": 202602
-        },
-        {
-          "name": "[25MA] 코스콤펀드서비스 FEP 유지보수",
-          "contract": 8181818,
-          "team": "금융영업1본부 1팀",
-          "overdueYM": 202607
-        },
-        {
-          "name": "[25MA] 우리은행-한국무역보험공사 전자보증 유지보수",
-          "contract": 2480000,
-          "team": "금융영업1본부 2팀",
-          "overdueYM": 202511
-        },
-        {
-          "name": "[25MA] 토스뱅크 eCross 유지보수",
-          "contract": 1800000,
-          "team": "금융영업1본부 1팀",
-          "overdueYM": 202601
-        },
-        {
-          "name": "[25MA]KB손해보험 이미지시스템 통합유지보수",
-          "contract": 38520000,
-          "team": "금융영업1본부 1팀",
-          "overdueYM": 202605
-        },
-        {
-          "name": "[25MA]IBK동수원시금고 ECM엔진",
-          "contract": 1200000,
-          "team": "금융영업1본부 2팀",
-          "overdueYM": 202606
-        },
-        {
-          "name": "[25MA]국민은행 공과금 유지보수",
-          "contract": 1738000,
-          "team": "금융영업1본부 1팀",
-          "overdueYM": 202512
-        },
-        {
-          "name": "[26MA]우리은행 서울시 수납장표 이미지시스템 유지보수",
-          "contract": 810411,
-          "team": "금융영업1본부 2팀",
-          "overdueYM": 202603
-        },
-        {
-          "name": "[25MA]아이엠캐피탈 ECM 유지보수",
-          "contract": 5617000,
-          "team": "금융영업1본부 1팀",
-          "overdueYM": 202512
-        },
-        {
-          "name": "[25MA]동양생명 지문마스킹 유지보수",
-          "contract": 1832000,
-          "team": "금융영업1본부 2팀",
-          "overdueYM": 202512
-        },
-        {
-          "name": "[25MA] KB손해보험 마이데이터 APIM 유지보수",
-          "contract": 8000000,
-          "team": "금융영업1본부 1팀",
-          "overdueYM": 202605
-        },
-        {
-          "name": "[25MA]KB 인도네시아(부코핀) ECM 유지보수",
-          "contract": 13500000,
-          "team": "금융영업1본부 1팀",
-          "overdueYM": 202606
-        }
-      ]
-    }
+    ]
   },
   "projects": {
     "revenue": [
