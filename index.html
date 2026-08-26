@@ -1317,6 +1317,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
               customer: r.customer || '',
               category: breakdown.length > 0 ? Array.from(new Set(breakdown.map(b => b.category).filter(Boolean))).join(', ') : '',
               breakdown,
+              probability: r.probability || '',
               sum: Math.round(sumRange(r.monthAmt, start, end)),
             };
           })
@@ -1364,6 +1365,15 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         return null; // 매칭 안 되면 R(기타)로 몰아준다
       }
 
+      // "75%"/"0.75"/75 등 다양한 형식의 확도값을 엑셀 퍼센트 서식에 맞는 소수(0.75)로 바꾼다.
+      function probabilityToDecimal(val) {
+        if (val === null || val === undefined || val === '') return null;
+        if (typeof val === 'number') return val > 1.5 ? val / 100 : val;
+        const n = Number(String(val).replace('%', '').trim());
+        if (Number.isNaN(n)) return null;
+        return n > 1.5 ? n / 100 : n;
+      }
+
       function buildDataCells(rowNum, styleKey, no, proj) {
         const s = STYLES[styleKey];
         const p = proj || {};
@@ -1373,6 +1383,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           const col = subCategoryColLetter(b.subCategory) || 'R';
           breakdownByCol[col] += b.sum || 0;
         }
+        const probDecimal = probabilityToDecimal(p.probability);
         let cells = '';
         cells += `<c r="A${rowNum}" s="93"/>`;
         cells += `<c r="B${rowNum}" s="93"/>`;
@@ -1381,7 +1392,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         cells += p.customer ? inlineCell(`E${rowNum}`, s.E, p.customer) : `<c r="E${rowNum}" s="${s.E}"/>`;
         cells += inlineCell(`F${rowNum}`, s.F, p.name);
         cells += inlineCell(`G${rowNum}`, s.G, p.repName);
-        cells += `<c r="H${rowNum}" s="${s.H}"/>`;
+        cells += probDecimal !== null ? numCell(`H${rowNum}`, s.H, probDecimal) : `<c r="H${rowNum}" s="${s.H}"/>`;
         cells += `<c r="I${rowNum}" s="${s.I}"/>`;
         cells += `<c r="J${rowNum}" s="${s.J}"/>`;
         cells += p.category ? inlineCell(`K${rowNum}`, s.K, p.category) : `<c r="K${rowNum}" s="${s.K}"/>`;
