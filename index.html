@@ -1909,8 +1909,10 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const W = 420, H = 170;
     const padR = 14, padT = 14, padB = 24;
     const n = 12;
-    const barValues = Array.from({ length: n }, (_, i) => (real[i] > 0 ? real[i] : expected[i]));
-    const isReal = Array.from({ length: n }, (_, i) => real[i] > 0);
+    // 실적(확정)이 조금이라도 있으면 무조건 그 값만 쓰던 게 문제였다 — 실적이 예상보다
+    // 작은 부분 확정치일 뿐이면, 그 달의 예상 규모(더 큰 값)를 그대로 보여줘야 한다.
+    const barValues = Array.from({ length: n }, (_, i) => Math.max(real[i] || 0, expected[i] || 0));
+    const isReal = Array.from({ length: n }, (_, i) => (real[i] || 0) > 0 && (real[i] || 0) >= (expected[i] || 0));
     const maxVal = Math.max(1, ...targets, ...barValues);
     // 눈금(0, 1/4, 2/4, 3/4, 최댓값 근처를 보기 좋게 반올림)
     const niceMax = (() => {
