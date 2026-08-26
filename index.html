@@ -1895,11 +1895,10 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const W = 420, H = 170;
     const padR = 14, padT = 14, padB = 24;
     const n = 12;
-    // 실적(확정)이 조금이라도 있으면 무조건 그 값만 쓰던 게 문제였다 — 실적이 예상보다
-    // 작은 부분 확정치일 뿐이면, 그 달의 예상 규모(더 큰 값)를 그대로 보여줘야 한다.
-    const barValues = Array.from({ length: n }, (_, i) => Math.max(real[i] || 0, expected[i] || 0));
-    const isReal = Array.from({ length: n }, (_, i) => (real[i] || 0) > 0 && (real[i] || 0) >= (expected[i] || 0));
-    const maxVal = Math.max(1, ...targets, ...barValues);
+    // 예상(연한색) 막대를 배경으로 그대로 두고, 그 위에 실적(진한색)을 채워진 만큼만 겹쳐 그린다.
+    // 이러면 실적이 예상보다 낮으면 위쪽이 비어 보이고(미달 표시), 실적이 예상을 넘으면
+    // 진한 막대가 그만큼 더 높이 올라가서 초과 달성도 자연스럽게 보인다.
+    const maxVal = Math.max(1, ...targets, ...expected, ...real);
     // 눈금(0, 1/4, 2/4, 3/4, 최댓값 근처를 보기 좋게 반올림)
     const niceMax = (() => {
       const magnitude = Math.pow(10, Math.floor(Math.log10(maxVal)));
@@ -1924,19 +1923,27 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const bandW = plotW / n;
     const barW = bandW * 0.5;
     function tipHtml(i) {
-      const actualLabel = isReal[i] ? '실적(확정)' : '예상';
-      return `${i + 1}월<br/>목표: ${fmtWon(targets[i])}<br/>${actualLabel}: ${fmtWon(barValues[i])}`;
+      const realVal = real[i] || 0;
+      const expVal = expected[i] || 0;
+      return `${i + 1}월<br/>목표: ${fmtWon(targets[i])}<br/>예상: ${fmtWon(expVal)}<br/>실적(확정): ${fmtWon(realVal)}`;
     }
-    const barsHtml = barValues.map((v, i) => {
+    const barsHtml = Array.from({ length: n }, (_, i) => {
       const x = padL + i * bandW + (bandW - barW) / 2;
-      const y = yFor(v);
-      const h = Math.max(0, padT + plotH - y);
-      const color = isReal[i] ? darkColor : lightColor;
+      const expVal = expected[i] || 0;
+      const realVal = real[i] || 0;
+      const expY = yFor(expVal);
+      const expH = Math.max(0, padT + plotH - expY);
+      const realY = yFor(realVal);
+      const realH = Math.max(0, padT + plotH - realY);
       // 막대가 낮아도 호버하기 쉽도록, 실제 막대 아래 투명한 전체 높이 히트존을 같이 둔다.
       const hitZoneY = padT;
       const hitZoneH = plotH;
+      let bars = `<rect x="${x.toFixed(1)}" y="${expY.toFixed(1)}" width="${barW.toFixed(1)}" height="${expH.toFixed(1)}" fill="${lightColor}" rx="2" style="pointer-events:none;"/>`;
+      if (realVal > 0) {
+        bars += `<rect x="${x.toFixed(1)}" y="${realY.toFixed(1)}" width="${barW.toFixed(1)}" height="${realH.toFixed(1)}" fill="${darkColor}" rx="2" style="pointer-events:none;"/>`;
+      }
       return `<rect x="${x.toFixed(1)}" y="${hitZoneY}" width="${barW.toFixed(1)}" height="${hitZoneH}" fill="transparent" data-tip="${tipHtml(i)}"/>
-        <rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" fill="${color}" rx="2" style="pointer-events:none;"/>`;
+        ${bars}`;
     }).join('');
 
     const linePoints = targets.map((v, i) => {
