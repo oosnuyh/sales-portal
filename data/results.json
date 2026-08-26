@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-24T00:56:13.279Z",
+  "generatedAt": "2026-08-26T00:15:05.562Z",
   "fy": 26,
-  "titleDate": "20260824",
+  "titleDate": "20260826",
   "targetVsActual": {
     "teams": [
       "금융영업1본부 1팀",
@@ -688,7 +688,126 @@
           }
         ]
       }
-    ]
+    ],
+    "overdue": {
+      "solutionFlagged": [],
+      "maFlagged": [
+        {
+          "name": "[24MA] 우리은행 채널 유지보수",
+          "contract": 114750000,
+          "team": "금융영업1본부 2팀",
+          "overdueYM": 202508
+        },
+        {
+          "name": "[24MA] 한국신용정보원 iGate 유지보수",
+          "contract": 40800000,
+          "team": "금융영업1본부 2팀",
+          "overdueYM": 202512
+        },
+        {
+          "name": "[25MA]BC카드 IT통합유지보수",
+          "contract": 69430000,
+          "team": "금융영업1본부 2팀",
+          "overdueYM": 202604
+        },
+        {
+          "name": "[25MA] 기업은행 채널 유지보수",
+          "contract": 294752724,
+          "team": "금융영업1본부 2팀",
+          "overdueYM": 202601
+        },
+        {
+          "name": "[25MA] 신한은행 채널 유지보수",
+          "contract": 38645460,
+          "team": "금융영업1본부 1팀",
+          "overdueYM": 202601
+        },
+        {
+          "name": "[25MA] 케이뱅크 채널 유지보수",
+          "contract": 67236000,
+          "team": "금융영업1본부 2팀",
+          "overdueYM": 202603
+        },
+        {
+          "name": "[25MA] 우리카드 독자가맹점시스템 구축 FEP 증설 유지보수",
+          "contract": 10632000,
+          "team": "금융영업1본부 2팀",
+          "overdueYM": 202607
+        },
+        {
+          "name": "[25MA] 금융감독원 iGate 유지보수",
+          "contract": 6000000,
+          "team": "금융영업1본부 1팀",
+          "overdueYM": 202602
+        },
+        {
+          "name": "[25MA] 코스콤펀드서비스 FEP 유지보수",
+          "contract": 8181818,
+          "team": "금융영업1본부 1팀",
+          "overdueYM": 202607
+        },
+        {
+          "name": "[25MA] 우리은행-한국무역보험공사 전자보증 유지보수",
+          "contract": 2480000,
+          "team": "금융영업1본부 2팀",
+          "overdueYM": 202511
+        },
+        {
+          "name": "[25MA] 토스뱅크 eCross 유지보수",
+          "contract": 1800000,
+          "team": "금융영업1본부 1팀",
+          "overdueYM": 202601
+        },
+        {
+          "name": "[25MA]KB손해보험 이미지시스템 통합유지보수",
+          "contract": 38520000,
+          "team": "금융영업1본부 1팀",
+          "overdueYM": 202605
+        },
+        {
+          "name": "[25MA]IBK동수원시금고 ECM엔진",
+          "contract": 1200000,
+          "team": "금융영업1본부 2팀",
+          "overdueYM": 202606
+        },
+        {
+          "name": "[25MA]국민은행 공과금 유지보수",
+          "contract": 1738000,
+          "team": "금융영업1본부 1팀",
+          "overdueYM": 202512
+        },
+        {
+          "name": "[26MA]우리은행 서울시 수납장표 이미지시스템 유지보수",
+          "contract": 810411,
+          "team": "금융영업1본부 2팀",
+          "overdueYM": 202603
+        },
+        {
+          "name": "[25MA]아이엠캐피탈 ECM 유지보수",
+          "contract": 5617000,
+          "team": "금융영업1본부 1팀",
+          "overdueYM": 202512
+        },
+        {
+          "name": "[25MA]동양생명 지문마스킹 유지보수",
+          "contract": 1832000,
+          "team": "금융영업1본부 2팀",
+          "overdueYM": 202512
+        },
+        {
+          "name": "[25MA] KB손해보험 마이데이터 APIM 유지보수",
+          "contract": 8000000,
+          "team": "금융영업1본부 1팀",
+          "overdueYM": 202605
+        },
+        {
+          "name": "[25MA]KB 인도네시아(부코핀) ECM 유지보수",
+          "contract": 13500000,
+          "team": "금융영업1본부 1팀",
+          "overdueYM": 202606
+        }
+      ]
+    }
   },
   "projects": {
     "revenue": [
@@ -744,6 +863,7 @@
         "projectId": "P2455405",
         "repName": "손한승",
         "customer": "(주)케이카캐피탈",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "ECM",
@@ -817,6 +937,7 @@
         "projectId": "P2455464",
         "repName": "최성화",
         "customer": "산은캐피탈(주)",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -908,6 +1029,7 @@
         "projectId": "P2455660",
         "repName": "이성현",
         "customer": "한국은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -981,6 +1103,7 @@
         "projectId": "P2455442",
         "repName": "김성일",
         "customer": "사단법인한국신용정보원",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1072,6 +1195,7 @@
         "projectId": "P2354992",
         "repName": "손한승",
         "customer": "현대차증권주식회사",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1163,6 +1287,7 @@
         "projectId": "P2556773",
         "repName": "최성화",
         "customer": "주식회사디비아이엔씨(DBInc.)",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1236,6 +1361,7 @@
         "projectId": "P2556343",
         "repName": "손한승",
         "customer": "디비생명보험(주)",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1309,6 +1435,7 @@
         "projectId": "P2354989",
         "repName": "김성일",
         "customer": "중소기업은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1418,6 +1545,7 @@
         "projectId": "P2455762",
         "repName": "김성일",
         "customer": "중소기업은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "ECM",
@@ -1509,6 +1637,7 @@
         "projectId": "P2556899",
         "repName": "김성일",
         "customer": "사단법인한국신용정보원",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1582,6 +1711,7 @@
         "projectId": "P2556736",
         "repName": "김성일",
         "customer": "(주)우리은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1673,6 +1803,7 @@
         "projectId": "P2556901",
         "repName": "손한승",
         "customer": "알씨아이파이낸셜서비스코리아(주)",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1746,6 +1877,7 @@
         "projectId": "P2556715",
         "repName": "송효재",
         "customer": "사단법인한국신용정보원",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1819,6 +1951,7 @@
         "projectId": "P2455571",
         "repName": "김성일",
         "customer": "(주)우리은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1910,6 +2043,7 @@
         "projectId": "P2455853",
         "repName": "김성일",
         "customer": "주식회사우리카드",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -1983,6 +2117,7 @@
         "projectId": "P2556867",
         "repName": "손한승",
         "customer": "서울보증보험(주)",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "EIMS",
@@ -2056,6 +2191,7 @@
         "projectId": "P2557087",
         "repName": "손한승",
         "customer": "(주)우리투자증권",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -2129,6 +2265,7 @@
         "projectId": "P2455934",
         "repName": "손한승",
         "customer": "(주)우리투자증권",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -2202,6 +2339,7 @@
         "projectId": "P2455931",
         "repName": "김성일",
         "customer": "(주)우리은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -2293,6 +2431,7 @@
         "projectId": "P2657617",
         "repName": "김성일",
         "customer": "한국신용카드결제(주)",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -2366,6 +2505,7 @@
         "projectId": "P2657618",
         "repName": "김성일",
         "customer": "한국신용카드결제(주)",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -2439,6 +2579,7 @@
         "projectId": "P2556935",
         "repName": "손한승",
         "customer": "(주)국민은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -2512,6 +2653,7 @@
         "projectId": "P2556457",
         "repName": "김성일",
         "customer": "(주)롯데이노베이트",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "APIM",
@@ -2603,6 +2745,7 @@
         "projectId": "P2657616",
         "repName": "김성일",
         "customer": "(주)우리은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -2676,6 +2819,7 @@
         "projectId": "P2557128",
         "repName": "이성현",
         "customer": "주식회사웅진프리드라이프",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -2767,6 +2911,7 @@
         "projectId": "P2657731",
         "repName": "송효재",
         "customer": "(주)국민은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -2840,6 +2985,7 @@
         "projectId": "P2657890",
         "repName": "송효재",
         "customer": "DGB특수은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -2913,6 +3059,7 @@
         "projectId": "P2556774",
         "repName": "김성일",
         "customer": "서민금융진흥원",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "ESB",
@@ -3004,6 +3151,7 @@
         "projectId": "P2556743",
         "repName": "송효재",
         "customer": "신한카드(주)",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -3077,6 +3225,7 @@
         "projectId": "P2556398",
         "repName": "손한승",
         "customer": "유진투자증권(주)",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -3150,6 +3299,7 @@
         "projectId": "P2657231",
         "repName": "김성일",
         "customer": "한국평가데이터(주)",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -3223,6 +3373,7 @@
         "projectId": "P2657522",
         "repName": "손한승",
         "customer": "금융감독원",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -3314,6 +3465,7 @@
         "projectId": "P2657793",
         "repName": "김성일",
         "customer": "서민금융진흥원",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "ESB",
@@ -3387,6 +3539,7 @@
         "projectId": "P2657756",
         "repName": "송효재",
         "customer": "㈜아이엠캐피탈",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "ESB",
@@ -3478,6 +3631,7 @@
         "projectId": "P2557033",
         "repName": "김성일",
         "customer": "(주)우리은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -3569,6 +3723,7 @@
         "projectId": "P2657880",
         "repName": "김성일",
         "customer": "사단법인한국신용정보원",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -3642,6 +3797,7 @@
         "projectId": "P2556924",
         "repName": "손한승",
         "customer": "(주)국민은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -3715,6 +3871,7 @@
         "projectId": "P2657925",
         "repName": "손한승",
         "customer": "(주)국민은행",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -3788,6 +3945,7 @@
         "projectId": "P2657190",
         "repName": "손한승",
         "customer": "(주)국민은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "APIM",
@@ -3861,6 +4019,7 @@
         "projectId": "P2657977",
         "repName": "손한승",
         "customer": "(주)국민은행",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -3934,6 +4093,7 @@
         "projectId": "P2657685",
         "repName": "김성일",
         "customer": "사단법인한국신용정보원",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -4007,6 +4167,7 @@
         "projectId": "P2657776",
         "repName": "김성일",
         "customer": "한국투자캐피탈주식회사",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "ESB",
@@ -4098,6 +4259,7 @@
         "projectId": "P2657955",
         "repName": "손한승",
         "customer": "주식회사카카오뱅크",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "ESB",
@@ -4189,6 +4351,7 @@
         "projectId": "P2657715",
         "repName": "손한승",
         "customer": "(주)KB국민카드",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -4280,6 +4443,7 @@
         "projectId": "P2455861",
         "repName": "최성화",
         "customer": "(주)코스콤",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -4371,6 +4535,7 @@
         "projectId": "P2354978",
         "repName": "최성화",
         "customer": "주식회사아이엠뱅크",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -4462,6 +4627,7 @@
         "projectId": "P2657964",
         "repName": "소현수",
         "customer": "주식회사미즈호은행",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "TDM",
@@ -4535,6 +4701,7 @@
         "projectId": "P2657769",
         "repName": "이성현",
         "customer": "비씨카드(주)",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -4608,6 +4775,7 @@
         "projectId": "P2657474",
         "repName": "송효재",
         "customer": "(주)대한항공",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -4681,6 +4849,7 @@
         "projectId": "P2657881",
         "repName": "김성일",
         "customer": "우리금융캐피탈주식회사",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -4754,6 +4923,7 @@
         "projectId": "P2657196",
         "repName": "김성일",
         "customer": "사단법인한국신용정보원",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -4827,6 +4997,7 @@
         "projectId": "P2557036",
         "repName": "송효재",
         "customer": "비씨카드(주)",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -4918,6 +5089,7 @@
         "projectId": "P2557001",
         "repName": "손한승",
         "customer": "디비생명보험(주)",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -5009,6 +5181,7 @@
         "projectId": "P2658025",
         "repName": "김성일",
         "customer": "기타 거래처",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "ESB",
@@ -5100,6 +5273,7 @@
         "projectId": "P2657921",
         "repName": "김성일",
         "customer": "(주)애큐온캐피탈",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "ECM",
@@ -5173,6 +5347,7 @@
         "projectId": "P2657837",
         "repName": "김성일",
         "customer": "(주)우리은행",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -5264,6 +5439,7 @@
         "projectId": "P2657187",
         "repName": "손한승",
         "customer": "교보증권(주)",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -5339,6 +5515,7 @@
         "projectId": "P2557087",
         "repName": "손한승",
         "customer": "(주)우리투자증권",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -5412,6 +5589,7 @@
         "projectId": "P2455931",
         "repName": "김성일",
         "customer": "(주)우리은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -5435,7 +5613,25 @@
             "category": "MCI/FEP",
             "subCategory": "Service",
             "monthAmt": [
-              286211150,
+              199461150,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "용역",
+            "monthAmt": [
+              86750000,
               0,
               0,
               0,
@@ -5503,6 +5699,7 @@
         "projectId": "P2657617",
         "repName": "김성일",
         "customer": "한국신용카드결제(주)",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -5576,6 +5773,7 @@
         "projectId": "P2657618",
         "repName": "김성일",
         "customer": "한국신용카드결제(주)",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -5649,6 +5847,7 @@
         "projectId": "P2556935",
         "repName": "손한승",
         "customer": "(주)국민은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -5722,6 +5921,7 @@
         "projectId": "P2556457",
         "repName": "김성일",
         "customer": "(주)롯데이노베이트",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "APIM",
@@ -5813,6 +6013,7 @@
         "projectId": "P2657616",
         "repName": "김성일",
         "customer": "(주)우리은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -5886,6 +6087,7 @@
         "projectId": "P2557128",
         "repName": "이성현",
         "customer": "주식회사웅진프리드라이프",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -5910,7 +6112,25 @@
             "subCategory": "Service",
             "monthAmt": [
               0,
-              351000000,
+              183125000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "용역",
+            "monthAmt": [
+              0,
+              167875000,
               0,
               0,
               0,
@@ -5977,6 +6197,7 @@
         "projectId": "P2657731",
         "repName": "송효재",
         "customer": "(주)국민은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -6050,6 +6271,7 @@
         "projectId": "P2657890",
         "repName": "송효재",
         "customer": "DGB특수은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -6123,6 +6345,7 @@
         "projectId": "P2556774",
         "repName": "김성일",
         "customer": "서민금융진흥원",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "ESB",
@@ -6214,6 +6437,7 @@
         "projectId": "P2556743",
         "repName": "송효재",
         "customer": "신한카드(주)",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -6287,6 +6511,7 @@
         "projectId": "P2556398",
         "repName": "손한승",
         "customer": "유진투자증권(주)",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -6360,6 +6585,7 @@
         "projectId": "P2657231",
         "repName": "김성일",
         "customer": "한국평가데이터(주)",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -6433,6 +6659,7 @@
         "projectId": "P2657522",
         "repName": "손한승",
         "customer": "금융감독원",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -6442,7 +6669,25 @@
               0,
               0,
               0,
-              49500000,
+              -50250000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "용역",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              99750000,
               0,
               0,
               0,
@@ -6524,6 +6769,7 @@
         "projectId": "P2657793",
         "repName": "김성일",
         "customer": "서민금융진흥원",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "ESB",
@@ -6597,6 +6843,7 @@
         "projectId": "P2657756",
         "repName": "송효재",
         "customer": "㈜아이엠캐피탈",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "ESB",
@@ -6688,6 +6935,7 @@
         "projectId": "P2557033",
         "repName": "김성일",
         "customer": "(주)우리은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -6715,7 +6963,25 @@
               0,
               0,
               0,
-              967000000,
+              541700000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "용역",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              425300000,
               0,
               0,
               0,
@@ -6779,6 +7045,7 @@
         "projectId": "P2657880",
         "repName": "김성일",
         "customer": "사단법인한국신용정보원",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -6852,6 +7119,7 @@
         "projectId": "P2556924",
         "repName": "손한승",
         "customer": "(주)국민은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -6862,7 +7130,25 @@
               0,
               0,
               0,
-              3440300000,
+              988909072,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "용역",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              2451390928,
               0,
               0,
               0,
@@ -6925,6 +7211,7 @@
         "projectId": "P2657925",
         "repName": "손한승",
         "customer": "(주)국민은행",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -6998,6 +7285,7 @@
         "projectId": "P2657190",
         "repName": "손한승",
         "customer": "(주)국민은행",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "APIM",
@@ -7008,7 +7296,25 @@
               0,
               0,
               0,
-              809000000,
+              231200000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "APIM",
+            "subCategory": "용역",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              577800000,
               0,
               0,
               0,
@@ -7071,6 +7377,7 @@
         "projectId": "P2657977",
         "repName": "손한승",
         "customer": "(주)국민은행",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -7144,6 +7451,7 @@
         "projectId": "P2657685",
         "repName": "김성일",
         "customer": "사단법인한국신용정보원",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -7217,6 +7525,7 @@
         "projectId": "P2657776",
         "repName": "김성일",
         "customer": "한국투자캐피탈주식회사",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "ESB",
@@ -7308,6 +7617,7 @@
         "projectId": "P2657955",
         "repName": "손한승",
         "customer": "주식회사카카오뱅크",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "ESB",
@@ -7399,6 +7709,7 @@
         "projectId": "P2657715",
         "repName": "손한승",
         "customer": "(주)KB국민카드",
+        "probability": "100%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -7411,7 +7722,25 @@
               0,
               0,
               0,
-              35000000,
+              9000000,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "용역",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              75000000,
               0,
               0,
               0,
@@ -7429,7 +7758,7 @@
               0,
               0,
               0,
-              54500000,
+              5500000,
               0,
               0,
               0,
@@ -7490,6 +7819,7 @@
         "projectId": "P2455861",
         "repName": "최성화",
         "customer": "(주)코스콤",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -7581,6 +7911,7 @@
         "projectId": "P2354978",
         "repName": "최성화",
         "customer": "주식회사아이엠뱅크",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -7594,7 +7925,25 @@
               0,
               0,
               0,
-              500000000,
+              220000000,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "용역",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              280000000,
               0,
               0,
               0
@@ -7672,6 +8021,7 @@
         "projectId": "P2657905",
         "repName": "손한승",
         "customer": "케이비증권주식회사",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -7745,6 +8095,7 @@
         "projectId": "P2657964",
         "repName": "소현수",
         "customer": "주식회사미즈호은행",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "TDM",
@@ -7818,6 +8169,7 @@
         "projectId": "P2657769",
         "repName": "이성현",
         "customer": "비씨카드(주)",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -7891,6 +8243,7 @@
         "projectId": "P2657474",
         "repName": "송효재",
         "customer": "(주)대한항공",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -7964,6 +8317,7 @@
         "projectId": "P2657881",
         "repName": "김성일",
         "customer": "우리금융캐피탈주식회사",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -8037,6 +8391,7 @@
         "projectId": "P2657196",
         "repName": "김성일",
         "customer": "사단법인한국신용정보원",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -8110,6 +8465,7 @@
         "projectId": "P2557036",
         "repName": "송효재",
         "customer": "비씨카드(주)",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -8124,7 +8480,25 @@
               0,
               0,
               0,
-              5909091,
+              -24090909,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "eXperDB",
+            "subCategory": "용역",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              30000000,
               0,
               0
             ]
@@ -8201,6 +8575,7 @@
         "projectId": "P2557001",
         "repName": "손한승",
         "customer": "디비생명보험(주)",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -8234,7 +8609,25 @@
               0,
               0,
               0,
-              614000000,
+              194000000,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "용역",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              420000000,
               0
             ]
           }
@@ -8292,6 +8685,7 @@
         "projectId": "P2658025",
         "repName": "김성일",
         "customer": "기타 거래처",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "ESB",
@@ -8383,6 +8777,7 @@
         "projectId": "P2658003",
         "repName": "손한승",
         "customer": "삼성증권(주)",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "ECM",
@@ -8456,6 +8851,7 @@
         "projectId": "P2557080",
         "repName": "김성일",
         "customer": "서민금융진흥원",
+        "probability": "75%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -8547,6 +8943,7 @@
         "projectId": "P2657921",
         "repName": "김성일",
         "customer": "(주)애큐온캐피탈",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "ECM",
@@ -8620,6 +9017,7 @@
         "projectId": "P2657837",
         "repName": "김성일",
         "customer": "(주)우리은행",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -8711,6 +9109,7 @@
         "projectId": "P2657811",
         "repName": "손한승",
         "customer": "현대카드주식회사",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "eXperDB",
@@ -8784,6 +9183,7 @@
         "projectId": "P2557088",
         "repName": "손한승",
         "customer": "삼성증권(주)",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -8818,7 +9218,25 @@
               0,
               0,
               0,
-              200000000
+              140000000
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "용역",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              60000000
             ]
           }
         ]
@@ -8875,6 +9293,7 @@
         "projectId": "P2657791",
         "repName": "이성현",
         "customer": "삼성카드",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "ECM",
@@ -8966,6 +9385,7 @@
         "projectId": "P2557039",
         "repName": "김성일",
         "customer": "여신금융협회",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "TDM",
@@ -9039,6 +9459,7 @@
         "projectId": "P2657794",
         "repName": "이성현",
         "customer": "기타 거래처",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -9072,7 +9493,25 @@
               0,
               0,
               0,
-              100000000,
+              20000000,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "용역",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              80000000,
               0
             ]
           },
@@ -9166,6 +9605,7 @@
         "projectId": "P2658013",
         "repName": "손한승",
         "customer": "주식회사카카오뱅크",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "EDM",
@@ -9257,6 +9697,7 @@
         "projectId": "P2557003",
         "repName": "김성일",
         "customer": "기타 거래처",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -9272,7 +9713,25 @@
               0,
               0,
               0,
-              120000000,
+              100000000,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "용역",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              20000000,
               0
             ]
           },
@@ -9348,6 +9807,7 @@
         "projectId": "P2657976",
         "repName": "손한승",
         "customer": "엠지캐피탈(주)",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -9364,7 +9824,25 @@
               0,
               0,
               0,
-              200000000
+              100000000
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "용역",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              100000000
             ]
           },
           {
@@ -9439,6 +9917,7 @@
         "projectId": "P2657187",
         "repName": "손한승",
         "customer": "교보증권(주)",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -9473,7 +9952,25 @@
               0,
               0,
               0,
-              200000000
+              182000000
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "용역",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              18000000
             ]
           }
         ]
@@ -9530,6 +10027,7 @@
         "projectId": "P2556733",
         "repName": "김성일",
         "customer": "(주)우리은행",
+        "probability": "50%",
         "breakdown": [
           {
             "category": "MCI/FEP",
@@ -9546,7 +10044,25 @@
               0,
               0,
               0,
-              150000000
+              50000000
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "용역",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              100000000
             ]
           },
           {
