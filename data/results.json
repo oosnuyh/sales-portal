@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-28T23:49:52.353Z",
+  "generatedAt": "2026-10-01T07:06:03.310Z",
   "fy": 26,
-  "titleDate": "20260929",
+  "titleDate": "20261001",
   "targetVsActual": {
     "teams": [
       "금융영업1본부 1팀",
@@ -167,7 +167,7 @@
         4425327600,
         151544800,
         690950818,
-        3135601,
+        6015601,
         0,
         0,
         0
@@ -407,7 +407,7 @@
         131987600,
         143544800,
         346250818,
-        3135600,
+        6015600,
         0,
         0,
         0
@@ -433,9 +433,9 @@
       "label": "수주",
       "q1": 0,
       "q2": 0,
-      "q3": -30792000,
-      "q4": -189208000,
-      "total": -220000000,
+      "q3": 0,
+      "q4": 0,
+      "total": 0,
       "months": [
         0,
         0,
@@ -445,9 +445,9 @@
         0,
         0,
         0,
-        -30792000,
-        -402248000,
-        213040000,
+        0,
+        0,
+        0,
         0
       ],
       "monthDetails": [
@@ -459,23 +459,8 @@
         [],
         [],
         [],
-        [
-          {
-            "name": "[26MA]KB 인도네시아(부코핀) ECM 유지보수",
-            "delta": -13500000,
-            "team": "금융영업1본부 1팀"
-          },
-          {
-            "name": "[26MA] IBK폴란드 프로젝트 유지보수_Xtorm",
-            "delta": -10800000,
-            "team": "금융영업1본부 2팀"
-          },
-          {
-            "name": "[26MA] 아이엠캐피탈 ECM 유지보수",
-            "delta": -6492000,
-            "team": "금융영업1본부 1팀"
-          }
-        ],
+        [],
+        [],
         [
           {
             "name": "[26SO] 서민금융진흥원 재해복구 2센터 구축(가칭)",
@@ -483,61 +468,9 @@
             "team": "금융영업1본부 2팀"
           },
           {
-            "name": "[26SO]롯데파이낸스(베트남) ESB 재구축 프로젝트",
-            "delta": -160000000,
-            "team": "금융영업1본부 2팀"
-          },
-          {
-            "name": "[26SO] BP 대한한공 오픈소스 DBMS 도입",
-            "delta": -23040000,
-            "team": "금융영업1본부 1팀"
-          },
-          {
-            "name": "[26SO] 유진투자증권 AI플랫폼 eXperDB 도입",
-            "delta": -20000000,
-            "team": "금융영업1본부 1팀"
-          },
-          {
-            "name": "[26SO] 유진투자증권 AI Smart Assistant 구축 (수집용DB 솔루션)",
-            "delta": 20000000,
-            "team": "금융영업1본부 1팀"
-          },
-          {
-            "name": "[26MA]KB 인도네시아(부코핀) ECM 유지보수",
-            "delta": 13500000,
-            "team": "금융영업1본부 1팀"
-          },
-          {
-            "name": "[26MA] IBK폴란드 프로젝트 유지보수_Xtorm",
-            "delta": 10800000,
-            "team": "금융영업1본부 2팀"
-          },
-          {
-            "name": "[26MA] 아이엠캐피탈 ECM 유지보수",
-            "delta": 6492000,
-            "team": "금융영업1본부 1팀"
-          }
-        ],
-        [
-          {
-            "name": "[26SO] 서민금융진흥원 재해복구 2센터 구축(가칭)",
+            "name": "[26SO] 서민금융진흥원 재해복구 시스템 고도화",
             "delta": 250000000,
             "team": "금융영업1본부 2팀"
-          },
-          {
-            "name": "[26SO] 한국기업평가 연계솔루션 구축",
-            "delta": -220000000,
-            "team": "금융영업1본부 2팀"
-          },
-          {
-            "name": "[26SO]롯데파이낸스(베트남) ESB 재구축 프로젝트",
-            "delta": 160000000,
-            "team": "금융영업1본부 2팀"
-          },
-          {
-            "name": "[26SO] BP 대한한공 오픈소스 DBMS 도입",
-            "delta": 23040000,
-            "team": "금융영업1본부 1팀"
           }
         ],
         []
@@ -665,177 +598,6 @@
         [],
         [],
         []
-      ]
-    }
-  },
-  "renewalChecklist": {
-    "monthGroups": [
-      {
-        "offset": 0,
-        "year2": 26,
-        "month": 9,
-        "solutionFlagged": [],
-        "maFlagged": [
-          {
-            "name": "[25MA]삼성증권 PPR ECM유지보수",
-            "contract": 2880000,
-            "team": "금융영업1본부 1팀"
-          }
-        ]
-      },
-      {
-        "offset": 1,
-        "year2": 26,
-        "month": 10,
-        "solutionFlagged": [
-          {
-            "name": "[25SO] 알씨아이파이낸셜서비스(르노캐피탈) iGate 기술지원",
-            "period": "2025-09 ~ 2025-10",
-            "contract": 8000000,
-            "team": "금융영업1본부 1팀"
-          }
-        ],
-        "maFlagged": [
-          {
-            "name": "[25MA]기업은행 BPR이미지 암호화 유지보수",
-            "contract": 8496000,
-            "team": "금융영업1본부 2팀"
-          },
-          {
-            "name": "[25MA]우리은행 BPR 업무용 솔루션 유지보수",
-            "contract": 14712000,
-            "team": "금융영업1본부 2팀"
-          },
-          {
-            "name": "[25MA]KB국민카드 지문정보마스킹 유지보수",
-            "contract": 4200000,
-            "team": "금융영업1본부 1팀"
-          }
-        ]
-      },
-      {
-        "offset": 2,
-        "year2": 26,
-        "month": 11,
-        "solutionFlagged": [],
-        "maFlagged": [
-          {
-            "name": "[25MA]기업은행 비대면채널 SMB 유지보수",
-            "contract": 4950000,
-            "team": "금융영업1본부 2팀"
-          },
-          {
-            "name": "[26MA]금융결제원 3기 통합유지보수",
-            "contract": 18248000,
-            "team": "금융영업1본부 1팀"
-          },
-          {
-            "name": "[26MA] 우리은행-한국무역보험공사 전자보증 유지보수",
-            "contract": 2480000,
-            "team": "금융영업1본부 2팀"
-          }
-        ]
-      }
-    ],
-    "overdue": {
-      "solutionFlagged": [],
-      "maFlagged": [
-        {
-          "name": "[24MA] 우리은행 채널 유지보수",
-          "contract": 114750000,
-          "team": "금융영업1본부 2팀",
-          "overdueYM": 202508
-        },
-        {
-          "name": "[24MA] 한국신용정보원 iGate 유지보수",
-          "contract": 40800000,
-          "team": "금융영업1본부 2팀",
-          "overdueYM": 202512
-        },
-        {
-          "name": "[25MA] 기업은행 채널 유지보수",
-          "contract": 294752724,
-          "team": "금융영업1본부 2팀",
-          "overdueYM": 202601
-        },
-        {
-          "name": "[25MA] 신한은행 채널 유지보수",
-          "contract": 38645460,
-          "team": "금융영업1본부 1팀",
-          "overdueYM": 202601
-        },
-        {
-          "name": "[25MA] 케이뱅크 채널 유지보수",
-          "contract": 67236000,
-          "team": "금융영업1본부 2팀",
-          "overdueYM": 202603
-        },
-        {
-          "name": "[25MA] 금융감독원 iGate 유지보수",
-          "contract": 6000000,
-          "team": "금융영업1본부 1팀",
-          "overdueYM": 202602
-        },
-        {
-          "name": "[25MA] 우리은행-한국무역보험공사 전자보증 유지보수",
-          "contract": 2480000,
-          "team": "금융영업1본부 2팀",
-          "overdueYM": 202511
-        },
-        {
-          "name": "[25MA] 토스뱅크 eCross 유지보수",
-          "contract": 1800000,
-          "team": "금융영업1본부 1팀",
-          "overdueYM": 202601
-        },
-        {
-          "name": "[25MA]KB손해보험 이미지시스템 통합유지보수",
-          "contract": 38520000,
-          "team": "금융영업1본부 1팀",
-          "overdueYM": 202605
-        },
-        {
-          "name": "[25MA]국민은행 공과금 유지보수",
-          "contract": 1738000,
-          "team": "금융영업1본부 1팀",
-          "overdueYM": 202512
-        },
-        {
-          "name": "[26MA]우리은행 서울시 수납장표 이미지시스템 유지보수",
-          "contract": 810411,
-          "team": "금융영업1본부 2팀",
-          "overdueYM": 202603
-        },
-        {
-          "name": "[25MA]아이엠캐피탈 ECM 유지보수",
-          "contract": 5617000,
-          "team": "금융영업1본부 1팀",
-          "overdueYM": 202512
-        },
-        {
-          "name": "[25MA]동양생명 지문마스킹 유지보수",
-          "contract": 1832000,
-          "team": "금융영업1본부 2팀",
-          "overdueYM": 202512
-        },
-        {
-          "name": "[25MA] KB손해보험 마이데이터 APIM 유지보수",
-          "contract": 8000000,
-          "team": "금융영업1본부 1팀",
-          "overdueYM": 202605
-        },
-        {
-          "name": "[25MA]KB국민카드 전자문서중계서비스 유지보수_연장",
-          "contract": 14400000,
-          "team": "금융영업1본부 1팀",
-          "overdueYM": 202608
-        },
-        {
-          "name": "[25MA]KB 인도네시아(부코핀) ECM 유지보수",
-          "contract": 13500000,
-          "team": "금융영업1본부 1팀",
-          "overdueYM": 202606
-        }
       ]
     }
   },
@@ -6389,24 +6151,6 @@
         "breakdown": [
           {
             "category": "MCI/FEP",
-            "subCategory": "License",
-            "monthAmt": [
-              0,
-              155200000,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0
-            ]
-          },
-          {
-            "category": "MCI/FEP",
             "subCategory": "Service",
             "monthAmt": [
               0,
@@ -6429,6 +6173,24 @@
             "monthAmt": [
               0,
               170987500,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              155200000,
               0,
               0,
               0,
@@ -6961,6 +6723,24 @@
         "breakdown": [
           {
             "category": "MCI/FEP",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              252000000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "category": "MCI/FEP",
             "subCategory": "Service",
             "monthAmt": [
               0,
@@ -6986,24 +6766,6 @@
               0,
               0,
               99750000,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0
-            ]
-          },
-          {
-            "category": "MCI/FEP",
-            "subCategory": "License",
-            "monthAmt": [
-              0,
-              0,
-              0,
-              0,
-              252000000,
               0,
               0,
               0,
@@ -9502,7 +9264,7 @@
         ]
       },
       {
-        "name": "[26SO] 서민금융진흥원 재해복구 2센터 구축(가칭)",
+        "name": "[26SO] 서민금융진흥원 재해복구 시스템 고도화",
         "team": "금융영업1본부 2팀",
         "monthAmt": [
           0,
@@ -9943,24 +9705,6 @@
         "breakdown": [
           {
             "category": "ECM",
-            "subCategory": "License",
-            "monthAmt": [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              10000000,
-              0
-            ]
-          },
-          {
-            "category": "ECM",
             "subCategory": "Service",
             "monthAmt": [
               0,
@@ -9974,6 +9718,24 @@
               0,
               0,
               20000000,
+              0
+            ]
+          },
+          {
+            "category": "ECM",
+            "subCategory": "License",
+            "monthAmt": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              10000000,
               0
             ]
           }
@@ -10385,78 +10147,345 @@
       }
     ]
   },
+  "renewalChecklist": {
+    "monthGroups": [
+      {
+        "offset": 0,
+        "year2": 26,
+        "month": 10,
+        "solutionFlagged": [
+          {
+            "name": "[26SO] 애큐온캐피탈 ECM 업그레이드 및 이중화 구성",
+            "contract": 40000000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 50
+          },
+          {
+            "name": "[26SO] 우리은행 클라우드 DB 도입 프로젝트",
+            "contract": 240000000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 50
+          },
+          {
+            "name": "[26SU] BC카드 페이북 시스템 통합DBMS(eXperDB) Subscription 연장(기업)",
+            "contract": 141818182,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[26SO] 유진투자증권 AI Smart Assistant 구축 (수집용DB 솔루션)",
+            "contract": 20000000,
+            "team": "금융영업1본부 1팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[26SO] 미즈호은행 TDM솔루션 업그레이드",
+            "contract": 30000000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 50
+          }
+        ],
+        "maFlagged": [
+          {
+            "name": "[26MA] KB국민카드 지문정보마스킹 유지보수",
+            "contract": 4200000,
+            "team": "금융영업1본부 1팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[26MA]KB 인도네시아(부코핀) ECM 유지보수",
+            "contract": 13500000,
+            "team": "금융영업1본부 1팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[26MA]우리은행 BPR 업무용 솔루션 유지보수",
+            "contract": 14712000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[26MA] 우리은행 태블릿브랜치 채널 유지보수",
+            "contract": 16016000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[26MA] 아이엠캐피탈 ECM 유지보수",
+            "contract": 6492000,
+            "team": "금융영업1본부 1팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[26MA] SK증권 대체거래소(ATS) SW(eXperDB) 유지보수",
+            "contract": 21600000,
+            "team": "금융영업1본부 1팀",
+            "period": "",
+            "probability": 50
+          },
+          {
+            "name": "[26MA] IBK폴란드 프로젝트 유지보수_Xtorm",
+            "contract": 10800000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 50
+          }
+        ]
+      },
+      {
+        "offset": 1,
+        "year2": 26,
+        "month": 11,
+        "solutionFlagged": [
+          {
+            "name": "[26SO] BP 대한한공 오픈소스 DBMS 도입",
+            "contract": 23040000,
+            "team": "금융영업1본부 1팀",
+            "period": "",
+            "probability": 50
+          },
+          {
+            "name": "[26SO] 우리라이프 IT통합 사업",
+            "contract": 280000000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 50
+          },
+          {
+            "name": "[26SO]롯데파이낸스(베트남) ESB 재구축 프로젝트",
+            "contract": 160000000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 50
+          },
+          {
+            "name": "[26SO] DB생명 차세대 2차 구축",
+            "contract": 800000000,
+            "team": "금융영업1본부 1팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[26SO] 삼성증권 전자증명수취열람서비스 구축 - ECM",
+            "contract": 30000000,
+            "team": "금융영업1본부 1팀",
+            "period": "",
+            "probability": 50
+          },
+          {
+            "name": "[26SO] 서민금융진흥원 재해복구 시스템 고도화",
+            "contract": 250000000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[26SU]우리금융캐피탈 전사 AI혁신 서비스 플랫폼 구축_eXperDB도입",
+            "contract": 20000000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 50
+          },
+          {
+            "name": "[26SO] 카카오뱅크 모바일신분증 망 분리",
+            "contract": 30000000,
+            "team": "금융영업1본부 1팀",
+            "period": "",
+            "probability": 50
+          },
+          {
+            "name": "[26SO] 현대카드 단위업무 eXperDB 도입",
+            "contract": 20000000,
+            "team": "금융영업1본부 1팀",
+            "period": "",
+            "probability": 50
+          }
+        ],
+        "maFlagged": [
+          {
+            "name": "[2025년] [26MA]금융결제원 3기 통합유지보수",
+            "contract": 18248000,
+            "team": "금융영업1본부 1팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[26MA] KB국민카드 전자문서중계서비스 유지보수_연장",
+            "contract": 14400000,
+            "team": "금융영업1본부 1팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[27MA]우리은행 신분증 스캔 재해복구 솔루션 유지보수",
+            "contract": 3753600,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[27MA] 우리은행-한국무역보험공사 전자보증 유지보수",
+            "contract": 2480000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[27MA]우리카드 BPR 이미지 19년도 증설분 유지보수",
+            "contract": 7020000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[27MA]우리카드 BPR 이미지 20년도 증설분 유지보수",
+            "contract": 7308000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[26MA]기업은행 BPR이미지 암호화 유지보수",
+            "contract": 8496000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[26MA] 비대면 서류 이미지 통합관리 시스템 유지관리 2026 연장 (EDMS)",
+            "contract": 4950000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 75
+          }
+        ]
+      },
+      {
+        "offset": 2,
+        "year2": 26,
+        "month": 12,
+        "solutionFlagged": [
+          {
+            "name": "[26SO] 우리은행 중국 채널통합시스템 재구축",
+            "contract": 300000000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 50
+          },
+          {
+            "name": "[26SO] 교보증권 차세대시스템 구축",
+            "contract": 300000000,
+            "team": "금융영업1본부 1팀",
+            "period": "",
+            "probability": 50
+          },
+          {
+            "name": "[26SO] 삼성증권 채널 인터페이스 통합 구축",
+            "contract": 300000000,
+            "team": "금융영업1본부 1팀",
+            "period": "",
+            "probability": 50
+          },
+          {
+            "name": "[26SO] 삼성카드 ECM 노후교체 사업",
+            "contract": 90000000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 50
+          },
+          {
+            "name": "[26SO] MG캐피탈 차세대시스템 구축",
+            "contract": 300000000,
+            "team": "금융영업1본부 1팀",
+            "period": "",
+            "probability": 50
+          },
+          {
+            "name": "[26SO] 여신금융협회 TDM솔루션(infoSeer-Trans) 도입_신규",
+            "contract": 100000000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 50
+          },
+          {
+            "name": "[26SO] IM뱅크 연계시스템 재구축",
+            "contract": 900000000,
+            "team": "금융영업1본부 1팀",
+            "period": "",
+            "probability": 50
+          }
+        ],
+        "maFlagged": [
+          {
+            "name": "[26MA] 국민은행 디지털창구 서식관리 유지보수",
+            "contract": 21720000,
+            "team": "금융영업1본부 1팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[27MA]IBK캐피탈 ECM엔진 유지보수",
+            "contract": 8590080,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[27MA]동양생명 이미지시스템 유지보수",
+            "contract": 15840000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 75
+          },
+          {
+            "name": "[26MA]기업은행 인도네시아 ECM유지보수",
+            "contract": 7500000,
+            "team": "금융영업1본부 2팀",
+            "period": "",
+            "probability": 75
+          }
+        ]
+      }
+    ],
+    "overdue": {
+      "solutionFlagged": [
+        {
+          "name": "[26SO] KB국민은행 API Hub 구축 - 라이선스",
+          "contract": 1450000000,
+          "team": "금융영업1본부 1팀",
+          "period": "",
+          "probability": 75
+        },
+        {
+          "name": "[26SO] KB국민은행 APIX 구축 - 라이선스",
+          "contract": 150000000,
+          "team": "금융영업1본부 1팀",
+          "period": "",
+          "probability": 75
+        }
+      ],
+      "maFlagged": []
+    }
+  },
   "detailedChanges": {
     "order": {
       "label": "수주",
       "items": [
         {
-          "team": "금융영업1본부 2팀",
-          "name": "[26SO] 한국기업평가 연계솔루션 구축",
-          "type": "제외",
-          "text": "프로젝트 제외됨",
-          "amount": -220000000
-        },
-        {
-          "team": "금융영업1본부 2팀",
-          "name": "[26SO] 서민금융진흥원 재해복구 2센터 구축(가칭)",
-          "type": "일정변경",
-          "text": "매출일정 변경 10월 → 11월",
-          "amount": 250000000
-        },
-        {
-          "team": "금융영업1본부 2팀",
-          "name": "[26SO] 서민금융진흥원 재해복구 2센터 구축(가칭)",
+          "team": "금융영업1본부 1팀",
+          "name": "[26MA] 삼성증권 PPR ECM유지보수",
           "type": "계약기간변경",
-          "text": "계약기간 변경 2026-11 ~ 2027-02 → 2026-12 ~ 2027-03",
-          "amount": 0
-        },
-        {
-          "team": "금융영업1본부 1팀",
-          "name": "[26MA] 아이엠캐피탈 ECM 유지보수",
-          "type": "일정변경",
-          "text": "매출일정 변경 9월 → 10월",
-          "amount": 6492000
-        },
-        {
-          "team": "금융영업1본부 1팀",
-          "name": "[26MA]KB 인도네시아(부코핀) ECM 유지보수",
-          "type": "일정변경",
-          "text": "매출일정 변경 9월 → 10월",
-          "amount": 13500000
-        },
-        {
-          "team": "금융영업1본부 1팀",
-          "name": "[26SO] BP 대한한공 오픈소스 DBMS 도입",
-          "type": "일정변경",
-          "text": "매출일정 변경 10월 → 11월",
-          "amount": 23040000
-        },
-        {
-          "team": "금융영업1본부 1팀",
-          "name": "[26SO] BP 대한한공 오픈소스 DBMS 도입",
-          "type": "계약기간변경",
-          "text": "계약기간 변경 2026-10 ~ 2026-12 → 2026-11 ~ 2026-12",
-          "amount": 0
-        },
-        {
-          "team": "금융영업1본부 2팀",
-          "name": "[26MA] IBK폴란드 프로젝트 유지보수_Xtorm",
-          "type": "일정변경",
-          "text": "매출일정 변경 9월 → 10월",
-          "amount": 10800000
-        },
-        {
-          "team": "금융영업1본부 2팀",
-          "name": "[26SO]롯데파이낸스(베트남) ESB 재구축 프로젝트",
-          "type": "일정변경",
-          "text": "매출일정 변경 10월 → 11월",
-          "amount": 160000000
-        },
-        {
-          "team": "금융영업1본부 2팀",
-          "name": "[26SO]롯데파이낸스(베트남) ESB 재구축 프로젝트",
-          "type": "계약기간변경",
-          "text": "계약기간 변경 2026-11 ~ 2027-10 → 2026-12 ~ 2027-11",
+          "text": "계약기간 변경 2026-09 ~ 2027-08 → 2026-09 ~ 2027-09",
           "amount": 0
         }
       ]
